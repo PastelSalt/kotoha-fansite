@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "title": "Kotoha ファンサイト 🍀",
+    "description": "ハコニワリリィのボーカル・Kotoha（ことは）の非公式ファンサイトです。最新作、ニュース、ディスコグラフィ、ファンアートを紹介しています。"
+  },
+  "a11y": {
+    "skip": "本文へスキップ",
+    "language": "言語",
+    "mainNav": "メインナビゲーション",
+    "socials": "Kotohaの公式チャンネル",
+    "openMenu": "メニューを開く",
+    "closeMenu": "メニューを閉じる",
+    "scrollNext": "次のセクションへ",
+    "loading": "Kotohaファンサイトを読み込み中"
+  },
+  "loader": {
+    "loading": "ロード中…",
+    "credit": "このサイトはファンプロジェクトです　制作：Moeko Software and Technologies"
+  },
+  "nav": {
+    "home": "ホーム",
+    "about": "プロフィール",
+    "news": "ニュース",
+    "discography": "ディスコグラフィ",
+    "gallery": "ギャラリー"
+  },
+  "common": {
+    "scrollMore": "スクロールしてね！",
+    "menu": "メニュー",
+    "close": "閉じる",
+    "retry": "読み込めませんでした。タップしてもう一度試してね。",
+    "artBy": "イラスト：",
+    "artUnknown": "作者不明（ご本人様はご連絡ください）",
+    "opensNewTab": "（新しいタブで開きます）"
+  },
+  "links": {
+    "watch": "見る",
+    "listen": "聴く",
+    "details": "詳細",
+    "tickets": "チケット",
+    "official": "公式サイト",
+    "shop": "ショップ"
+  },
+  "home": {
+    "streamLabel": "定期配信まで：",
+    "streamSchedule": "毎週 火曜日・金曜日 21:00頃〜（日本時間）",
+    "streamLive": "配信の時間です！（21:00頃〜）",
+    "streamLocal": "あなたの現地時間：{time}",
+    "units": { "d": "日", "h": "時間", "m": "分", "s": "秒" },
+    "latestWork": "Kotohaの最新作：",
+    "latestAbout": "Kotohaの最新情報：",
+    "newsShort": "ニュース："
+  },
+  "video": {
+    "play": "動画を再生：{title}",
+    "latest": "最新",
+    "empty": "動画はまだありません。また見に来てね！🍀",
+    "list": "ほかの作品"
+  },
+  "about": {
+    "title": "Kotohaについて",
+    "avatarAlt": "Kotohaのイラスト",
+    "poseAlt": "ピースサインをするKotohaの全身モデル",
+    "bio1": "Kotohaは、AiceClass所属の歌い手・VTuberです。Hanonとの2人組ユニット「ハコニワリリィ」のボーカルと、HoneyWorksのサポートボーカルを務めています。",
+    "bio2": "2023年7月8日にVTuberとしてデビュー。毎週火曜日・金曜日の21:00頃から、トーク・歌・ゲームの配信をしています。ファンネームは「ことリス」、ファンマークは🍀（🥦じゃないよ！）。",
+    "name": "名前：Kotoha（ことは）",
+    "pills": [
+      { "label": "誕生日", "value": "6月10日・ふたご座" },
+      { "label": "身長", "value": "152cm" },
+      { "label": "デビュー", "value": "2023年7月8日・AiceClass" },
+      { "label": "活動", "value": "ハコニワリリィのボーカル（with Hanon）・HoneyWorksのサポートボーカル" },
+      { "label": "ファン", "value": "ことリス・ファンマーク🍀・イメージカラー：緑" },
+      { "label": "定期配信", "value": "火・金 21:00頃〜・ツイキャス（トーク・歌）・Twitch（ゲーム）" },
+      { "label": "ハッシュタグ", "value": "#ことらじ 生配信・#ことぴく ファンアート・#ことメモ 切り抜き" },
+      { "label": "好きなもの", "value": "パンケーキ・たこ焼き・VALORANT・LoL・崩壊：スターレイル" }
+    ],
+    "tapHint": "Kotohaをタップしてね！"
+  },
+  "news": {
+    "title": "Kotohaのニュース",
+    "latestWorks": "Kotohaの最新作品：",
+    "empty": "ニュースはまだありません。また見に来てね！🍀"
+  },
+  "discography": {
+    "title": "ディスコグラフィ",
+    "achievements": "実績",
+    "empty": "まだ何もありません。また見に来てね！🍀",
+    "types": {
+      "single": "シングル",
+      "album": "アルバム",
+      "ep": "ミニアルバム",
+      "tie_in": "タイアップ",
+      "cover": "カバー",
+      "collab": "コラボ",
+      "other": "リリース"
+    },
+    "noCover": "ジャケット画像なし"
+  },
+  "gallery": {
+    "title": "ギャラリー",
+    "by": "{name}さん",
+    "source": "元の投稿を見る",
+    "loadMore": "もっと見る",
+    "end": "今はここまで！🍀",
+    "empty": "ギャラリーはまだ空っぽです。また見に来てね！🍀",
+    "alt": "{name}さんによるKotohaのファンアート",
+    "prev": "前の画像",
+    "next": "次の画像",
+    "counter": "{n} / {total}"
+  },
+  "footer": {
+    "disclaimer": "このサイトは非公式・非営利のファンサイトです。Kotoha、ハコニワリリィ、HoneyWorks、AiceClassとは関係ありません。キャラクターおよびイラストの権利は、それぞれの権利者様・作者様に帰属します。",
+    "contact": "不具合、クレジットの訂正、掲載の取り下げのご依頼はこちらまで：",
+    "sections": "セクション",
+    "official": "Kotohaの公式リンク",
+    "credits": "イラストクレジット",
+    "creditsOpen": "すべてのクレジットを見る",
+    "privacy": "ファンの皆さんに人気のセクションを知るため、訪問数を匿名で集計しています（Cookie・個人情報は使用しません）。",
+    "backToTop": "トップへ戻る 🍀",
+    "made": "ファンサイト制作：Moeko Software and Technologies",
+    "copyright": "© 2026 Moeko Software and Technologies（サイトのデザイン・プログラム）"
+  },
+  "credits": {
+    "title": "イラストクレジット",
+    "home": "ホームの背景",
+    "about": "プロフィールの背景",
+    "news": "ニュースの背景",
+    "discography": "ディスコグラフィの背景",
+    "gallery": "ギャラリーの背景",
+    "loader": "ロード画面のイラスト",
+    "profile": "プロフィール画像",
+    "model": "キャラクターデザイン・モデル",
+    "design": "デザイン：はなあられ・モデリング：鍋公かお・ネームロゴ：花杜ゆのき"
+  }
+}

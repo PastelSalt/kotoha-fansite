@@ -43,6 +43,8 @@ const UI_IMAGES = [
   { name: 'profile', file: 'icons/kotoha_profile_picture_square.jpg', widths: [200, 400] },
   { name: 'pose', file: 'model/kotoha_pose1_fullbody.png', widths: [450, 900] },
   { name: 'mascot', file: 'model/kotoha_mascot_fullbody_modelsheet.png', widths: [300, 600] },
+  // front view only (top-left of the turnaround sheet) for empty/error states
+  { name: 'mascot-front', file: 'model/kotoha_mascot_fullbody_modelsheet.png', widths: [240], extract: { left: 30, top: 20, width: 540, height: 460 } },
   { name: 'icon-x', file: 'icons/twitter.png', widths: [96] },
   { name: 'icon-youtube', file: 'icons/youtube.png', widths: [96] },
   { name: 'icon-twitch', file: 'icons/twitch.png', widths: [96] },
@@ -79,8 +81,10 @@ async function backgrounds() {
 async function uiImages() {
   for (const img of UI_IMAGES) {
     for (const w of img.widths) {
-      await emit(out(`img/${img.name}-${w}.webp`), (f) =>
-        sharp(src(img.file)).resize({ width: w, withoutEnlargement: true }).webp({ quality: 82, alphaQuality: 90, effort: 5 }).toFile(f));
+      await emit(out(`img/${img.name}-${w}.webp`), (f) => {
+        const base = img.extract ? sharp(src(img.file)).extract(img.extract) : sharp(src(img.file));
+        return base.resize({ width: w, withoutEnlargement: true }).webp({ quality: 82, alphaQuality: 90, effort: 5 }).toFile(f);
+      });
     }
   }
 }

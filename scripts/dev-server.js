@@ -28,7 +28,10 @@ async function serveStatic(req, res, pathname) {
     if (!file.startsWith(publicDir)) break; // path traversal guard
     try {
       if ((await stat(file)).isFile()) {
-        res.writeHead(200, { 'Content-Type': TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream' });
+        res.writeHead(200, {
+          'Content-Type': TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream',
+          'Cache-Control': 'no-cache', // always revalidate during development
+        });
         return res.end(await readFile(file));
       }
     } catch { /* try next */ }

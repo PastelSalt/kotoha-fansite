@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "title": "Kotoha Fan Site 🍀",
+    "description": "An unofficial fan site for Kotoha (ことは), vocalist of HaKoniwalily — latest works, news, discography and fan art."
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "language": "Language",
+    "mainNav": "Main navigation",
+    "socials": "Kotoha's official channels",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "scrollNext": "Go to the next section",
+    "loading": "Loading the Kotoha fan site"
+  },
+  "loader": {
+    "loading": "Loading…",
+    "credit": "This is a fan-project made by: Moeko Software and Technologies"
+  },
+  "nav": {
+    "home": "home",
+    "about": "about",
+    "news": "news",
+    "discography": "discography",
+    "gallery": "gallery"
+  },
+  "common": {
+    "scrollMore": "scroll for more!",
+    "menu": "menu",
+    "close": "Close",
+    "retry": "Couldn't load this. Tap to try again.",
+    "artBy": "art by",
+    "artUnknown": "Artist unknown — contact us to be credited",
+    "opensNewTab": "(opens in a new tab)"
+  },
+  "links": {
+    "watch": "Watch",
+    "listen": "Listen",
+    "details": "Details",
+    "tickets": "Tickets",
+    "official": "Official site",
+    "shop": "Shop"
+  },
+  "home": {
+    "streamLabel": "Regular Stream:",
+    "streamSchedule": "Tuesdays & Fridays around 21:00 JST",
+    "streamLive": "Stream time! (around 21:00 JST)",
+    "streamLocal": "Your local time: {time}",
+    "units": { "d": "days", "h": "hours", "m": "minutes", "s": "seconds" },
+    "latestWork": "latest work of Kotoha:",
+    "latestAbout": "latest about Kotoha:",
+    "newsShort": "news:"
+  },
+  "video": {
+    "play": "Play video: {title}",
+    "latest": "Most latest",
+    "empty": "No videos yet — check back soon! 🍀",
+    "list": "More works"
+  },
+  "about": {
+    "title": "About Kotoha",
+    "avatarAlt": "Illustration of Kotoha",
+    "poseAlt": "Kotoha's full-body model, making a peace sign",
+    "bio1": "Kotoha is a singer and VTuber with AiceClass. She's the vocalist of the duo HaKoniwalily together with Hanon, and a support vocalist for HoneyWorks.",
+    "bio2": "She debuted as a VTuber on July 8, 2023, and streams talk, singing and games every Tuesday and Friday around 21:00 JST. Her fans are called Kotorisu, and her fan mark is 🍀 (not 🥦!).",
+    "name": "Name: Kotoha (ことは)",
+    "pills": [
+      { "label": "Birthday", "value": "June 10 · Gemini" },
+      { "label": "Height", "value": "152 cm" },
+      { "label": "Debut", "value": "July 8, 2023 · AiceClass" },
+      { "label": "Activities", "value": "HaKoniwalily vocalist (with Hanon) · HoneyWorks support vocal" },
+      { "label": "Fans", "value": "Kotorisu (ことリス) · fan mark 🍀 · image color green" },
+      { "label": "Streams", "value": "Tue & Fri around 21:00 JST · TwitCasting (talk & singing) · Twitch (games)" },
+      { "label": "Hashtags", "value": "#ことらじ live · #ことぴく fan art · #ことメモ clips" },
+      { "label": "Favorites", "value": "Pancakes, takoyaki · VALORANT, LoL, Honkai: Star Rail" }
+    ],
+    "tapHint": "Tap Kotoha!"
+  },
+  "news": {
+    "title": "News on Kotoha",
+    "latestWorks": "Latest works of Kotoha:",
+    "empty": "No news yet — check back soon! 🍀"
+  },
+  "discography": {
+    "title": "Discography",
+    "achievements": "Achievements",
+    "empty": "Nothing here yet — check back soon! 🍀",
+    "types": {
+      "single": "Single",
+      "album": "Album",
+      "ep": "Mini album",
+      "tie_in": "Tie-in",
+      "cover": "Cover",
+      "collab": "Collaboration",
+      "other": "Release"
+    },
+    "noCover": "No cover image"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "by": "by {name}",
+    "source": "View original post",
+    "loadMore": "Load more",
+    "end": "That's everything for now! 🍀",
+    "empty": "The gallery is empty for now — check back soon! 🍀",
+    "alt": "Fan art of Kotoha by {name}",
+    "prev": "Previous image",
+    "next": "Next image",
+    "counter": "{n} / {total}"
+  },
+  "footer": {
+    "disclaimer": "This is an unofficial, non-profit fan site. It is not affiliated with Kotoha, HaKoniwalily, HoneyWorks or AiceClass. All characters and artwork belong to their respective owners and artists.",
+    "contact": "For issues, credit corrections or removal requests, contact:",
+    "sections": "Sections",
+    "official": "Kotoha's official links",
+    "credits": "Artwork credits",
+    "creditsOpen": "Show all credits",
+    "privacy": "This site counts visits anonymously (no cookies, no personal data) to see which sections fans enjoy.",
+    "backToTop": "Back to top 🍀",
+    "made": "Fan site made by Moeko Software and Technologies",
+    "copyright": "© 2026 Moeko Software and Technologies (site design & code)"
+  },
+  "credits": {
+    "title": "Artwork credits",
+    "home": "Home background",
+    "about": "About background",
+    "news": "News background",
+    "discography": "Discography background",
+    "gallery": "Gallery background",
+    "loader": "Loading screen artwork",
+    "profile": "Profile picture",
+    "model": "Character design & model",
+    "design": "Design: はなあられ · Modeling: 鍋公かお · Name logo: 花杜ゆのき"
+  }
+}

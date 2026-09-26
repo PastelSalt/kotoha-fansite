@@ -135,9 +135,9 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 2.8 First commit + push (`9aa41e5`, `67c120a`). Production answers at https://kotoha-fansite.vercel.app; `/api/public/*` rewrites verified on Vercel (geo returned PH → en)
 
 ### Phase 3: Scroll prototype
-- [ ] 3.1 5 blank sections + gallery zone; Lenis + lenis-snap + ScrollTrigger sync
-- [ ] 3.2 Touch strategy decision (lenis-snap everywhere vs native CSS snap on touch) → §9
-- [ ] 3.3 `--app-height` locking; inner-list `data-lenis-prevent` + edge chaining; reduced-motion path
+- [x] 3.1 Built directly into the real UI (`public/js/public/scroll.js`): Lenis + **custom direction-aware snap** + ScrollTrigger sync. lenis-snap dropped (see §9). Wheel test (DevTools protocol): each notch advances one section, gallery scrolls freely, scrolling up snaps back, nav click exact, inner lists don't move the page
+- [~] 3.2 Touch: Lenis `syncTouch:false` (native touch scroll + momentum) + the same settle/snap logic. One emulated swipe snapped correctly to the next section, but headless touch emulation is unreliable (even a plain page ignores first swipes) → **needs a real-phone check by the owner**
+- [x] 3.3 `--app-height` locking (width/orientation only on touch), inner lists `data-lenis-prevent`, reduced motion → no Lenis + native CSS snap
 
 ### Phase 4: Database
 - [x] 4.1 `db/migrations/0001_init.sql` (13 tables incl. `schema_migrations`; single-owner partial index; `admin_number_seq` starting at 2; JST date defaults; `visit_id` added to analytics for visit duration/reach)
@@ -160,34 +160,34 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 6.4 ~~`middleware.js`~~ **Dropped** (see §9): language comes from `/api/public/geo`; `/admin` guard = client check + server-side API enforcement
 
 ### Phase 7: Image pipeline
-- [ ] 7.1 `scripts/optimize-images.js` → responsive WebP/AVIF in `public/assets/`
-- [ ] 7.2 SVG clover (fill/outline) + divider; favicon; OG image
-- [ ] 7.3 TwitCasting official logo (**ask owner before download**)
+- [x] 7.1 `scripts/optimize-images.js` → WebP only (AVIF skipped: slow to encode, WebP is universal). Backgrounds: `public/assets/bg/<name>-{1280,1920,2560}.webp` + portrait `-p{720,1080}.webp` (focal-point crops, visually verified against mobile refs). UI: `public/assets/img/<name>-<w>.webp`. Names: home, about, news, discography, gallery, loader1 (pajama), loader2 (birthday), loader3 (cardigan)
+- [x] 7.2 `public/assets/svg/{clover-fill,clover-outline,divider}.svg` (clover path verified against the PNG), `public/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `public/assets/og-image.jpg`
+- [!] 7.3 TwitCasting official logo: source found = TwitCasting operator's brand page https://about.moi.st/en/guideline/ → `icons_png.zip` (1,553,971 bytes, https://about.moi.st/en/wp-content/themes/moi2/assets/guideline/images/icons_png.zip). Rules: no color changes/alterations, generous margin, no implied sponsorship. **Waiting for owner's OK to download.** Temporary placeholder icon in the UI until then
 
 ### Phase 8: i18n foundation
-- [ ] 8.1 `public/locales/ja.json`, `en.json` (UI, headings, nav, About, footer, admin)
-- [ ] 8.2 `public/js/shared/i18n-core.js` (resolution order, pre-paint apply, switcher, persistence)
-- [ ] 8.3 Fonts (Fredoka + M PLUS Rounded 1c), JA line-breaking CSS
+- [x] 8.1 `public/locales/{en,ja}.json` for the public site (admin strings will be separate files in Phase 12)
+- [x] 8.2 `public/js/shared/i18n-core.js`: `?lang` → saved choice (pre-paint inline script) → `/api/public/geo` during the loader → `en`; `[data-i18n]`/`[data-i18n-attr]`; JP/EN switch everywhere; the choice is saved and `?lang` updated
+- [x] 8.3 Fredoka + M PLUS Rounded 1c (Google Fonts); JA-specific sizes for nav/pill verified by screenshot
 
 ### Phase 9: Public UI
-- [ ] 9.1 Design tokens + base CSS
-- [ ] 9.2 Hero header, scrolled nav, mobile menu
-- [ ] 9.3 Home (countdown, newest video facade, 2 news, divider, credit)
-- [ ] 9.4 About (avatar, bio, pills, clover stage)
-- [ ] 9.5 News (all news list paged + dashed scrollbar; player + all-videos list)
-- [ ] 9.6 Discography (all releases) + Achievements (all)
-- [ ] 9.7 Gallery (infinite masonry, lightbox, "load more" fallback)
-- [ ] 9.8 Footer
-- [ ] 9.9 Empty/error/skeleton states; responsive pass (360 / 768 / 1024 / 1366 / 1920 / 2560)
+- [x] 9.1 `public/css/site.css` (tokens, mobile-first, desktop at ≥900w & ≥600h using vw/vh from the 1366×768 refs)
+- [x] 9.2 Hero header (inside Home), scrolled nav (fixed bar, no socials, JP/EN under the bar), mobile menu (focus trap, Esc)
+- [x] 9.3 Home: countdown (UTC math, live window), video facade, 2 news, divider, credit
+- [x] 9.4 About: avatar, bio, pills from the locale file, clover stage + tappable pose
+- [x] 9.5 News: paged list + dashed scrollbar; player + all-videos chips
+- [x] 9.6 Discography (YouTube-thumbnail or clover placeholder covers) + Achievements (paged)
+- [~] 9.7 Gallery: infinite masonry + lightbox + "load more" written; **untested with real images** (needs Cloudinary keys + gallery seed)
+- [~] 9.8 Footer written (links, disclaimer, obfuscated email, credits dialog, JP/EN); not yet screenshot-checked
+- [~] 9.9 States done (skeleton/empty/error with mascot-front). Verified: desktop 1366×768 EN+JA, mobile 360×800 EN via screenshots. **Still to check:** tablet 768/1024, 1920/2560, landscape phone, footer
 
 ### Phase 10: Loader
-- [ ] 10.1 Inline loader markup/CSS; random art + credit
-- [ ] 10.2 Tiered preloading, min 3 s / soft 6 s / cap 10 s; `loader_timing` event
-- [ ] 10.3 Clover iris exit (fade under reduced motion)
+- [x] 10.1 Inline loader markup/critical CSS + **CSS failsafe (auto-hides at 12 s even if JS breaks)** + noscript; random art + credit
+- [x] 10.2 `loader.js`: tiers, min 3 s / soft 6 s / cap 10 s (measured 3.0 s locally); section images switched lazy→eager and decoded. `loader_timing` event pending Phase 15
+- [x] 10.3 Clover-bloom exit (GSAP), plain fade under reduced motion; boot errors still hide the loader
 
 ### Phase 11: Animations
-- [ ] 11.1 Section entrances + header transition (GSAP/ScrollTrigger)
-- [ ] 11.2 Micro-interactions (Anime.js), confetti triggers, Animate.css for states
+- [x] 11.1 GSAP section entrances (with an IntersectionObserver safety net), CSS header transition (`body.is-scrolled`)
+- [x] 11.2 Anime.js (menu stagger, clover bloom, boing), confetti (logo, pose, June 10 / July 8 JST), Animate.css (states, gallery tiles). Not all visually verified yet
 
 ### Phase 12: Admin: content
 - [ ] 12.1 `/login` page; `/admin` shell (JP/EN), forced-change screen
@@ -223,9 +223,9 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 
 ## 6. CURRENT FOCUS / NEXT ACTION
 
-- **Done so far:** Phases 1 (except Cloudinary keys), 2, 4 (except gallery seed), 5, 6.1/6.2/6.4. Production: https://kotoha-fansite.vercel.app (placeholder page + live APIs).
-- **Next action (no owner input needed):** 6.3 accounts API → Phase 8 i18n locale files → Phase 3 scroll prototype → Phase 9 public UI.
-- **Blocked on owner:** 1.6/1.7, 4.6, Phase 13 (Cloudinary API key/secret in `.env.local`, then I add them to Vercel).
+- **Done so far:** Phases 1 (except Cloudinary keys), 2, 3, 4 (except gallery seed), 5, 6, 7 (except TwitCasting icon), 8, 9 (v1), 10, 11; admin API (12.2/12.3 API-side). Public site v1 live at https://kotoha-fansite.vercel.app after each push.
+- **Next action (no owner input needed):** remaining responsive checks (tablet/large/landscape/footer) → Phase 12 admin UI (`/login`, `/admin` shell, forced change, content screens, archive, activity) → Phase 14 accounts UI → Phase 15 analytics → Phase 16 quality (CSP/SRI, a11y) → Phase 17.
+- **Blocked on owner:** Cloudinary API key/secret still EMPTY in `.env.local` (1.6/1.7, 4.6, Phase 13, gallery testing) · TwitCasting icon download approval (7.3) · real-phone swipe check (3.2).
 - **Workflow:** commit + push after each verified step (every push to `main` deploys production; the site is not announced yet, so that's fine pre-launch). Always run the secret scan before committing (see the command in the session log).
 
 ---
@@ -260,6 +260,10 @@ _(none)_
 | 2026-09-26 | Function signature | Plain Node `(req, res)`: no reliance on Vercel's `res.json`/`req.query` helpers | Runs identically on Vercel and on `scripts/dev-server.js` |
 | 2026-09-26 | Local dev | `scripts/dev-server.js` in addition to `npx vercel dev` | Lets development and testing continue before the Vercel CLI login |
 | 2026-09-26 | List ordering | `(date desc, id desc)` keyset for all lists; gallery `(created_at desc, id desc)` | Stable paging, newest first |
+| 2026-09-26 | **lenis-snap dropped → custom direction-aware snap** | (1) `lenis-snap.min.js` UMD redefines a global helper of `lenis.min.js` → `new Lenis()` throws; (2) its logic snaps to the NEAREST point, so a wheel notch snapped back (tested). Custom logic in `scroll.js`: after 140 ms quiet, glide (0.8 s, input locked) to the next point in the scroll direction; <50 px settles back; points = section tops + ends of tall sections; free zones = inside tall sections and below the gallery top | Matches "scroll freely then glide" + strict snap; still Lenis (brief) |
+| 2026-09-26 | Lucide on the public page | Inline SVG sprite of the 9 used Lucide icons (from lucide-static 1.48.0, ISC); full `lucide@1.48.0` UMD (444 KB) only for the admin | Performance; same icon set |
+| 2026-09-26 | Screenshot/verification tooling | Headless Edge driven via the DevTools protocol from scratch scripts (not in the repo): `cdp-shot.mjs` (per-section screenshots), `scroll-test.mjs` (wheel snap test). Built-in browser pane scales emulated viewports too small to judge | Reliable visual checks |
+| 2026-09-26 | Dev server caching | `scripts/dev-server.js` sends `Cache-Control: no-cache` | Stale modules caused a false bug |
 | 2026-09-26 | Password "guessable" rule | Reject when the password's letters consist **only** of site words (kotoha, hakoniwa, lily, clover, password, …), not when it merely contains one | Blocks "KotohaClover2026!" but allows real passphrases |
 
 ---
