@@ -112,7 +112,9 @@ function buildForm(def, item) {
         // "Get title" helper: fills the title from YouTube (the title stays editable)
         const input = node.querySelector('input');
         const lookup = el('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, [icon('sparkles'), ' ', t('content.fields.lookup')]);
-        input.replaceWith(el('div', { class: 'field__row' }, [input, lookup]));
+        const row = el('div', { class: 'field__row' });
+        input.replaceWith(row);          // swap first, then move the input in (el() would detach it too early)
+        row.append(input, lookup);
         const run = async () => {
           if (!input.value.trim()) return;
           lookup.disabled = true;

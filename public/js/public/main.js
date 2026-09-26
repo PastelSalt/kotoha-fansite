@@ -8,6 +8,7 @@ import { initScroll, lockScroll, unlockScroll, refreshScroll, reducedMotion } fr
 import { startCountdown } from './countdown.js';
 import { initScrollbars } from './scrollbars.js';
 import { initGallery } from './gallery.js';
+import { track, flush, setSection, startDwell, initTracking } from './track.js';
 import {
   confettiBurst, celebrateSpecialDays, boing, staggerIn, cloverBloom, prepareEntrances, playEntrance, homeEntrance,
 } from './fx.js';
@@ -30,6 +31,7 @@ async function resolveInitialLanguage() {
 }
 
 function pickLanguage(lang) {
+  if (lang !== currentLang()) track('language_switch', { l: lang });
   setLang(lang, { persist: true });
   const url = new URL(location.href);
   url.searchParams.set('lang', lang);
@@ -40,7 +42,10 @@ function pickLanguage(lang) {
 function renderSocials() {
   $$('[data-socials]').forEach((ul) => {
     ul.replaceChildren(...SOCIALS.map((s) => el('li', {}, [
-      el('a', { href: s.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${s.label} ${s.handle}` }, [
+      el('a', {
+        href: s.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${s.label} ${s.handle}`,
+        'data-track': 'outbound_click', 'data-track-type': 'social', 'data-track-target': s.id,
+      }, [
         s.icon
           ? el('img', { src: s.icon, alt: '', width: 96, height: 96, loading: 'lazy' })
           : el('span', { class: 'social-fallback', 'aria-hidden': 'true' }, [icon('radio')]),
@@ -49,7 +54,10 @@ function renderSocials() {
     ])));
   });
   $('#footer-links').replaceChildren(...OFFICIAL_LINKS.map((l) =>
-    el('li', {}, [el('a', { href: l.url, target: '_blank', rel: 'noopener noreferrer', text: l.label })])));
+    el('li', {}, [el('a', {
+      href: l.url, target: '_blank', rel: 'noopener noreferrer', text: l.label,
+      'data-track': 'outbound_click', 'data-track-type': 'social', 'data-track-target': l.id,
+    })])));
 }
 
 function renderCredits() {
@@ -141,6 +149,7 @@ function setupLists() {
 
 // ---------------------------------------------------------------- header, nav, menu
 function onActiveSection(name) {
+  setSection(name);
   document.body.classList.toggle('is-scrolled', name !== 'home');
   $$('[data-nav-link]').forEach((a) => a.setAttribute('aria-current', String(a.dataset.navLink === name)));
   playEntrance(name);
@@ -204,8 +213,21 @@ function decodeImage(img) {
   }).then(() => img.decode().catch(() => {}));
 }
 
+/**
+ * The CDN libraries (GSAP, Lenis, Anime.js, confetti) load async. Wait for them during the loader, but at most
+ * `ms`: if a CDN is slow or blocked the site still works — without smooth scrolling and animations.
+ */
+function librariesReady(ms) {
+  const each = $$('script[data-lib]').map((s) => (window[s.dataset.lib] ? null : new Promise((resolve) => {
+    s.addEventListener('load', resolve, { once: true });
+    s.addEventListener('error', resolve, { once: true });
+  })));
+  return Promise.race([Promise.all(each), new Promise((r) => setTimeout(r, ms))]);
+}
+
 // ---------------------------------------------------------------- boot
 async function boot() {
+  initTracking();
   showLoaderArt();
   mountLangSwitches(pickLanguage);
   renderSocials();
@@ -227,8 +249,9 @@ async function boot() {
   const homeReady = loadHome();
   const timing = await waitForAssets({
     tier1: [
-      resolveInitialLanguage,
+      () => resolveInitialLanguage().then(() => { track('page_view'); flush(); }),
       () => document.fonts?.ready,
+      () => librariesReady(6000),
       () => decodeImage($('img[data-bg="home"]')),
       () => Promise.race([homeReady, new Promise((r) => setTimeout(r, 4000))]),
     ],
@@ -244,6 +267,7 @@ async function boot() {
     ],
   });
   document.documentElement.dataset.loadMs = String(timing);
+  track('loader_timing', { ms: timing });
 
   await initScroll({ onActiveChange: onActiveSection });
   initScrollbars();
@@ -259,6 +283,7 @@ async function boot() {
   if (target) target.scrollIntoView();
 
   await hideLoader({ reduced: reducedMotion });
+  startDwell();
   homeEntrance();
   celebrateSpecialDays();
 }

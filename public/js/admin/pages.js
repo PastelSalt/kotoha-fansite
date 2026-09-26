@@ -3,10 +3,12 @@ import { t } from '../shared/i18n-core.js';
 import { api, errorText } from './api.js';
 import { el, icon, refreshIcons, toast, openDialog, confirmAction, formatDateTime, copyText, pageHead } from './ui.js';
 import { passwordForm } from './password.js';
+import { renderAnalytics } from './analytics.js';
 
 // ---------------------------------------------------------------- dashboard
 export async function renderDashboard(view, { user }) {
   const s = await api('admin/summary');
+  const analytics = el('div', { id: 'analytics' });
   const stat = (labelKey, pub, draft, href) => el('a', { class: 'stat', href, style: 'text-decoration:none;color:inherit' }, [
     el('p', { class: 'stat__label', text: t(labelKey) }),
     el('p', { class: 'stat__value', text: String(pub) }),
@@ -24,8 +26,9 @@ export async function renderDashboard(view, { user }) {
       stat('nav.discography', s.discography_published, s.discography_draft, '#/discography'),
       stat('nav.gallery', s.gallery_published, s.gallery_draft, '#/gallery'),
     ]),
-    el('section', { class: 'panel', id: 'analytics-panel' }, [el('h2', { text: t('dashboard.analyticsSoon') })]),
+    analytics,
   );
+  renderAnalytics(analytics);
 }
 
 // ---------------------------------------------------------------- archive
@@ -85,6 +88,10 @@ export async function renderArchive(view) {
 }
 
 // ---------------------------------------------------------------- activity log
+const actionLabel = (code) => {
+  const label = t(`activity.actions.${code}`);
+  return typeof label === 'string' && label !== `activity.actions.${code}` ? label : code;
+};
 export async function renderActivity(view) {
   let cursor = null;
   const list = el('div', { class: 'items' });
@@ -92,7 +99,7 @@ export async function renderActivity(view) {
   const row = (a) => el('article', { class: 'item' }, [
     el('span', { class: 'pill pill--admin', text: a.username }),
     el('div', { class: 'item__main' }, [
-      el('p', { class: 'item__title', text: a.action }),
+      el('p', { class: 'item__title', text: actionLabel(a.action) }),
       el('p', { class: 'item__meta', text: formatDateTime(a.createdAt) }),
       a.details?.label || a.details?.username || a.details?.author
         ? el('p', { class: 'item__text', text: a.details.label || a.details.username || a.details.author }) : null,

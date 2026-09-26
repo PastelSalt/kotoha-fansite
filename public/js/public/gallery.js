@@ -77,7 +77,10 @@ function renderLightbox() {
   const cap = document.getElementById('lightbox-caption');
   cap.replaceChildren(
     el('span', { text: `${t('gallery.by', { name: img.authorName })} · ${t('gallery.counter', { n: current + 1, total: items.length })} ` }),
-    img.sourceUrl ? el('a', { href: img.sourceUrl, target: '_blank', rel: 'noopener noreferrer', text: t('gallery.source') }) : null,
+    img.sourceUrl ? el('a', {
+      href: img.sourceUrl, target: '_blank', rel: 'noopener noreferrer', text: t('gallery.source'),
+      'data-track': 'gallery_credit_click', 'data-track-type': 'gallery', 'data-track-id': img.id,
+    }) : null,
   );
 }
 

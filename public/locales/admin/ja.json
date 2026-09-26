@@ -1,20 +1,49 @@
 {
-  "a11y": { "language": "言語" },
+  "a11y": {
+    "language": "言語"
+  },
   "common": {
-    "save": "保存", "cancel": "キャンセル", "edit": "編集", "add": "追加", "archive": "アーカイブへ移動", "restore": "元に戻す",
-    "delete": "削除", "close": "閉じる", "copy": "コピー", "copied": "コピーしました！", "confirm": "確認", "loadMore": "もっと見る",
-    "loading": "読み込み中…", "saving": "保存中…", "saved": "保存しました！", "optional": "任意", "status": "状態",
-    "all": "すべて", "draft": "下書き", "published": "公開中", "publish": "公開する", "unpublish": "非公開にする",
-    "actions": "操作", "signOut": "ログアウト", "backToSite": "サイトを見る", "empty": "まだ何もありません。",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "edit": "編集",
+    "add": "追加",
+    "archive": "アーカイブへ移動",
+    "restore": "元に戻す",
+    "delete": "削除",
+    "close": "閉じる",
+    "copy": "コピー",
+    "copied": "コピーしました！",
+    "confirm": "確認",
+    "loadMore": "もっと見る",
+    "loading": "読み込み中…",
+    "saving": "保存中…",
+    "saved": "保存しました！",
+    "optional": "任意",
+    "status": "状態",
+    "all": "すべて",
+    "draft": "下書き",
+    "published": "公開中",
+    "publish": "公開する",
+    "unpublish": "非公開にする",
+    "actions": "操作",
+    "signOut": "ログアウト",
+    "backToSite": "サイトを見る",
+    "empty": "まだ何もありません。",
     "wakingUp": "データベースを起動しています。しばらく使われていないと、最初の読み込みに10秒ほどかかります…",
     "networkError": "サーバーに接続できませんでした。もう一度お試しください。",
-    "error": "エラーが発生しました。もう一度お試しください。"
+    "error": "エラーが発生しました。もう一度お試しください。",
+    "retry": "再試行"
   },
   "errors": {
-    "required": "入力してください。", "too_long": "長すぎます。", "too_short": "短すぎます。",
-    "invalid_date": "正しい日付を選んでください。", "invalid_url": "https:// から始まるリンクを入力してください。",
-    "invalid_youtube": "YouTubeのリンクではないようです。", "invalid_choice": "選択してください。",
-    "too_many": "数が多すぎます。", "invalid": "内容を確認してください。",
+    "required": "入力してください。",
+    "too_long": "長すぎます。",
+    "too_short": "短すぎます。",
+    "invalid_date": "正しい日付を選んでください。",
+    "invalid_url": "https:// から始まるリンクを入力してください。",
+    "invalid_youtube": "YouTubeのリンクではないようです。",
+    "invalid_choice": "選択してください。",
+    "too_many": "数が多すぎます。",
+    "invalid": "内容を確認してください。",
     "INVALID_CREDENTIALS": "ユーザー名またはパスワードが違います。",
     "TOO_MANY_ATTEMPTS": "試行回数が多すぎます。15分後にもう一度お試しください。",
     "TEMP_PASSWORD_EXPIRED": "この仮パスワードは期限切れです。オーナーに新しい仮パスワードを発行してもらってください。",
@@ -31,14 +60,21 @@
     "CONFLICT": "同じ内容の項目がすでに存在します。"
   },
   "login": {
-    "title": "管理者ログイン", "username": "ユーザー名", "password": "パスワード", "show": "パスワードを表示",
-    "submit": "ログイン", "signingIn": "ログイン中…"
+    "title": "管理者ログイン",
+    "username": "ユーザー名",
+    "password": "パスワード",
+    "show": "パスワードを表示",
+    "submit": "ログイン",
+    "signingIn": "ログイン中…"
   },
   "password": {
     "forcedTitle": "パスワードを設定してください",
     "forcedIntro": "安全のため、管理画面を使う前に仮パスワードを自分のパスワードに変更する必要があります。",
-    "current": "現在のパスワード", "currentTemp": "現在の（仮）パスワード",
-    "new": "新しいパスワード", "confirm": "新しいパスワード（確認）", "submit": "パスワードを変更",
+    "current": "現在のパスワード",
+    "currentTemp": "現在の（仮）パスワード",
+    "new": "新しいパスワード",
+    "confirm": "新しいパスワード（確認）",
+    "submit": "パスワードを変更",
     "rulesTitle": "新しいパスワードの条件：",
     "min_length": "12文字以上（単語をいくつか組み合わせるのがおすすめ）",
     "contains_username": "ユーザー名を含まない",
@@ -50,33 +86,92 @@
     "changed": "パスワードを変更しました！新しいパスワードでログイン中です。"
   },
   "nav": {
-    "dashboard": "ダッシュボード", "videos": "最新動画", "news": "ニュース", "achievements": "実績",
-    "discography": "ディスコグラフィ", "gallery": "ギャラリー", "archive": "アーカイブ", "activity": "操作履歴",
-    "accounts": "アカウント", "account": "マイアカウント"
+    "dashboard": "ダッシュボード",
+    "videos": "最新動画",
+    "news": "ニュース",
+    "achievements": "実績",
+    "discography": "ディスコグラフィ",
+    "gallery": "ギャラリー",
+    "archive": "アーカイブ",
+    "activity": "操作履歴",
+    "accounts": "アカウント",
+    "account": "マイアカウント"
   },
-  "roles": { "owner": "オーナー", "admin": "管理者" },
+  "roles": {
+    "owner": "オーナー",
+    "admin": "管理者"
+  },
   "dashboard": {
     "hello": "こんにちは、{name}さん！",
     "intro": "ファンサイトに表示される内容はすべてここで管理できます。",
-    "analyticsSoon": "訪問者の統計はもうすぐここに表示されます。",
-    "published": "公開中", "drafts": "下書き"
+    "published": "公開中",
+    "drafts": "下書き"
   },
   "content": {
-    "videos": { "title": "最新動画", "add": "動画を追加", "edit": "動画を編集", "hint": "日付が新しい順に表示されます。一番新しい動画がホーム画面に表示されます。" },
-    "news": { "title": "ニュース", "add": "ニュースを追加", "edit": "ニュースを編集", "hint": "新しい2件がホーム画面に表示されます。" },
-    "achievements": { "title": "実績", "add": "実績を追加", "edit": "実績を編集", "hint": "ディスコグラフィのセクションに新しい順で表示されます。" },
-    "discography": { "title": "ディスコグラフィ", "add": "リリースを追加", "edit": "リリースを編集", "hint": "ジャケット画像はYouTubeのリンクから自動で表示されます。" },
-    "fields": {
-      "youtube": "YouTubeのリンク", "youtubeHelp": "動画のリンクを貼り付けると、タイトルが自動で入力されます。",
-      "youtubeOptional": "YouTubeのリンク（ジャケット画像用）", "lookup": "タイトルを取得",
-      "title": "タイトル", "postedOn": "投稿日", "headline": "見出し", "summary": "短い説明",
-      "links": "リンク（3つまで）", "linkUrl": "https://…", "addLink": "リンクを追加", "removeLink": "リンクを削除",
-      "achievedOn": "日付", "text": "内容", "linkUrlOptional": "リンク（任意）",
-      "releaseType": "種類", "releasedOn": "リリース日", "note": "メモ（例：アニメのタイアップ）",
-      "status": "公開設定", "statusDraft": "下書き（非表示）", "statusPublished": "公開（表示）"
+    "videos": {
+      "title": "最新動画",
+      "add": "動画を追加",
+      "edit": "動画を編集",
+      "hint": "日付が新しい順に表示されます。一番新しい動画がホーム画面に表示されます。"
     },
-    "linkLabels": { "watch": "見る", "listen": "聴く", "details": "詳細", "tickets": "チケット", "official": "公式サイト", "shop": "ショップ" },
-    "types": { "single": "シングル", "album": "アルバム", "ep": "ミニアルバム", "tie_in": "タイアップ", "cover": "カバー", "collab": "コラボ", "other": "その他" },
+    "news": {
+      "title": "ニュース",
+      "add": "ニュースを追加",
+      "edit": "ニュースを編集",
+      "hint": "新しい2件がホーム画面に表示されます。"
+    },
+    "achievements": {
+      "title": "実績",
+      "add": "実績を追加",
+      "edit": "実績を編集",
+      "hint": "ディスコグラフィのセクションに新しい順で表示されます。"
+    },
+    "discography": {
+      "title": "ディスコグラフィ",
+      "add": "リリースを追加",
+      "edit": "リリースを編集",
+      "hint": "ジャケット画像はYouTubeのリンクから自動で表示されます。"
+    },
+    "fields": {
+      "youtube": "YouTubeのリンク",
+      "youtubeHelp": "動画のリンクを貼り付けると、タイトルが自動で入力されます。",
+      "youtubeOptional": "YouTubeのリンク（ジャケット画像用）",
+      "lookup": "タイトルを取得",
+      "title": "タイトル",
+      "postedOn": "投稿日",
+      "headline": "見出し",
+      "summary": "短い説明",
+      "links": "リンク（3つまで）",
+      "linkUrl": "https://…",
+      "addLink": "リンクを追加",
+      "removeLink": "リンクを削除",
+      "achievedOn": "日付",
+      "text": "内容",
+      "linkUrlOptional": "リンク（任意）",
+      "releaseType": "種類",
+      "releasedOn": "リリース日",
+      "note": "メモ（例：アニメのタイアップ）",
+      "status": "公開設定",
+      "statusDraft": "下書き（非表示）",
+      "statusPublished": "公開（表示）"
+    },
+    "linkLabels": {
+      "watch": "見る",
+      "listen": "聴く",
+      "details": "詳細",
+      "tickets": "チケット",
+      "official": "公式サイト",
+      "shop": "ショップ"
+    },
+    "types": {
+      "single": "シングル",
+      "album": "アルバム",
+      "ep": "ミニアルバム",
+      "tie_in": "タイアップ",
+      "cover": "カバー",
+      "collab": "コラボ",
+      "other": "その他"
+    },
     "archiveConfirm": "「{label}」をアーカイブへ移動しますか？サイトからは消えますが、アーカイブから元に戻せます。",
     "reason": "理由（任意）",
     "archived": "アーカイブへ移動しました。",
@@ -85,11 +180,17 @@
   "gallery": {
     "title": "ギャラリー",
     "hint": "すべての作品に作者名と、できれば投稿元のリンクを入力してください。",
-    "drop": "ここに画像をドロップ、または", "choose": "ファイルを選択",
+    "drop": "ここに画像をドロップ、または",
+    "choose": "ファイルを選択",
     "formats": "JPEG・PNG・WebP・AVIF・GIF・HEIC に対応。大きなファイルは自動で縮小されます。",
-    "author": "作者名", "source": "投稿元のリンク",
-    "upload": "アップロード", "uploadAll": "すべてアップロード", "remove": "リストから外す",
-    "uploading": "アップロード中… {p}%", "uploaded": "アップロードしました！", "shrunk": "10MB・2500万画素の上限に合わせて縮小しました",
+    "author": "作者名",
+    "source": "投稿元のリンク",
+    "upload": "アップロード",
+    "uploadAll": "すべてアップロード",
+    "remove": "リストから外す",
+    "uploading": "アップロード中… {p}%",
+    "uploaded": "アップロードしました！",
+    "shrunk": "10MB・2500万画素の上限に合わせて縮小しました",
     "heicTooBig": "このHEIC写真はこのブラウザでは縮小できません。JPEGで保存し直してからお試しください。",
     "deleteConfirm": "この画像を完全に削除しますか？容量節約のためCloudinaryからファイルが削除されます（クレジットの記録はアーカイブに残ります）。",
     "deleted": "画像を削除しました。",
@@ -98,13 +199,64 @@
   "archive": {
     "title": "アーカイブ",
     "hint": "サイトから削除された項目の一覧です。「元に戻す」で削除前の状態に戻せます。",
-    "from": "場所", "by": "操作した人", "when": "日時", "reason": "理由", "restored": "復元済み",
+    "from": "場所",
+    "by": "操作した人",
+    "when": "日時",
+    "reason": "理由",
+    "restored": "復元済み",
     "restoreDone": "元に戻しました！元のセクションに表示されます。",
-    "sections": { "videos": "最新動画", "news": "ニュース", "achievements": "実績", "discography_items": "ディスコグラフィ", "gallery_images": "ギャラリー", "admin_users": "アカウント" }
+    "sections": {
+      "videos": "最新動画",
+      "news": "ニュース",
+      "achievements": "実績",
+      "discography_items": "ディスコグラフィ",
+      "gallery_images": "ギャラリー",
+      "admin_users": "アカウント"
+    }
   },
   "activity": {
     "title": "操作履歴",
-    "hint": "誰が・いつ・何を変更したかの記録です。"
+    "hint": "誰が・いつ・何を変更したかの記録です。",
+    "actions": {
+      "videos": {
+        "create": "動画を追加",
+        "update": "動画を編集",
+        "archive": "動画をアーカイブへ移動"
+      },
+      "news": {
+        "create": "ニュースを追加",
+        "update": "ニュースを編集",
+        "archive": "ニュースをアーカイブへ移動"
+      },
+      "achievements": {
+        "create": "実績を追加",
+        "update": "実績を編集",
+        "archive": "実績をアーカイブへ移動"
+      },
+      "discography": {
+        "create": "リリースを追加",
+        "update": "リリースを編集",
+        "archive": "リリースをアーカイブへ移動"
+      },
+      "gallery": {
+        "create": "イラストをアップロード",
+        "update": "イラストのクレジットを編集",
+        "delete": "イラストを削除"
+      },
+      "archive": {
+        "restore": "アーカイブから復元"
+      },
+      "account": {
+        "create": "管理者アカウントを作成",
+        "reset_password": "管理者のパスワードをリセット",
+        "remove": "管理者アカウントを削除"
+      },
+      "auth": {
+        "login": "ログイン",
+        "logout_others": "他の端末からログアウト",
+        "password_change": "パスワードを変更"
+      }
+    }
   },
   "accounts": {
     "title": "アカウント",
@@ -113,15 +265,83 @@
     "createdTitle": "管理者アカウントを作成しました",
     "createdInfo": "以下の情報を新しい管理者に伝えてください。仮パスワードはこの画面でしか表示されず、7日で期限切れになります。初回ログイン時に自分のパスワードを設定します。",
     "resetTitle": "パスワードをリセットしました",
-    "username": "ユーザー名", "tempPassword": "仮パスワード",
-    "reset": "パスワードをリセット", "remove": "削除",
+    "username": "ユーザー名",
+    "tempPassword": "仮パスワード",
+    "reset": "パスワードをリセット",
+    "remove": "削除",
     "resetConfirm": "{name} に新しい仮パスワードを発行しますか？ログイン中の場合はログアウトされます。",
     "removeConfirm": "{name} を削除しますか？ログアウトされ、今後ログインできなくなります（記録はアーカイブに残ります）。",
-    "lastLogin": "最終ログイン", "never": "なし", "mustChange": "パスワード未設定", "removed": "削除済み", "active": "有効"
+    "lastLogin": "最終ログイン",
+    "never": "なし",
+    "mustChange": "パスワード未設定",
+    "removed": "削除済み",
+    "active": "有効"
   },
   "account": {
     "title": "マイアカウント",
     "signOutOthers": "他の端末からログアウト",
     "signedOutOthers": "他の端末からログアウトしました。"
+  },
+  "analytics": {
+    "title": "訪問者の統計",
+    "hint": "公開サイトへの訪問数です。日本時間で集計しています（週は月曜日始まり）。",
+    "today": "今日",
+    "thisWeek": "今週",
+    "thisMonth": "今月",
+    "avgVisit": "平均滞在時間",
+    "avgLoading": "平均読み込み時間",
+    "inRange": "過去{n}日間",
+    "visits": "訪問数",
+    "daily": "日別",
+    "weekly": "週別",
+    "monthly": "月別",
+    "visitsN": "訪問 {n}件",
+    "uniquesN": "ユニーク訪問者 {n}人",
+    "visitsLegend": "訪問数",
+    "uniquesLegend": "ユニーク訪問者（1日ごとに集計）",
+    "breakdownFor": "詳細の期間：",
+    "range7": "7日間",
+    "range30": "30日間",
+    "range90": "90日間",
+    "range365": "1年間",
+    "rangeVisits": "この期間の訪問 {n}件",
+    "sections": "セクション",
+    "sectionsHint": "各セクションまで見た訪問の割合・そこでの平均滞在時間。",
+    "sectionNames": {
+      "home": "ホーム",
+      "about": "プロフィール",
+      "news": "ニュース",
+      "discography": "ディスコグラフィー",
+      "gallery": "ギャラリー",
+      "footer": "フッター"
+    },
+    "devices": "端末",
+    "deviceNames": {
+      "mobile": "スマートフォン",
+      "tablet": "タブレット",
+      "desktop": "パソコン",
+      "unknown": "不明"
+    },
+    "languages": "訪問時の言語",
+    "switches": "日本語への切り替え {ja}回・英語への切り替え {en}回",
+    "countries": "国・地域",
+    "japanShare": "訪問の{pct}%が日本からでした。",
+    "sources": "流入元",
+    "direct": "直接アクセス／不明",
+    "hours": "アクセスの多い時間帯（日本時間）",
+    "hoursHint": "時間帯ごとの訪問数（日本時間）。",
+    "videoPlays": "動画の再生",
+    "socialClicks": "公式リンクのクリック",
+    "newsLinks": "ニュースのリンクのクリック",
+    "gallery": "人気のイラスト",
+    "galleryHint": "表示回数・作者リンクのクリック数。",
+    "opensCredits": "表示 {opens}回・作者リンク {credits}回",
+    "browsers": "ブラウザ",
+    "seconds": "{n}秒",
+    "minutes": "{m}分{s}秒",
+    "unknown": "不明",
+    "noData": "まだデータがありません。",
+    "removedItem": "#{id}（削除済み）",
+    "privacyNote": "Cookieは使用せず、IPアドレスも保存していません。この管理画面にログイン中のブラウザ、ボット、テスト環境からのアクセスは集計されません。詳細な記録は90日間、日ごとの合計はその後も保存されます。"
   }
 }

@@ -4,6 +4,7 @@
 //   gallery                                       GET list · POST register upload · PATCH/DELETE :id · POST gallery/sign
 //   archive                                       GET list · POST :id/restore
 //   activity                                      GET list
+//   summary · analytics?range=7|30|90|365         GET dashboard counts · visitor statistics (JST)
 //   accounts (Owner)                              GET list · POST create · POST :id/reset-password · DELETE :id
 import { sql, query } from '../lib/db.js';
 import {
@@ -17,6 +18,7 @@ import { hashPassword, generateTempPassword } from '../lib/password.js';
 import {
   signedUploadParams, verifyUploadResponse, getResource, destroyImage, ALLOWED_FORMATS,
 } from '../lib/cloudinary.js';
+import { dashboard } from '../lib/analytics.js';
 
 const todayJst = () => new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 const TEMP_PASSWORD_DAYS = 7;
@@ -516,6 +518,7 @@ export default handle(async (req, res) => {
   if (resource === 'archive') return archiveRoute(segs, req, res, user);
   if (resource === 'activity') return activityRoute(req, res);
   if (resource === 'summary') return summaryRoute(req, res);
+  if (resource === 'analytics') return analyticsRoute(req, res);
   throw new HttpError(404, 'NOT_FOUND', 'Unknown endpoint');
 });
 
@@ -536,4 +539,12 @@ async function summaryRoute(req, res) {
       (select count(*) filter (where status = 'draft') from gallery_images)::int        as gallery_draft,
       (select count(*) from archived_content where restored_at is null)::int            as archived`;
   send(res, 200, row, NO_STORE);
+}
+
+// Visitor statistics for the dashboard. Breakdown range in days; visit charts use fixed spans.
+async function analyticsRoute(req, res) {
+  methodGuard(req, ['GET']);
+  const range = Number(requestUrl(req).searchParams.get('range') || 30);
+  if (![7, 30, 90, 365].includes(range)) throw new HttpError(400, 'VALIDATION_ERROR', 'range must be 7, 30, 90 or 365');
+  send(res, 200, await dashboard(range), NO_STORE);
 }

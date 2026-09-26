@@ -1,20 +1,49 @@
 {
-  "a11y": { "language": "Language" },
+  "a11y": {
+    "language": "Language"
+  },
   "common": {
-    "save": "Save", "cancel": "Cancel", "edit": "Edit", "add": "Add", "archive": "Move to archive", "restore": "Restore",
-    "delete": "Delete", "close": "Close", "copy": "Copy", "copied": "Copied!", "confirm": "Confirm", "loadMore": "Load more",
-    "loading": "Loading…", "saving": "Saving…", "saved": "Saved!", "optional": "optional", "status": "Status",
-    "all": "All", "draft": "Draft", "published": "Published", "publish": "Publish", "unpublish": "Unpublish",
-    "actions": "Actions", "signOut": "Sign out", "backToSite": "View site", "empty": "Nothing here yet.",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "add": "Add",
+    "archive": "Move to archive",
+    "restore": "Restore",
+    "delete": "Delete",
+    "close": "Close",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "confirm": "Confirm",
+    "loadMore": "Load more",
+    "loading": "Loading…",
+    "saving": "Saving…",
+    "saved": "Saved!",
+    "optional": "optional",
+    "status": "Status",
+    "all": "All",
+    "draft": "Draft",
+    "published": "Published",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "actions": "Actions",
+    "signOut": "Sign out",
+    "backToSite": "View site",
+    "empty": "Nothing here yet.",
     "wakingUp": "Waking up the database — the first request after a quiet period can take about 10 seconds…",
     "networkError": "Couldn't reach the server. Please try again.",
-    "error": "Something went wrong. Please try again."
+    "error": "Something went wrong. Please try again.",
+    "retry": "Try again"
   },
   "errors": {
-    "required": "This field is required.", "too_long": "This is too long.", "too_short": "This is too short.",
-    "invalid_date": "Please pick a valid date.", "invalid_url": "Please enter a link starting with https://",
-    "invalid_youtube": "That doesn't look like a YouTube link.", "invalid_choice": "Please choose an option.",
-    "too_many": "Too many items.", "invalid": "Please check this field.",
+    "required": "This field is required.",
+    "too_long": "This is too long.",
+    "too_short": "This is too short.",
+    "invalid_date": "Please pick a valid date.",
+    "invalid_url": "Please enter a link starting with https://",
+    "invalid_youtube": "That doesn't look like a YouTube link.",
+    "invalid_choice": "Please choose an option.",
+    "too_many": "Too many items.",
+    "invalid": "Please check this field.",
     "INVALID_CREDENTIALS": "Incorrect username or password.",
     "TOO_MANY_ATTEMPTS": "Too many attempts. Please wait 15 minutes and try again.",
     "TEMP_PASSWORD_EXPIRED": "This temporary password has expired. Ask the Owner for a new one.",
@@ -31,14 +60,21 @@
     "CONFLICT": "An item with the same unique value already exists."
   },
   "login": {
-    "title": "Admin sign in", "username": "Username", "password": "Password", "show": "Show password",
-    "submit": "Sign in", "signingIn": "Signing in…"
+    "title": "Admin sign in",
+    "username": "Username",
+    "password": "Password",
+    "show": "Show password",
+    "submit": "Sign in",
+    "signingIn": "Signing in…"
   },
   "password": {
     "forcedTitle": "Please set your own password",
     "forcedIntro": "For security, you need to change the temporary password before you can use the admin panel.",
-    "current": "Current password", "currentTemp": "Current (temporary) password",
-    "new": "New password", "confirm": "Repeat new password", "submit": "Change password",
+    "current": "Current password",
+    "currentTemp": "Current (temporary) password",
+    "new": "New password",
+    "confirm": "Repeat new password",
+    "submit": "Change password",
     "rulesTitle": "Your new password must:",
     "min_length": "have at least 12 characters (a few words together works great)",
     "contains_username": "not contain your username",
@@ -50,33 +86,92 @@
     "changed": "Password changed! You're signed in with the new password."
   },
   "nav": {
-    "dashboard": "Dashboard", "videos": "Latest Videos", "news": "News", "achievements": "Achievements",
-    "discography": "Discography", "gallery": "Gallery", "archive": "Archive", "activity": "Activity Log",
-    "accounts": "Accounts", "account": "My Account"
+    "dashboard": "Dashboard",
+    "videos": "Latest Videos",
+    "news": "News",
+    "achievements": "Achievements",
+    "discography": "Discography",
+    "gallery": "Gallery",
+    "archive": "Archive",
+    "activity": "Activity Log",
+    "accounts": "Accounts",
+    "account": "My Account"
   },
-  "roles": { "owner": "Owner", "admin": "Admin" },
+  "roles": {
+    "owner": "Owner",
+    "admin": "Admin"
+  },
   "dashboard": {
     "hello": "Hello, {name}!",
     "intro": "Here you can manage everything that appears on the fan site.",
-    "analyticsSoon": "Visitor statistics will appear here soon.",
-    "published": "published", "drafts": "drafts"
+    "published": "published",
+    "drafts": "drafts"
   },
   "content": {
-    "videos": { "title": "Latest Videos", "add": "Add video", "edit": "Edit video", "hint": "The newest date is shown first. The newest video is featured on the home screen." },
-    "news": { "title": "News", "add": "Add news", "edit": "Edit news", "hint": "The two newest items appear on the home screen." },
-    "achievements": { "title": "Achievements", "add": "Add achievement", "edit": "Edit achievement", "hint": "Shown in the Discography section, newest first." },
-    "discography": { "title": "Discography", "add": "Add release", "edit": "Edit release", "hint": "Covers come from the YouTube link automatically." },
-    "fields": {
-      "youtube": "YouTube link", "youtubeHelp": "Paste the video link — the title fills in automatically.",
-      "youtubeOptional": "YouTube link (for the cover picture)", "lookup": "Get title",
-      "title": "Title", "postedOn": "Date posted", "headline": "Headline", "summary": "Short description",
-      "links": "Links (up to 3)", "linkUrl": "https://…", "addLink": "Add link", "removeLink": "Remove link",
-      "achievedOn": "Date", "text": "Text", "linkUrlOptional": "Link (optional)",
-      "releaseType": "Type", "releasedOn": "Release date", "note": "Note (e.g. anime tie-in)",
-      "status": "Visibility", "statusDraft": "Draft (hidden)", "statusPublished": "Published (visible)"
+    "videos": {
+      "title": "Latest Videos",
+      "add": "Add video",
+      "edit": "Edit video",
+      "hint": "The newest date is shown first. The newest video is featured on the home screen."
     },
-    "linkLabels": { "watch": "Watch", "listen": "Listen", "details": "Details", "tickets": "Tickets", "official": "Official site", "shop": "Shop" },
-    "types": { "single": "Single", "album": "Album", "ep": "Mini album", "tie_in": "Tie-in", "cover": "Cover", "collab": "Collaboration", "other": "Other" },
+    "news": {
+      "title": "News",
+      "add": "Add news",
+      "edit": "Edit news",
+      "hint": "The two newest items appear on the home screen."
+    },
+    "achievements": {
+      "title": "Achievements",
+      "add": "Add achievement",
+      "edit": "Edit achievement",
+      "hint": "Shown in the Discography section, newest first."
+    },
+    "discography": {
+      "title": "Discography",
+      "add": "Add release",
+      "edit": "Edit release",
+      "hint": "Covers come from the YouTube link automatically."
+    },
+    "fields": {
+      "youtube": "YouTube link",
+      "youtubeHelp": "Paste the video link — the title fills in automatically.",
+      "youtubeOptional": "YouTube link (for the cover picture)",
+      "lookup": "Get title",
+      "title": "Title",
+      "postedOn": "Date posted",
+      "headline": "Headline",
+      "summary": "Short description",
+      "links": "Links (up to 3)",
+      "linkUrl": "https://…",
+      "addLink": "Add link",
+      "removeLink": "Remove link",
+      "achievedOn": "Date",
+      "text": "Text",
+      "linkUrlOptional": "Link (optional)",
+      "releaseType": "Type",
+      "releasedOn": "Release date",
+      "note": "Note (e.g. anime tie-in)",
+      "status": "Visibility",
+      "statusDraft": "Draft (hidden)",
+      "statusPublished": "Published (visible)"
+    },
+    "linkLabels": {
+      "watch": "Watch",
+      "listen": "Listen",
+      "details": "Details",
+      "tickets": "Tickets",
+      "official": "Official site",
+      "shop": "Shop"
+    },
+    "types": {
+      "single": "Single",
+      "album": "Album",
+      "ep": "Mini album",
+      "tie_in": "Tie-in",
+      "cover": "Cover",
+      "collab": "Collaboration",
+      "other": "Other"
+    },
     "archiveConfirm": "Move “{label}” to the archive? It disappears from the site, and you can restore it from the Archive.",
     "reason": "Reason (optional)",
     "archived": "Moved to the archive.",
@@ -85,11 +180,17 @@
   "gallery": {
     "title": "Gallery",
     "hint": "Every artwork needs the artist's name and, if possible, the link where it was posted.",
-    "drop": "Drop images here or", "choose": "choose files",
+    "drop": "Drop images here or",
+    "choose": "choose files",
     "formats": "JPEG, PNG, WebP, AVIF, GIF or HEIC. Big files are shrunk automatically.",
-    "author": "Artist name", "source": "Source link (where it was posted)",
-    "upload": "Upload", "uploadAll": "Upload all", "remove": "Remove from list",
-    "uploading": "Uploading… {p}%", "uploaded": "Uploaded!", "shrunk": "Resized to fit the 10 MB / 25 MP limit",
+    "author": "Artist name",
+    "source": "Source link (where it was posted)",
+    "upload": "Upload",
+    "uploadAll": "Upload all",
+    "remove": "Remove from list",
+    "uploading": "Uploading… {p}%",
+    "uploaded": "Uploaded!",
+    "shrunk": "Resized to fit the 10 MB / 25 MP limit",
     "heicTooBig": "This HEIC photo is too big to shrink in this browser. Please save it as JPEG and try again.",
     "deleteConfirm": "Permanently delete this image? The file is removed from Cloudinary to save space (its credit record stays in the Archive).",
     "deleted": "Image deleted.",
@@ -98,13 +199,64 @@
   "archive": {
     "title": "Archive",
     "hint": "Everything that was removed from the site. Restore brings an item back exactly as it was.",
-    "from": "From", "by": "By", "when": "When", "reason": "Reason", "restored": "Restored",
+    "from": "From",
+    "by": "By",
+    "when": "When",
+    "reason": "Reason",
+    "restored": "Restored",
     "restoreDone": "Restored! It's back in its section.",
-    "sections": { "videos": "Latest Videos", "news": "News", "achievements": "Achievements", "discography_items": "Discography", "gallery_images": "Gallery", "admin_users": "Accounts" }
+    "sections": {
+      "videos": "Latest Videos",
+      "news": "News",
+      "achievements": "Achievements",
+      "discography_items": "Discography",
+      "gallery_images": "Gallery",
+      "admin_users": "Accounts"
+    }
   },
   "activity": {
     "title": "Activity Log",
-    "hint": "Who changed what, and when."
+    "hint": "Who changed what, and when.",
+    "actions": {
+      "videos": {
+        "create": "Added a video",
+        "update": "Edited a video",
+        "archive": "Moved a video to the archive"
+      },
+      "news": {
+        "create": "Added news",
+        "update": "Edited news",
+        "archive": "Moved news to the archive"
+      },
+      "achievements": {
+        "create": "Added an achievement",
+        "update": "Edited an achievement",
+        "archive": "Moved an achievement to the archive"
+      },
+      "discography": {
+        "create": "Added a release",
+        "update": "Edited a release",
+        "archive": "Moved a release to the archive"
+      },
+      "gallery": {
+        "create": "Uploaded an artwork",
+        "update": "Edited an artwork credit",
+        "delete": "Deleted an artwork"
+      },
+      "archive": {
+        "restore": "Restored an item from the archive"
+      },
+      "account": {
+        "create": "Created an admin account",
+        "reset_password": "Reset an admin's password",
+        "remove": "Removed an admin account"
+      },
+      "auth": {
+        "login": "Signed in",
+        "logout_others": "Signed out other devices",
+        "password_change": "Changed their password"
+      }
+    }
   },
   "accounts": {
     "title": "Accounts",
@@ -113,15 +265,83 @@
     "createdTitle": "New admin account created",
     "createdInfo": "Give these to the new admin. The temporary password is shown only once and expires in 7 days. They must choose their own password at first sign-in.",
     "resetTitle": "Password reset",
-    "username": "Username", "tempPassword": "Temporary password",
-    "reset": "Reset password", "remove": "Remove",
+    "username": "Username",
+    "tempPassword": "Temporary password",
+    "reset": "Reset password",
+    "remove": "Remove",
     "resetConfirm": "Give {name} a new temporary password? They will be signed out.",
     "removeConfirm": "Remove {name}? They will be signed out and can no longer sign in. (A record stays in the Archive.)",
-    "lastLogin": "Last sign-in", "never": "never", "mustChange": "must set password", "removed": "removed", "active": "active"
+    "lastLogin": "Last sign-in",
+    "never": "never",
+    "mustChange": "must set password",
+    "removed": "removed",
+    "active": "active"
   },
   "account": {
     "title": "My Account",
     "signOutOthers": "Sign out other devices",
     "signedOutOthers": "Other devices were signed out."
+  },
+  "analytics": {
+    "title": "Visitor statistics",
+    "hint": "Visits to the live site, counted in Japan time (weeks start on Monday).",
+    "today": "Today",
+    "thisWeek": "This week",
+    "thisMonth": "This month",
+    "avgVisit": "Average visit length",
+    "avgLoading": "Average loading time",
+    "inRange": "last {n} days",
+    "visits": "Visits",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "visitsN": "{n} visits",
+    "uniquesN": "{n} unique visitors",
+    "visitsLegend": "Visits",
+    "uniquesLegend": "Unique visitors (counted per day)",
+    "breakdownFor": "Details for:",
+    "range7": "7 days",
+    "range30": "30 days",
+    "range90": "90 days",
+    "range365": "1 year",
+    "rangeVisits": "{n} visits in this period",
+    "sections": "Sections",
+    "sectionsHint": "Share of visits that reached each section · average time spent there.",
+    "sectionNames": {
+      "home": "Home",
+      "about": "About",
+      "news": "News",
+      "discography": "Discography",
+      "gallery": "Gallery",
+      "footer": "Footer"
+    },
+    "devices": "Devices",
+    "deviceNames": {
+      "mobile": "Phone",
+      "tablet": "Tablet",
+      "desktop": "Computer",
+      "unknown": "Unknown"
+    },
+    "languages": "Language on arrival",
+    "switches": "Switched to Japanese {ja}× · to English {en}×",
+    "countries": "Countries",
+    "japanShare": "{pct}% of visits came from Japan.",
+    "sources": "Where visitors came from",
+    "direct": "Direct / unknown",
+    "hours": "Busiest hours (JST)",
+    "hoursHint": "Visits by hour of the day, Japan time.",
+    "videoPlays": "Video plays",
+    "socialClicks": "Official link clicks",
+    "newsLinks": "News link clicks",
+    "gallery": "Top artworks",
+    "galleryHint": "Times opened · clicks on the artist link.",
+    "opensCredits": "{opens} opened · {credits} artist clicks",
+    "browsers": "Browsers",
+    "seconds": "{n} s",
+    "minutes": "{m} min {s} s",
+    "unknown": "Unknown",
+    "noData": "No data yet.",
+    "removedItem": "#{id} (removed)",
+    "privacyNote": "No cookies are used and no IP addresses are stored. Admin browsers signed in to this panel, bots and test sites are not counted. Detailed records are kept for 90 days; daily totals are kept."
   }
 }

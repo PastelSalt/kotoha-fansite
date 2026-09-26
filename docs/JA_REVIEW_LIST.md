@@ -59,3 +59,17 @@ The 27 entries from the official 実績 list are verbatim. These are mine:
 | `footer.disclaimer` | このサイトは非公式・非営利のファンサイトです。…権利は、それぞれの権利者様・作者様に帰属します。 | ⏳ |
 | `footer.contact` / `footer.privacy` | 不具合、クレジットの訂正、掲載の取り下げのご依頼はこちらまで：／…匿名で集計しています… | ⏳ |
 | `home.*`, `nav.*`, `gallery.*` | 定期配信まで：／スクロールしてね！／プロフィール／もっと見る／今はここまで！ など | ⏳ |
+
+## 5. Admin panel (`public/locales/admin/ja.json`)
+
+**All of `public/locales/admin/ja.json` was written by the developer.** Only admins see it, so it is lower priority than the public site. Lines worth a look:
+
+| Key | Text | Status |
+|---|---|---|
+| `password.*` | パスワードの条件（12文字以上、ユーザー名を含まない など）と強制変更の説明 | ⏳ |
+| `accounts.*` | 仮パスワード（7日間有効）の説明、削除・リセットの確認文 | ⏳ |
+| `archive.*` | アーカイブ／復元の説明 | ⏳ |
+| `analytics.hint` | 公開サイトへの訪問数です。日本時間で集計しています（週は月曜日始まり）。 | ⏳ |
+| `analytics.sectionsHint` | 各セクションまで見た訪問の割合・そこでの平均滞在時間。 | ⏳ |
+| `analytics.uniquesLegend` | ユニーク訪問者（1日ごとに集計） | ⏳ |
+| `analytics.privacyNote` | Cookieは使用せず、IPアドレスも保存していません。この管理画面にログイン中のブラウザ、ボット、テスト環境からのアクセスは集計されません。… | ⏳ |

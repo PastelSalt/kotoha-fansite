@@ -17,22 +17,23 @@ export function icon(name) {
 export const formatDate = (iso) => (iso ? iso.slice(0, 10).replaceAll('-', '.') : '');
 export const ytThumb = (id, q = 'hqdefault') => `https://i.ytimg.com/vi/${id}/${q}.jpg`;
 
-function externalLink(url, label, cls = 'chip') {
-  return el('a', { class: cls, href: url, target: '_blank', rel: 'noopener noreferrer' }, [
+function externalLink(url, label, cls = 'chip', attrs = {}) {
+  return el('a', { class: cls, href: url, target: '_blank', rel: 'noopener noreferrer', ...attrs }, [
     el('span', { text: label }), icon('external'),
     el('span', { class: 'visually-hidden', text: t('common.opensNewTab') }),
   ]);
 }
 
-function linkChips(links, cls) {
+function linkChips(links, cls, trackAttrs = () => ({})) {
   if (!links?.length) return null;
-  return el('p', { class: cls }, links.map((l) => externalLink(l.url, t(`links.${l.labelKey}`))));
+  return el('p', { class: cls }, links.map((l) => externalLink(l.url, t(`links.${l.labelKey}`), 'chip', trackAttrs(l))));
 }
 
 /** Click-to-load YouTube player (no iframe until the visitor asks for it). */
 export function videoFacade(video, { badge = null, onPlay } = {}) {
   const btn = el('button', {
     class: 'video-facade', type: 'button', 'aria-label': t('video.play', { title: video.title }),
+    'data-track': 'video_play', 'data-track-type': 'video', 'data-track-id': video.id, 'data-track-target': video.youtubeId,
   }, [
     el('img', { src: ytThumb(video.youtubeId), alt: '', loading: 'lazy', decoding: 'async', width: 480, height: 360 }),
     badge ? el('span', { class: 'video-facade__badge', text: badge }) : null,
@@ -59,7 +60,9 @@ export function newsCard(item, { compact = false } = {}) {
     el('p', { class: 'news-card__date' }, [el('time', { datetime: item.postedOn, text: formatDate(item.postedOn) })]),
     el('h3', { class: 'news-card__title', text: item.headline }),
     el('p', { class: 'news-card__summary', text: item.summary }),
-    compact ? null : linkChips(item.links, 'news-card__links'),
+    compact ? null : linkChips(item.links, 'news-card__links', (l) => ({
+      'data-track': 'news_link_click', 'data-track-type': 'news', 'data-track-id': item.id, 'data-track-target': l.labelKey,
+    })),
   ]);
 }
 
@@ -106,7 +109,10 @@ export function cloudinaryUrl(url, width) {
 
 export function galleryTile(img, onOpen) {
   const alt = t('gallery.alt', { name: img.authorName });
-  return el('button', { class: 'tile', type: 'button', onclick: onOpen, 'aria-label': alt }, [
+  return el('button', {
+    class: 'tile', type: 'button', onclick: onOpen, 'aria-label': alt,
+    'data-track': 'gallery_open', 'data-track-type': 'gallery', 'data-track-id': img.id,
+  }, [
     el('img', {
       src: cloudinaryUrl(img.url, 600),
       srcset: `${cloudinaryUrl(img.url, 400)} 400w, ${cloudinaryUrl(img.url, 800)} 800w`,

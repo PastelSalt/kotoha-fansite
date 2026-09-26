@@ -9,13 +9,13 @@ export const SOCIALS = [
 ];
 
 export const OFFICIAL_LINKS = [
-  ...SOCIALS.map(({ label, url }) => ({ label, url })),
-  { label: 'Instagram', url: 'https://www.instagram.com/kotoha_ktnh/' },
-  { label: 'Bluesky', url: 'https://bsky.app/profile/kotohaktnh.bsky.social' },
-  { label: 'PixivFANBOX', url: 'https://kotoha-ktnh.fanbox.cc/' },
-  { label: 'lit.link', url: 'https://lit.link/kotohaktnh' },
-  { label: 'ハコニワリリィ Official', url: 'https://hakoniwalily.jp/' },
-  { label: 'BOOTH (goods)', url: 'https://hanon-goods.booth.pm/' },
+  ...SOCIALS.map(({ id, label, url }) => ({ id, label, url })),
+  { id: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/kotoha_ktnh/' },
+  { id: 'bluesky', label: 'Bluesky', url: 'https://bsky.app/profile/kotohaktnh.bsky.social' },
+  { id: 'fanbox', label: 'PixivFANBOX', url: 'https://kotoha-ktnh.fanbox.cc/' },
+  { id: 'litlink', label: 'lit.link', url: 'https://lit.link/kotohaktnh' },
+  { id: 'hakoniwalily', label: 'ハコニワリリィ Official', url: 'https://hakoniwalily.jp/' },
+  { id: 'booth', label: 'BOOTH (goods)', url: 'https://hanon-goods.booth.pm/' },
 ];
 
 // Artwork credits (source URLs as shown in the owner's references). null = artist unknown.
