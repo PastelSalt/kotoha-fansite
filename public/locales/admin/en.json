@@ -1,6 +1,9 @@
 {
   "a11y": {
-    "language": "Language"
+    "language": "Language",
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "adminNav": "Admin menu"
   },
   "common": {
     "save": "Save",

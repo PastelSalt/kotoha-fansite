@@ -1,6 +1,7 @@
 // Local stand-in for `vercel dev` (no Vercel login needed). Mirrors vercel.json:
 //   * static files from public/ with cleanUrls (/login → login.html)
 //   * /api/<group>/<route> → api/<group>.js with ?__route=<route>
+//   * `headers` (security headers incl. the CSP; caching headers are left out during development)
 // Usage: node --env-file=.env.local scripts/dev-server.js   (PORT defaults to 3000)
 import http from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
@@ -40,8 +41,19 @@ async function serveStatic(req, res, pathname) {
   res.end('404 Not Found');
 }
 
+// vercel.json header rules; sources like "/(.*)" or "/(admin|login)" are regular expressions here.
+const SKIP_HEADERS = new Set(['cache-control', 'strict-transport-security']);
+async function applyHeaders(res, pathname) {
+  const { headers = [] } = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
+  for (const rule of headers) {
+    if (!new RegExp(`^${rule.source}$`).test(pathname)) continue;
+    for (const h of rule.headers) if (!SKIP_HEADERS.has(h.key.toLowerCase())) res.setHeader(h.key, h.value);
+  }
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
+  await applyHeaders(res, url.pathname);
   const match = url.pathname.match(/^\/api\/([a-z]+)(?:\/(.*))?$/);
   if (match && GROUPS.has(match[1])) {
     const [, group, route = ''] = match;

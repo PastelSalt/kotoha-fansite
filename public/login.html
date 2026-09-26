@@ -8,13 +8,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <script>
-    (function () {
-      var lang = null;
-      try { var q = new URLSearchParams(location.search).get('lang'); lang = (q === 'ja' || q === 'en') ? q : localStorage.getItem('kf_lang'); } catch (e) {}
-      if (lang === 'ja' || lang === 'en') { document.documentElement.lang = lang; document.documentElement.dataset.langChosen = '1'; }
-    })();
-  </script>
+  <script src="/js/admin/prepaint.js"></script>
   <!-- Google Fonts + Animate.css are added by /js/admin/styles.js so they never block sign-in -->
   <link rel="stylesheet" href="/css/admin.css">
   <script type="module" src="/js/admin/login.js"></script>

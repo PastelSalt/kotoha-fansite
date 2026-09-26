@@ -104,7 +104,7 @@ ul, ol { padding: 0; list-style: none; }
   border-radius: 999px; background: #fff; color: var(--green-text); border: 2px solid var(--green);
   font-size: 13px; font-weight: 700; text-decoration: none; transition: background-color .2s, color .2s, transform .2s;
 }
-.chip:hover { background: var(--green); color: #fff; transform: translateY(-1px); }
+.chip:hover { background: var(--green-text); color: #fff; transform: translateY(-1px); }
 .chip .icon { width: .9em; height: .9em; }
 .icon-btn {
   display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
@@ -134,7 +134,7 @@ ul, ol { padding: 0; list-style: none; }
   min-width: 40px; min-height: 30px; padding: 0 10px; border: 0; border-radius: 999px; background: transparent;
   font-weight: 700; font-size: 13px; color: var(--green-text); cursor: pointer;
 }
-.lang-switch button[aria-pressed="true"] { background: var(--green); color: #fff; }
+.lang-switch button[aria-pressed="true"] { background: var(--green-text); color: #fff; }
 
 /* socials */
 .socials { display: flex; flex-wrap: wrap; gap: 8px 18px; }
@@ -340,7 +340,7 @@ main { position: relative; }
   background: linear-gradient(transparent, rgba(0, 0, 0, .7)); line-height: 1.35;
 }
 .video-facade__badge {
-  position: absolute; left: 10px; top: 10px; padding: 2px 10px; border-radius: 999px; background: var(--pink-hot); color: #fff; font-size: 11px; font-weight: 700;
+  position: absolute; left: 10px; top: 10px; padding: 2px 10px; border-radius: 999px; background: #d6336c; color: #fff; font-size: 11px; font-weight: 700; /* 6:1 */
 }
 .video-frame { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: calc(var(--radius) - 6px); display: block; background: #000; }
 .card--video { padding: 6px; }

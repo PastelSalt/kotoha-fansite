@@ -1,6 +1,9 @@
 {
   "a11y": {
-    "language": "言語"
+    "language": "言語",
+    "skip": "本文へスキップ",
+    "menu": "メニュー",
+    "adminNav": "管理メニュー"
   },
   "common": {
     "save": "保存",

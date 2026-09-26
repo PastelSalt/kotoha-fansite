@@ -8,13 +8,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <script>
-    (function () {
-      var lang = null;
-      try { var q = new URLSearchParams(location.search).get('lang'); lang = (q === 'ja' || q === 'en') ? q : localStorage.getItem('kf_lang'); } catch (e) {}
-      if (lang === 'ja' || lang === 'en') { document.documentElement.lang = lang; document.documentElement.dataset.langChosen = '1'; }
-    })();
-  </script>
+  <script src="/js/admin/prepaint.js"></script>
   <!-- Google Fonts + Animate.css are added by /js/admin/styles.js so they never block sign-in -->
   <link rel="stylesheet" href="/css/admin.css">
   <script id="lucide-js" src="https://cdn.jsdelivr.net/npm/lucide@1.48.0/dist/umd/lucide.min.js" async></script>
@@ -22,11 +16,11 @@
   <script type="module" src="/js/admin/main.js"></script>
 </head>
 <body class="admin" data-state="booting">
-  <a class="skip-link" href="#view">Skip to content</a>
+  <a class="skip-link" href="#view" data-i18n="a11y.skip">Skip to content</a>
 
   <header class="topbar">
     <a class="topbar__brand" href="#/dashboard"><img src="/assets/img/logo-500.webp" alt="Kotoha" width="500" height="144"><span>Admin</span></a>
-    <button class="topbar__menu icon-btn" type="button" id="nav-toggle" aria-controls="sidebar" aria-expanded="false"><i data-lucide="menu"></i><span class="visually-hidden">Menu</span></button>
+    <button class="topbar__menu icon-btn" type="button" id="nav-toggle" aria-controls="sidebar" aria-expanded="false"><i data-lucide="menu"></i><span class="visually-hidden" data-i18n="a11y.menu">Menu</span></button>
     <div class="topbar__right">
       <div class="lang-switch" data-lang-switch></div>
       <span class="user-badge" id="user-badge"></span>
@@ -35,7 +29,7 @@
     </div>
   </header>
 
-  <nav class="sidebar" id="sidebar" aria-label="Admin">
+  <nav class="sidebar" id="sidebar" aria-label="Admin" data-i18n-attr="aria-label:a11y.adminNav">
     <ul>
       <li><a href="#/dashboard" data-route="dashboard"><i data-lucide="layout-dashboard"></i><span data-i18n="nav.dashboard">Dashboard</span></a></li>
       <li><a href="#/videos" data-route="videos"><i data-lucide="circle-play"></i><span data-i18n="nav.videos">Latest Videos</span></a></li>
@@ -50,7 +44,7 @@
     </ul>
   </nav>
 
-  <main class="view" id="view" tabindex="-1" aria-live="polite">
+  <main class="view" id="view" tabindex="-1">
     <p class="view__loading" data-i18n="common.loading">Loading…</p>
   </main>
 
