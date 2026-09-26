@@ -156,7 +156,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 ### Phase 6: Auth & roles
 - [x] 6.1 `lib/auth.js` + `api/auth.js`: login (per user+IP 5/15 min, per IP 20/15 min, account lock after 5), logout, me, change-password (policy + HIBP, revokes all sessions then issues a new one), preferences. Cookie `__Host-kf_session` on HTTPS / `kf_session_dev` on local http. Verified locally with a throwaway `devtest` admin (cleaned up)
 - [x] 6.2 `requireAdmin({allowPasswordChange, ownerOnly})` / `requireOwner`; forced-change gate returns `403 PASSWORD_CHANGE_REQUIRED`. `lib/validate.js` done (text/date/url/oneOf/youtubeId/links/id + `parseYouTubeId`)
-- [ ] 6.3 Accounts API (create auto-numbered admin + temp password, reset, remove→archive)
+- [x] 6.3 Accounts API in `api/admin.js` (Owner only): create `<owner>N` via `admin_number_seq` + temp password (returned once, 7-day expiry), reset-password (revokes sessions), remove (deactivate + revoke + archive snapshot without hash). Owner can't be changed. Verified locally (test data cleaned, sequence restored)
 - [x] 6.4 ~~`middleware.js`~~ **Dropped** (see §9): language comes from `/api/public/geo`; `/admin` guard = client check + server-side API enforcement
 
 ### Phase 7: Image pipeline
@@ -191,11 +191,11 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 
 ### Phase 12: Admin: content
 - [ ] 12.1 `/login` page; `/admin` shell (JP/EN), forced-change screen
-- [ ] 12.2 Videos (YouTube oEmbed lookup), News, Achievements, Discography CRUD + drafts + archive
-- [ ] 12.3 Archive page (filter, restore); Activity log
+- [~] 12.2 **API done & verified** (`api/admin.js`: generic CRUD for videos/news/achievements/discography, drafts, publish sets `published_at`, archive on DELETE, `videos/lookup` via oEmbed, duplicate → 409). UI pending
+- [~] 12.3 **API done & verified** (`lib/archive.js`: archive = copy+delete in one transaction; restore keeps the original id via `overriding system value`; gallery/accounts not restorable; `GET /api/admin/activity`). UI pending
 
 ### Phase 13: Admin: gallery
-- [ ] 13.1 Signed upload endpoint + response verification
+- [~] 13.1 Code written (`lib/cloudinary.js`: sign, verify response signature, Admin API `getResource`, `destroyImage` with invalidate, `deliveryUrl`; gallery routes in `api/admin.js`). Returns `503 CLOUDINARY_NOT_CONFIGURED` until keys exist. **Untested against Cloudinary: needs the owner's API key/secret (still empty in `.env.local`)**
 - [ ] 13.2 Drop zone, multi-file, auto-downscale (≤ 10 MB & ≤ 25 MP), progress, HEIC hint
 - [ ] 13.3 Edit credit, delete (Cloudinary destroy + archive record)
 
