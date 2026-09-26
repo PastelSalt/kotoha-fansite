@@ -191,8 +191,8 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 
 ### Phase 12: Admin: content
 - [x] 12.1 `/login` page; `/admin` shell (JP/EN), forced-change screen. Files: `public/{login,admin}.html`, `public/css/admin.css`, `public/js/admin/{api,ui,password,content,gallery,pages,main,login,styles}.js`, `public/locales/admin/{en,ja}.json`, shared `public/js/shared/dom.js`. **Verified in headless Edge:** login, wrong-password message, forced change (live rules checklist, guessable rule), dashboard, news list, add dialog with links editor, 13 icons rendered
-- [~] 12.2 **API done & verified** (`api/admin.js`: generic CRUD for videos/news/achievements/discography, drafts, publish sets `published_at`, archive on DELETE, `videos/lookup` via oEmbed, duplicate → 409; `GET admin/summary` for the dashboard). **UI written; save → list → public API round trip NOT yet verified** (the network to Neon dropped mid-test). Re-run the scratchpad `admin-ui-test.mjs` (copy into the project as `.admin-ui-test.tmp.mjs`, run with `node --env-file=.env.local`)
-- [~] 12.3 **API done & verified** (`lib/archive.js`: archive = copy+delete in one transaction; restore keeps the original id via `overriding system value`; gallery/accounts not restorable; `GET /api/admin/activity`). Archive + Activity UI written; UI round trip not yet verified
+- [x] 12.2 API + UI verified end-to-end (headless Edge, throwaway `devtest` admin, cleaned up): create news with a link → list → public API shows it with the link label; YouTube "Get title" fills the original title; duplicate video → friendly error; JA + mobile screenshots. Fixed: "Add video" dialog crashed (`replaceWith` on a node `el()` had already moved)
+- [x] 12.3 Archive → restore round trip verified in the UI; Activity Log shows readable EN/JA labels (`activity.actions.*`)
 
 ### Phase 13: Admin: gallery
 - [~] 13.1 Code written (`lib/cloudinary.js`: sign, verify response signature, Admin API `getResource`, `destroyImage` with invalidate, `deliveryUrl`; gallery routes in `api/admin.js`). Returns `503 CLOUDINARY_NOT_CONFIGURED` until keys exist. **Untested against Cloudinary: needs the owner's API key/secret (still empty in `.env.local`)**
@@ -200,13 +200,13 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [~] 13.3 Edit credit, delete (Cloudinary destroy + archive record): UI written, untested (same reason)
 
 ### Phase 14: Admin: accounts
-- [~] 14.1 Accounts screen (Owner): list, create (show temp password once), reset, remove: UI written (`pages.js`), not yet clicked through as Owner (test must clear then **restore** the Owner's `must_change_password = true`)
-- [~] 14.2 My Account: change password, sign out other devices (`POST /api/auth/logout-others`, keeps the current session): written, not yet verified
+- [x] 14.1 Accounts screen verified as Owner (scratchpad `owner-ui-test.mjs`): create shows `<owner>2` + 8-char temp password once, "must change" pill, reset, remove → archived (not restorable). The test snapshots/restores the Owner row (`must_change_password` back to **true**) and `admin_number_seq` (back to 2), and deletes everything it created
+- [x] 14.2 My Account: change password (verified in the forced-change flow), sign out other devices (`POST /api/auth/logout-others`) verified
 
 ### Phase 15: Analytics
-- [ ] 15.1 `/api/track` + client tracker (events per plan §8.8)
-- [ ] 15.2 Rollups (JST) + retention pruning
-- [ ] 15.3 Dashboard charts (SVG) + KPIs
+- [x] 15.1 `api/track.js` + `public/js/public/track.js` (sendBeacon batches; `data-track` attributes + capture-phase click listener; dwell per section while visible). Server drops bots, requests carrying an admin session cookie, cross-origin posts and bad JSON (always 204); per-visitor in-memory flood limit. Verified with curl + headless Edge
+- [x] 15.2 `lib/analytics.js`: one aggregation query per JST day → `analytics_daily` (+ `_rolled` marker per day). **Lazy rollups** (from the tracker and the dashboard, once per instance per day) instead of a cron. Retention in the same step: raw events > 90 days (only already-rolled days), expired sessions / login attempts > 30 days. Verified with synthetic data (JST days, Monday weeks, 7/30-day ranges) — test rows deleted
+- [x] 15.3 Dashboard (`public/js/admin/analytics.js`): KPIs (today/week/month, avg visit, avg loading), daily/weekly/monthly charts, sections (reach % + avg time), devices, language + switches, countries (Japan share), sources, busiest hours JST, video plays, official link clicks, news link clicks, top artworks, browsers. Screenshots verified desktop / JA / mobile
 
 ### Phase 16: Quality pass
 - [ ] 16.1 A11y (keyboard, screen reader, contrast, reduced motion) in both languages
@@ -224,7 +224,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 ## 6. CURRENT FOCUS / NEXT ACTION
 
 - **Done so far:** Phases 1 (except Cloudinary keys), 2, 3, 4 (except gallery seed), 5, 6, 7 (except TwitCasting icon), 8, 9 (v1), 10, 11; admin API (12.2/12.3 API-side). Public site v1 live at https://kotoha-fansite.vercel.app after each push.
-- **Next action (no owner input needed):** finish verifying the admin UI (content save round trip, archive/restore, video lookup/duplicate, JA + mobile screenshots, Owner accounts flow) → commit/push → Phase 15 analytics → Phase 16 quality (CSP/SRI, a11y) → Phase 17.
+- **Next action (no owner input needed):** Phase 16 quality (CSP/SRI headers, a11y pass, Lighthouse, security review) → Phase 17 (pre-launch reset script, docs). Phase 13 gallery testing waits for the Cloudinary keys.
 - **Blocked on owner:** Cloudinary API key/secret still EMPTY in `.env.local` (1.6/1.7, 4.6, Phase 13, gallery testing) · TwitCasting icon download approval (7.3) · real-phone swipe check (3.2).
 - **Workflow:** commit + push after each verified step (every push to `main` deploys production; the site is not announced yet, so that's fine pre-launch). Always run the secret scan before committing (see the command in the session log).
 
@@ -266,6 +266,9 @@ _(none)_
 | 2026-09-26 | Dev server caching | `scripts/dev-server.js` sends `Cache-Control: no-cache` | Stale modules caused a false bug |
 | 2026-09-26 | Login form `method="post" action="/login"` | Without a method, a submit before the script loads would be a native GET that puts the password in the URL (found in testing) | Security |
 | 2026-09-26 | Admin CDN assets never block | Google Fonts + Animate.css are injected by `public/js/admin/styles.js`; Lucide/confetti are `async`, and `refreshIcons()` redraws when Lucide arrives | On a slow network, render-blocking CDN CSS delayed the login script by many seconds (seen in testing) |
+| 2026-09-26 | Analytics rollups without cron | `rollupIfStale()` runs from `/api/track` and the dashboard (memo per instance per day, retry at most every 10 min); upserts make concurrent runs safe | No `CRON_SECRET`/cron config needed; a quiet site simply rolls up on the next visit |
+| 2026-09-26 | Public page CDN resilience | CDN scripts `async` + `librariesReady(6000)` in the loader's tier 1; Google Fonts / Lenis CSS / Animate.css injected by the pre-paint inline script (fonts also in `<noscript>`) | With cdnjs failing and Google Fonts taking 16 s (seen during testing), the site used to stay blank/frozen; now it runs without effects |
+| 2026-09-26 | DB connect retry | `lib/db.js` retries (3×) only `UND_ERR_CONNECT_TIMEOUT` / `ECONNREFUSED` / `ENOTFOUND` / `EAI_AGAIN` — errors where the query never reached Neon | Safe (never runs a statement twice); rescues flaky local networks |
 | 2026-09-26 | Password "guessable" rule | Reject when the password's letters consist **only** of site words (kotoha, hakoniwa, lily, clover, password, …), not when it merely contains one | Blocks "KotohaClover2026!" but allows real passphrases |
 
 ---
@@ -274,7 +277,9 @@ _(none)_
 
 - Neon free tier caps storage at 512 MB → keep the analytics 90-day raw retention + daily rollups; consider pruning `login_attempts` / expired sessions in a scheduled job (Vercel Cron) in Phase 15.
 - CSP header still to be written (Phase 16).
-- Public `index.html` still loads Google Fonts + Animate.css as render-blocking `<link>`s and CDN scripts as `defer` (so `main.js` waits for them). On a slow network the loader's CSS failsafe covers it, but review in Phase 16 (performance) — same approach as the admin (`styles.js`) is an option.
+- Vercel flags `DATABASE_URL` as "readable-secret" (type encrypted, not sensitive). Phase 16: recreate it as a **sensitive** env var (value unchanged).
+- Each tracked visit wakes the Neon compute (free plan: limited compute hours). Fine for a fan site; watch Neon usage after launch.
+- The built-in browser pane reports `visibilityState: hidden` when not shown → rAF/animations pause and the loader never finishes there. Test the public page in headless Edge instead.
 - **Neon free compute sleeps after ~5 min and needs ~10 s to wake** (measured). Mitigated: public API `stale-while-revalidate=86400` at the edge; loader waits max 4 s for home data; client API timeout 15 s. The admin's first request after idle may take ~10 s: show a "waking up" hint in the admin UI.
 
 ---
@@ -301,3 +306,5 @@ _(none)_
 - Admin UI written (login, shell, forced change, dashboard, content CRUD screens, gallery, archive, activity, accounts, my account) + `admin/summary` and `auth/logout-others` endpoints.
 - Headless-Edge test (`admin-ui-test.mjs` in the scratchpad, throwaway `devtest` admin, cleaned up after each run) passed login → forced change → dashboard → news list → add dialog. The save step failed while the owner's network to Neon was dropping (connect timeouts, even google.com timed out); needs a re-run.
 - Fixes from testing: login form POST (no password in the URL), admin CDN assets made non-blocking.
+- Analytics (Phase 15) built and verified; admin UI fully verified once the network recovered (only failure found and fixed: the "Add video" dialog crash). Owner Accounts flow verified with the Owner row restored.
+- Resilience: admin + public pages no longer wait on third-party CDNs; DB connect-retry for flaky networks.
