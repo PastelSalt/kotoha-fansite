@@ -1,0 +1,51 @@
+# Japanese Review List
+
+Japanese text **written by the developer** (not copied from official sources). Please have a native speaker check these. Per the owner's decision, nothing changes until that feedback arrives.
+
+Status legend: ⏳ awaiting review · ✅ reviewed OK · ✏️ changed after review
+
+## 1. Seed news summaries (`db/seed.sql` → `news.summary`)
+
+Headlines are official wording (hakoniwalily.jp / YouTube titles). Only the summaries below are mine.
+
+| Date | Summary | Status |
+|---|---|---|
+| 2026-09-25 | Kotohaの歌ってみた最新作がYouTubeで公開されました。 | ⏳ |
+| 2026-09-24 | HanonとKotohaによるカバー動画がYouTubeで公開されました。 | ⏳ |
+| 2026-09-23 | MIMI様描き下ろし楽曲「透明夜」のMVが公開。Kotoha×MIMI コラボミニアルバム「透明夜」も9月23日(水)からデジタル配信中です。 | ⏳ |
+| 2026-09-15 | 2nd EVENT「Wonder Greeting」のチケット2次先行の申込受付がスタートしました。詳細は公式サイトをチェック！ | ⏳ |
+| 2026-08-27 | 新曲「影響力∞アイドル」がTVアニメのOP主題歌に決定。10月7日にデジタルリリース予定です。 | ⏳ |
+| 2026-08-15 | HoneyWorks feat.ハコニワリリィの2nd EVENT「Wonder Greeting」の開催が決定しました。 | ⏳ |
+| 2026-07-15 | 『ハコリリ夏祭り2026』の会場でCD購入キャンペーンが開催されました。 | ⏳ |
+| 2026-07-03 | ハコニワリリィの「ハニフェス 2026」への出演が決定しました。 | ⏳ |
+| 2026-06-07 | 新曲「オトメノホンキ」がTVアニメのEDテーマに決定。7月8日にデジタルリリースされました。 | ⏳ |
+| 2026-05-25 | 『ハコリリ夏祭り2026』のキービジュアルとチケット情報が公開されました。 | ⏳ |
+
+## 2. Achievements written in the official style (`achievements.text`)
+
+The 27 entries from the official 実績 list are verbatim. These are mine:
+
+| Date | Text | Status |
+|---|---|---|
+| 2026-10-07 | TVアニメ「世界最強の魔女、始めました」OP主題歌「影響力∞アイドル」歌唱担当（HoneyWorks feat.ハコニワリリィ）*(draft until release)* | ⏳ |
+| 2026-09-23 | Kotoha×MIMI コラボミニアルバム「透明夜」デジタルリリース | ⏳ |
+| 2026-07-08 | TVアニメ『乙女怪獣キャラメリゼ』EDテーマ「オトメノホンキ」歌唱担当（HoneyWorks feat.ハコニワリリィ） | ⏳ |
+| 2026-03-11 | ハコニワリリィ 1st ALBUM『フローライト』発売 | ⏳ |
+| 2023-07-08 | VTuberとしてデビュー（AiceClass） | ⏳ |
+
+**Typographic fixes to official text** (brackets only, wording unchanged): 2024-12-20 closing 」→』; 2023-10-23 ｢Four Colors｣ → 「Four Colors」; 2023-06-23 「…｣ → 「…」.
+
+## 3. Discography notes (`discography_items.note`)
+
+| Title | Note | Status |
+|---|---|---|
+| 影響力∞アイドル | HoneyWorks feat.ハコニワリリィ / TVアニメ「世界最強の魔女、始めました」OP主題歌 | ⏳ |
+| 透明夜 | Kotoha×MIMI コラボミニアルバム | ⏳ |
+| オトメノホンキ | HoneyWorks feat.ハコニワリリィ / TVアニメ『乙女怪獣キャラメリゼ』EDテーマ | ⏳ |
+| フローライト | ハコニワリリィ 1st ALBUM | ⏳ |
+| 君の隣は空気が美味しい / 君が灯してくれた光を今 | ハコニワリリィ デジタルシングル | ⏳ |
+| 絶対称賛！ / にんころダンス / 質問、恋って何でしょうか？ / キラキラ | (anime tie-in descriptions, taken from official wording) | ⏳ |
+
+## 4. UI text, headings, About, footer (`public/locales/ja.json`)
+
+_To be added when the locale file is written (Phase 8)._

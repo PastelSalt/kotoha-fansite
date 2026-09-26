@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Kotoha Official Fan Site 🍀 ことのは</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/clover_inner_frame.png">
+
+  <!-- Google Font: Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CDNs requested by user -->
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <!-- Lenis Smooth Scroll -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css">
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Anime.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+  <!-- Howler.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+
+  <!-- Canvas-Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- LOADING SCREEN (Desktop & Mobile) -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-bg-container">
+      <img id="loading-bg-img" src="assets/backgrounds/bg2.jpeg" alt="Kotoha Art" class="loading-bg-art">
+      <div class="loading-overlay"></div>
+    </div>
+    
+    <div class="loading-top-logo mobile-only">
+      <img src="assets/icons/kotoha_logo.png" alt="Kotoha Logo" class="brand-logo pulse-anim">
+    </div>
+
+    <div class="loading-content">
+      <div class="loading-clover-wrap">
+        <img src="assets/clover_inner_frame.png" alt="Clover" class="loading-clover spin-anim">
+      </div>
+      <div class="loading-status-text">Loading...</div>
+      
+      <div class="loading-progress-container">
+        <div class="loading-progress-bar" id="loading-progress-bar"></div>
+      </div>
+      <div class="loading-detail-text" id="loading-detail-text">Calibrating screen resolution...</div>
+
+      <div class="loading-author-credit">
+        <img src="assets/icons/moesoft_logo.png" alt="Moesoft" class="moesoft-mini-logo">
+        <p>This is a fan-project made by: <strong>Moeko Software and Technologies</strong></p>
+      </div>
+    </div>
+
+    <div class="loading-desktop-logo desktop-only">
+      <img src="assets/icons/kotoha_logo.png" alt="Kotoha Logo" class="brand-logo pulse-anim">
+    </div>
+  </div>
+
+  <!-- PERSISTENT TOP NAVIGATION (Desktop & Mobile) -->
+  <header class="main-header" id="main-header">
+    <div class="header-inner">
+      <!-- Left Logo -->
+      <a href="#home" class="logo-link" data-target="0">
+        <img src="assets/icons/kotoha_logo.png" alt="Kotoha Logo" class="header-logo">
+      </a>
+
+      <!-- Desktop Nav & Socials -->
+      <div class="header-right-desktop desktop-only">
+        <nav class="nav-links">
+          <a href="#home" class="nav-item active" data-target="0">home</a>
+          <a href="#about" class="nav-item" data-target="1">about</a>
+          <a href="#news" class="nav-item" data-target="2">news</a>
+          <a href="#discography" class="nav-item" data-target="3">discography</a>
+          <a href="#gallery" class="nav-item" data-target="4">gallery</a>
+        </nav>
+
+        <div class="social-bar">
+          <a href="https://x.com/kotoha_ktnh" target="_blank" rel="noopener noreferrer" class="social-pill" title="X / Twitter @kotoha_ktnh">
+            <img src="assets/icons/twitter.png" alt="X">
+            <span>@kotoha_ktnh</span>
+          </a>
+          <a href="https://youtube.com/@Kotoha_ktnh" target="_blank" rel="noopener noreferrer" class="social-pill" title="YouTube @Kotoha_ktnh">
+            <img src="assets/icons/youtube.png" alt="YouTube">
+            <span>@Kotoha_ktnh</span>
+          </a>
+          <a href="https://twitch.tv/kotoha_hkll" target="_blank" rel="noopener noreferrer" class="social-pill" title="Twitch @kotoha_hkll">
+            <img src="assets/icons/twitch.png" alt="Twitch">
+            <span>@kotoha_hkll</span>
+          </a>
+          <a href="https://moesoft.tech" target="_blank" rel="noopener noreferrer" class="social-pill moesoft-pill" title="Moesoft Fan Club">
+            <div class="mascot-avatar-small">
+              <img src="assets/model/kotoha_mascot_fullbody_modelsheet.png" alt="Mascot">
+            </div>
+            <span>@kotoha_ktnh</span>
+          </a>
+          <button id="sound-toggle-btn" class="sound-toggle-btn" title="Toggle Sound">
+            <i data-lucide="volume-2" id="sound-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="header-right-mobile mobile-only">
+        <button id="sound-toggle-mobile" class="sound-toggle-btn" title="Toggle Sound">
+          <i data-lucide="volume-2" id="sound-icon-mobile"></i>
+        </button>
+        <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open menu">
+          <img src="assets/clover_inner_frame.png" alt="Clover" class="menu-clover-icon">
+          <span>menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE FULLSCREEN MENU DRAWER -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div class="mobile-drawer-bg" style="background-image: url('assets/backgrounds/bg1.jpeg');"></div>
+    <div class="mobile-drawer-overlay"></div>
+    
+    <div class="mobile-drawer-header">
+      <div class="mobile-drawer-socials">
+        <a href="https://x.com/kotoha_ktnh" target="_blank" rel="noopener noreferrer" class="m-social-link">
+          <span>@kotoha_ktnh</span>
+          <img src="assets/icons/twitter.png" alt="X">
+        </a>
+        <a href="https://youtube.com/@Kotoha_ktnh" target="_blank" rel="noopener noreferrer" class="m-social-link">
+          <span>@Kotoha_ktnh</span>
+          <img src="assets/icons/youtube.png" alt="YouTube">
+        </a>
+        <a href="https://twitch.tv/kotoha_hkll" target="_blank" rel="noopener noreferrer" class="m-social-link">
+          <span>@kotoha_hkll</span>
+          <img src="assets/icons/twitch.png" alt="Twitch">
+        </a>
+        <a href="https://moesoft.tech" target="_blank" rel="noopener noreferrer" class="m-social-link">
+          <span>@kotoha_ktnh</span>
+          <div class="m-mascot-icon">
+            <img src="assets/model/kotoha_mascot_fullbody_modelsheet.png" alt="Mascot">
+          </div>
+        </a>
+      </div>
+      <button id="mobile-drawer-close" class="mobile-drawer-close" aria-label="Close menu">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <div class="mobile-drawer-body">
+      <div class="mobile-drawer-logo">
+        <img src="assets/icons/kotoha_logo.png" alt="Kotoha Logo">
+      </div>
+
+      <nav class="mobile-nav-list">
+        <a href="#home" class="m-nav-link active" data-target="0">home</a>
+        <a href="#about" class="m-nav-link" data-target="1">about</a>
+        <a href="#news" class="m-nav-link" data-target="2">news</a>
+        <a href="#discography" class="m-nav-link" data-target="3">discography</a>
+        <a href="#gallery" class="m-nav-link" data-target="4">gallery</a>
+      </nav>
+    </div>
+
+    <div class="mobile-drawer-footer">
+      <img src="assets/icons/moesoft_logo.png" alt="Moesoft" class="drawer-moesoft-logo">
+      <p>This is a fan-project made by:<br>Moeko Software and Technologies</p>
+    </div>
+  </div>
+
+  <!-- SIDE PAGINATION DOTS (Desktop) -->
+  <aside class="side-dots desktop-only" id="side-dots">
+    <button class="dot-btn active" data-target="0" title="Home"></button>
+    <button class="dot-btn" data-target="1" title="About"></button>
+    <button class="dot-btn" data-target="2" title="News"></button>
+    <button class="dot-btn" data-target="3" title="Discography"></button>
+    <button class="dot-btn" data-target="4" title="Gallery"></button>
+  </aside>
+
+  <!-- MAIN SCROLL SNAP CONTAINER -->
+  <main class="snap-container" id="snap-container">
+
+    <!-- ==============================================
+         SECTION 1: HOME
+         ============================================== -->
+    <section class="page-section section-home" id="home" data-index="0">
+      <div class="section-bg-layer" style="background-image: url('assets/backgrounds/home_bg.jpeg');"></div>
+      
+      <div class="section-container home-layout">
+        <!-- Left Column -->
+        <div class="home-left">
+          <!-- Regular Stream Countdown Box -->
+          <div class="dashed-card stream-schedule-card animate__animated animate__fadeInLeft">
+            <div class="stream-card-header">
+              <span class="stream-title">Regular Stream:</span>
+              <div class="countdown-digits" id="stream-countdown">
+                <span id="cd-days">01</span>
+                <span class="cd-colon">:</span>
+                <span id="cd-hours">01</span>
+                <span class="cd-colon">:</span>
+                <span id="cd-mins">01</span>
+                <span class="cd-colon">:</span>
+                <span id="cd-secs">01</span>
+              </div>
+            </div>
+            <div class="stream-subtext">Tuesdays &amp; Fridays around 21:00 JST (#ことらじ on TwitCasting &amp; Twitch)</div>
+          </div>
+
+          <!-- Latest Work Title -->
+          <h2 class="section-sticker-title green-sticker">latest work of Kotoha:</h2>
+
+          <!-- Latest Work Video Card -->
+          <div class="dashed-card video-showcase-card animate__animated animate__fadeInLeft">
+            <div class="video-card-header">
+              <span class="video-badge-pill">Video 1</span>
+              <span class="video-label-bold">Most latest</span>
+              <span class="video-sublabel">(YT Player)</span>
+            </div>
+            <div class="video-wrapper">
+              <iframe id="home-yt-player" 
+                      src="https://www.youtube-nocookie.com/embed/aDWAXtpNR2U?enablejsapi=1&rel=0" 
+                      title="Kotoha - 絶対称賛！" 
+                      frameborder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                      allowfullscreen></iframe>
+            </div>
+            <div class="video-caption">
+              <strong>「絶対称賛！」</strong> (Zettai Shousan!) - Kotoha Solo Ver. [MV]
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="home-right">
+          <!-- Latest About Title -->
+          <h2 class="section-sticker-title green-sticker">latest about Kotoha:</h2>
+
+          <!-- News Card 1 -->
+          <div class="dashed-card info-news-card animate__animated animate__fadeInRight">
+            <h3 class="card-news-title">TV Anime 『笑顔のたえない職場です。』 OP Theme "絶対称賛！"</h3>
+            <p class="card-news-body">
+              Kotoha performs the opening theme song 「絶対称賛！」 (Zettai Shousan!) for the TV anime <em>Egao no Taenai Shokuba desu</em>. Full MV and audio streaming are now available across YouTube, Apple Music, and Spotify!
+            </p>
+            <div class="card-tags">
+              <span class="tag-pill">Anime Tie-in</span>
+              <span class="tag-pill">New MV</span>
+            </div>
+          </div>
+
+          <!-- News Card 2 -->
+          <div class="dashed-card info-news-card animate__animated animate__fadeInRight animate__delay-1s">
+            <h3 class="card-news-title">1st Album 『フローライト (Fluorite)』 Release Announced!</h3>
+            <p class="card-news-body">
+              HaKoniwalily (Hanon × Kotoha) releases their commemorative 1st full album 『フローライト』 on March 11, 2026, under Pony Canyon, featuring anime tie-in hits and brand-new original tracks!
+            </p>
+            <div class="card-tags">
+              <span class="tag-pill">1st Album</span>
+              <span class="tag-pill">HaKoniwalily</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Scroll For More Indicator -->
+      <a href="#about" class="scroll-more-btn" data-target="1">
+        <span>scroll for more!</span>
+        <svg class="chevron-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </a>
+
+      <!-- Bottom Gingham / Scalloped Section Divider -->
+      <div class="section-bottom-divider"></div>
+      
+      <!-- Mobile Bottom Lavender Bar -->
+      <div class="mobile-bottom-bar mobile-only">
+        <span>• Kotoha •</span>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         SECTION 2: ABOUT
+         ============================================== -->
+    <section class="page-section section-about" id="about" data-index="1">
+      <!-- Top Scalloped Awning -->
+      <div class="section-top-awning"></div>
+      
+      <div class="section-bg-layer" style="background-image: url('assets/backgrounds/about_bg.png');"></div>
+
+      <div class="section-container about-layout">
+        <!-- Top Section Banner Title -->
+        <div class="section-banner-wrap">
+          <h1 class="banner-title green-banner">About Kotoha</h1>
+        </div>
+
+        <div class="about-grid-revision">
+          <!-- Left Column: Avatar & Bio Paragraphs -->
+          <div class="about-left-bio">
+            <div class="about-avatar-wrap">
+              <div class="dotted-avatar-circle">
+                <img src="assets/icons/kotoha_profile_picture_square.jpg" alt="Kotoha Profile" class="avatar-img">
+              </div>
+            </div>
+
+            <div class="about-paragraphs">
+              <p>
+                Kotoha is a bright, playful vocalist and VTuber affiliated with <strong>AiceClass</strong> and <strong>HoneyWorks</strong>. Vocalist of duo unit <strong>HaKoniwalily</strong> alongside Hanon, she touches millions of listeners with her gentle harmonies and covers.
+              </p>
+              <p>
+                She's also an avid gamer (<strong>VALORANT Diamond rank!</strong>) who welcomes everyone with warm streams every Tuesday and Friday at 21:00 JST.
+              </p>
+            </div>
+          </div>
+
+          <!-- Right Column: Big Dashed Green Frame (Name, 5 Detail Capsules & Pose) -->
+          <div class="dashed-card about-details-frame">
+            <!-- Top Box: Name: Kotoha -->
+            <div class="about-name-box">
+              <h2 class="about-name-title">Name: Kotoha</h2>
+            </div>
+
+            <div class="about-details-body">
+              <!-- 5 Stacked Detail Pill Capsules -->
+              <div class="about-pills-col">
+                <div class="about-pill-box">
+                  <span class="pill-badge">🎂 Birthday</span>
+                  <span class="pill-text">June 10 (Gemini) • Height: 152 cm (5′0″) • Hometown: Chiba</span>
+                </div>
+                <div class="about-pill-box">
+                  <span class="pill-badge">🍀 Fan Info</span>
+                  <span class="pill-text">ことリス (Kotorisu) • Oshi Mark: 🍀 (not 🥦)</span>
+                </div>
+                <div class="about-pill-box">
+                  <span class="pill-badge">🌸 Unit &amp; Agency</span>
+                  <span class="pill-text">HaKoniwalily (with Hanon) • AiceClass (HoneyWorks)</span>
+                </div>
+                <div class="about-pill-box">
+                  <span class="pill-badge">🎮 Favorite Games</span>
+                  <span class="pill-text">VALORANT (Diamond Rank 💎), Apex, Honkai: Star Rail</span>
+                </div>
+                <div class="about-pill-box">
+                  <span class="pill-badge">🥞 Foods &amp; Stream</span>
+                  <span class="pill-text">Pancakes &amp; Takoyaki • Tue &amp; Fri ~21:00 JST (#ことらじ)</span>
+                </div>
+              </div>
+
+              <!-- Clover Frame & Character Pose -->
+              <div class="about-character-stage">
+                <div class="clover-character-stage" id="clover-stage">
+                  <img src="assets/clover_inner_frame.png" alt="Clover Frame" class="clover-frame-svg">
+                  <img src="assets/model/kotoha_pose1_fullbody.png" alt="Kotoha Fullbody" class="kotoha-pose-img" id="kotoha-interactive-pose">
+                  
+                  <!-- Floating Sparkles -->
+                  <div class="sparkle s1">✨</div>
+                  <div class="sparkle s2">🌸</div>
+                  <div class="sparkle s3">🍀</div>
+                </div>
+                <div class="interactive-hint">Tap Kotoha for sweet surprises! 💖</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Scroll Indicator -->
+      <a href="#news" class="scroll-more-btn" data-target="2">
+        <span>scroll for more!</span>
+        <svg class="chevron-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </a>
+    </section>
+
+    <!-- ==============================================
+         SECTION 3: NEWS
+         ============================================== -->
+    <section class="page-section section-news" id="news" data-index="2">
+      <div class="section-bg-layer" style="background-image: url('assets/backgrounds/news_bg.jpeg');"></div>
+
+      <div class="section-container news-layout">
+        <!-- Left Side: News List -->
+        <div class="news-left-col">
+          <div class="section-banner-wrap">
+            <h1 class="banner-title green-banner">News on Kotoha</h1>
+          </div>
+
+          <div class="news-cards-scrollable" id="news-list">
+            <!-- News Item 1 -->
+            <article class="dashed-card news-item-card">
+              <span class="news-date-badge">2025.10.15</span>
+              <h3 class="news-item-title">TV Anime 『笑顔のたえない職場です。』 OP Theme "絶対称賛！"</h3>
+              <p class="news-item-excerpt">
+                Kotoha performs the opening theme song 「絶対称賛！」 (Zettai Shousan!) for the TV anime <em>Egao no Taenai Shokuba desu</em>. Full MV and audio streaming are now available across YouTube, Apple Music, and Spotify!
+              </p>
+              <a href="https://www.youtube.com/watch?v=aDWAXtpNR2U" target="_blank" rel="noopener noreferrer" class="news-item-link">
+                <span>Watch MV on YouTube</span> &rarr;
+              </a>
+            </article>
+
+            <!-- News Item 2 -->
+            <article class="dashed-card news-item-card">
+              <span class="news-date-badge">2025.08.20</span>
+              <h3 class="news-item-title">HaKoniwalily Special Live Tour &amp; Duo Anniversary</h3>
+              <p class="news-item-excerpt">
+                Hanon &amp; Kotoha celebrate duo milestones with special stage performances, new limited official goods, and a live broadcast event on YouTube!
+              </p>
+              <a href="https://hakoniwalily.jp" target="_blank" rel="noopener noreferrer" class="news-item-link">
+                <span>Read Official Announcement</span> &rarr;
+              </a>
+            </article>
+
+            <!-- News Item 3 -->
+            <article class="dashed-card news-item-card">
+              <span class="news-date-badge">2025.06.10</span>
+              <h3 class="news-item-title">Birthday 2026 Celebration Stream &amp; Original Commemorative Goods</h3>
+              <p class="news-item-excerpt">
+                Kotoha's birthday celebration stream with special song covers, birthday call-ins, and anniversary merchandise releases including Koto-chan mascot plushies!
+              </p>
+              <a href="https://x.com/kotoha_ktnh" target="_blank" rel="noopener noreferrer" class="news-item-link">
+                <span>View Merchandise Details</span> &rarr;
+              </a>
+            </article>
+          </div>
+        </div>
+
+        <!-- Center: Kotoha Heart Hands is visible through transparent backdrop! -->
+
+        <!-- Right Side: Latest Works & Video Switcher -->
+        <div class="news-right-col">
+          <h2 class="section-sticker-title green-sticker">Latest works of Kotoha:</h2>
+
+          <!-- Main Player Box -->
+          <div class="dashed-card news-player-card">
+            <div class="player-header">
+              <span class="player-now-playing" id="news-player-label">Video 1: 絶対称賛！</span>
+              <span class="player-badge">Now Playing</span>
+            </div>
+            <div class="video-wrapper">
+              <iframe id="news-yt-player" 
+                      src="https://www.youtube-nocookie.com/embed/aDWAXtpNR2U?enablejsapi=1&rel=0" 
+                      title="Kotoha Video Player" 
+                      frameborder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                      allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <!-- Video Playlist Selectors -->
+          <div class="video-switcher-list">
+            <!-- Video 1 Button -->
+            <button class="dashed-card video-link-btn active" data-vid="aDWAXtpNR2U" data-title="Video 1: 絶対称賛！ (Zettai Shousan!)">
+              <div class="v-link-icon">▶</div>
+              <div class="v-link-info">
+                <strong>Video 1: 絶対称賛！</strong>
+                <span>Kotoha Solo Ver. (TV Anime OP)</span>
+              </div>
+            </button>
+
+            <!-- Video 2 Button -->
+            <button class="dashed-card video-link-btn" data-vid="K4xLi8IF1FM" data-title="Video 2: 可愛くてごめん (Kotoha Ver.)">
+              <div class="v-link-icon">▶</div>
+              <div class="v-link-info">
+                <strong>Video 2: 可愛くてごめん</strong>
+                <span>HoneyWorks (Kotoha Ver.)</span>
+              </div>
+            </button>
+
+            <!-- Video 3 Button -->
+            <button class="dashed-card video-link-btn" data-vid="lzyDD8bMDKs" data-title="Video 3: ファンサ (Kotoha Ver.)">
+              <div class="v-link-icon">▶</div>
+              <div class="v-link-info">
+                <strong>Video 3: ファンサ</strong>
+                <span>HoneyWorks (Kotoha Ver.)</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Scroll Indicator -->
+      <a href="#discography" class="scroll-more-btn" data-target="3">
+        <span>scroll for more!</span>
+        <svg class="chevron-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </a>
+    </section>
+
+    <!-- ==============================================
+         SECTION 4: DISCOGRAPHY & ACHIEVEMENTS
+         ============================================== -->
+    <section class="page-section section-discography" id="discography" data-index="3">
+      <div class="section-bg-layer" style="background-image: url('assets/backgrounds/discography_bg.jpeg');"></div>
+
+      <div class="section-container disco-layout">
+        <!-- Left Column: Discography Tracks -->
+        <div class="disco-left-col">
+          <div class="section-banner-wrap">
+            <h1 class="banner-title green-banner">Discography</h1>
+          </div>
+
+          <div class="disco-cards-scrollable" id="disco-list">
+            <!-- Album 1 -->
+            <div class="dashed-card disco-item-card">
+              <div class="disco-item-art">
+                <img src="assets/backgrounds/news_bg.jpeg" alt="絶対称賛！ Cover">
+                <button class="sample-play-btn" data-audio="sample1" title="Play Melody Sample">
+                  <i data-lucide="play" class="play-icon"></i>
+                </button>
+              </div>
+              <div class="disco-item-info">
+                <span class="disco-type-badge">Single • 2025</span>
+                <h3 class="disco-track-title">絶対称賛！ (Zettai Shousan!)</h3>
+                <p class="disco-track-artist">HoneyWorks feat. ハコニワリリィ (Kotoha solo ver.)</p>
+                <p class="disco-track-desc">TV Anime 『笑顔のたえない職場です。』 Opening Theme</p>
+                <div class="disco-links">
+                  <a href="https://www.youtube.com/watch?v=aDWAXtpNR2U" target="_blank" rel="noopener noreferrer" class="stream-link">YouTube</a>
+                  <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="stream-link">Spotify</a>
+                  <a href="https://music.apple.com" target="_blank" rel="noopener noreferrer" class="stream-link">Apple Music</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Album 2 -->
+            <div class="dashed-card disco-item-card">
+              <div class="disco-item-art">
+                <img src="assets/backgrounds/bg3.jpeg" alt="可愛くてごめん Cover">
+                <button class="sample-play-btn" data-audio="sample2" title="Play Melody Sample">
+                  <i data-lucide="play" class="play-icon"></i>
+                </button>
+              </div>
+              <div class="disco-item-info">
+                <span class="disco-type-badge">Digital Cover • 2023</span>
+                <h3 class="disco-track-title">可愛くてごめん (Kawaikute Gomen)</h3>
+                <p class="disco-track-artist">HoneyWorks • Kotoha Solo Ver.</p>
+                <p class="disco-track-desc">Viral sensation cover with over 15 Million streams</p>
+                <div class="disco-links">
+                  <a href="https://www.youtube.com/watch?v=K4xLi8IF1FM" target="_blank" rel="noopener noreferrer" class="stream-link">YouTube</a>
+                  <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="stream-link">Spotify</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Album 3 -->
+            <div class="dashed-card disco-item-card">
+              <div class="disco-item-art">
+                <img src="assets/backgrounds/discography_bg.jpeg" alt="Lily's Garden Cover">
+                <button class="sample-play-btn" data-audio="sample3" title="Play Melody Sample">
+                  <i data-lucide="play" class="play-icon"></i>
+                </button>
+              </div>
+              <div class="disco-item-info">
+                <span class="disco-type-badge">Major 1st Album • SACRA MUSIC</span>
+                <h3 class="disco-track-title">ハコニワリリィ - Lily's Garden</h3>
+                <p class="disco-track-artist">HaKoniwalily (Hanon × Kotoha)</p>
+                <p class="disco-track-desc">Sony Music debut album featuring hit anime songs</p>
+                <div class="disco-links">
+                  <a href="https://hakoniwalily.jp" target="_blank" rel="noopener noreferrer" class="stream-link">Discography Info</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Achievements -->
+        <div class="disco-right-col">
+          <div class="section-banner-wrap">
+            <h1 class="banner-title green-banner">Achievements</h1>
+          </div>
+
+          <div class="dashed-card achievements-card">
+            <div class="achieve-list">
+              <div class="achieve-item">
+                <div class="achieve-icon">🏆</div>
+                <div class="achieve-text">
+                  <strong>500,000+ YouTube Subscribers</strong>
+                  <span>Loved by hundreds of thousands of fans worldwide</span>
+                </div>
+              </div>
+
+              <div class="achieve-item">
+                <div class="achieve-icon">🌟</div>
+                <div class="achieve-text">
+                  <strong>Sony Music (SACRA MUSIC) Major Debut</strong>
+                  <span>Official debut unit vocalist as HaKoniwalily</span>
+                </div>
+              </div>
+
+              <div class="achieve-item">
+                <div class="achieve-icon">📺</div>
+                <div class="achieve-text">
+                  <strong>Multiple TV Anime Theme Songs</strong>
+                  <span>Theme song vocalist for TV Anime 『笑顔のたえない職場です。』 &amp; more</span>
+                </div>
+              </div>
+
+              <div class="achieve-item">
+                <div class="achieve-icon">🎧</div>
+                <div class="achieve-text">
+                  <strong>100,000,000+ Total YouTube Plays</strong>
+                  <span>Massive streaming audience across covers &amp; originals</span>
+                </div>
+              </div>
+
+              <div class="achieve-item">
+                <div class="achieve-icon">🎮</div>
+                <div class="achieve-text">
+                  <strong>VALORANT Diamond Rank VTuber</strong>
+                  <span>High-skill tactical gaming talent with regular live streams</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Confetti Celebration Button -->
+            <button id="celebrate-btn" class="celebrate-action-btn">
+              <span>Celebrate with Kotoha!</span> 🎉
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Scroll Indicator -->
+      <a href="#gallery" class="scroll-more-btn" data-target="4">
+        <span>scroll for more!</span>
+        <svg class="chevron-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </a>
+    </section>
+
+    <!-- ==============================================
+         SECTION 5: GALLERY
+         ============================================== -->
+    <section class="page-section section-gallery" id="gallery" data-index="4">
+      <div class="section-bg-layer" style="background-image: url('assets/backgrounds/gallery_bg.jpeg');"></div>
+
+      <div class="section-container gallery-layout">
+        <!-- Title Banner -->
+        <div class="section-banner-wrap center-banner">
+          <h1 class="banner-title green-banner">Gallery</h1>
+        </div>
+
+        <!-- Gallery Showcase Frame -->
+        <div class="dashed-card gallery-main-frame">
+          <div class="gallery-controls">
+            <span class="gallery-subtitle">Click any image to view HD artwork &amp; character model sheets</span>
+            <div class="gallery-filter-chips">
+              <button class="filter-chip active" data-filter="all">All</button>
+              <button class="filter-chip" data-filter="character">Character &amp; 3D</button>
+              <button class="filter-chip" data-filter="illustration">Illustrations</button>
+            </div>
+          </div>
+
+          <!-- Gallery Grid -->
+          <div class="gallery-grid" id="gallery-grid">
+            <!-- 1: Pose 1 Fullbody -->
+            <div class="gallery-card" data-category="character" data-src="assets/model/kotoha_pose1_fullbody.png" data-title="Kotoha Idol Stage Costume" data-desc="Official idol stage outfit with clover ribbons and beret.">
+              <div class="gallery-img-wrap">
+                <img src="assets/model/kotoha_pose1_fullbody.png" alt="Kotoha Idol Costume" loading="lazy">
+              </div>
+              <div class="gallery-card-badge">Idol Costume</div>
+            </div>
+
+            <!-- 2: Live2D Model Front -->
+            <div class="gallery-card" data-category="character" data-src="assets/model/kotoha_fullbody_model_front_only.png" data-title="Live2D Front Model" data-desc="Official Live2D VTuber model design for streaming.">
+              <div class="gallery-img-wrap">
+                <img src="assets/model/kotoha_fullbody_model_front_only.png" alt="Kotoha Live2D Model" loading="lazy">
+              </div>
+              <div class="gallery-card-badge">Live2D Front</div>
+            </div>
+
+            <!-- 3: Fullbody 3-View Sheet -->
+            <div class="gallery-card" data-category="character" data-src="assets/model/kotoha_fullbody_modelsheet.png" data-title="Character 3-View Setting Sheet" data-desc="Official design sheet showing front, side, and back views.">
+              <div class="gallery-img-wrap">
+                <img src="assets/model/kotoha_fullbody_modelsheet.png" alt="Kotoha Character Sheet" loading="lazy">
+              </div>
+              <div class="gallery-card-badge">Setting Sheet</div>
+            </div>
+
+            <!-- 4: Mascot Modelsheet -->
+            <div class="gallery-card" data-category="character" data-src="assets/model/kotoha_mascot_fullbody_modelsheet.png" data-title="Koto-chan Mascot Sheet" data-desc="Official seal mascot wearing a gentleman top hat and bowtie.">
+              <div class="gallery-img-wrap">
+                <img src="assets/model/kotoha_mascot_fullbody_modelsheet.png" alt="Koto-chan Mascot Sheet" loading="lazy">
+              </div>
+              <div class="gallery-card-badge">Mascot Sheet</div>
+            </div>
+
+            <!-- 5: Pajama Party Visual -->
+            <div class="gallery-card" data-category="illustration" data-src="assets/backgrounds/bg1.jpeg" data-title="Pajama Party Birthday Artwork" data-desc="Celebration key visual with sleeping mask and plushie.">
+              <div class="gallery-img-wrap">
+                <img src="assets/backgrounds/bg1.jpeg" alt="Pajama Party Artwork" loading="lazy">
+              </div>
+              <div class="gallery-card-badge">Pajama Party</div>
+            </div>
+
+            <!-- 6: Birthday 2026 Celebration -->
+            <div class="gallery-card" data-category="illustration" data-src="assets/backgrounds/bg2.jpeg" data-title="Happy Birthday 2026.06.10" data-desc="Celebratory anniversary illustration with clover ribbons.">
+              <div class="gallery-img-wrap">
+                <img src="assets/backgrounds/bg2.jpeg" alt="Happy Birthday 2026" loading="lazy">
+              </div>
+              <div class="gallery-card-badge">Birthday Art</div>
+            </div>
+
+            <!-- 7: Casual Twintails Style -->
+            <div class="gallery-card" data-category="illustration" data-src="assets/backgrounds/bg3.jpeg" data-title="Twintails Green Cardigan Style" data-desc="Charming green sweater &amp; twintails look with cosmetic accessories.">
+              <div class="gallery-img-wrap">
+                <img src="assets/backgrounds/bg3.jpeg" alt="Casual Twintails Style" loading="lazy">
+              </div>
+              <div class="gallery-card-badge">Twintails Look</div>
+            </div>
+
+            <!-- 8: Heart Hands Pose -->
+            <div class="gallery-card" data-category="illustration" data-src="assets/backgrounds/news_bg.jpeg" data-title="Heart Hands Kotoha" data-desc="Special visual with sparkling eyes and sweet heart pose.">
+              <div class="gallery-img-wrap">
+                <img src="assets/backgrounds/news_bg.jpeg" alt="Heart Hands Kotoha" loading="lazy">
+              </div>
+              <div class="gallery-card-badge">Heart Pose</div>
+            </div>
+
+            <!-- 9: Cafe Date with Hanon -->
+            <div class="gallery-card" data-category="illustration" data-src="assets/backgrounds/discography_bg.jpeg" data-title="HaKoniwalily Cafe Date" data-desc="Kotoha &amp; Hanon enjoying sweet matcha &amp; strawberry parfaits together.">
+              <div class="gallery-img-wrap">
+                <img src="assets/backgrounds/discography_bg.jpeg" alt="HaKoniwalily Cafe Date" loading="lazy">
+              </div>
+              <div class="gallery-card-badge">HaKoniwalily</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Credits -->
+        <footer class="fansite-footer">
+          <img src="assets/icons/moesoft_logo.png" alt="Moesoft Logo" class="footer-logo">
+          <p class="footer-text">
+            This is an unofficial fan-project lovingly crafted for Kotoha (ことのは) by <strong>Moeko Software and Technologies</strong>.
+            All character copyrights belong to &copy; AiceClass / HoneyWorks / SACRA MUSIC.
+          </p>
+          <div class="footer-top-btn" id="back-to-top" title="Back to Top">
+            🍀 Back to Top
+          </div>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LIGHTBOX MODAL FOR GALLERY -->
+  <div id="gallery-modal" class="gallery-modal" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content-wrap">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="modal-image-container">
+        <img id="modal-img" src="" alt="Artwork Fullview">
+      </div>
+      <div class="modal-details">
+        <h3 id="modal-title">Artwork Title</h3>
+        <p id="modal-desc">Artwork Description</p>
+        <div class="modal-actions">
+          <a id="modal-download-btn" href="#" download class="modal-btn">
+            <i data-lucide="download"></i>
+            <span>View Full Image</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

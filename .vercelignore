@@ -1,0 +1,10 @@
+# Only public/, api/, lib/, middleware.js, package*.json and vercel.json are needed at runtime.
+previous_failed_attempt_v1_only_for_around_30-40%_of_intended
+references
+docs
+assets
+scripts
+db
+README.md
+.env*
+!.env.example

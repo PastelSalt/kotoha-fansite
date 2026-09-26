@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Secrets — never commit (only .env.example is tracked)
+.env
+.env.*
+!.env.example
+
+# Vercel local state
+.vercel/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+npm-debug.log*
+
+# Local scratch output
+/tmp/
+/.cache/
