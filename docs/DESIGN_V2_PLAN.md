@@ -2,10 +2,10 @@
 
 | | |
 |---|---|
-| **Status** | **Draft v0.2.1 — round 1 answered + clarified; round 2.1 questions open (§12). NO CODE on this branch until the owner approves.** |
+| **Status** | **Draft v0.2.2 — round 1 answered + clarified; loader requirements added; consolidated round 2.2 questions open (§12). NO CODE on this branch until the owner approves.** |
 | **Branch** | `designupdatev2` (created from `main` @ `eef577f`) |
 | **Scope** | How the public site looks and moves. Content, database, API, admin panel, analytics, i18n and security stay as they are |
-| **Clarity** | **87%** (v0.2: 84%) — the site stays a proper website; open points are *how much* motion (§12) |
+| **Clarity** | **88%** (v0.2.1: 87%) — loader requirements are now explicit; open points are *how much* motion and the loader details (§12) |
 | **Technical confidence** | **91%** (v0.2: 88%) — no WebGL recommended any more; everything is standard GSAP/CSS |
 | **Resume file** | This file (§14 has the checklist). `docs/PROGRESS.md` on `main` stays the source of truth for everything that is not design |
 
@@ -35,6 +35,13 @@
 ### Clarification (2026-09-26, before round 2)
 
 > "MV-like only for the **movements** (animations and transitions) — it's still a **proper website**. Also make the page **more alive**: subtle animations/transitions when the user **scrolls up and down**."
+
+### Loader notes (2026-09-26, before round 2)
+
+> "The **2 overlapping clovers** are meant to **rotate indefinitely as long as the loading page is in view** — the clover is the simulated loading indicator." · "Improve the loading screen the way you want."
+
+- **v1 miss acknowledged:** the live loader's two clovers (white-filled clover + outlined clover) are currently **static**. Rotation is now a hard requirement (§7.4a). A quick fix on `main` is offered in Q L4.
+- The loader redesign is delegated to Claude → proposal in §7.4a.
 
 So the v0.2 idea of "the page *is* a music video" (opening title card, "Thanks for watching" end card, giant drifting words) is **dropped as the default**. The site is a normal website with normal sections and a normal footer; the **quality of movement** is what borrows from anime MVs, and the page reacts **gently to scrolling in both directions**.
 
@@ -196,13 +203,39 @@ During the glide to the next section: a short clean transition in the next secti
 
 ### 7.4 Moments & micro-interactions
 
-- **Loader:** clover draws its outline and fills **with real loading progress**; exit = clover "iris" opening onto Home, then Home content arrives in rhythm (no separate title card unless Q2 = yes).
+- **Loader:** see §7.4a.
 - **Hover / tap:** buttons squish; cards lift (desktop: tiny tilt toward the cursor); latest-video polaroid gets a shine sweep + play-button pop; gallery tiles lift and the credit slides up; JP/EN highlight slides.
 - **Gallery → lightbox:** the tapped artwork grows from its tile into the viewer (and back).
 - **Mobile menu:** opens as a circle growing from the menu button; links drop in one by one.
 - **Cursor sparkle trail** (desktop, subtle).
 - **Ambient:** a few floating clovers, soft light glows (very slow, pause off-screen).
 - **Special days** (June 10, July 8 JST): confetti (kept) + small themed decorations.
+
+### 7.4a Loader v2 (requirement + proposal)
+
+**Requirement (owner):** the **two overlapping clovers rotate continuously for as long as the loading screen is visible** — they are the loading indicator.
+
+**Composition** — kept from your references, polished:
+
+| | Desktop (your loadingscreen 1–3) | Phone (your mobile loading) |
+|---|---|---|
+| Artwork | one of the 3 loader artworks at random, full-screen | same, portrait crop |
+| Logo | bottom-left, as a sticker | top |
+| Spinner + "Loading…" | right-middle | centre |
+| Moesoft line | bottom ("This is a fan-project made by: Moeko Software and Technologies") | bottom |
+| Credit label | **removed** (art credited in the gallery + footer) | removed |
+| Legibility | soft pink gradient at the bottom behind the text | same |
+
+**Motion timeline**
+
+| Phase | What happens |
+|---|---|
+| **Enter** (≈0.5 s) | pink veil lifts off the artwork; logo pops in as a sticker; the clover pair scales in |
+| **Loading loop** (until ready, min 3 s as agreed) | **outer clover rotates clockwise (~1 turn / 4 s), inner clover counter-clockwise (~1 turn / 2.5 s)** + a soft "breathing" pulse on the beat · the inner clover's **4 petals fill with green one by one as assets load** (25% each — real progress) · "Loading…" letters bounce in a gentle wave (JA 「ロード中…」 per character) · artwork slowly pushes in (1.00 → 1.06) · a few tiny clovers/sparkles float up · optional **"Did you know?"** line with a real fact from the About info (fan name ことリス, fan mark 🍀, birthday June 10, stream days…) — Q L3 |
+| **Ready → exit** (≈0.9 s) | clovers do one quick fast spin ("whoosh"), then the white clover **grows into a circular iris that opens onto Home**; logo and text slide away; Home content arrives in rhythm |
+| **Calm mode** (reduced motion) | clovers keep rotating (it's the loading indicator) but slower; no push-in, particles or wave; simple fade exit |
+
+Unchanged: tiers (min 3 s / soft 6 s / cap 10 s), CSS failsafe (never traps visitors), preloading, JP/EN.
 
 ### 7.5 Comfort & safety (non-negotiable)
 
@@ -270,7 +303,7 @@ Review: screenshots in chat + protected Vercel preview of `designupdatev2`. Noth
 | D3 | Components (ticket, polaroid, notes, profile card, sleeves, timeline, masonry, nav, footer) | screenshots |
 | D4 | Sections — desktop | preview link |
 | D5 | Phones/tablet + native scroll on phones + mobile menu | preview on your phone (replaces the pending swipe test) |
-| D6 | Loader + exit transition | preview |
+| D6 | Loader v2 (§7.4a): rotating clover pair, petal progress, wave text, iris exit | preview |
 | D7 | Motion: scroll life, transitions, micro-interactions, cursor trail, toggle, calm mode | **preview review** |
 | D8 | Chosen extras + gallery seed update | preview |
 | D9 | QA: contrast, keyboard, screen reader, calm mode, performance, CSP/SRI, JP line breaks | final review |
@@ -290,23 +323,34 @@ Review: screenshots in chat + protected Vercel preview of `designupdatev2`. Noth
 
 ---
 
-## 12. Round 2.1 questions (my recommendation first)
+## 12. Round 2.2 questions — consolidated (my recommendation first)
 
-1. **MV reference (optional):** if there's an MV whose *movement* you like (HoneyWorks / HaKoniwalily or any), tell me the title — I'll borrow its feel. Otherwise I'll use my judgement (bouncy, clean, colourful).
-2. **After the loader:** **(a) straight into Home with a nice "clover iris" transition** (recommended — proper website feel) · (b) add the short KOTOHA title card (extra h).
-3. **Section transitions on desktop:** (a) simple fade · **(b) short stylish transition — soft colour wipe + content arriving in rhythm** (recommended) · (c) bolder (bigger zooms/wipes).
-4. **Scroll "alive" strength (§7.2):** **(a) subtle** (recommended — noticeable but calm) · (b) medium · (c) strong.
-5. **WebGL effects:** **(a) no** (recommended now — keeps it a proper, light website) · (b) yes.
-6. **Credits:** besides the backgrounds, add the profile avatar and the About pose to the gallery too, so every image on the site is credited in one place? **Recommended: yes.**
-7. **Phones:** free natural scrolling (desktop keeps snap)? **Recommended: yes.**
-8. **Extras (§8):** **Recommended: a–g** (not h title card, not i easter egg). Say "recommended", "all", or list letters.
-9. **Motion toggle** ("motion ✿ on/off", small, in nav + footer): OK? **Recommended: yes.**
+*Everything still open, in one place. Reply **"all recommended"** and only mention the ones you want different.*
+
+**Loader**
+
+- **L1 · Clover rotation style:** **(a) outer clockwise slow + inner counter-clockwise faster** (recommended — looks like little gears, lively) · (b) both turn together the same way · (c) same direction, different speeds.
+- **L2 · Show loading progress:** **(a) inner clover's petals fill green one by one while rotating** (recommended) · (b) rotation only · (c) also a small % number.
+- **L3 · "Did you know?" line** under Loading… with a random real fact from the About info: **(a) yes** (recommended) · (b) no.
+- **L4 · Fix the non-rotating clover on the live site now** (tiny change on `main`, ahead of v2): **(a) yes** (recommended) · (b) wait for v2.
+
+**Motion & layout**
+
+1. **MV reference (optional):** an MV whose *movement* you like? Otherwise: bouncy, clean, colourful.
+2. **After the loader:** **(a) straight into Home through the clover iris** (recommended) · (b) add a short KOTOHA title card.
+3. **Section transitions on desktop:** (a) simple fade · **(b) short stylish colour wipe + content arriving in rhythm** (recommended) · (c) bolder.
+4. **Scroll "alive" strength (§7.2):** **(a) subtle** (recommended) · (b) medium · (c) strong.
+5. **WebGL effects:** **(a) no** (recommended) · (b) yes.
+6. **Credits:** also add the profile avatar and the About pose to the gallery (every image credited in one place)? **(a) yes** (recommended) · (b) backgrounds only.
+7. **Phones:** free natural scrolling, desktop keeps snap? **(a) yes** (recommended) · (b) keep snap on phones.
+8. **Extras (§8):** **(a) a–g** (recommended) · (b) all · (c) your own pick of letters.
+9. **Motion toggle** ("motion ✿ on/off", small, nav + footer): **(a) yes** (recommended) · (b) no.
 
 ---
 
 ## 13. Confidence
 
-- **Clarity: 87%.** You've confirmed the kind of site (proper website) and the kind of motion (MV-quality, alive on scroll). Q3/Q4 set the strength; the D1 sample lets you feel it before the big build.
+- **Clarity: 88%.** Confirmed: proper website, MV-quality movement, alive on scroll, rotating clover loader. Q3/Q4 and L1–L2 set strength and loader details; the D1 sample lets you feel it before the big build.
 - **Technical: 91%.** All planned effects are standard GSAP/CSS with fallbacks; phone performance is checked every phase.
 
 ---
@@ -321,13 +365,14 @@ Review: screenshots in chat + protected Vercel preview of `designupdatev2`. Noth
 - [x] D0.2 Audit + plan v0.1
 - [x] D0.3 Round 1 answers → plan v0.2
 - [x] D0.3a Owner clarification ("proper website, MV-like movement, alive on scroll") → plan v0.2.1
-- [ ] D0.4 Round 2.1 answers → plan v0.3 → owner approval
+- [x] D0.3b Loader requirement (rotating clover pair) + loader v2 proposal → plan v0.2.2
+- [ ] D0.4 Round 2.2 answers → plan v0.3 → owner approval
 - [ ] D1 Style tile + motion sample
 - [ ] D2 Foundations (+ credit labels removed)
 - [ ] D3 Components
 - [ ] D4 Sections (desktop)
 - [ ] D5 Phones/tablet + native scroll + mobile menu
-- [ ] D6 Loader + exit transition
+- [ ] D6 Loader v2 (rotating clover pair, petal progress, iris exit)
 - [ ] D7 Motion system
 - [ ] D8 Extras + gallery seed update
 - [ ] D9 QA
@@ -347,3 +392,4 @@ Review: screenshots in chat + protected Vercel preview of `designupdatev2`. Noth
 | 2026-09-26 | Remove "art by …" labels from the artworks; credit them in the gallery | Owner |
 | 2026-09-26 | Cloudinary key/secret in Vercel: loose end on `main`, owner will handle | Owner |
 | 2026-09-26 | **Clarified: proper website; "MV-like" = quality of movement only; page should feel alive when scrolling up and down.** v0.2 "page is an MV" concept (title card, end card, giant words) dropped as default | Owner |
+| 2026-09-26 | **Loader: the two overlapping clovers must rotate continuously while the loader is visible** (v1 had them static — Claude's miss); loader redesign delegated to Claude (§7.4a) | Owner |
