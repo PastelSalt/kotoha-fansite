@@ -1,0 +1,127 @@
+{
+  "a11y": { "language": "Language" },
+  "common": {
+    "save": "Save", "cancel": "Cancel", "edit": "Edit", "add": "Add", "archive": "Move to archive", "restore": "Restore",
+    "delete": "Delete", "close": "Close", "copy": "Copy", "copied": "Copied!", "confirm": "Confirm", "loadMore": "Load more",
+    "loading": "Loading…", "saving": "Saving…", "saved": "Saved!", "optional": "optional", "status": "Status",
+    "all": "All", "draft": "Draft", "published": "Published", "publish": "Publish", "unpublish": "Unpublish",
+    "actions": "Actions", "signOut": "Sign out", "backToSite": "View site", "empty": "Nothing here yet.",
+    "wakingUp": "Waking up the database — the first request after a quiet period can take about 10 seconds…",
+    "networkError": "Couldn't reach the server. Please try again.",
+    "error": "Something went wrong. Please try again."
+  },
+  "errors": {
+    "required": "This field is required.", "too_long": "This is too long.", "too_short": "This is too short.",
+    "invalid_date": "Please pick a valid date.", "invalid_url": "Please enter a link starting with https://",
+    "invalid_youtube": "That doesn't look like a YouTube link.", "invalid_choice": "Please choose an option.",
+    "too_many": "Too many items.", "invalid": "Please check this field.",
+    "INVALID_CREDENTIALS": "Incorrect username or password.",
+    "TOO_MANY_ATTEMPTS": "Too many attempts. Please wait 15 minutes and try again.",
+    "TEMP_PASSWORD_EXPIRED": "This temporary password has expired. Ask the Owner for a new one.",
+    "UNAUTHENTICATED": "Your session ended. Please sign in again.",
+    "FORBIDDEN": "You don't have permission to do that.",
+    "DUPLICATE": "This item already exists (for videos: the same YouTube video).",
+    "VIDEO_NOT_FOUND": "This video is private, deleted, or can't be embedded.",
+    "YOUTUBE_UNAVAILABLE": "Couldn't reach YouTube — you can type the title yourself.",
+    "CLOUDINARY_NOT_CONFIGURED": "Image uploads aren't set up yet (Cloudinary keys are missing).",
+    "UPLOAD_REJECTED": "This file type or size isn't allowed.",
+    "BAD_UPLOAD_SIGNATURE": "The upload couldn't be verified. Please try again.",
+    "NOT_RESTORABLE": "This item can't be restored.",
+    "ALREADY_RESTORED": "This item was already restored.",
+    "CONFLICT": "An item with the same unique value already exists."
+  },
+  "login": {
+    "title": "Admin sign in", "username": "Username", "password": "Password", "show": "Show password",
+    "submit": "Sign in", "signingIn": "Signing in…"
+  },
+  "password": {
+    "forcedTitle": "Please set your own password",
+    "forcedIntro": "For security, you need to change the temporary password before you can use the admin panel.",
+    "current": "Current password", "currentTemp": "Current (temporary) password",
+    "new": "New password", "confirm": "Repeat new password", "submit": "Change password",
+    "rulesTitle": "Your new password must:",
+    "min_length": "have at least 12 characters (a few words together works great)",
+    "contains_username": "not contain your username",
+    "same_as_current": "be different from the current password",
+    "guessable": "not be only site words like kotoha, clover, lily or password",
+    "leaked": "not appear in known data leaks",
+    "mismatch": "match in both boxes",
+    "wrong_password": "The current password is incorrect.",
+    "changed": "Password changed! You're signed in with the new password."
+  },
+  "nav": {
+    "dashboard": "Dashboard", "videos": "Latest Videos", "news": "News", "achievements": "Achievements",
+    "discography": "Discography", "gallery": "Gallery", "archive": "Archive", "activity": "Activity Log",
+    "accounts": "Accounts", "account": "My Account"
+  },
+  "roles": { "owner": "Owner", "admin": "Admin" },
+  "dashboard": {
+    "hello": "Hello, {name}!",
+    "intro": "Here you can manage everything that appears on the fan site.",
+    "analyticsSoon": "Visitor statistics will appear here soon.",
+    "published": "published", "drafts": "drafts"
+  },
+  "content": {
+    "videos": { "title": "Latest Videos", "add": "Add video", "edit": "Edit video", "hint": "The newest date is shown first. The newest video is featured on the home screen." },
+    "news": { "title": "News", "add": "Add news", "edit": "Edit news", "hint": "The two newest items appear on the home screen." },
+    "achievements": { "title": "Achievements", "add": "Add achievement", "edit": "Edit achievement", "hint": "Shown in the Discography section, newest first." },
+    "discography": { "title": "Discography", "add": "Add release", "edit": "Edit release", "hint": "Covers come from the YouTube link automatically." },
+    "fields": {
+      "youtube": "YouTube link", "youtubeHelp": "Paste the video link — the title fills in automatically.",
+      "youtubeOptional": "YouTube link (for the cover picture)", "lookup": "Get title",
+      "title": "Title", "postedOn": "Date posted", "headline": "Headline", "summary": "Short description",
+      "links": "Links (up to 3)", "linkUrl": "https://…", "addLink": "Add link", "removeLink": "Remove link",
+      "achievedOn": "Date", "text": "Text", "linkUrlOptional": "Link (optional)",
+      "releaseType": "Type", "releasedOn": "Release date", "note": "Note (e.g. anime tie-in)",
+      "status": "Visibility", "statusDraft": "Draft (hidden)", "statusPublished": "Published (visible)"
+    },
+    "linkLabels": { "watch": "Watch", "listen": "Listen", "details": "Details", "tickets": "Tickets", "official": "Official site", "shop": "Shop" },
+    "types": { "single": "Single", "album": "Album", "ep": "Mini album", "tie_in": "Tie-in", "cover": "Cover", "collab": "Collaboration", "other": "Other" },
+    "archiveConfirm": "Move “{label}” to the archive? It disappears from the site, and you can restore it from the Archive.",
+    "reason": "Reason (optional)",
+    "archived": "Moved to the archive.",
+    "chars": "{n} / {max}"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "hint": "Every artwork needs the artist's name and, if possible, the link where it was posted.",
+    "drop": "Drop images here or", "choose": "choose files",
+    "formats": "JPEG, PNG, WebP, AVIF, GIF or HEIC. Big files are shrunk automatically.",
+    "author": "Artist name", "source": "Source link (where it was posted)",
+    "upload": "Upload", "uploadAll": "Upload all", "remove": "Remove from list",
+    "uploading": "Uploading… {p}%", "uploaded": "Uploaded!", "shrunk": "Resized to fit the 10 MB / 25 MP limit",
+    "heicTooBig": "This HEIC photo is too big to shrink in this browser. Please save it as JPEG and try again.",
+    "deleteConfirm": "Permanently delete this image? The file is removed from Cloudinary to save space (its credit record stays in the Archive).",
+    "deleted": "Image deleted.",
+    "editCredit": "Edit credit"
+  },
+  "archive": {
+    "title": "Archive",
+    "hint": "Everything that was removed from the site. Restore brings an item back exactly as it was.",
+    "from": "From", "by": "By", "when": "When", "reason": "Reason", "restored": "Restored",
+    "restoreDone": "Restored! It's back in its section.",
+    "sections": { "videos": "Latest Videos", "news": "News", "achievements": "Achievements", "discography_items": "Discography", "gallery_images": "Gallery", "admin_users": "Accounts" }
+  },
+  "activity": {
+    "title": "Activity Log",
+    "hint": "Who changed what, and when."
+  },
+  "accounts": {
+    "title": "Accounts",
+    "hint": "Only the Owner can manage accounts. Admins have the same content powers as the Owner.",
+    "create": "Create admin account",
+    "createdTitle": "New admin account created",
+    "createdInfo": "Give these to the new admin. The temporary password is shown only once and expires in 7 days. They must choose their own password at first sign-in.",
+    "resetTitle": "Password reset",
+    "username": "Username", "tempPassword": "Temporary password",
+    "reset": "Reset password", "remove": "Remove",
+    "resetConfirm": "Give {name} a new temporary password? They will be signed out.",
+    "removeConfirm": "Remove {name}? They will be signed out and can no longer sign in. (A record stays in the Archive.)",
+    "lastLogin": "Last sign-in", "never": "never", "mustChange": "must set password", "removed": "removed", "active": "active"
+  },
+  "account": {
+    "title": "My Account",
+    "signOutOthers": "Sign out other devices",
+    "signedOutOthers": "Other devices were signed out."
+  }
+}

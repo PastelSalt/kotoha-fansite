@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin · Kotoha Fan Site</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script>
+    (function () {
+      var lang = null;
+      try { var q = new URLSearchParams(location.search).get('lang'); lang = (q === 'ja' || q === 'en') ? q : localStorage.getItem('kf_lang'); } catch (e) {}
+      if (lang === 'ja' || lang === 'en') { document.documentElement.lang = lang; document.documentElement.dataset.langChosen = '1'; }
+    })();
+  </script>
+  <!-- Google Fonts + Animate.css are added by /js/admin/styles.js so they never block sign-in -->
+  <link rel="stylesheet" href="/css/admin.css">
+  <script id="lucide-js" src="https://cdn.jsdelivr.net/npm/lucide@1.48.0/dist/umd/lucide.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js" async></script>
+  <script type="module" src="/js/admin/main.js"></script>
+</head>
+<body class="admin" data-state="booting">
+  <a class="skip-link" href="#view">Skip to content</a>
+
+  <header class="topbar">
+    <a class="topbar__brand" href="#/dashboard"><img src="/assets/img/logo-500.webp" alt="Kotoha" width="500" height="144"><span>Admin</span></a>
+    <button class="topbar__menu icon-btn" type="button" id="nav-toggle" aria-controls="sidebar" aria-expanded="false"><i data-lucide="menu"></i><span class="visually-hidden">Menu</span></button>
+    <div class="topbar__right">
+      <div class="lang-switch" data-lang-switch></div>
+      <span class="user-badge" id="user-badge"></span>
+      <a class="btn btn--ghost btn--sm" href="/" target="_blank" rel="noopener"><i data-lucide="external-link"></i> <span data-i18n="common.backToSite">View site</span></a>
+      <button class="btn btn--ghost btn--sm" type="button" id="sign-out"><i data-lucide="log-out"></i> <span data-i18n="common.signOut">Sign out</span></button>
+    </div>
+  </header>
+
+  <nav class="sidebar" id="sidebar" aria-label="Admin">
+    <ul>
+      <li><a href="#/dashboard" data-route="dashboard"><i data-lucide="layout-dashboard"></i><span data-i18n="nav.dashboard">Dashboard</span></a></li>
+      <li><a href="#/videos" data-route="videos"><i data-lucide="circle-play"></i><span data-i18n="nav.videos">Latest Videos</span></a></li>
+      <li><a href="#/news" data-route="news"><i data-lucide="newspaper"></i><span data-i18n="nav.news">News</span></a></li>
+      <li><a href="#/achievements" data-route="achievements"><i data-lucide="trophy"></i><span data-i18n="nav.achievements">Achievements</span></a></li>
+      <li><a href="#/discography" data-route="discography"><i data-lucide="disc-3"></i><span data-i18n="nav.discography">Discography</span></a></li>
+      <li><a href="#/gallery" data-route="gallery"><i data-lucide="images"></i><span data-i18n="nav.gallery">Gallery</span></a></li>
+      <li class="sidebar__sep"><a href="#/archive" data-route="archive"><i data-lucide="archive"></i><span data-i18n="nav.archive">Archive</span></a></li>
+      <li><a href="#/activity" data-route="activity"><i data-lucide="history"></i><span data-i18n="nav.activity">Activity Log</span></a></li>
+      <li data-owner-only hidden><a href="#/accounts" data-route="accounts"><i data-lucide="users"></i><span data-i18n="nav.accounts">Accounts</span></a></li>
+      <li><a href="#/account" data-route="account"><i data-lucide="user-round-cog"></i><span data-i18n="nav.account">My Account</span></a></li>
+    </ul>
+  </nav>
+
+  <main class="view" id="view" tabindex="-1" aria-live="polite">
+    <p class="view__loading" data-i18n="common.loading">Loading…</p>
+  </main>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+  <dialog class="dialog" id="dialog" aria-labelledby="dialog-title">
+    <form method="dialog" class="dialog__form" id="dialog-form">
+      <h2 class="dialog__title" id="dialog-title"></h2>
+      <div class="dialog__body" id="dialog-body"></div>
+      <div class="dialog__actions" id="dialog-actions"></div>
+    </form>
+  </dialog>
+</body>
+</html>

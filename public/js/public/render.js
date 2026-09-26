@@ -1,19 +1,8 @@
 // DOM builders for public content. All database text goes through textContent (never innerHTML).
 import { t } from '../shared/i18n-core.js';
+import { el } from '../shared/dom.js';
 
-export function el(tag, attrs = {}, children = []) {
-  const node = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs)) {
-    if (v === undefined || v === null || v === false) continue;
-    if (k === 'class') node.className = v;
-    else if (k === 'text') node.textContent = v;
-    else if (k.startsWith('on') && typeof v === 'function') node.addEventListener(k.slice(2), v);
-    else if (k === 'dataset') Object.assign(node.dataset, v);
-    else node.setAttribute(k, v === true ? '' : String(v));
-  }
-  for (const c of [].concat(children)) if (c !== null && c !== undefined && c !== false) node.append(c);
-  return node;
-}
+export { el };
 
 export function icon(name) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');

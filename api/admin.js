@@ -515,5 +515,25 @@ export default handle(async (req, res) => {
   if (resource === 'gallery') return galleryRoute(segs, req, res, user);
   if (resource === 'archive') return archiveRoute(segs, req, res, user);
   if (resource === 'activity') return activityRoute(req, res);
+  if (resource === 'summary') return summaryRoute(req, res);
   throw new HttpError(404, 'NOT_FOUND', 'Unknown endpoint');
 });
+
+// Dashboard counts (published / draft per content type, archive size).
+async function summaryRoute(req, res) {
+  methodGuard(req, ['GET']);
+  const [row] = await sql()`
+    select
+      (select count(*) filter (where status = 'published') from videos)::int            as videos_published,
+      (select count(*) filter (where status = 'draft') from videos)::int                as videos_draft,
+      (select count(*) filter (where status = 'published') from news)::int              as news_published,
+      (select count(*) filter (where status = 'draft') from news)::int                  as news_draft,
+      (select count(*) filter (where status = 'published') from achievements)::int      as achievements_published,
+      (select count(*) filter (where status = 'draft') from achievements)::int          as achievements_draft,
+      (select count(*) filter (where status = 'published') from discography_items)::int as discography_published,
+      (select count(*) filter (where status = 'draft') from discography_items)::int     as discography_draft,
+      (select count(*) filter (where status = 'published') from gallery_images)::int    as gallery_published,
+      (select count(*) filter (where status = 'draft') from gallery_images)::int        as gallery_draft,
+      (select count(*) from archived_content where restored_at is null)::int            as archived`;
+  send(res, 200, row, NO_STORE);
+}

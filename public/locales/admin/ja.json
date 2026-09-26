@@ -1,0 +1,127 @@
+{
+  "a11y": { "language": "言語" },
+  "common": {
+    "save": "保存", "cancel": "キャンセル", "edit": "編集", "add": "追加", "archive": "アーカイブへ移動", "restore": "元に戻す",
+    "delete": "削除", "close": "閉じる", "copy": "コピー", "copied": "コピーしました！", "confirm": "確認", "loadMore": "もっと見る",
+    "loading": "読み込み中…", "saving": "保存中…", "saved": "保存しました！", "optional": "任意", "status": "状態",
+    "all": "すべて", "draft": "下書き", "published": "公開中", "publish": "公開する", "unpublish": "非公開にする",
+    "actions": "操作", "signOut": "ログアウト", "backToSite": "サイトを見る", "empty": "まだ何もありません。",
+    "wakingUp": "データベースを起動しています。しばらく使われていないと、最初の読み込みに10秒ほどかかります…",
+    "networkError": "サーバーに接続できませんでした。もう一度お試しください。",
+    "error": "エラーが発生しました。もう一度お試しください。"
+  },
+  "errors": {
+    "required": "入力してください。", "too_long": "長すぎます。", "too_short": "短すぎます。",
+    "invalid_date": "正しい日付を選んでください。", "invalid_url": "https:// から始まるリンクを入力してください。",
+    "invalid_youtube": "YouTubeのリンクではないようです。", "invalid_choice": "選択してください。",
+    "too_many": "数が多すぎます。", "invalid": "内容を確認してください。",
+    "INVALID_CREDENTIALS": "ユーザー名またはパスワードが違います。",
+    "TOO_MANY_ATTEMPTS": "試行回数が多すぎます。15分後にもう一度お試しください。",
+    "TEMP_PASSWORD_EXPIRED": "この仮パスワードは期限切れです。オーナーに新しい仮パスワードを発行してもらってください。",
+    "UNAUTHENTICATED": "セッションが終了しました。もう一度ログインしてください。",
+    "FORBIDDEN": "この操作を行う権限がありません。",
+    "DUPLICATE": "すでに登録されています（動画の場合：同じYouTube動画）。",
+    "VIDEO_NOT_FOUND": "この動画は非公開・削除済み、または埋め込みできません。",
+    "YOUTUBE_UNAVAILABLE": "YouTubeに接続できませんでした。タイトルは手入力できます。",
+    "CLOUDINARY_NOT_CONFIGURED": "画像アップロードはまだ設定されていません（Cloudinaryのキーが未設定です）。",
+    "UPLOAD_REJECTED": "このファイル形式またはサイズはアップロードできません。",
+    "BAD_UPLOAD_SIGNATURE": "アップロードを確認できませんでした。もう一度お試しください。",
+    "NOT_RESTORABLE": "この項目は元に戻せません。",
+    "ALREADY_RESTORED": "この項目はすでに元に戻されています。",
+    "CONFLICT": "同じ内容の項目がすでに存在します。"
+  },
+  "login": {
+    "title": "管理者ログイン", "username": "ユーザー名", "password": "パスワード", "show": "パスワードを表示",
+    "submit": "ログイン", "signingIn": "ログイン中…"
+  },
+  "password": {
+    "forcedTitle": "パスワードを設定してください",
+    "forcedIntro": "安全のため、管理画面を使う前に仮パスワードを自分のパスワードに変更する必要があります。",
+    "current": "現在のパスワード", "currentTemp": "現在の（仮）パスワード",
+    "new": "新しいパスワード", "confirm": "新しいパスワード（確認）", "submit": "パスワードを変更",
+    "rulesTitle": "新しいパスワードの条件：",
+    "min_length": "12文字以上（単語をいくつか組み合わせるのがおすすめ）",
+    "contains_username": "ユーザー名を含まない",
+    "same_as_current": "現在のパスワードと違う",
+    "guessable": "kotoha・clover・lily・password などのサイト関連の単語だけで作らない",
+    "leaked": "過去の情報漏えいで見つかったパスワードではない",
+    "mismatch": "2回とも同じパスワードを入力する",
+    "wrong_password": "現在のパスワードが違います。",
+    "changed": "パスワードを変更しました！新しいパスワードでログイン中です。"
+  },
+  "nav": {
+    "dashboard": "ダッシュボード", "videos": "最新動画", "news": "ニュース", "achievements": "実績",
+    "discography": "ディスコグラフィ", "gallery": "ギャラリー", "archive": "アーカイブ", "activity": "操作履歴",
+    "accounts": "アカウント", "account": "マイアカウント"
+  },
+  "roles": { "owner": "オーナー", "admin": "管理者" },
+  "dashboard": {
+    "hello": "こんにちは、{name}さん！",
+    "intro": "ファンサイトに表示される内容はすべてここで管理できます。",
+    "analyticsSoon": "訪問者の統計はもうすぐここに表示されます。",
+    "published": "公開中", "drafts": "下書き"
+  },
+  "content": {
+    "videos": { "title": "最新動画", "add": "動画を追加", "edit": "動画を編集", "hint": "日付が新しい順に表示されます。一番新しい動画がホーム画面に表示されます。" },
+    "news": { "title": "ニュース", "add": "ニュースを追加", "edit": "ニュースを編集", "hint": "新しい2件がホーム画面に表示されます。" },
+    "achievements": { "title": "実績", "add": "実績を追加", "edit": "実績を編集", "hint": "ディスコグラフィのセクションに新しい順で表示されます。" },
+    "discography": { "title": "ディスコグラフィ", "add": "リリースを追加", "edit": "リリースを編集", "hint": "ジャケット画像はYouTubeのリンクから自動で表示されます。" },
+    "fields": {
+      "youtube": "YouTubeのリンク", "youtubeHelp": "動画のリンクを貼り付けると、タイトルが自動で入力されます。",
+      "youtubeOptional": "YouTubeのリンク（ジャケット画像用）", "lookup": "タイトルを取得",
+      "title": "タイトル", "postedOn": "投稿日", "headline": "見出し", "summary": "短い説明",
+      "links": "リンク（3つまで）", "linkUrl": "https://…", "addLink": "リンクを追加", "removeLink": "リンクを削除",
+      "achievedOn": "日付", "text": "内容", "linkUrlOptional": "リンク（任意）",
+      "releaseType": "種類", "releasedOn": "リリース日", "note": "メモ（例：アニメのタイアップ）",
+      "status": "公開設定", "statusDraft": "下書き（非表示）", "statusPublished": "公開（表示）"
+    },
+    "linkLabels": { "watch": "見る", "listen": "聴く", "details": "詳細", "tickets": "チケット", "official": "公式サイト", "shop": "ショップ" },
+    "types": { "single": "シングル", "album": "アルバム", "ep": "ミニアルバム", "tie_in": "タイアップ", "cover": "カバー", "collab": "コラボ", "other": "その他" },
+    "archiveConfirm": "「{label}」をアーカイブへ移動しますか？サイトからは消えますが、アーカイブから元に戻せます。",
+    "reason": "理由（任意）",
+    "archived": "アーカイブへ移動しました。",
+    "chars": "{n} / {max}"
+  },
+  "gallery": {
+    "title": "ギャラリー",
+    "hint": "すべての作品に作者名と、できれば投稿元のリンクを入力してください。",
+    "drop": "ここに画像をドロップ、または", "choose": "ファイルを選択",
+    "formats": "JPEG・PNG・WebP・AVIF・GIF・HEIC に対応。大きなファイルは自動で縮小されます。",
+    "author": "作者名", "source": "投稿元のリンク",
+    "upload": "アップロード", "uploadAll": "すべてアップロード", "remove": "リストから外す",
+    "uploading": "アップロード中… {p}%", "uploaded": "アップロードしました！", "shrunk": "10MB・2500万画素の上限に合わせて縮小しました",
+    "heicTooBig": "このHEIC写真はこのブラウザでは縮小できません。JPEGで保存し直してからお試しください。",
+    "deleteConfirm": "この画像を完全に削除しますか？容量節約のためCloudinaryからファイルが削除されます（クレジットの記録はアーカイブに残ります）。",
+    "deleted": "画像を削除しました。",
+    "editCredit": "クレジットを編集"
+  },
+  "archive": {
+    "title": "アーカイブ",
+    "hint": "サイトから削除された項目の一覧です。「元に戻す」で削除前の状態に戻せます。",
+    "from": "場所", "by": "操作した人", "when": "日時", "reason": "理由", "restored": "復元済み",
+    "restoreDone": "元に戻しました！元のセクションに表示されます。",
+    "sections": { "videos": "最新動画", "news": "ニュース", "achievements": "実績", "discography_items": "ディスコグラフィ", "gallery_images": "ギャラリー", "admin_users": "アカウント" }
+  },
+  "activity": {
+    "title": "操作履歴",
+    "hint": "誰が・いつ・何を変更したかの記録です。"
+  },
+  "accounts": {
+    "title": "アカウント",
+    "hint": "アカウントの管理はオーナーのみ行えます。管理者もオーナーと同じようにコンテンツを編集できます。",
+    "create": "管理者アカウントを作成",
+    "createdTitle": "管理者アカウントを作成しました",
+    "createdInfo": "以下の情報を新しい管理者に伝えてください。仮パスワードはこの画面でしか表示されず、7日で期限切れになります。初回ログイン時に自分のパスワードを設定します。",
+    "resetTitle": "パスワードをリセットしました",
+    "username": "ユーザー名", "tempPassword": "仮パスワード",
+    "reset": "パスワードをリセット", "remove": "削除",
+    "resetConfirm": "{name} に新しい仮パスワードを発行しますか？ログイン中の場合はログアウトされます。",
+    "removeConfirm": "{name} を削除しますか？ログアウトされ、今後ログインできなくなります（記録はアーカイブに残ります）。",
+    "lastLogin": "最終ログイン", "never": "なし", "mustChange": "パスワード未設定", "removed": "削除済み", "active": "有効"
+  },
+  "account": {
+    "title": "マイアカウント",
+    "signOutOthers": "他の端末からログアウト",
+    "signedOutOthers": "他の端末からログアウトしました。"
+  }
+}

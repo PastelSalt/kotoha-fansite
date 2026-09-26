@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin sign in · Kotoha Fan Site</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script>
+    (function () {
+      var lang = null;
+      try { var q = new URLSearchParams(location.search).get('lang'); lang = (q === 'ja' || q === 'en') ? q : localStorage.getItem('kf_lang'); } catch (e) {}
+      if (lang === 'ja' || lang === 'en') { document.documentElement.lang = lang; document.documentElement.dataset.langChosen = '1'; }
+    })();
+  </script>
+  <!-- Google Fonts + Animate.css are added by /js/admin/styles.js so they never block sign-in -->
+  <link rel="stylesheet" href="/css/admin.css">
+  <script type="module" src="/js/admin/login.js"></script>
+</head>
+<body class="auth-page">
+  <main class="auth-card card animate__animated animate__fadeInUp">
+    <img class="auth-card__logo" src="/assets/img/logo-500.webp" alt="Kotoha" width="500" height="144">
+    <h1 class="auth-card__title" data-i18n="login.title">Admin sign in</h1>
+    <!-- method="post": if the script hasn't loaded yet, a native submit must never put the password in the URL -->
+    <form id="login-form" class="form" method="post" action="/login" novalidate>
+      <div class="field">
+        <label for="username" data-i18n="login.username">Username</label>
+        <input id="username" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+      </div>
+      <div class="field">
+        <label for="password" data-i18n="login.password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <label class="check"><input type="checkbox" id="show-password"> <span data-i18n="login.show">Show password</span></label>
+      </div>
+      <p class="form-error" id="login-error" role="alert" hidden></p>
+      <p class="form-hint" id="login-waking" hidden data-i18n="common.wakingUp">Waking up the database…</p>
+      <button class="btn btn--primary btn--block" type="submit" id="login-submit" data-i18n="login.submit">Sign in</button>
+    </form>
+    <div class="auth-card__foot">
+      <a href="/" data-i18n="common.backToSite">View site</a>
+      <div class="lang-switch" data-lang-switch></div>
+    </div>
+  </main>
+</body>
+</html>

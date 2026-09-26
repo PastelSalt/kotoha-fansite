@@ -177,8 +177,8 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 9.5 News: paged list + dashed scrollbar; player + all-videos chips
 - [x] 9.6 Discography (YouTube-thumbnail or clover placeholder covers) + Achievements (paged)
 - [~] 9.7 Gallery: infinite masonry + lightbox + "load more" written; **untested with real images** (needs Cloudinary keys + gallery seed)
-- [~] 9.8 Footer written (links, disclaimer, obfuscated email, credits dialog, JP/EN); not yet screenshot-checked
-- [~] 9.9 States done (skeleton/empty/error with mascot-front). Verified: desktop 1366×768 EN+JA, mobile 360×800 EN via screenshots. **Still to check:** tablet 768/1024, 1920/2560, landscape phone, footer
+- [x] 9.8 Footer verified at 1920×1080 (links, disclaimer, working runtime-assembled mail link, credits button, JP/EN)
+- [x] 9.9 States (skeleton/empty/error with mascot-front). Verified screenshots: desktop 1366×768 EN+JA, 1024×768, 1920×1080 (incl. desktop loader), mobile 360×800, tablet portrait 768×1024 (width capped), landscape phone 800×360
 
 ### Phase 10: Loader
 - [x] 10.1 Inline loader markup/critical CSS + **CSS failsafe (auto-hides at 12 s even if JS breaks)** + noscript; random art + credit
@@ -190,18 +190,18 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 11.2 Anime.js (menu stagger, clover bloom, boing), confetti (logo, pose, June 10 / July 8 JST), Animate.css (states, gallery tiles). Not all visually verified yet
 
 ### Phase 12: Admin: content
-- [ ] 12.1 `/login` page; `/admin` shell (JP/EN), forced-change screen
-- [~] 12.2 **API done & verified** (`api/admin.js`: generic CRUD for videos/news/achievements/discography, drafts, publish sets `published_at`, archive on DELETE, `videos/lookup` via oEmbed, duplicate → 409). UI pending
-- [~] 12.3 **API done & verified** (`lib/archive.js`: archive = copy+delete in one transaction; restore keeps the original id via `overriding system value`; gallery/accounts not restorable; `GET /api/admin/activity`). UI pending
+- [x] 12.1 `/login` page; `/admin` shell (JP/EN), forced-change screen. Files: `public/{login,admin}.html`, `public/css/admin.css`, `public/js/admin/{api,ui,password,content,gallery,pages,main,login,styles}.js`, `public/locales/admin/{en,ja}.json`, shared `public/js/shared/dom.js`. **Verified in headless Edge:** login, wrong-password message, forced change (live rules checklist, guessable rule), dashboard, news list, add dialog with links editor, 13 icons rendered
+- [~] 12.2 **API done & verified** (`api/admin.js`: generic CRUD for videos/news/achievements/discography, drafts, publish sets `published_at`, archive on DELETE, `videos/lookup` via oEmbed, duplicate → 409; `GET admin/summary` for the dashboard). **UI written; save → list → public API round trip NOT yet verified** (the network to Neon dropped mid-test). Re-run the scratchpad `admin-ui-test.mjs` (copy into the project as `.admin-ui-test.tmp.mjs`, run with `node --env-file=.env.local`)
+- [~] 12.3 **API done & verified** (`lib/archive.js`: archive = copy+delete in one transaction; restore keeps the original id via `overriding system value`; gallery/accounts not restorable; `GET /api/admin/activity`). Archive + Activity UI written; UI round trip not yet verified
 
 ### Phase 13: Admin: gallery
 - [~] 13.1 Code written (`lib/cloudinary.js`: sign, verify response signature, Admin API `getResource`, `destroyImage` with invalidate, `deliveryUrl`; gallery routes in `api/admin.js`). Returns `503 CLOUDINARY_NOT_CONFIGURED` until keys exist. **Untested against Cloudinary: needs the owner's API key/secret (still empty in `.env.local`)**
-- [ ] 13.2 Drop zone, multi-file, auto-downscale (≤ 10 MB & ≤ 25 MP), progress, HEIC hint
-- [ ] 13.3 Edit credit, delete (Cloudinary destroy + archive record)
+- [~] 13.2 Drop zone, multi-file, auto-downscale (≤ 10 MB & ≤ 25 MP → WebP in the browser), progress, HEIC hint: **UI written** (`public/js/admin/gallery.js`), untested until the Cloudinary keys exist
+- [~] 13.3 Edit credit, delete (Cloudinary destroy + archive record): UI written, untested (same reason)
 
 ### Phase 14: Admin: accounts
-- [ ] 14.1 Accounts screen (Owner): list, create (show temp password once), reset, remove
-- [ ] 14.2 My Account: change password, sign out other devices
+- [~] 14.1 Accounts screen (Owner): list, create (show temp password once), reset, remove: UI written (`pages.js`), not yet clicked through as Owner (test must clear then **restore** the Owner's `must_change_password = true`)
+- [~] 14.2 My Account: change password, sign out other devices (`POST /api/auth/logout-others`, keeps the current session): written, not yet verified
 
 ### Phase 15: Analytics
 - [ ] 15.1 `/api/track` + client tracker (events per plan §8.8)
@@ -224,7 +224,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 ## 6. CURRENT FOCUS / NEXT ACTION
 
 - **Done so far:** Phases 1 (except Cloudinary keys), 2, 3, 4 (except gallery seed), 5, 6, 7 (except TwitCasting icon), 8, 9 (v1), 10, 11; admin API (12.2/12.3 API-side). Public site v1 live at https://kotoha-fansite.vercel.app after each push.
-- **Next action (no owner input needed):** remaining responsive checks (tablet/large/landscape/footer) → Phase 12 admin UI (`/login`, `/admin` shell, forced change, content screens, archive, activity) → Phase 14 accounts UI → Phase 15 analytics → Phase 16 quality (CSP/SRI, a11y) → Phase 17.
+- **Next action (no owner input needed):** finish verifying the admin UI (content save round trip, archive/restore, video lookup/duplicate, JA + mobile screenshots, Owner accounts flow) → commit/push → Phase 15 analytics → Phase 16 quality (CSP/SRI, a11y) → Phase 17.
 - **Blocked on owner:** Cloudinary API key/secret still EMPTY in `.env.local` (1.6/1.7, 4.6, Phase 13, gallery testing) · TwitCasting icon download approval (7.3) · real-phone swipe check (3.2).
 - **Workflow:** commit + push after each verified step (every push to `main` deploys production; the site is not announced yet, so that's fine pre-launch). Always run the secret scan before committing (see the command in the session log).
 
@@ -264,6 +264,8 @@ _(none)_
 | 2026-09-26 | Lucide on the public page | Inline SVG sprite of the 9 used Lucide icons (from lucide-static 1.48.0, ISC); full `lucide@1.48.0` UMD (444 KB) only for the admin | Performance; same icon set |
 | 2026-09-26 | Screenshot/verification tooling | Headless Edge driven via the DevTools protocol from scratch scripts (not in the repo): `cdp-shot.mjs` (per-section screenshots), `scroll-test.mjs` (wheel snap test). Built-in browser pane scales emulated viewports too small to judge | Reliable visual checks |
 | 2026-09-26 | Dev server caching | `scripts/dev-server.js` sends `Cache-Control: no-cache` | Stale modules caused a false bug |
+| 2026-09-26 | Login form `method="post" action="/login"` | Without a method, a submit before the script loads would be a native GET that puts the password in the URL (found in testing) | Security |
+| 2026-09-26 | Admin CDN assets never block | Google Fonts + Animate.css are injected by `public/js/admin/styles.js`; Lucide/confetti are `async`, and `refreshIcons()` redraws when Lucide arrives | On a slow network, render-blocking CDN CSS delayed the login script by many seconds (seen in testing) |
 | 2026-09-26 | Password "guessable" rule | Reject when the password's letters consist **only** of site words (kotoha, hakoniwa, lily, clover, password, …), not when it merely contains one | Blocks "KotohaClover2026!" but allows real passphrases |
 
 ---
@@ -272,6 +274,8 @@ _(none)_
 
 - Neon free tier caps storage at 512 MB → keep the analytics 90-day raw retention + daily rollups; consider pruning `login_attempts` / expired sessions in a scheduled job (Vercel Cron) in Phase 15.
 - CSP header still to be written (Phase 16).
+- Public `index.html` still loads Google Fonts + Animate.css as render-blocking `<link>`s and CDN scripts as `defer` (so `main.js` waits for them). On a slow network the loader's CSS failsafe covers it, but review in Phase 16 (performance) — same approach as the admin (`styles.js`) is an option.
+- **Neon free compute sleeps after ~5 min and needs ~10 s to wake** (measured). Mitigated: public API `stale-while-revalidate=86400` at the edge; loader waits max 4 s for home data; client API timeout 15 s. The admin's first request after idle may take ~10 s: show a "waking up" hint in the admin UI.
 
 ---
 
@@ -292,3 +296,8 @@ _(none)_
 - Private repo created + pushed; Vercel project created via connector (create_git_project 403 → used create_project), protection set to preview-only, 5 env vars added, Git auto-deploy verified.
 - Phase 6 auth done (`lib/auth.js`, `api/auth.js`, `lib/validate.js`) and verified locally.
 - **Next:** verify Argon2 on Vercel (login probe) → accounts API (6.3) → i18n (Phase 8) → scroll prototype (Phase 3) → public UI (Phase 9). Owner: Cloudinary API key/secret.
+
+### 2026-09-26: Session 1 (continued, admin UI)
+- Admin UI written (login, shell, forced change, dashboard, content CRUD screens, gallery, archive, activity, accounts, my account) + `admin/summary` and `auth/logout-others` endpoints.
+- Headless-Edge test (`admin-ui-test.mjs` in the scratchpad, throwaway `devtest` admin, cleaned up after each run) passed login → forced change → dashboard → news list → add dialog. The save step failed while the owner's network to Neon was dropping (connect timeouts, even google.com timed out); needs a re-run.
+- Fixes from testing: login form POST (no password in the URL), admin CDN assets made non-blocking.

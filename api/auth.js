@@ -141,7 +141,16 @@ async function preferences(req, res) {
   send(res, 200, { ok: true }, NO_STORE);
 }
 
-const ROUTES = { login, logout, me, 'change-password': changePassword, preferences };
+async function logoutOthers(req, res) {
+  methodGuard(req, ['POST']);
+  assertSameOrigin(req);
+  const { user, sessionId } = await requireAdmin(req, { allowPasswordChange: true });
+  await revokeAllSessions(user.id, { exceptSessionId: sessionId });
+  await logActivity(user, 'auth.logout_others');
+  send(res, 200, { ok: true }, NO_STORE);
+}
+
+const ROUTES = { login, logout, me, 'change-password': changePassword, preferences, 'logout-others': logoutOthers };
 
 export default handle(async (req, res) => {
   const route = routeOf(req, 'auth');
