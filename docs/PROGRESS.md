@@ -131,7 +131,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 2.4 Folder skeleton created
 - [x] 2.5 `.env.example` (placeholders only); `.env.local` created with Neon URLs, analytics salt and bootstrap creds (git-ignored, verified with `git check-ignore`)
 - [x] 2.6 README skeleton
-- [ ] 2.7 Verify on Vercel: Routing Middleware works (lang cookie + `/admin` guard); Argon2 native module works → record in §9
+- [x] 2.7 Verified on Vercel: **Argon2 native module works** (unknown-user login probe → clean 401, not 500). Routing Middleware no longer needed (dropped, §9)
 - [x] 2.8 First commit + push (`9aa41e5`, `67c120a`). Production answers at https://kotoha-fansite.vercel.app; `/api/public/*` rewrites verified on Vercel (geo returned PH → en)
 
 ### Phase 3: Scroll prototype
@@ -223,10 +223,10 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 
 ## 6. CURRENT FOCUS / NEXT ACTION
 
-- **Done so far:** foundation, Neon schema + seed, Owner bootstrap, password lib, public API, local dev server.
-- **Next action (no owner input needed):** Phase 6 auth API (`lib/validate.js`, `lib/auth.js`, `api/auth.js`) → Phase 8 i18n locale files → Phase 3 scroll prototype → Phase 9 public UI.
-- **Blocked on owner:** 1.2–1.4 (GitHub CLI login) · 1.6/1.7, 4.6, Phase 13 (Cloudinary API key/secret in `.env.local`).
-- **First commit:** waits for 1.2 (noreply email). Nothing is committed yet; all work is local files.
+- **Done so far:** Phases 1 (except Cloudinary keys), 2, 4 (except gallery seed), 5, 6.1/6.2/6.4. Production: https://kotoha-fansite.vercel.app (placeholder page + live APIs).
+- **Next action (no owner input needed):** 6.3 accounts API → Phase 8 i18n locale files → Phase 3 scroll prototype → Phase 9 public UI.
+- **Blocked on owner:** 1.6/1.7, 4.6, Phase 13 (Cloudinary API key/secret in `.env.local`, then I add them to Vercel).
+- **Workflow:** commit + push after each verified step (every push to `main` deploys production; the site is not announced yet, so that's fine pre-launch). Always run the secret scan before committing (see the command in the session log).
 
 ---
 
@@ -282,3 +282,9 @@ _(none)_
 - Libraries: `lib/password.js`, `lib/db.js`, `lib/http.js`, `lib/paging.js`; API: `api/public.js`; `scripts/dev-server.js`. Verified via curl.
 - `docs/JA_REVIEW_LIST.md` started.
 - **Next:** Phase 6 auth API → i18n → scroll prototype → public UI. Owner: GitHub CLI login + Cloudinary keys.
+
+### 2026-09-26: Session 1 (continued, after owner's GitHub login)
+- Owner logged in to GitHub as PastelSalt. Repo-local noreply email set; secret scan found the default password inside a policy example → replaced before the first commit.
+- Private repo created + pushed; Vercel project created via connector (create_git_project 403 → used create_project), protection set to preview-only, 5 env vars added, Git auto-deploy verified.
+- Phase 6 auth done (`lib/auth.js`, `api/auth.js`, `lib/validate.js`) and verified locally.
+- **Next:** verify Argon2 on Vercel (login probe) → accounts API (6.3) → i18n (Phase 8) → scroll prototype (Phase 3) → public UI (Phase 9). Owner: Cloudinary API key/secret.
