@@ -79,11 +79,11 @@ Deliverables (from the brief + decisions). Tick when **verified working**, not j
 | Node / npm / git | v24.21.0 / 11.19.0 / 2.55 |
 | winget | v1.29 (GitHub CLI install is done by the owner) |
 | Vercel account | personal; existing project `moesoft-web` (**don't touch**) |
-| Vercel project (ours) | `kotoha-fansite` → `https://kotoha-fansite.vercel.app` (ID: _TBD_) |
+| Vercel project (ours) | `kotoha-fansite` → `https://kotoha-fansite.vercel.app`, ID `prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn` (connector calls: omit teamId) |
 | Vercel function region | `sin1` |
 | Neon project | `kotoha-fansite`, ID **`odd-base-44136456`**, region `aws-ap-southeast-1`, PG 17, branch `main` = `br-tiny-credit-b3dga6s5`, database `kotoha`, role `kotoha_owner`, endpoint `ep-bold-mouse-b3uvenls` (pooled host has `-pooler`). Free tier: **512 MB storage limit**, 6 h history retention |
 | Cloudinary | Free plan; cloud name **`dijqsw0k8`**; limits **10 MB & 25 MP per image**; folder `kotoha-fansite/gallery`; signed preset `kotoha_gallery_signed` (to create); API key/secret: **owner pastes into `.env.local`** |
-| GitHub repo | private `kotoha-fansite` (owner: _TBD_ after `gh auth login`) |
+| GitHub repo | private https://github.com/PastelSalt/kotoha-fansite (account `PastelSalt`, id 214653345) |
 | Kotoha YouTube channel ID | `UC3ql_EU4JnaE3Rh3cqbHu6g` (RSS: `https://www.youtube.com/feeds/videos.xml?channel_id=…`) |
 | Connectors available | Neon, Vercel, Cloudinary (Claude app); GitHub connector **not** working |
 | Secrets location | `.env.local` (git-ignored) + Vercel env vars. **Never in tracked files** |
@@ -115,14 +115,14 @@ Deliverables (from the brief + decisions). Tick when **verified working**, not j
 Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocked (see note)
 
 ### Phase 1: Accounts & setup
-- [!] 1.1 Owner installs GitHub CLI + `gh auth login` (**owner action**, see §8)
-- [ ] 1.2 Set repo-local git email to the GitHub noreply address (`<id>+<user>@users.noreply.github.com`)
-- [ ] 1.3 Create private GitHub repo `kotoha-fansite`, push `main`
-- [ ] 1.4 Create Vercel project `kotoha-fansite`, link the GitHub repo (owner approves the Vercel GitHub app once)
+- [x] 1.1 Owner installed GitHub CLI 2.101.0 + logged in as **PastelSalt** (gh at `C:\Program Files\GitHub CLI\gh.exe`; not on Git Bash PATH → call by full path, and use `MSYS_NO_PATHCONV=1` for `gh api`)
+- [x] 1.2 Repo-local git email = `214653345+PastelSalt@users.noreply.github.com` (name: "Moesoft: Moeko Software and Technologies")
+- [x] 1.3 Private repo https://github.com/PastelSalt/kotoha-fansite, `main` pushed (initial commit `9aa41e5`, secret scan clean)
+- [~] 1.4 Vercel project `kotoha-fansite` created (`prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn`, account `team_iTXgjBMqb9YpVCwrSPc0UKWO`, Node 24.x, no framework, output `public`). Deployment protection set to **preview only**. Git link to be confirmed by the first push-triggered deployment. Note: connector `create_git_project` fails with 403 (scope `pastelsalts-projects`); plain `create_project` / `update_project` / env calls work **without** a teamId
 - [x] 1.5 Create Neon project `kotoha-fansite` (Singapore); record ID; put connection strings in `.env.local` (see §3)
 - [ ] 1.6 Cloudinary: create signed upload preset (folder, formats, strip metadata); record name
 - [ ] 1.7 Cloudinary API key/secret into `.env.local` (connector or owner paste; never commit)
-- [ ] 1.8 Set all env vars in Vercel (Production + Preview + Development)
+- [~] 1.8 Vercel env vars set (all targets): `DATABASE_URL` + `ANALYTICS_SALT` (encrypted), `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_FOLDER`, `CLOUDINARY_UPLOAD_PRESET`. **Still to add:** `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` (after the owner pastes them). Bootstrap vars intentionally **not** in Vercel (the bootstrap runs locally against the shared DB)
 
 ### Phase 2: Foundation
 - [x] 2.1 `git init -b main`; `.gitignore`; `.vercelignore`; `.gitattributes` (no commit yet: waiting for the noreply email, 1.2)
