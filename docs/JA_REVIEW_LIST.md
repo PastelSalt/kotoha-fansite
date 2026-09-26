@@ -58,6 +58,7 @@ The 27 entries from the official 実績 list are verbatim. These are mine:
 | `loader.credit` | このサイトはファンプロジェクトです　制作：Moeko Software and Technologies | ⏳ |
 | `footer.disclaimer` | このサイトは非公式・非営利のファンサイトです。…権利は、それぞれの権利者様・作者様に帰属します。 | ⏳ |
 | `footer.contact` / `footer.privacy` | 不具合、クレジットの訂正、掲載の取り下げのご依頼はこちらまで：／…匿名で集計しています… | ⏳ |
+| `gallery.by` | イラスト：{name}（ギャラリーのクレジット。以前は「{name}さん」） | ⏳ |
 | `home.*`, `nav.*`, `gallery.*` | 定期配信まで：／スクロールしてね！／プロフィール／もっと見る／今はここまで！ など | ⏳ |
 
 ## 5. Admin panel (`public/locales/admin/ja.json`)

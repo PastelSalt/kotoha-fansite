@@ -41,16 +41,23 @@ function currentRoute() {
   return Object.hasOwn(ROUTES, name) ? name : 'dashboard';
 }
 
+let renderSeq = 0;
+
 async function render() {
   const view = $('#view');
   const route = currentRoute();
+  const seq = ++renderSeq;
   document.querySelectorAll('[data-route]').forEach((a) => { if (a.dataset.route === route) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-  view.replaceChildren(el('p', { class: 'view__loading', text: t('common.loading') }));
+  // Each navigation renders into its own container: a slow page that finishes after the admin has moved on
+  // (e.g. while the database wakes up) writes into a detached element instead of replacing the current page.
+  const page = el('div', { class: 'view__page' }, [el('p', { class: 'view__loading', text: t('common.loading') })]);
+  view.replaceChildren(page);
   try {
-    await ROUTES[route](view);
+    await ROUTES[route](page);
   } catch (err) {
-    view.replaceChildren(el('p', { class: 'form-error', role: 'alert', text: errorText(err) }));
+    page.replaceChildren(el('p', { class: 'form-error', role: 'alert', text: errorText(err) }));
   }
+  if (seq !== renderSeq) return;
   refreshIcons();
   view.focus({ preventScroll: true });
   closeNav();

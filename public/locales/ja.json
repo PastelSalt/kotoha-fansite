@@ -98,7 +98,7 @@
   },
   "gallery": {
     "title": "ギャラリー",
-    "by": "{name}さん",
+    "by": "イラスト：{name}",
     "source": "元の投稿を見る",
     "loadMore": "もっと見る",
     "end": "今はここまで！🍀",

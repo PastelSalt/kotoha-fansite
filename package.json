@@ -14,7 +14,8 @@
     "db:seed": "node --env-file=.env.local scripts/run-sql.js db/seed.sql",
     "admin:bootstrap": "node --env-file=.env.local scripts/admin-bootstrap.js",
     "images:optimize": "node scripts/optimize-images.js",
-    "prelaunch:reset": "node --env-file=.env.local scripts/prelaunch-reset.js"
+    "prelaunch:reset": "node --env-file=.env.local scripts/prelaunch-reset.js",
+    "gallery:seed": "node --env-file=.env.local scripts/seed-gallery.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

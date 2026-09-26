@@ -470,7 +470,8 @@ dialog::backdrop { background: rgba(38, 49, 31, .72); }
   .scrolled-nav__bar { padding: 0 1.4vw; gap: 1.2vw; }
   .scrolled-nav__logo img { height: calc(var(--bar-h) - 1.6vh); }
   .scrolled-nav .nav--bar { display: block; }
-  .scrolled-nav .nav--bar ul { gap: .9vw; }
+  .scrolled-nav .nav--bar ul { gap: .9vw; flex-wrap: nowrap; }   /* one line even if the web font hasn't loaded */
+  .scrolled-nav .nav--bar a { white-space: nowrap; }
   .scrolled-nav .nav--bar a { font-size: clamp(16px, 1.75vw, 34px); }
   html[lang="ja"] .scrolled-nav .nav--bar a { font-size: clamp(12px, 1.08vw, 22px); }
   html[lang="ja"] .scrolled-nav .nav--bar ul { gap: .7vw; }

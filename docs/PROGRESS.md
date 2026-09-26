@@ -145,7 +145,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 4.3 Applied 0001 on 2026-09-26 (no snapshot needed: the DB was empty). Verified 13 tables via the Neon connector
 - [x] 4.4 `db/seed.sql` seeded & verified idempotent (3 videos, 10 news, 32 achievements incl. 1 draft for the 2026-10-07 release, 11 discography). All 3 videos checked public via oEmbed. Discography `youtube_id` is null except 透明夜 → admins can add MV links later
 - [x] 4.5 `scripts/admin-bootstrap.js` + `lib/password.js` (Argon2id m=19456,t=2,p=1; policy; HIBP; temp generator). **Owner created in DB** (must change password). Re-run refuses. Argon2 works locally on Windows; Vercel check pending (2.7)
-- [ ] 4.6 `scripts/seed-gallery.js` (credited artworks + official sheets → Cloudinary + rows). **Needs Cloudinary API key/secret**
+- [x] 4.6 `scripts/seed-gallery.js` (`npm run gallery:seed`, idempotent): 5 credited artworks (credits read from `public/js/public/data.js`) + AiceClass front model + turnaround sheet + mascot sheet ("Artist unknown (作者不明)"). Fixed public_ids `kotoha-fansite/gallery/seed-*`. **Seeded 2026-09-26 (8 images).** Re-run after the pre-launch reset
 - [x] 4.7 `docs/JA_REVIEW_LIST.md` started (seed summaries, 2026 achievements, discography notes, bracket fixes)
 
 ### Phase 5: Backend core
@@ -176,7 +176,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 9.4 About: avatar, bio, pills from the locale file, clover stage + tappable pose
 - [x] 9.5 News: paged list + dashed scrollbar; player + all-videos chips
 - [x] 9.6 Discography (YouTube-thumbnail or clover placeholder covers) + Achievements (paged)
-- [~] 9.7 Gallery: infinite masonry + lightbox + "load more" written; **untested with real images** (needs Cloudinary keys + gallery seed)
+- [x] 9.7 Gallery verified with the 8 seeded images: masonry (desktop + phone), lightbox (credit, counter, next/prev, "View original post"), no CSP errors. JA credit label changed to 「イラスト：{name}」 (was 「{name}さん」, odd for companies/unknown)
 - [x] 9.8 Footer verified at 1920×1080 (links, disclaimer, working runtime-assembled mail link, credits button, JP/EN)
 - [x] 9.9 States (skeleton/empty/error with mascot-front). Verified screenshots: desktop 1366×768 EN+JA, 1024×768, 1920×1080 (incl. desktop loader), mobile 360×800, tablet portrait 768×1024 (width capped), landscape phone 800×360
 
@@ -195,9 +195,9 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 12.3 Archive → restore round trip verified in the UI; Activity Log shows readable EN/JA labels (`activity.actions.*`)
 
 ### Phase 13: Admin: gallery
-- [~] 13.1 Code written (`lib/cloudinary.js`: sign, verify response signature, Admin API `getResource`, `destroyImage` with invalidate, `deliveryUrl`; gallery routes in `api/admin.js`). Returns `503 CLOUDINARY_NOT_CONFIGURED` until keys exist. **Untested against Cloudinary: needs the owner's API key/secret (still empty in `.env.local`)**
-- [~] 13.2 Drop zone, multi-file, auto-downscale (≤ 10 MB & ≤ 25 MP → WebP in the browser), progress, HEIC hint: **UI written** (`public/js/admin/gallery.js`), untested until the Cloudinary keys exist
-- [~] 13.3 Edit credit, delete (Cloudinary destroy + archive record): UI written, untested (same reason)
+- [x] 13.1 Verified (see 13.2). Code written (`lib/cloudinary.js`: sign, verify response signature, Admin API `getResource`, `destroyImage` with invalidate, `deliveryUrl`; gallery routes in `api/admin.js`). Returns `503 CLOUDINARY_NOT_CONFIGURED` until keys exist. **Untested against Cloudinary: needs the owner's API key/secret (still empty in `.env.local`)**
+- [x] 13.2 Verified locally (scratchpad `admin-gallery-test.mjs`): 2 files queued → "Upload all" → small PNG uploaded as-is; 6000×4500 (27 MP) JPEG auto-shrunk to 5658×4244 WebP (24.0 MP). **Production uploads need the Cloudinary key/secret in Vercel (owner, 1.7)**
+- [x] 13.3 Edit credit + delete verified: Cloudinary files destroyed (Admin API 404 afterwards), archive records written, seeded images untouched
 
 ### Phase 14: Admin: accounts
 - [x] 14.1 Accounts screen verified as Owner (scratchpad `owner-ui-test.mjs`): create shows `<owner>2` + 8-char temp password once, "must change" pill, reset, remove → archived (not restorable). The test snapshots/restores the Owner row (`must_change_password` back to **true**) and `admin_number_seq` (back to 2), and deletes everything it created
@@ -273,6 +273,8 @@ _(none)_
 | 2026-09-26 | DB connect retry | `lib/db.js` retries (3×) only `UND_ERR_CONNECT_TIMEOUT` / `ECONNREFUSED` / `ENOTFOUND` / `EAI_AGAIN` — errors where the query never reached Neon | Safe (never runs a statement twice); rescues flaky local networks |
 | 2026-09-26 | CSP without inline scripts | Pre-paint code in small blocking files instead of hashed inline scripts; `style-src 'unsafe-inline'` kept (inline style attributes from `el()`, the loader's critical `<style>`) | No hash drift when the HTML changes; style injection is low risk |
 | 2026-09-26 | Pre-launch reset | `npm run prelaunch:reset` = dry run; `-- --yes-reset-everything` deletes gallery-folder Cloudinary files, truncates all data tables, re-seeds, re-creates the Owner. Refuses without Cloudinary keys unless `--skip-cloudinary` | Plan A13 |
+| 2026-09-26 | `.vercelignore` anchored (`/assets` …) | The unanchored `assets` pattern also matched `public/assets` → **no images had ever been deployed** (every `/assets/*` 404 in production). Found while checking the TwitCasting icon; fixed and verified with production screenshots | Critical production fix |
+| 2026-09-26 | Admin render race | Each navigation renders into its own `.view__page` container; a slow page finishing after the admin moved on writes into a detached node | Found in testing: a cold-start dashboard overwrote the Gallery page |
 | 2026-09-26 | Password "guessable" rule | Reject when the password's letters consist **only** of site words (kotoha, hakoniwa, lily, clover, password, …), not when it merely contains one | Blocks "KotohaClover2026!" but allows real passphrases |
 
 ---
@@ -314,3 +316,7 @@ _(none)_
 - Resilience: admin + public pages no longer wait on third-party CDNs; DB connect-retry for flaky networks.
 - Phase 16: CSP + SRI live on production; a11y contrast/label fixes; `scripts/prelaunch-reset.js` (dry run only).
 - Test hygiene: a DB drop during `csp-check.mjs` left the `devtest` admin behind once — found and removed. Always re-check for `devtest` after a failed run.
+- Owner answers: Cloudinary keys saved (verified), TwitCasting icon approved (added), phone test later, `DATABASE_URL` → Sensitive (done; production DB access verified on the new deployment).
+- Cloudinary preset created + round-trip tested; gallery seeded (8); admin gallery upload/shrink/edit/delete verified end-to-end.
+- **Production images were missing since the first deploy** (`.vercelignore`) — fixed; production screenshots verified.
+- Fixed an admin navigation race (stale page overwrote the current one).
