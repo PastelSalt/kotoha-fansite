@@ -222,12 +222,15 @@ async function boot() {
     document.title = t('meta.title');
   });
 
+  // Home content keeps loading in the background; the loader waits for it at most 4 s
+  // (a sleeping database must not hold the art showcase hostage — cards show a skeleton until it arrives).
+  const homeReady = loadHome();
   const timing = await waitForAssets({
     tier1: [
       resolveInitialLanguage,
       () => document.fonts?.ready,
       () => decodeImage($('img[data-bg="home"]')),
-      loadHome,
+      () => Promise.race([homeReady, new Promise((r) => setTimeout(r, 4000))]),
     ],
     tier2: [
       ...['about', 'news', 'discography', 'gallery'].map((n) => () => decodeImage($(`img[data-bg="${n}"]`))),

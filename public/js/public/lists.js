@@ -1,7 +1,8 @@
 // Fetch helper + paged lists that load more as the visitor scrolls inside them ("show all records").
 import { el, stateMessage } from './render.js';
 
-export async function getJson(url, { timeout = 8000 } = {}) {
+// 15 s default: the free Neon database can take ~10 s to wake after idling (the edge cache usually hides this).
+export async function getJson(url, { timeout = 15000 } = {}) {
   const res = await fetch(url, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(timeout) });
   if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
   return res.json();
