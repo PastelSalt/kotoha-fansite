@@ -2,10 +2,10 @@
 
 | | |
 |---|---|
-| **Status** | **Draft v0.2.2 — round 1 answered + clarified; loader requirements added; consolidated round 2.2 questions open (§12). NO CODE on this branch until the owner approves.** |
+| **Status** | **v0.3 — all answers in (round 2.2: "all recommended"); execution plan ready (§15). Waiting for the owner's go-ahead to start D1. NO CODE on this branch until then.** |
 | **Branch** | `designupdatev2` (created from `main` @ `eef577f`) |
 | **Scope** | How the public site looks and moves. Content, database, API, admin panel, analytics, i18n and security stay as they are |
-| **Clarity** | **88%** (v0.2.1: 87%) — loader requirements are now explicit; open points are *how much* motion and the loader details (§12) |
+| **Clarity** | **90%** (v0.2.2: 88%) — every design question is answered; the rest is taste, settled at the D1 style tile |
 | **Technical confidence** | **91%** (v0.2: 88%) — no WebGL recommended any more; everything is standard GSAP/CSS |
 | **Resume file** | This file (§14 has the checklist). `docs/PROGRESS.md` on `main` stays the source of truth for everything that is not design |
 
@@ -295,6 +295,8 @@ Review: screenshots in chat + protected Vercel preview of `designupdatev2`. Noth
 
 ## 10. Phases
 
+*Execution order and checkpoints: see §15.3 (D6 Loader v2 runs right after D2).*
+
 | Phase | Work | You check |
 |---|---|---|
 | D0 | Plan + answers | approve |
@@ -323,7 +325,11 @@ Review: screenshots in chat + protected Vercel preview of `designupdatev2`. Noth
 
 ---
 
-## 12. Round 2.2 questions — consolidated (my recommendation first)
+## 12. Round 2.2 questions — **answered 2026-09-26: "all recommended"**
+
+Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did you know?" line · L4 fix rotation on `main` now (**done**, `c58bfbc`, verified on production) · 1 no specific MV (bouncy, clean, colourful) · 2 clover iris into Home, no title card · 3 short stylish colour wipe · 4 subtle scroll effects · 5 no WebGL · 6 avatar + pose also in the gallery · 7 free scrolling on phones, snap on desktop · 8 extras a–g · 9 motion toggle.
+
+<details><summary>Original questions (for reference)</summary>
 
 *Everything still open, in one place. Reply **"all recommended"** and only mention the ones you want different.*
 
@@ -346,12 +352,14 @@ Review: screenshots in chat + protected Vercel preview of `designupdatev2`. Noth
 8. **Extras (§8):** **(a) a–g** (recommended) · (b) all · (c) your own pick of letters.
 9. **Motion toggle** ("motion ✿ on/off", small, nav + footer): **(a) yes** (recommended) · (b) no.
 
+</details>
+
 ---
 
 ## 13. Confidence
 
-- **Clarity: 88%.** Confirmed: proper website, MV-quality movement, alive on scroll, rotating clover loader. Q3/Q4 and L1–L2 set strength and loader details; the D1 sample lets you feel it before the big build.
-- **Technical: 91%.** All planned effects are standard GSAP/CSS with fallbacks; phone performance is checked every phase.
+- **Clarity: 90%.** Every question is answered; the remaining 10% is taste (exact colours, sizes, motion feel), which the D1 style tile + motion sample settles before the big build.
+- **Technical: 91%.** All planned effects are standard GSAP/CSS with fallbacks; the main risks (phone frame rate, the iris mask in older browsers) have measured checks and fallbacks (§15).
 
 ---
 
@@ -366,7 +374,9 @@ Review: screenshots in chat + protected Vercel preview of `designupdatev2`. Noth
 - [x] D0.3 Round 1 answers → plan v0.2
 - [x] D0.3a Owner clarification ("proper website, MV-like movement, alive on scroll") → plan v0.2.1
 - [x] D0.3b Loader requirement (rotating clover pair) + loader v2 proposal → plan v0.2.2
-- [ ] D0.4 Round 2.2 answers → plan v0.3 → owner approval
+- [x] D0.4 Round 2.2 answers (all recommended) → plan v0.3 with execution plan (§15)
+- [x] L4 Loader clover rotation fixed on `main` (`c58bfbc`), verified on production; merged into this branch
+- [ ] D0.5 Owner go-ahead to start D1 (+ answers to §15.8)
 - [ ] D1 Style tile + motion sample
 - [ ] D2 Foundations (+ credit labels removed)
 - [ ] D3 Components
@@ -393,3 +403,100 @@ Review: screenshots in chat + protected Vercel preview of `designupdatev2`. Noth
 | 2026-09-26 | Cloudinary key/secret in Vercel: loose end on `main`, owner will handle | Owner |
 | 2026-09-26 | **Clarified: proper website; "MV-like" = quality of movement only; page should feel alive when scrolling up and down.** v0.2 "page is an MV" concept (title card, end card, giant words) dropped as default | Owner |
 | 2026-09-26 | **Loader: the two overlapping clovers must rotate continuously while the loader is visible** (v1 had them static — Claude's miss); loader redesign delegated to Claude (§7.4a) | Owner |
+| 2026-09-26 | Round 2.2: **all recommended** (see §12); "start planning the execution" → §15 | Owner |
+| 2026-09-26 | L4 done on `main`: clovers rotate (outer CW 4 s, inner CCW 2.5 s; reduced motion 12 s / 8 s) | Claude |
+
+---
+
+## 15. Execution plan
+
+### 15.1 What changes where
+
+| Area | New | Changed | Removed (by the end) |
+|---|---|---|---|
+| **CSS** | `public/css/v2/` — `tokens.css` (declares the layer order), `base.css`, `components.css`, `sections.css`, `motion.css` | `site.css` wrapped in a lowest-priority `legacy` layer during the migration, emptied section by section | `site.css` (after D4) |
+| **JS** | `public/js/public/motion/`: `beat.js` (tempo + timing tokens), `prefs.js` (motion toggle + reduced motion), `scroll-life.js` (parallax, art camera, reveals, velocity lean, clover progress, nav tuck), `transitions.js` (desktop section wipes), `moments.js` (lightbox grow, menu reveal, cursor sparkles, ambient, special days) | `scroll.js` (snap on desktop only, native scroll on touch; emits "section change" events), `loader.js` (v2 + real progress), `render.js` / `gallery.js` / `main.js` (new components) | `fx.js`, all Anime.js / Animate.css usage on the public page |
+| **HTML** | inline SVG clover pair (4 separate petals) for the loader; motion toggle; marquee; mascot cameo; "coming soon"; footer credits list | `index.html` restructured per section (IDs, `data-section`, `data-track`, i18n keys, ARIA kept) | `.art-credit` labels + loader credit; credits dialog (replaced by the footer list) |
+| **Libraries** | GSAP **3.15.0** + ScrollTrigger, SplitText, Flip, CustomEase (jsdelivr, pinned + SRI) | Lenis kept (desktop only) | Anime.js + Animate.css from the public page (the admin keeps Animate.css — its look stays as is) |
+| **Assets** | mascot "peek" crops (generated by `optimize-images.js` from the existing mascot sheet); paper grain + decoration SVGs inline (no new downloads) | — | — |
+| **Text** | new EN/JA keys (loader facts label, motion toggle, "coming soon", LIVE, "fan art of the moment", credits heading, "Latest"/「最新」) → Japanese added to `JA_REVIEW_LIST.md` | — | — |
+| **Data** | `seed-gallery.js`: + About background, loader "pajamas" + "green cardigan" arts, profile avatar, About pose (all credited; unknown artist → "Artist unknown (作者不明)") | — | — |
+| **Unchanged** | API, database schema, admin panel, analytics (`data-track`), CSP rules (only new SRI hashes), i18n system | | |
+
+### 15.2 Phases in detail
+
+**D1 · Style tile + motion sample** — stand-alone page `public/design-v2/` (not linked, `noindex`, deleted before the merge)
+- Look: colour scale + section accents, type scale EN/JA, paper card, sticker heading, washi tape, stitch "ticket", polaroid, news note, profile card sample, sleeve cover placeholder, buttons/chips, JP/EN sliding pill, doodle-font trial (kept only if it looks better).
+- Motion sample: loader spinner (counter-rotating clovers + petal progress + iris exit); a 3-block scroll demo with parallax, reveals from both directions, velocity lean and one desktop section wipe; hover/tap micro-interactions; calm mode + motion toggle.
+- ✔ Done when: renders at 1366 and 390, 0 CSP errors, reduced motion works → **checkpoint ✋1: you adjust the look and the motion strength here.**
+
+**D2 · Foundations**
+- Layered CSS + tokens; typography + paper surfaces applied site-wide (layout still the old one); `site.css` → `legacy` layer.
+- Remove "art by" labels + loader credit; "Most latest" → "Latest"/「最新」.
+- GSAP 3.15 swap (+ SRI); replace the Anime.js/Animate.css effects with GSAP/CSS.
+- Gallery seed additions (5 artworks, credited) — timing per §15.8 E2.
+- ✔ Done when: every existing function still works (admin, tracker, gallery, i18n tests), no text under 13 px, CSP/SRI clean.
+
+**D6 · Loader v2** (§7.4a; moved up right after D2 because it only needs the tokens) — inline SVG clovers (CSS rotation keeps turning even while scripts load), petals fill from real loading progress, wave "Loading…", "Did you know?" facts from the About data, iris exit into Home (plain-fade fallback for older browsers), calm mode. Tiers (3 s / 6 s / 10 s) + 12 s failsafe unchanged.
+- ✔ Done when: rotation verified (spin check), all 4 petals fill, exit ≤ 1 s, failsafe still works with scripts blocked.
+
+**D3 · Components** — ticket (countdown + LIVE), polaroid, news note, film strip, profile card + facts grid, sleeves (+ designed placeholder covers), achievements timeline, masonry tile, lightbox, floating nav pill + clover progress, JP/EN pill, buttons/chips, footer (credits list, Moesoft, disclaimer, contact), empty/error notes, scrollbars.
+- ✔ Done when: each component renders with real data in EN/JA; contrast AA; ≤ 6 stitched (dashed) items per screen.
+
+**D4 · Sections — desktop (1024–1920 px)** — new compositions (§6), scrims, section accents.
+- ✔ Done when: screenshot matrix clean (no overflow/overlap), character art visible → **checkpoint ✋2: preview link review.**
+
+**D5 · Phones + tablet** — native scroll on touch devices, one-column compositions, direction-aware top bar, mobile menu circle reveal, landscape phones.
+- ✔ Done when: 360/390/768/800×360 matrix clean, no sideways scrolling → **checkpoint ✋3: you try it on your phone** (replaces the pending swipe test).
+
+**D7 · Motion system** — beat timings, scroll life (§7.2), desktop section transitions synced with the snap glide (reverse direction when scrolling up), micro-interactions, lightbox grow (View Transitions → GSAP Flip fallback), cursor sparkles, ambient clovers, motion toggle + calm mode.
+- ✔ Done when: ≥ 55 fps desktop and ≥ 50 fps with 4× CPU slowdown on a phone-sized screen; no layout shifts; toggle/calm mode stop every loop; no flashing → **checkpoint ✋4: motion review on the preview link.**
+
+**D8 · Extras a–g** — marquee (reacts to scroll speed/direction), "coming soon" countdown (future-dated discography), mascot cameo, LIVE badge, clover progress, special-day decorations, "fan art of the moment".
+- ✔ Done when: each uses real data or is purely decorative, and respects calm mode.
+
+**D9 · QA** — keyboard path + visible focus, screen-reader labels, contrast, calm mode, JP line breaks (`word-break: auto-phrase`), performance, CSP/SRI, analytics events still fire (tracker test), admin unaffected (admin tests), Edge/Chrome + your devices.
+
+**D10 · Merge** — your go-ahead → delete the style tile → merge `designupdatev2` into `main` → production checks (screens, loader spin, gallery, CSP) → update `docs/PROGRESS.md`.
+
+### 15.3 Order & checkpoints
+
+```
+D1 ─▶ ✋1 ─▶ D2 ─▶ D6 ─▶ D3 ─▶ D4 ─▶ ✋2 ─▶ D5 ─▶ ✋3 ─▶ D7 ─▶ ✋4 ─▶ D8 ─▶ D9 ─▶ ✋ merge (D10)
+```
+✋ = I stop and wait for your review.
+
+### 15.4 How each step is verified (tools built during v1, extended)
+
+| Check | Tool |
+|---|---|
+| Screens at 1366, 1920, 1024, 768, 390, 360, 800×360; JP + EN; before/after sheets | headless Edge screenshot scripts |
+| Text sizes, dashed-border count, surfaces, contrast pairs | audit script (+ a contrast sampler) |
+| CSP violations + SRI integrity | CSP check script |
+| Loader rotation (normal + reduced motion) | spin check |
+| Frame rate while scrolling (normal + 4× CPU slowdown) | new fps check (scroll automation + frame counting) |
+| Calm mode / motion toggle | reduced-motion emulation + toggle test |
+| Nothing else broke | admin UI test, gallery test, tracker test, public-page smoke test |
+
+### 15.5 Budgets
+
+- Own CSS ≤ 70 KB, own JS added ≤ 35 KB (unminified, no build step).
+- Third-party: GSAP core + 4 plugins ≈ 155 KB vs today's GSAP + ScrollTrigger + Anime.js + Animate.css ≈ 205 KB → **lighter overall**.
+- Frame rate: ≥ 55 fps desktop, ≥ 50 fps slowed-down phone emulation; animations only on transform/opacity/clip-path.
+
+### 15.6 Safety net
+
+- `main` (the live site) is untouched until the merge; every push to `designupdatev2` only creates a protected preview.
+- After the merge, if anything is wrong: instant rollback to the previous Vercel deployment + `git revert` of the merge commit.
+- Commit + push after every verified task; this checklist is updated each time (cut-off safe).
+- Hard rules unchanged: secret scan before every commit, no secrets in files, commit author/trailer, never force-push.
+
+### 15.7 What I need from you during execution
+
+Only the 4 checkpoint reviews (✋1–✋4) and the merge go-ahead. Between checkpoints I continue on my own.
+
+### 15.8 Last execution questions (my recommendation first — reply "go" to accept all)
+
+- **E1 · Style tile location:** a stand-alone page at `/design-v2/` on the **preview link only**, deleted before the merge. **(a) OK** (recommended) · (b) other.
+- **E2 · Gallery additions timing:** add the 5 extra artworks (About background, 2 loader arts, avatar, pose — all credited) **(a) during D2, which makes them visible in the live gallery right away** (shared database; harmless — it only adds credited entries; recommended) · (b) only at the merge.
+- **E3 · Working rhythm:** **(a) I continue on my own between checkpoints and only stop at ✋1–✋4 + the merge** (recommended) · (b) stop after every phase.
