@@ -118,7 +118,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 1.1 Owner installed GitHub CLI 2.101.0 + logged in as **PastelSalt** (gh at `C:\Program Files\GitHub CLI\gh.exe`; not on Git Bash PATH → call by full path, and use `MSYS_NO_PATHCONV=1` for `gh api`)
 - [x] 1.2 Repo-local git email = `214653345+PastelSalt@users.noreply.github.com` (name: "Moesoft: Moeko Software and Technologies")
 - [x] 1.3 Private repo https://github.com/PastelSalt/kotoha-fansite, `main` pushed (initial commit `9aa41e5`, secret scan clean)
-- [~] 1.4 Vercel project `kotoha-fansite` created (`prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn`, account `team_iTXgjBMqb9YpVCwrSPc0UKWO`, Node 24.x, no framework, output `public`). Deployment protection set to **preview only**. Git link to be confirmed by the first push-triggered deployment. Note: connector `create_git_project` fails with 403 (scope `pastelsalts-projects`); plain `create_project` / `update_project` / env calls work **without** a teamId
+- [x] 1.4 Vercel project `kotoha-fansite` created and **Git link verified** (push to `main` → production deployment). Details: (`prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn`, account `team_iTXgjBMqb9YpVCwrSPc0UKWO`, Node 24.x, no framework, output `public`). Deployment protection set to **preview only**. Git link to be confirmed by the first push-triggered deployment. Note: connector `create_git_project` fails with 403 (scope `pastelsalts-projects`); plain `create_project` / `update_project` / env calls work **without** a teamId
 - [x] 1.5 Create Neon project `kotoha-fansite` (Singapore); record ID; put connection strings in `.env.local` (see §3)
 - [ ] 1.6 Cloudinary: create signed upload preset (folder, formats, strip metadata); record name
 - [ ] 1.7 Cloudinary API key/secret into `.env.local` (connector or owner paste; never commit)
@@ -132,7 +132,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 2.5 `.env.example` (placeholders only); `.env.local` created with Neon URLs, analytics salt and bootstrap creds (git-ignored, verified with `git check-ignore`)
 - [x] 2.6 README skeleton
 - [ ] 2.7 Verify on Vercel: Routing Middleware works (lang cookie + `/admin` guard); Argon2 native module works → record in §9
-- [ ] 2.8 First commit + push
+- [x] 2.8 First commit + push (`9aa41e5`, `67c120a`). Production answers at https://kotoha-fansite.vercel.app; `/api/public/*` rewrites verified on Vercel (geo returned PH → en)
 
 ### Phase 3: Scroll prototype
 - [ ] 3.1 5 blank sections + gallery zone; Lenis + lenis-snap + ScrollTrigger sync
@@ -154,8 +154,8 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 5.3 `scripts/dev-server.js`: local stand-in for `vercel dev` (static + cleanUrls + API rewrites). Run: `node --env-file=.env.local scripts/dev-server.js`
 
 ### Phase 6: Auth & roles
-- [ ] 6.1 Sessions, login (throttle/lockout), logout, me, change-password (policy + HIBP)
-- [ ] 6.2 `requireAdmin` / `requireOwner`; forced-change gate
+- [x] 6.1 `lib/auth.js` + `api/auth.js`: login (per user+IP 5/15 min, per IP 20/15 min, account lock after 5), logout, me, change-password (policy + HIBP, revokes all sessions then issues a new one), preferences. Cookie `__Host-kf_session` on HTTPS / `kf_session_dev` on local http. Verified locally with a throwaway `devtest` admin (cleaned up)
+- [x] 6.2 `requireAdmin({allowPasswordChange, ownerOnly})` / `requireOwner`; forced-change gate returns `403 PASSWORD_CHANGE_REQUIRED`. `lib/validate.js` done (text/date/url/oneOf/youtubeId/links/id + `parseYouTubeId`)
 - [ ] 6.3 Accounts API (create auto-numbered admin + temp password, reset, remove→archive)
 - [x] 6.4 ~~`middleware.js`~~ **Dropped** (see §9): language comes from `/api/public/geo`; `/admin` guard = client check + server-side API enforcement
 
