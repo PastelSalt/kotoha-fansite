@@ -48,6 +48,8 @@ const UI_IMAGES = [
   { name: 'icon-x', file: 'icons/twitter.png', widths: [96] },
   { name: 'icon-youtube', file: 'icons/youtube.png', widths: [96] },
   { name: 'icon-twitch', file: 'icons/twitch.png', widths: [96] },
+  // Official TwitCasting app icon (Moi Corporation brand guideline pack): resized only, never altered
+  { name: 'icon-twitcasting', file: 'icons/twitcasting.png', widths: [96] },
 ];
 
 const CLOVER_PATH = 'M286 85 A153 153 0 1 1 505 300 A153 153 0 1 1 288 517 A153 153 0 1 1 68 300 A153 153 0 1 1 286 85 Z';

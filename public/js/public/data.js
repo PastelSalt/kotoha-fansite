@@ -4,8 +4,8 @@ export const SOCIALS = [
   { id: 'x', label: 'X (Twitter)', handle: '@kotoha_ktnh', url: 'https://x.com/kotoha_ktnh', icon: '/assets/img/icon-x-96.webp' },
   { id: 'youtube', label: 'YouTube', handle: '@Kotoha_ktnh', url: 'https://www.youtube.com/@Kotoha_ktnh', icon: '/assets/img/icon-youtube-96.webp' },
   { id: 'twitch', label: 'Twitch', handle: '@kotoha_hkll', url: 'https://www.twitch.tv/kotoha_hkll', icon: '/assets/img/icon-twitch-96.webp' },
-  // TODO(resume): replace the fallback with TwitCasting's official icon once the owner approves the download (PROGRESS 7.3)
-  { id: 'twitcasting', label: 'TwitCasting', handle: '@kotoha_ktnh', url: 'https://twitcasting.tv/kotoha_ktnh', icon: null },
+  // Official icon from TwitCasting's brand guideline pack (https://about.moi.st/en/guideline/), resized only
+  { id: 'twitcasting', label: 'TwitCasting', handle: '@kotoha_ktnh', url: 'https://twitcasting.tv/kotoha_ktnh', icon: '/assets/img/icon-twitcasting-96.webp' },
 ];
 
 export const OFFICIAL_LINKS = [

@@ -120,8 +120,8 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 1.3 Private repo https://github.com/PastelSalt/kotoha-fansite, `main` pushed (initial commit `9aa41e5`, secret scan clean)
 - [x] 1.4 Vercel project `kotoha-fansite` created and **Git link verified** (push to `main` → production deployment). Details: (`prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn`, account `team_iTXgjBMqb9YpVCwrSPc0UKWO`, Node 24.x, no framework, output `public`). Deployment protection set to **preview only**. Git link to be confirmed by the first push-triggered deployment. Note: connector `create_git_project` fails with 403 (scope `pastelsalts-projects`); plain `create_project` / `update_project` / env calls work **without** a teamId
 - [x] 1.5 Create Neon project `kotoha-fansite` (Singapore); record ID; put connection strings in `.env.local` (see §3)
-- [ ] 1.6 Cloudinary: create signed upload preset (folder, formats, strip metadata); record name
-- [ ] 1.7 Cloudinary API key/secret into `.env.local` (connector or owner paste; never commit)
+- [x] 1.6 Signed preset **`kotoha_gallery_signed`** created via Admin API: folder `kotoha-fansite/gallery`, formats jpg/jpeg/png/webp/avif/gif/heic/heif, unique filenames, no overwrite, `disallow_public_id`, tag `kotoha-gallery`. No incoming transformation (owner chose the default config); the site only shows transformed copies (metadata stripped by Cloudinary), and artworks are social-media reposts. Round trip verified with `lib/cloudinary.js` (sign → upload → verify response signature → forged one rejected → Admin API read → destroy)
+- [~] 1.7 Key/secret in `.env.local` ✅ (verified: Free plan, 0.68% credits). **Vercel env: owner must add `CLOUDINARY_API_KEY` + `CLOUDINARY_API_SECRET` as Sensitive (Production + Preview)** — Claude may not type secrets into other services
 - [~] 1.8 Vercel env vars set (all targets): `DATABASE_URL` + `ANALYTICS_SALT` (encrypted), `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_FOLDER`, `CLOUDINARY_UPLOAD_PRESET`. **Still to add:** `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` (after the owner pastes them). Bootstrap vars intentionally **not** in Vercel (the bootstrap runs locally against the shared DB)
 
 ### Phase 2: Foundation
@@ -136,7 +136,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 
 ### Phase 3: Scroll prototype
 - [x] 3.1 Built directly into the real UI (`public/js/public/scroll.js`): Lenis + **custom direction-aware snap** + ScrollTrigger sync. lenis-snap dropped (see §9). Wheel test (DevTools protocol): each notch advances one section, gallery scrolls freely, scrolling up snaps back, nav click exact, inner lists don't move the page
-- [~] 3.2 Touch: Lenis `syncTouch:false` (native touch scroll + momentum) + the same settle/snap logic. One emulated swipe snapped correctly to the next section, but headless touch emulation is unreliable (even a plain page ignores first swipes) → **needs a real-phone check by the owner**
+- [~] 3.2 Touch: Lenis `syncTouch:false` (native touch scroll + momentum) + the same settle/snap logic. One emulated swipe snapped correctly to the next section, but headless touch emulation is unreliable (even a plain page ignores first swipes) → **needs a real-phone check by the owner** — owner will do it later (2026-09-26)
 - [x] 3.3 `--app-height` locking (width/orientation only on touch), inner lists `data-lenis-prevent`, reduced motion → no Lenis + native CSS snap
 
 ### Phase 4: Database
@@ -162,7 +162,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 ### Phase 7: Image pipeline
 - [x] 7.1 `scripts/optimize-images.js` → WebP only (AVIF skipped: slow to encode, WebP is universal). Backgrounds: `public/assets/bg/<name>-{1280,1920,2560}.webp` + portrait `-p{720,1080}.webp` (focal-point crops, visually verified against mobile refs). UI: `public/assets/img/<name>-<w>.webp`. Names: home, about, news, discography, gallery, loader1 (pajama), loader2 (birthday), loader3 (cardigan)
 - [x] 7.2 `public/assets/svg/{clover-fill,clover-outline,divider}.svg` (clover path verified against the PNG), `public/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `public/assets/og-image.jpg`
-- [!] 7.3 TwitCasting official logo: source found = TwitCasting operator's brand page https://about.moi.st/en/guideline/ → `icons_png.zip` (1,553,971 bytes, https://about.moi.st/en/wp-content/themes/moi2/assets/guideline/images/icons_png.zip). Rules: no color changes/alterations, generous margin, no implied sponsorship. **Waiting for owner's OK to download.** Temporary placeholder icon in the UI until then
+- [x] 7.3 TwitCasting official logo — owner approved; downloaded `icons_png.zip`, used `icon_android_2048.png` → `assets/icons/twitcasting.png` → `icon-twitcasting-96.webp` (resized only). Original note: source found = TwitCasting operator's brand page https://about.moi.st/en/guideline/ → `icons_png.zip` (1,553,971 bytes, https://about.moi.st/en/wp-content/themes/moi2/assets/guideline/images/icons_png.zip). Rules: no color changes/alterations, generous margin, no implied sponsorship. **Waiting for owner's OK to download.** Temporary placeholder icon in the UI until then
 
 ### Phase 8: i18n foundation
 - [x] 8.1 `public/locales/{en,ja}.json` for the public site (admin strings will be separate files in Phase 12)
@@ -225,7 +225,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 
 - **Done so far:** Phases 1 (except Cloudinary keys), 2, 3, 4 (except gallery seed), 5, 6, 7 (except TwitCasting icon), 8, 9 (v1), 10, 11; admin API (12.2/12.3 API-side). Public site v1 live at https://kotoha-fansite.vercel.app after each push.
 - **Next action (no owner input needed):** Phase 16 quality (CSP/SRI headers, a11y pass, Lighthouse, security review) → Phase 17 (pre-launch reset script, docs). Phase 13 gallery testing waits for the Cloudinary keys.
-- **Blocked on owner:** Cloudinary API key/secret still EMPTY in `.env.local` (1.6/1.7, 4.6, Phase 13, gallery testing) · TwitCasting icon download approval (7.3) · real-phone swipe check (3.2).
+- **Waiting on owner:** add the Cloudinary key/secret to Vercel (1.7; production gallery uploads) · real-phone swipe check (3.2, later).
 - **Workflow:** commit + push after each verified step (every push to `main` deploys production; the site is not announced yet, so that's fine pre-launch). Always run the secret scan before committing (see the command in the session log).
 
 ---
@@ -241,7 +241,9 @@ _(none)_
 - [ ] **Install GitHub CLI + log in** (run in your own terminal):
   `winget install --id GitHub.cli -e` then open a new terminal and run `gh auth login` (choose GitHub.com → HTTPS → login with browser).
 - [ ] Approve Vercel's access to the GitHub repo when prompted (one click).
-- [ ] **Paste Cloudinary API key + secret into `.env.local`** (Cloudinary Console → Settings → API Keys; lines `CLOUDINARY_API_KEY=` and `CLOUDINARY_API_SECRET=`). The connector can't read these. Cloud name is already filled in.
+- [x] Paste Cloudinary API key + secret into `.env.local` (done 2026-09-26).
+- [ ] **Add `CLOUDINARY_API_KEY` and `CLOUDINARY_API_SECRET` in Vercel** → Project `kotoha-fansite` → Settings → Environment Variables → type **Sensitive**, environments **Production + Preview**, same values as `.env.local`. Then redeploy (or tell Claude, who will push).
+- [ ] Real-phone swipe check (later).
 - [ ] After launch: first login with the default credential → change password immediately.
 - [ ] Later: share `docs/JA_REVIEW_LIST.md` with a Japanese speaker.
 
@@ -279,7 +281,7 @@ _(none)_
 
 - Neon free tier caps storage at 512 MB → keep the analytics 90-day raw retention + daily rollups; consider pruning `login_attempts` / expired sessions in a scheduled job (Vercel Cron) in Phase 15.
 - CSP header still to be written (Phase 16).
-- Vercel flags `DATABASE_URL` as "readable-secret" (type encrypted, not sensitive). Phase 16: recreate it as a **sensitive** env var (value unchanged).
+- `DATABASE_URL` converted to **Sensitive** (Production + Preview; owner approved 2026-09-26) without resending the value. Local dev uses `.env.local`.
 - Each tracked visit wakes the Neon compute (free plan: limited compute hours). Fine for a fan site; watch Neon usage after launch.
 - The built-in browser pane reports `visibilityState: hidden` when not shown → rAF/animations pause and the loader never finishes there. Test the public page in headless Edge instead.
 - **Neon free compute sleeps after ~5 min and needs ~10 s to wake** (measured). Mitigated: public API `stale-while-revalidate=86400` at the edge; loader waits max 4 s for home data; client API timeout 15 s. The admin's first request after idle may take ~10 s: show a "waking up" hint in the admin UI.
