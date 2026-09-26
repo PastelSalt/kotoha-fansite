@@ -11,9 +11,12 @@
   d.classList.add('js');
   // Third-party stylesheets are added from script so they never block the first paint:
   // on a slow network the loader still shows at once and fonts swap in when they arrive.
-  ['https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap',
-   'https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css',
-   'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'].forEach(function (href) {
-    var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; document.head.appendChild(l);
+  // [href, Subresource Integrity hash] — Google Fonts CSS varies per browser, so it can't carry one.
+  [['https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap', ''],
+   ['https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css', 'sha256-X9HQQlKUVJZP551O2vV2oeXKi83GoJN+cfyXquUg6xs='],
+   ['https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', 'sha384-Gu3KVV2H9d+yA4QDpVB7VcOyhJlAVrcXd0thEjr4KznfaFPLe0xQJyonVxONa4ZC']].forEach(function (s) {
+    var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = s[0];
+    if (s[1]) { l.integrity = s[1]; l.crossOrigin = 'anonymous'; }
+    document.head.appendChild(l);
   });
 })();

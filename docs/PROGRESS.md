@@ -209,12 +209,12 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 15.3 Dashboard (`public/js/admin/analytics.js`): KPIs (today/week/month, avg visit, avg loading), daily/weekly/monthly charts, sections (reach % + avg time), devices, language + switches, countries (Japan share), sources, busiest hours JST, video plays, official link clicks, news link clicks, top artworks, browsers. Screenshots verified desktop / JA / mobile
 
 ### Phase 16: Quality pass
-- [ ] 16.1 A11y (keyboard, screen reader, contrast, reduced motion) in both languages
+- [~] 16.1 A11y: done — AA contrast for white-on-green (buttons, toggles, public JP/EN switch, chip hover), darker "Latest" badge, clearer input focus ring, translated admin skip link / menu / nav labels, admin `main` no longer a live region. Still to do: full keyboard + screen-reader walkthrough (both languages)
 - [ ] 16.2 Performance (Lighthouse, real devices), cross-browser
-- [ ] 16.3 Security review (auth, uploads, headers, secrets scan)
+- [~] 16.3 Security: **CSP live** (`vercel.json`; pre-paint scripts moved to `/js/prepaint.js` + `/js/admin/prepaint.js` so no inline scripts/hashes; dev server applies the same headers). **SRI on every CDN script/stylesheet** except Google Fonts CSS (varies per browser); confetti switched to the package's own `confetti.browser.js` (the `.min.js` is minified on the fly by jsdelivr → unstable hash). Hashes verified: jsdelivr data API + fetched bytes; cdnjs bytes cross-checked against cdnjs' published sha512 for animate.css. Headless check: 0 CSP violations on public page + every admin screen. URL fields are http(s)-only (checked). Still to do: `DATABASE_URL` → Vercel "sensitive" type; final review pass
 
 ### Phase 17: Launch
-- [ ] 17.1 Pre-launch reset (`scripts/prelaunch-reset.js`), re-seed, bootstrap Owner
+- [~] 17.1 `scripts/prelaunch-reset.js` written + dry-run tested (not run for real — run only right before launch, with the owner's go-ahead)
 - [ ] 17.2 Production deploy; verify
 - [ ] 17.3 Owner first login + password change (**owner action**); delete bootstrap env vars
 - [ ] 17.4 Final docs: README, DB setup, deploy, admin guide (JA/EN), JA review list
@@ -269,6 +269,8 @@ _(none)_
 | 2026-09-26 | Analytics rollups without cron | `rollupIfStale()` runs from `/api/track` and the dashboard (memo per instance per day, retry at most every 10 min); upserts make concurrent runs safe | No `CRON_SECRET`/cron config needed; a quiet site simply rolls up on the next visit |
 | 2026-09-26 | Public page CDN resilience | CDN scripts `async` + `librariesReady(6000)` in the loader's tier 1; Google Fonts / Lenis CSS / Animate.css injected by the pre-paint inline script (fonts also in `<noscript>`) | With cdnjs failing and Google Fonts taking 16 s (seen during testing), the site used to stay blank/frozen; now it runs without effects |
 | 2026-09-26 | DB connect retry | `lib/db.js` retries (3×) only `UND_ERR_CONNECT_TIMEOUT` / `ECONNREFUSED` / `ENOTFOUND` / `EAI_AGAIN` — errors where the query never reached Neon | Safe (never runs a statement twice); rescues flaky local networks |
+| 2026-09-26 | CSP without inline scripts | Pre-paint code in small blocking files instead of hashed inline scripts; `style-src 'unsafe-inline'` kept (inline style attributes from `el()`, the loader's critical `<style>`) | No hash drift when the HTML changes; style injection is low risk |
+| 2026-09-26 | Pre-launch reset | `npm run prelaunch:reset` = dry run; `-- --yes-reset-everything` deletes gallery-folder Cloudinary files, truncates all data tables, re-seeds, re-creates the Owner. Refuses without Cloudinary keys unless `--skip-cloudinary` | Plan A13 |
 | 2026-09-26 | Password "guessable" rule | Reject when the password's letters consist **only** of site words (kotoha, hakoniwa, lily, clover, password, …), not when it merely contains one | Blocks "KotohaClover2026!" but allows real passphrases |
 
 ---
@@ -308,3 +310,5 @@ _(none)_
 - Fixes from testing: login form POST (no password in the URL), admin CDN assets made non-blocking.
 - Analytics (Phase 15) built and verified; admin UI fully verified once the network recovered (only failure found and fixed: the "Add video" dialog crash). Owner Accounts flow verified with the Owner row restored.
 - Resilience: admin + public pages no longer wait on third-party CDNs; DB connect-retry for flaky networks.
+- Phase 16: CSP + SRI live on production; a11y contrast/label fixes; `scripts/prelaunch-reset.js` (dry run only).
+- Test hygiene: a DB drop during `csp-check.mjs` left the `devtest` admin behind once — found and removed. Always re-check for `devtest` after a failed run.

@@ -19,7 +19,8 @@ export const $ = (sel, root = document) => root.querySelector(sel);
 export const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
 // Adds a stylesheet from script, so a slow CDN never holds up the page's own scripts.
-export function loadStylesheet(href) {
+// `integrity` (Subresource Integrity) is optional: Google Fonts CSS differs per browser and can't have one.
+export function loadStylesheet(href, integrity) {
   if (document.querySelector(`link[rel="stylesheet"][href="${href}"]`)) return;
-  document.head.append(el('link', { rel: 'stylesheet', href }));
+  document.head.append(el('link', { rel: 'stylesheet', href, ...(integrity ? { integrity, crossorigin: 'anonymous' } : {}) }));
 }
