@@ -13,7 +13,8 @@
     "db:status": "node --env-file=.env.local scripts/migrate.js --status",
     "db:seed": "node --env-file=.env.local scripts/run-sql.js db/seed.sql",
     "admin:bootstrap": "node --env-file=.env.local scripts/admin-bootstrap.js",
-    "images:optimize": "node scripts/optimize-images.js"
+    "images:optimize": "node scripts/optimize-images.js",
+    "prelaunch:reset": "node --env-file=.env.local scripts/prelaunch-reset.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
