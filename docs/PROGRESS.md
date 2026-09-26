@@ -184,6 +184,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 10.1 Inline loader markup/critical CSS + **CSS failsafe (auto-hides at 12 s even if JS breaks)** + noscript; random art + credit
 - [x] 10.2 `loader.js`: tiers, min 3 s / soft 6 s / cap 10 s (measured 3.0 s locally); section images switched lazy→eager and decoded. `loader_timing` event pending Phase 15
 - [x] 10.3 Clover-bloom exit (GSAP), plain fade under reduced motion; boot errors still hide the loader
+- [x] 10.4 **Loader clovers rotate** for as long as the loader is visible (owner requirement 2026-09-26, missed in v1): outer clockwise 4 s/turn, inner counter-clockwise 2.5 s/turn (CSS, compositor thread); reduced motion keeps them turning slower (12 s / 8 s) since it's the loading indicator. Verified in headless Edge
 
 ### Phase 11: Animations
 - [x] 11.1 GSAP section entrances (with an IntersectionObserver safety net), CSS header transition (`body.is-scrolled`)

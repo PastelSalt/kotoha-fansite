@@ -168,6 +168,12 @@ ul, ol { padding: 0; list-style: none; }
 .loader__clover { position: relative; width: 120px; height: 120px; }
 .loader__clover-fill { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .12)); }
 .loader__clover-inner { position: absolute; inset: 25%; width: 50%; height: 50%; opacity: .75; }
+/* The two clovers are the loading indicator: they keep turning for as long as the loader is on screen
+   (outer clockwise, inner counter-clockwise, like little gears). CSS animation → keeps running smoothly
+   even while scripts are busy loading. */
+.loader__clover-fill { animation: clover-spin 4s linear infinite; }
+.loader__clover-inner { animation: clover-spin 2.5s linear infinite reverse; }
+@keyframes clover-spin { to { transform: rotate(360deg); } }
 .loader__text { font-size: 30px; line-height: 1.1; margin-top: 6px; }
 .loader__moesoft { width: 150px; margin-top: 4px; }
 .loader__made { font-size: 12px; max-width: 320px; }
@@ -582,6 +588,9 @@ dialog::backdrop { background: rgba(38, 49, 31, .72); }
 /* ------------------------------------------------------------------ reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+  /* the loader clovers are an essential progress indicator: keep them turning, just slower */
+  .loader__clover-fill { animation: clover-spin 12s linear infinite !important; }
+  .loader__clover-inner { animation: clover-spin 8s linear infinite reverse !important; }
   html { scroll-snap-type: y mandatory; }
   .section:not(.section--gallery) { scroll-snap-align: start; }
 }
