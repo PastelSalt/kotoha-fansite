@@ -1,0 +1,126 @@
+/* Design system v2 · motion.
+   Rules: one tempo (128 BPM → var(--beat) = 469 ms) · only transform / opacity / clip-path / mask animate ·
+   scroll-linked effects use native CSS scroll-driven animations as progressive enhancement ·
+   "calm" mode (device reduced-motion OR the site's motion toggle) keeps only short fades — except the loader
+   clovers, which keep turning (slower) because they are the loading indicator.
+
+   Property ownership (so effects never fight each other):
+     transform  → scroll-driven reveal / parallax / camera keyframes
+     translate, scale → hover & tap micro-interactions
+     rotate     → resting tilt + velocity lean: calc(var(--x-rot) + var(--lean) * 1deg)  */
+
+@layer motion {
+  /* ---------------------------------------------------------------- keyframes */
+  @keyframes v2-spin { to { rotate: 1turn; } }
+  @keyframes v2-wave { 0%, 55%, 100% { transform: translateY(0); } 25% { transform: translateY(-0.3em); } }
+  @keyframes v2-flip { from { transform: rotateX(-100deg); opacity: 0.4; } to { transform: rotateX(0); opacity: 1; } }
+  @keyframes v2-pulse { 50% { transform: scale(1.35); opacity: 0.55; } }
+  @keyframes v2-bob { 50% { transform: translateY(6px); } }
+  @keyframes v2-drift { 50% { transform: translate(6px, -10px) rotate(8deg); } }
+  @keyframes v2-reveal-in { from { opacity: 0; transform: translateY(44px) scale(0.97); } }
+  @keyframes v2-reveal-out { to { opacity: 0.4; transform: translateY(-22px) scale(0.985); } }
+  @keyframes v2-pop-in { from { opacity: 0; transform: scale(0.72) rotate(-7deg); } 70% { opacity: 1; } }
+  @keyframes v2-camera { from { transform: translateY(-4%) scale(1.1); } to { transform: translateY(4%) scale(1.1); } }
+  @keyframes v2-deco { from { transform: translateY(60px); } to { transform: translateY(-60px); } }
+  @keyframes v2-push-in { from { transform: scale(1); } to { transform: scale(1.06); } }
+
+  /* ---------------------------------------------------------------- always-on (full motion) */
+  :root[data-motion='full'] .wave > span { animation: v2-wave calc(var(--beat) * 3) var(--ease-in-out) infinite; animation-delay: calc(var(--i, 0) * 70ms); }
+  :root[data-motion='full'] .flip__num.is-flipping { animation: v2-flip 0.42s var(--ease-pop); }
+  :root[data-motion='full'] .ticket__live::before { animation: v2-pulse calc(var(--beat) * 2) ease-in-out infinite; }
+  :root[data-motion='full'] .bob { animation: v2-bob calc(var(--beat) * 3) var(--ease-in-out) infinite; }
+  :root[data-motion='full'] .drift { animation: v2-drift calc(var(--beat) * 12) var(--ease-in-out) infinite; }
+  :root[data-motion='full'] .push-in { animation: v2-push-in 12s var(--ease-out) both; }
+
+  /* Velocity lean: JS sets --lean on :root (−2…2) while scrolling; settles back to 0 */
+  .lean { rotate: calc(var(--rest-rot, 0deg) + var(--lean, 0) * 1deg); }
+  .polaroid.lean { --rest-rot: var(--polaroid-rot); }
+  .polaroid.lean:hover { --rest-rot: 0deg; }
+  .sticker.lean { --rest-rot: var(--sticker-rot); }
+
+  /* ---------------------------------------------------------------- scroll-driven (native CSS, progressive enhancement) */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+      /* content: rises in when entering (from below or above), gently eases back when leaving */
+      :root[data-motion='full'] .reveal {
+        animation: v2-reveal-in linear backwards, v2-reveal-out linear forwards;
+        animation-timeline: view();
+        animation-range: entry 0% entry 90%, exit 10% exit 100%;
+      }
+      /* sticker headings: pop + tilt settle as the section arrives */
+      :root[data-motion='full'] .reveal-pop {
+        animation: v2-pop-in linear backwards;
+        animation-timeline: view();
+        animation-range: entry 10% cover 30%;
+      }
+      /* artwork "camera": slow pan + zoom while its section passes by (reverses when scrolling up) */
+      :root[data-motion='full'] .art-camera > img {
+        animation: v2-camera linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      /* small decorations move a little faster than the content → depth */
+      :root[data-motion='full'] .deco-parallax {
+        animation: v2-deco linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+    }
+  }
+
+  /* ---------------------------------------------------------------- loader iris (registered --iris animates) */
+  .iris-out {
+    --iris: 0px;
+    -webkit-mask: radial-gradient(circle at var(--iris-x, 50%) var(--iris-y, 50%), #0000 var(--iris), #000 calc(var(--iris) + 1px));
+    mask: radial-gradient(circle at var(--iris-x, 50%) var(--iris-y, 50%), #0000 var(--iris), #000 calc(var(--iris) + 1px));
+    transition: --iris 0.9s var(--ease-in);
+  }
+  .iris-out.is-open { --iris: 150vmax; }
+  .fade-out { transition: opacity 0.5s var(--ease-out); }
+  .fade-out.is-open { opacity: 0; }
+
+  /* loader "whoosh": one fast spin just before the exit */
+  .clover-spinner.is-whoosh .clover-spinner__outer { animation-duration: 0.6s; }
+  .clover-spinner.is-whoosh .clover-spinner__inner { animation-duration: 0.4s; }
+
+  /* ---------------------------------------------------------------- lightbox (<dialog>) open/close */
+  .lightbox {
+    opacity: 0; transform: scale(0.94) translateY(12px);
+    transition-property: opacity, transform, display, overlay;
+    transition-duration: 0.32s;
+    transition-timing-function: var(--ease-out);
+    transition-behavior: allow-discrete;
+  }
+  .lightbox[open] {
+    opacity: 1; transform: none;
+    @starting-style { opacity: 0; transform: scale(0.94) translateY(12px); }
+  }
+  /* while a View Transition grows the artwork into the viewer, the dialog must not run its own fade */
+  .lightbox.no-anim { transition: none; }
+  .lightbox::backdrop {
+    background-color: rgb(58 24 44 / 0);
+    transition: display 0.32s allow-discrete, overlay 0.32s allow-discrete, background-color 0.32s var(--ease-out);
+  }
+  .lightbox[open]::backdrop {
+    background-color: rgb(58 24 44 / 0.62);
+    @starting-style { background-color: rgb(58 24 44 / 0); }
+  }
+
+  /* ---------------------------------------------------------------- calm mode */
+  :root[data-motion='calm'] .clover-spinner__outer { animation-duration: 12s; }
+  :root[data-motion='calm'] .clover-spinner__inner { animation-duration: 8s; }
+  :root[data-motion='calm'] .iris-out { -webkit-mask: none; mask: none; transition: opacity 0.3s; }
+  :root[data-motion='calm'] .iris-out.is-open { opacity: 0; }
+  :root[data-motion='calm'] .lean { rotate: var(--rest-rot, 0deg); }
+  :root[data-motion='calm'] *, :root[data-motion='calm'] *::before, :root[data-motion='calm'] *::after {
+    transition-duration: 0.15s;
+  }
+  :root[data-motion='calm'] :is(.polaroid, .tile, .sleeve__disc, .btn, .chip, .mascot-peek):hover { translate: none; rotate: var(--rest-rot, 0deg); }
+  :root[data-motion='calm'] .lightbox { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  }
+  :root[data-motion='calm'] ::view-transition-group(*),
+  :root[data-motion='calm'] ::view-transition-old(*),
+  :root[data-motion='calm'] ::view-transition-new(*) { animation: none !important; }
+}

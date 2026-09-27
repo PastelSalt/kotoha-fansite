@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en" data-motion="full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Design v2 · Style tile · Kotoha Fan Site</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script src="/js/motion-boot.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Yomogi&display=swap">
+  <link rel="stylesheet" href="/css/v2/tokens.css">
+  <link rel="stylesheet" href="/css/v2/base.css">
+  <link rel="stylesheet" href="/css/v2/components.css">
+  <link rel="stylesheet" href="/css/v2/sections.css">
+  <link rel="stylesheet" href="/css/v2/motion.css">
+  <link rel="stylesheet" href="/design-v2/tile.css">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" integrity="sha256-krualkdvmD0hKivE9UyIkDnBaW3URh1ApzaGCThXD7s=" crossorigin="anonymous" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" integrity="sha256-QZ9wJ6XwhqEst5iHNtj906btIgAilmHeJbZijKfO00Q=" crossorigin="anonymous" async></script>
+  <script type="module" src="/design-v2/tile.js"></script>
+</head>
+<body class="tile-page clover-pattern">
+
+  <!-- ================================================================ sample floating nav -->
+  <div class="tile-nav">
+    <nav class="nav-pill paper" aria-label="Sample navigation">
+      <a class="nav-pill__logo" href="#top"><img src="/assets/img/logo-500.webp" alt="Kotoha" width="500" height="144"></a>
+      <ul class="nav-pill__links" id="nav-links">
+        <li><a href="#home" data-nav="home" aria-current="true">home</a></li>
+        <li><a href="#about" data-nav="about">about</a></li>
+        <li><a href="#news" data-nav="news">news</a></li>
+        <li><a href="#discography" data-nav="discography">discography</a></li>
+        <li><a href="#gallery" data-nav="gallery">gallery</a></li>
+        <li class="nav-pill__dot" aria-hidden="true"></li>
+      </ul>
+      <span class="clover-progress" id="nav-progress" aria-hidden="true" title="Page progress"></span>
+      <div class="lang-pill" id="lang-pill" data-active="en" role="group" aria-label="Language (demo: switches the profile card)">
+        <button type="button" data-lang="ja" aria-pressed="false">JP</button>
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      </div>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="true">
+        <span class="motion-toggle__icon" aria-hidden="true"></span><span data-motion-label>Motion on</span>
+      </button>
+    </nav>
+  </div>
+
+  <main id="top">
+    <!-- ================================================================ hero -->
+    <section class="board board--art hero" data-board="home" data-accent="home" aria-labelledby="tile-title">
+      <picture class="art art-camera">
+        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/home-p720.webp 720w, /assets/bg/home-p1080.webp 1080w" sizes="100vw">
+        <img src="/assets/bg/home-1920.webp" srcset="/assets/bg/home-1280.webp 1280w, /assets/bg/home-1920.webp 1920w, /assets/bg/home-2560.webp 2560w" sizes="100vw" alt="">
+      </picture>
+      <div class="scrim scrim--left"></div>
+      <div class="board__inner">
+        <div class="content">
+          <p class="doodle-note">design update v2 · style tile ✿</p>
+          <img class="hero__logo reveal-pop" src="/assets/img/logo-1000.webp" alt="Kotoha" width="1000" height="288">
+          <h1 class="hero__title" id="tile-title" data-split>Clover Scrapbook</h1>
+          <p class="hero__lead paper reveal">The new look for the Kotoha fan site: paper notes taped onto the fan art, die-cut stickers, and a stitch for the special things. Scroll down, then scroll back up — the page reacts both ways.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#loader-board">See the new loader</a>
+            <a class="btn btn--ghost" href="#motion-board">Try the motion</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" id="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>KOTOHA ✿ ことは ✿ HaKoniwalily ✿ HoneyWorks ✿ AiceClass ✿ Kotorisu 🍀 ✿&nbsp;</span>
+        <span>KOTOHA ✿ ことは ✿ HaKoniwalily ✿ HoneyWorks ✿ AiceClass ✿ Kotorisu 🍀 ✿&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ================================================================ colours + type -->
+    <section class="board" data-accent="home" aria-labelledby="palette-title">
+      <div class="board__inner">
+        <div class="board-head">
+          <h2 class="sticker reveal-pop" id="palette-title"><span class="sticker__clover"></span>Colours &amp; type</h2>
+          <p class="paper board-note reveal">Brand pink and green, now as full scales. Each section also gets <strong>one soft accent</strong> picked from its artwork (tape, transitions, scrollbars). Body text is dark ink — green is kept for headings, links and accents.</p>
+        </div>
+        <div class="swatches">
+          <div class="paper swatch reveal" style="--c: var(--pink-300)"><div class="swatch__chip"></div><div class="swatch__meta"><b>Pink 300</b>#fe9fb9 · brand base</div></div>
+          <div class="paper swatch reveal" style="--c: var(--pink-700)"><div class="swatch__chip"></div><div class="swatch__meta"><b>Pink 700</b>#b8325f · ribbons, LIVE</div></div>
+          <div class="paper swatch reveal" style="--c: var(--green-500)"><div class="swatch__chip"></div><div class="swatch__meta"><b>Green 500</b>#63a23d · brand green</div></div>
+          <div class="paper swatch reveal" style="--c: var(--green-700)"><div class="swatch__chip"></div><div class="swatch__meta"><b>Green 700</b>#2f7a1f · buttons, links</div></div>
+          <div class="paper swatch reveal" style="--c: var(--paper)"><div class="swatch__chip"></div><div class="swatch__meta"><b>Paper</b>#fffaf2 · cards</div></div>
+          <div class="paper swatch reveal" style="--c: var(--ink)"><div class="swatch__chip"></div><div class="swatch__meta"><b>Ink</b>#2b3326 · body text</div></div>
+          <div class="paper swatch reveal" style="--c: var(--accent-home)"><div class="swatch__chip"></div><div class="swatch__meta"><b>Home</b>lavender</div></div>
+          <div class="paper swatch reveal" style="--c: var(--accent-about)"><div class="swatch__chip"></div><div class="swatch__meta"><b>About</b>sky</div></div>
+          <div class="paper swatch reveal" style="--c: var(--accent-news)"><div class="swatch__chip"></div><div class="swatch__meta"><b>News</b>rose</div></div>
+          <div class="paper swatch reveal" style="--c: var(--accent-disco)"><div class="swatch__chip"></div><div class="swatch__meta"><b>Discography</b>peach</div></div>
+          <div class="paper swatch reveal" style="--c: var(--accent-gallery)"><div class="swatch__chip"></div><div class="swatch__meta"><b>Gallery</b>mint</div></div>
+        </div>
+
+        <div class="two-col">
+          <div class="paper paper--panel type-specimen reveal">
+            <div class="type-row"><span>Sticker heading</span><span class="sticker sticker--sm">News on Kotoha</span></div>
+            <div class="type-row"><span>Card title</span><p style="font-size: var(--fs-title); font-weight: 600">Latest works of Kotoha</p></div>
+            <div class="type-row"><span>Body 15–17 px</span><p>Kotoha is a singer and VTuber with AiceClass — readable at every size.</p></div>
+            <div class="type-row"><span>Japanese</span><p lang="ja">ハコニワリリィのボーカル、ことはの応援サイトです。</p></div>
+            <div class="type-row"><span>Meta 13–14 px</span><p class="ink-soft" style="font-size: var(--fs-meta)">2026.09.25 · Tie-in · HoneyWorks feat.ハコニワリリィ</p></div>
+          </div>
+          <div class="paper paper--panel doodle-trial is-on reveal" id="doodle-trial">
+            <h3 style="font-size: var(--fs-title); color: var(--green-700)">Handwritten accent — trial</h3>
+            <p style="margin-top: var(--s-3)">Tiny scrapbook doodles in a handwritten font (Yomogi, works for EN + JA), only for little notes — never for real content:</p>
+            <p style="margin-top: var(--s-3); font-size: 1.3rem"><span class="doodle" style="color: var(--pink-700)">new! ♡</span> <span class="doodle" style="color: var(--green-700)">← latest cover</span> <span class="doodle" lang="ja" style="color: var(--pink-700)">みてね！</span></p>
+            <button class="btn btn--ghost btn--sm" type="button" id="doodle-toggle" aria-pressed="true" style="margin-top: var(--s-4)">Doodles: on</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ home preview -->
+    <section class="board board--art" id="home" data-board="home" data-accent="home" aria-labelledby="home-title">
+      <picture class="art art-camera">
+        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/home-p720.webp 720w, /assets/bg/home-p1080.webp 1080w" sizes="100vw">
+        <img src="/assets/bg/home-1920.webp" srcset="/assets/bg/home-1280.webp 1280w, /assets/bg/home-1920.webp 1920w" sizes="100vw" alt="" loading="lazy">
+      </picture>
+      <div class="scrim scrim--left"></div>
+      <div class="board__inner">
+        <div class="board-head">
+          <h2 class="sticker reveal-pop" id="home-title"><span class="sticker__clover"></span>Home pieces</h2>
+        </div>
+        <div class="home-grid">
+          <article class="paper ticket stitch reveal" id="ticket">
+            <div class="ticket__stub"><span>Next stream</span></div>
+            <div class="ticket__body">
+              <p class="ticket__label">Regular stream · Tue &amp; Fri around 21:00 JST</p>
+              <div class="flip" id="flip" aria-hidden="true">
+                <span class="flip__unit"><span class="flip__num">00</span><small>days</small></span><span class="flip__sep">:</span>
+                <span class="flip__unit"><span class="flip__num">00</span><small>hrs</small></span><span class="flip__sep">:</span>
+                <span class="flip__unit"><span class="flip__num">00</span><small>min</small></span><span class="flip__sep">:</span>
+                <span class="flip__unit"><span class="flip__num">00</span><small>sec</small></span>
+              </div>
+              <p class="visually-hidden" id="flip-sr" aria-live="off"></p>
+              <span class="ticket__live">LIVE NOW</span>
+            </div>
+          </article>
+          <div class="home-row">
+            <div id="home-polaroid" class="reveal"></div>
+            <div class="home-notes" id="home-notes"></div>
+          </div>
+          <button class="btn btn--ghost btn--sm" type="button" id="live-preview" style="justify-self: start">Preview the LIVE badge</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ about preview -->
+    <section class="board board--art" id="about" data-board="about" data-accent="about" aria-labelledby="about-title">
+      <picture class="art art-camera">
+        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/about-p720.webp 720w, /assets/bg/about-p1080.webp 1080w" sizes="100vw">
+        <img src="/assets/bg/about-1920.webp" srcset="/assets/bg/about-1280.webp 1280w, /assets/bg/about-1920.webp 1920w" sizes="100vw" alt="" loading="lazy">
+      </picture>
+      <div class="scrim scrim--soft"></div>
+      <div class="board__inner">
+        <div class="board-head">
+          <h2 class="sticker reveal-pop" id="about-title"><span class="sticker__clover"></span>About Kotoha</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-left">
+            <article class="paper profile stitch reveal" aria-labelledby="profile-name">
+              <span class="tape"></span>
+              <header class="profile__head">
+                <img class="profile__avatar" src="/assets/img/profile-200.webp" srcset="/assets/img/profile-200.webp 200w, /assets/img/profile-400.webp 400w" sizes="84px" alt="" width="200" height="200">
+                <div>
+                  <h3 class="profile__name" id="profile-name">Kotoha <span lang="ja">ことは</span></h3>
+                  <p class="profile__role">Singer · VTuber · AiceClass</p>
+                </div>
+              </header>
+              <dl class="facts" id="profile-facts"></dl>
+            </article>
+            <div class="paper about-bio reveal" id="about-bio"></div>
+          </div>
+          <div class="clover-stage reveal">
+            <div class="clover-stage__ring"></div>
+            <div class="clover-stage__bg"></div>
+            <img class="drift" src="/assets/img/pose-450.webp" srcset="/assets/img/pose-450.webp 450w, /assets/img/pose-900.webp 900w" sizes="(min-width: 900px) 260px, 55vw" alt="Kotoha, full-body pose" width="450" height="806">
+          </div>
+        </div>
+      </div>
+      <img class="mascot-peek deco-parallax" src="/assets/img/mascot-front-240.webp" alt="" width="240" height="204" style="right: 3%; bottom: -8px">
+    </section>
+
+    <!-- ================================================================ news preview -->
+    <section class="board board--art" id="news" data-board="news" data-accent="news" aria-labelledby="news-title">
+      <picture class="art art-camera">
+        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/news-p720.webp 720w, /assets/bg/news-p1080.webp 1080w" sizes="100vw">
+        <img src="/assets/bg/news-1920.webp" srcset="/assets/bg/news-1280.webp 1280w, /assets/bg/news-1920.webp 1920w" sizes="100vw" alt="" loading="lazy">
+      </picture>
+      <div class="scrim scrim--left"></div>
+      <div class="board__inner">
+        <div class="board-head">
+          <h2 class="sticker reveal-pop" id="news-title"><span class="sticker__clover"></span>News on Kotoha</h2>
+        </div>
+        <div class="news-grid">
+          <div class="news-list" id="news-list" tabindex="0" aria-label="News"></div>
+          <div class="news-side">
+            <h3 class="sticker sticker--sm sticker--pink reveal-pop" style="justify-self: start; --sticker-rot: 2deg">Latest works</h3>
+            <div id="news-polaroid" class="reveal"></div>
+            <div class="film reveal" id="news-film" aria-label="More videos"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ discography preview -->
+    <section class="board board--art" id="discography" data-board="discography" data-accent="disco" aria-labelledby="disco-title">
+      <picture class="art art-camera">
+        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/discography-p720.webp 720w, /assets/bg/discography-p1080.webp 1080w" sizes="100vw">
+        <img src="/assets/bg/discography-1920.webp" srcset="/assets/bg/discography-1280.webp 1280w, /assets/bg/discography-1920.webp 1920w" sizes="100vw" alt="" loading="lazy">
+      </picture>
+      <div class="scrim scrim--soft"></div>
+      <div class="board__inner">
+        <div class="board-head">
+          <h2 class="sticker reveal-pop" id="disco-title"><span class="sticker__clover"></span>Discography</h2>
+        </div>
+        <div class="disco-grid">
+          <div class="sleeves">
+            <article class="paper soon stitch reveal" id="disco-soon" hidden></article>
+            <div class="paper paper--panel sleeves reveal" id="disco-sleeves"></div>
+          </div>
+          <div class="paper paper--panel reveal">
+            <h3 class="sticker sticker--sm" style="--sticker-rot: 1.5deg; margin-bottom: var(--s-5)">Achievements</h3>
+            <ol class="timeline" id="disco-timeline"></ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ gallery preview -->
+    <section class="board board--art" id="gallery" data-board="gallery" data-accent="gallery" aria-labelledby="gallery-title">
+      <picture class="art art-camera">
+        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/gallery-p720.webp 720w, /assets/bg/gallery-p1080.webp 1080w" sizes="100vw">
+        <img src="/assets/bg/gallery-1920.webp" srcset="/assets/bg/gallery-1280.webp 1280w, /assets/bg/gallery-1920.webp 1920w" sizes="100vw" alt="" loading="lazy">
+      </picture>
+      <div class="scrim scrim--soft"></div>
+      <div class="board__inner">
+        <div class="board-head">
+          <h2 class="sticker reveal-pop" id="gallery-title"><span class="sticker__clover"></span>Gallery</h2>
+          <p class="paper board-note reveal">Full-width now, so the artworks are the stars. Each artist is credited on the tile (hover or tap) and in the viewer.</p>
+        </div>
+        <div class="masonry" id="gallery-grid"></div>
+      </div>
+      <dialog class="lightbox" id="lightbox" aria-label="Artwork viewer">
+        <button class="lightbox__close" type="button" data-close aria-label="Close">×</button>
+        <img id="lightbox-img" alt="">
+        <div class="lightbox__caption"><span id="lightbox-credit"></span><a class="chip" id="lightbox-link" target="_blank" rel="noopener noreferrer">View original post ↗</a></div>
+      </dialog>
+    </section>
+
+    <!-- ================================================================ loader preview -->
+    <section class="board" id="loader-board" data-accent="home" aria-labelledby="loader-title">
+      <div class="board__inner">
+        <div class="board-head">
+          <h2 class="sticker reveal-pop" id="loader-title"><span class="sticker__clover"></span>The new loader</h2>
+          <p class="paper board-note reveal">The two clovers <strong>keep turning the whole time</strong> (outer clockwise, inner counter-clockwise). The inner clover's <strong>4 petals fill as the site loads</strong>. When ready, the clovers spin once more and a circle opens onto Home.</p>
+        </div>
+        <div class="loader-demo" id="loader-demo">
+          <div class="loader-demo__home" aria-hidden="true">
+            <picture class="art"><img src="/assets/bg/home-1280.webp" alt=""></picture>
+          </div>
+          <div class="loader-demo__layer iris-out" id="loader-layer">
+            <picture class="art push-in"><img src="/assets/bg/loader2-1280.webp" srcset="/assets/bg/loader2-1280.webp 1280w, /assets/bg/loader2-1920.webp 1920w" sizes="(min-width: 1200px) 1180px, 100vw" alt=""></picture>
+            <div class="scrim scrim--bottom"></div>
+            <img class="loader-demo__logo" src="/assets/img/logo-1000.webp" alt="Kotoha" width="1000" height="288">
+            <div class="loader-demo__status" role="status">
+              <div class="clover-spinner" id="loader-spinner"></div>
+              <p class="loader-demo__text" id="loader-text">Loading…</p>
+              <p class="loader-demo__fact paper" id="loader-fact"></p>
+            </div>
+            <div class="loader-demo__made"><img src="/assets/img/moesoft-360.webp" alt="Moesoft" width="360" height="180"><span>This is a fan-project made by: Moeko Software and Technologies</span></div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <button class="btn" type="button" id="loader-replay">Replay loading</button>
+          <button class="btn btn--ghost" type="button" id="loader-exit">Play the exit (circle opening)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ motion preview -->
+    <section class="board" id="motion-board" data-accent="news" aria-labelledby="motion-title">
+      <div class="board__inner">
+        <div class="board-head">
+          <h2 class="sticker reveal-pop" id="motion-title"><span class="sticker__clover"></span>Motion</h2>
+          <p class="paper board-note reveal">Everything moves on one rhythm (128 BPM). Motion happens <strong>around</strong> the content — text settles quickly and stays still while you read. Switch <strong>Motion off</strong> in the bar at the top to see calm mode.</p>
+        </div>
+        <div class="stage" id="stage" data-accent="news">
+          <picture class="art"><img id="stage-art" src="/assets/bg/news-1280.webp" alt=""></picture>
+          <div class="scrim scrim--left"></div>
+          <div class="stage__content" id="stage-content"></div>
+        </div>
+        <div class="demo-controls">
+          <button class="btn" type="button" data-stage="down">Section change ↓ (scrolling down)</button>
+          <button class="btn btn--ghost" type="button" data-stage="up">Section change ↑ (scrolling up)</button>
+          <button class="btn btn--ghost" type="button" id="replay-title">Replay title letters</button>
+        </div>
+        <ul class="effects">
+          <li class="paper reveal"><b>Scroll both ways</b>Cards rise in from below or above; artworks pan slowly like a camera; tiny clovers drift faster than the content.</li>
+          <li class="paper reveal lean"><b>Speed lean</b>Scroll fast and the cards lean 1–2°, then settle — try it on this card.</li>
+          <li class="paper reveal"><b>Ribbon</b>The KOTOHA ribbon speeds up with your scroll and reverses when you scroll up.</li>
+          <li class="paper reveal"><b>Sparkles</b>On a computer, a few clover sparkles follow the mouse. Not on phones.</li>
+          <li class="paper reveal"><b>Clover progress</b>The clover in the top bar fills as you go down the page and empties going up.</li>
+          <li class="paper reveal"><b>Calm mode</b>With motion off (or the device's "reduce motion" setting) only short fades remain — the loader clovers still turn, slower.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================================================================ footer sample -->
+  <footer class="foot" aria-labelledby="foot-title">
+    <div class="foot__inner">
+      <div>
+        <img src="/assets/img/moesoft-360.webp" alt="Moesoft — Moeko Software and Technologies" width="360" height="180" style="width: 160px">
+        <h2 class="visually-hidden" id="foot-title">Footer sample</h2>
+        <p class="paper" style="margin-top: var(--s-4); font-size: var(--fs-meta)">This is an unofficial, non-profit fan site. Kotoha, HaKoniwalily, HoneyWorks and AiceClass belong to their respective owners; artworks belong to their artists.</p>
+      </div>
+      <div>
+        <h3>Artwork credits</h3>
+        <ul class="foot__credits" id="foot-credits"></ul>
+      </div>
+      <div>
+        <h3>Settings</h3>
+        <div class="pieces">
+          <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="true"><span class="motion-toggle__icon" aria-hidden="true"></span><span data-motion-label>Motion on</span></button>
+          <a class="btn btn--ghost btn--sm" href="#top">Back to top ✿</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>© 2026 Moeko Software and Technologies</span>
+      <span class="paper temp-banner">Design preview only — this page is deleted before the redesign goes live.</span>
+    </div>
+  </footer>
+</body>
+</html>

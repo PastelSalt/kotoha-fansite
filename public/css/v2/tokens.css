@@ -1,0 +1,104 @@
+/* Kotoha fan site — design system v2 · tokens
+   Clover Scrapbook: paper notes taped onto fan art, die-cut stickers, stitches for featured items.
+   Load this file FIRST: it fixes the cascade-layer order for every v2 stylesheet. */
+
+@layer legacy, tokens, base, components, sections, motion;
+
+/* Registered properties can be animated smoothly (iris reveal, loader progress, clover fill). */
+@property --iris {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --fill {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@layer tokens {
+  :root {
+    /* ---- colour: brand scales */
+    --pink-50: #fff5f8;
+    --pink-100: #ffe2eb;
+    --pink-200: #ffc6d6;
+    --pink-300: #fe9fb9;   /* brand base (the site's persistent background) */
+    --pink-500: #ef5f8d;
+    --pink-700: #b8325f;   /* AA as text on light, and white text on it */
+    --green-50: #f2f9ec;
+    --green-100: #dcefcb;
+    --green-200: #bfe0a5;
+    --green-300: #a3d37f;
+    --green-500: #63a23d;  /* brand green */
+    --green-600: #4e8a2c;
+    --green-700: #2f7a1f;  /* AA as text on light, and white text on it */
+    --green-900: #1f4f15;
+    --paper: #fffaf2;
+    --paper-rgb: 255 250 242;
+    --ink: #2b3326;
+    --ink-soft: #56614f;
+    --white: #fff;
+
+    /* ---- colour: section accents (picked from each section's artwork) */
+    --accent-home: #c9b6f4;
+    --accent-about: #bfe4ff;
+    --accent-news: #ffb3c7;
+    --accent-disco: #ffd3b0;
+    --accent-gallery: #c8ecd9;
+    --accent: var(--accent-home);          /* each section overrides this */
+
+    /* ---- type */
+    --font: 'Fredoka', 'M PLUS Rounded 1c', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-ja: 'M PLUS Rounded 1c', 'Fredoka', system-ui, sans-serif;
+    --font-doodle: 'Yomogi', 'Fredoka', cursive;
+    --fs-meta: clamp(13px, 0.78rem + 0.12vw, 14px);
+    --fs-body: clamp(15px, 0.86rem + 0.28vw, 17px);
+    --fs-lead: clamp(16px, 0.94rem + 0.4vw, 20px);
+    --fs-title: clamp(17px, 0.96rem + 0.5vw, 22px);
+    --fs-h3: clamp(20px, 1rem + 0.9vw, 28px);
+    --fs-h2: clamp(26px, 1.1rem + 1.7vw, 44px);
+    --fs-display: clamp(40px, 1.4rem + 4.4vw, 92px);
+    --lh-body: 1.6;
+    --lh-ja: 1.75;
+    --lh-tight: 1.15;
+
+    /* ---- space (4-based) */
+    --s-1: 4px;
+    --s-2: 8px;
+    --s-3: 12px;
+    --s-4: 16px;
+    --s-5: 24px;
+    --s-6: 32px;
+    --s-7: 48px;
+    --s-8: 64px;
+    --s-9: 96px;
+    --gutter: clamp(16px, 3vw, 40px);
+
+    /* ---- shape */
+    --r-chip: 12px;
+    --r-card: 20px;
+    --r-panel: 28px;
+    --r-pill: 999px;
+
+    /* ---- depth (shadows tinted towards the pink/green palette, never grey-black) */
+    --shadow-paper: 0 1px 0 rgb(255 255 255 / 0.85) inset, 0 12px 26px -16px rgb(122 52 80 / 0.42), 0 2px 6px -2px rgb(122 52 80 / 0.16);
+    --shadow-lift: 0 22px 42px -20px rgb(122 52 80 / 0.5), 0 6px 14px -6px rgb(122 52 80 / 0.24);
+    --shadow-modal: 0 34px 90px -24px rgb(58 24 44 / 0.6);
+    --shadow-sticker: 0 3px 0 rgb(31 79 21 / 0.22), 0 10px 20px -10px rgb(31 79 21 / 0.55);
+    --paper-blur: blur(14px) saturate(1.15);
+
+    /* ---- motion (one internal tempo: 128 BPM → 1 beat = 469 ms) */
+    --beat: 469ms;
+    --t-tap: 120ms;
+    --t-pop: 350ms;
+    --t-move: 560ms;
+    --t-glide: 820ms;
+    --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+
+    /* ---- misc */
+    --focus-ring: 0 0 0 3px var(--white), 0 0 0 6px var(--pink-700);
+  }
+}

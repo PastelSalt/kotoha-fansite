@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | **v0.3 — all answers in (round 2.2: "all recommended"); execution plan ready (§15). Waiting for the owner's go-ahead to start D1. NO CODE on this branch until then.** |
+| **Status** | **Executing (approved 2026-09-27: "execute the plan"). D1 done → waiting at checkpoint ✋1 (owner reviews `/design-v2/` on the preview link).** Design system reference: `docs/DESIGN_SYSTEM.md` |
 | **Branch** | `designupdatev2` (created from `main` @ `eef577f`) |
 | **Scope** | How the public site looks and moves. Content, database, API, admin panel, analytics, i18n and security stay as they are |
 | **Clarity** | **90%** (v0.2.2: 88%) — every design question is answered; the rest is taste, settled at the D1 style tile |
@@ -376,8 +376,9 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 - [x] D0.3b Loader requirement (rotating clover pair) + loader v2 proposal → plan v0.2.2
 - [x] D0.4 Round 2.2 answers (all recommended) → plan v0.3 with execution plan (§15)
 - [x] L4 Loader clover rotation fixed on `main` (`c58bfbc`), verified on production; merged into this branch
-- [ ] D0.5 Owner go-ahead to start D1 (+ answers to §15.8)
-- [ ] D1 Style tile + motion sample
+- [x] D0.5 Owner go-ahead ("execute the plan", 2026-09-27); E1–E3 → recommended options
+- [x] D1 Style tile + motion sample — `public/design-v2/` (page) + real v2 system: `public/css/v2/*`, `public/js/motion-boot.js`, `public/js/public/motion/*`; documented in `docs/DESIGN_SYSTEM.md`
+- [ ] ✋1 Owner review of the style tile (look + motion strength) → adjustments
 - [ ] D2 Foundations (+ credit labels removed)
 - [ ] D3 Components
 - [ ] D4 Sections (desktop)
@@ -405,6 +406,10 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 | 2026-09-26 | **Loader: the two overlapping clovers must rotate continuously while the loader is visible** (v1 had them static — Claude's miss); loader redesign delegated to Claude (§7.4a) | Owner |
 | 2026-09-26 | Round 2.2: **all recommended** (see §12); "start planning the execution" → §15 | Owner |
 | 2026-09-26 | L4 done on `main`: clovers rotate (outer CW 4 s, inner CCW 2.5 s; reduced motion 12 s / 8 s) | Claude |
+| 2026-09-27 | **"Execute the plan"** — E1 style tile at `/design-v2/` on the preview only · E2 gallery additions during D2 · E3 continue between checkpoints (recommended options) | Owner |
+| 2026-09-27 | GSAP pinned to **3.15.0** (latest; plan said 3.13+) from jsdelivr with SRI (hashes verified against served bytes) | Claude |
+| 2026-09-27 | Scroll reveals / art camera / parallax use **native CSS scroll-driven animations** (progressive enhancement, per the modern-web guidance) instead of ScrollTrigger; GSAP is for choreography (letters, section entrances), velocity lean is a tiny rAF module | Claude |
+| 2026-09-27 | Lightbox: native `<dialog>` with `@starting-style` open/close; artwork grows from its tile via View Transitions where supported | Claude |
 
 ---
 
@@ -500,3 +505,14 @@ Only the 4 checkpoint reviews (✋1–✋4) and the merge go-ahead. Between chec
 - **E1 · Style tile location:** a stand-alone page at `/design-v2/` on the **preview link only**, deleted before the merge. **(a) OK** (recommended) · (b) other.
 - **E2 · Gallery additions timing:** add the 5 extra artworks (About background, 2 loader arts, avatar, pose — all credited) **(a) during D2, which makes them visible in the live gallery right away** (shared database; harmless — it only adds credited entries; recommended) · (b) only at the merge.
 - **E3 · Working rhythm:** **(a) I continue on my own between checkpoints and only stop at ✋1–✋4 + the merge** (recommended) · (b) stop after every phase.
+
+---
+
+## 16. Work log
+
+### 2026-09-27 · D1 style tile + motion sample (done)
+- **Design system files (real, reused in D2+):** `public/css/v2/tokens.css` (layer order, tokens, `@property --iris/--fill`), `base.css`, `components.css`, `sections.css`, `motion.css`; `public/js/motion-boot.js`; `public/js/public/motion/` → `prefs.js`, `beat.js`, `scroll-life.js`, `marquee.js`, `sparkles.js`, `wipe.js`, `spinner.js`, `text.js`.
+- **Style tile page:** `public/design-v2/index.html` + `tile.css` + `tile.js` — real data (news, videos, releases incl. "coming soon" for the 2026-10-07 tie-in, achievements, gallery, About facts EN/JA), previews of Home/About/News/Discography/Gallery pieces over their artworks, the new loader, a section-change stage, and a footer sample.
+- **Verified (headless Edge):** 0 CSP violations, 0 exceptions, no sideways scroll at 1366 and 390; spinner outer CW 4 s / inner CCW 2.5 s (calm 12 s / 8 s); native scroll-driven reveal + camera active; lean rises to ~2° while scrolling fast and settles to 0; wipe down/up swaps scenes; iris opens (`--iris` → 2049 px); petals refill on replay; lightbox opens with credit and closes; motion toggle → calm + remembered; device reduced motion → calm + toggle disabled.
+- **Fixes during D1:** type-specimen selector hit the sticker; phone nav wrapped (motion toggle icon-only < 600 px); Home notes too narrow; About clover frame too faint + pose too small; phone gallery 1 column → 2; hero now counts as Home for the nav dot.
+- **Next:** ✋1 owner review → adjustments → D2 foundations.
