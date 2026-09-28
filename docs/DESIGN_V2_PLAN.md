@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | **Executing (approved 2026-09-27: "execute the plan"). D1 done → waiting at checkpoint ✋1 (owner reviews `/design-v2/` on the preview link).** Design system reference: `docs/DESIGN_SYSTEM.md` |
+| **Status** | **Executing (approved 2026-09-27: "execute the plan"). D1 + D1.1 density pass done → waiting at checkpoint ✋1 round 2 (owner reviews `/design-v2/` on the preview link).** Design system reference: `docs/DESIGN_SYSTEM.md` |
 | **Branch** | `designupdatev2` (created from `main` @ `eef577f`) |
 | **Scope** | How the public site looks and moves. Content, database, API, admin panel, analytics, i18n and security stay as they are |
 | **Clarity** | **90%** (v0.2.2: 88%) — every design question is answered; the rest is taste, settled at the D1 style tile |
@@ -378,7 +378,9 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 - [x] L4 Loader clover rotation fixed on `main` (`c58bfbc`), verified on production; merged into this branch
 - [x] D0.5 Owner go-ahead ("execute the plan", 2026-09-27); E1–E3 → recommended options
 - [x] D1 Style tile + motion sample — `public/design-v2/` (page) + real v2 system: `public/css/v2/*`, `public/js/motion-boot.js`, `public/js/public/motion/*`; documented in `docs/DESIGN_SYSTEM.md`
-- [ ] ✋1 Owner review of the style tile (look + motion strength) → adjustments
+- [x] ✋1 round 1 — owner feedback (2026-09-28): "too many empty spaces", "feels incomplete / bland like Western minimalism", "Japanese sites are dense with info + visuals", "clover insides must not be hollow", "avoid empty areas especially Home"; question about snapping
+- [x] D1.1 Density pass on the style tile (see §16) — illustrated filled clovers (sprite), JP-site vocabulary, Home filled on both sides, crossfading artwork backdrop
+- [ ] ✋1 round 2 — owner review of the dense version
 - [ ] D2 Foundations (+ credit labels removed)
 - [ ] D3 Components
 - [ ] D4 Sections (desktop)
@@ -410,6 +412,9 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 | 2026-09-27 | GSAP pinned to **3.15.0** (latest; plan said 3.13+) from jsdelivr with SRI (hashes verified against served bytes) | Claude |
 | 2026-09-27 | Scroll reveals / art camera / parallax use **native CSS scroll-driven animations** (progressive enhancement, per the modern-web guidance) instead of ScrollTrigger; GSAP is for choreography (letters, section entrances), velocity lean is a tiny rAF module | Claude |
 | 2026-09-27 | Lightbox: native `<dialog>` with `@starting-style` open/close; artwork grows from its tile via View Transitions where supported | Claude |
+| 2026-09-28 | **Owner feedback on D1:** avoid minimalism/empty areas (esp. Home); creative-heavy JP-style density; clovers never hollow | Owner |
+| 2026-09-28 | Snapping: **desktop keeps strict snap** (one section per screen, glide + wipe hides the art change); **phones: free scroll with a crossfading fixed artwork backdrop** so there's never a hard art edge (owner to confirm after trying) | Claude (answer to owner's question) |
+| 2026-09-28 | Clover icons are an illustrated SVG sprite (`/assets/svg/v2-sprite.svg`); CSS-mask flat clovers removed from components | Claude |
 
 ---
 
@@ -516,3 +521,11 @@ Only the 4 checkpoint reviews (✋1–✋4) and the merge go-ahead. Between chec
 - **Verified (headless Edge):** 0 CSP violations, 0 exceptions, no sideways scroll at 1366 and 390; spinner outer CW 4 s / inner CCW 2.5 s (calm 12 s / 8 s); native scroll-driven reveal + camera active; lean rises to ~2° while scrolling fast and settles to 0; wipe down/up swaps scenes; iris opens (`--iris` → 2049 px); petals refill on replay; lightbox opens with credit and closes; motion toggle → calm + remembered; device reduced motion → calm + toggle disabled.
 - **Fixes during D1:** type-specimen selector hit the sticker; phone nav wrapped (motion toggle icon-only < 600 px); Home notes too narrow; About clover frame too faint + pose too small; phone gallery 1 column → 2; hero now counts as Home for the nav dot.
 - **Next:** ✋1 owner review → adjustments → D2 foundations.
+
+### 2026-09-28 · D1.1 density pass (after ✋1 feedback)
+- **Clovers:** new `public/assets/svg/v2-sprite.svg` — `#cl-leaf` (4 heart leaves, inner leaf, veins, gloss, stem, white die-cut edge), `#cl-round` (filled brand clover), `#spark`, `#heart`; colour variants `.cl--pink/gold/mint/sky/lav/white`. All flat CSS-mask clovers replaced (sticker, pins, timeline, nav dot, toggle, meter, sleeve watermark, cursor sparkles). Loader spinner: both clovers filled (no hollow outline).
+- **Density:** numbered EN/JA section titles, giant outlined background words, vertical JA text, rotating badge, bubbles, PICK UP/NEW stamps, grid/lined/lace paper, gingham boards, weekly stream strip, social badges, "coming soon" (Home mini + Discography wide with days-to-go), fan art of the moment, hashtag chips, 2-column news, 2-column sleeves, 5-column gallery, 4-column footer with official links + credits.
+- **Home:** content on both sides of the character (left: logo, unit chips, socials, ticket, week, latest video; right: latest news ×2, coming soon, fan art), decorations around the character, badge + scroll cue; no text over the face.
+- **Artwork changes:** fixed crossfading backdrop (`motion/backdrop.js`) — no hard edges between section artworks.
+- **Bug found:** the sprite didn't render at first — XML comments may not contain double hyphens (`--c1`); fixed + documented.
+- **Verified:** 0 CSP violations, 0 exceptions, no sideways scroll at 1366 and 390; all content renders.

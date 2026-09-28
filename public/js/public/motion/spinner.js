@@ -16,9 +16,14 @@ const svg = (tag, attrs = {}) => {
 /** Builds the spinner inside `host` (a .clover-spinner element). Returns { setProgress(0…1), complete() }. */
 export function mountSpinner(host) {
   const id = `clover-clip-${++uid}`;
+  // Outer: white clover with a green edge and a soft inner shade (filled, never hollow)
   const outer = svg('svg', { class: 'clover-spinner__outer', viewBox: VIEWBOX, 'aria-hidden': 'true', focusable: 'false' });
-  outer.append(svg('path', { class: 'c-outer', d: CLOVER_PATH }));
+  outer.append(
+    svg('path', { class: 'c-outer', d: CLOVER_PATH }),
+    svg('path', { class: 'c-outer-shade', d: CLOVER_PATH, transform: 'translate(286.5 301) scale(0.8) translate(-286.5 -301)' }),
+  );
 
+  // Inner: pale-green filled clover whose 4 petals light up with progress, plus gloss + centre
   const inner = svg('svg', { class: 'clover-spinner__inner', viewBox: VIEWBOX, 'aria-hidden': 'true', focusable: 'false' });
   const clip = svg('clipPath', { id });
   clip.append(svg('path', { d: CLOVER_PATH }));
@@ -27,7 +32,13 @@ export function mountSpinner(host) {
   const petals = svg('g', { 'clip-path': `url(#${id})` });
   const rects = PETALS.map(([x, y, width, height]) => svg('rect', { class: 'petal', x, y, width, height }));
   petals.append(...rects);
-  inner.append(defs, svg('path', { class: 'c-inner-bg', d: CLOVER_PATH }), petals, svg('path', { class: 'c-inner-line', d: CLOVER_PATH }));
+  inner.append(
+    defs,
+    svg('path', { class: 'c-inner-bg', d: CLOVER_PATH }),
+    petals,
+    svg('ellipse', { class: 'c-inner-gloss', cx: 185, cy: 170, rx: 44, ry: 72, transform: 'rotate(-40 185 170)' }),
+    svg('circle', { class: 'c-centre', cx: 286.5, cy: 301, r: 34 }),
+  );
 
   host.replaceChildren(outer, inner);
   return {

@@ -3,6 +3,8 @@
 Reference for the redesign on branch `designupdatev2` (plan: `docs/DESIGN_V2_PLAN.md`).
 Live demo of everything below: **`/design-v2/`** on the preview link (stand-alone style tile, deleted before the redesign goes live).
 
+> **Owner direction (2026-09-28, after the first style tile):** this is a *creative-heavy Japanese fan site* — **dense and layered, never Western minimalism**. No large empty areas (especially Home), plenty of components and decoration, and **clovers are always illustrated and filled — never hollow outlines**.
+
 > **Idea:** Kotoha's fan scrapbook. Fan artworks are the photos; content sits on **paper notes** taped onto them; headings are **die-cut stickers**; a dashed **stitch** marks only the special items. Motion has music-video quality — rhythmic, springy, alive while scrolling — but the site stays a normal, readable website.
 
 ---
@@ -16,6 +18,7 @@ Live demo of everything below: **`/design-v2/`** on the preview link (stand-alon
 | `public/css/v2/components.css` | `components` | every reusable piece (§4) |
 | `public/css/v2/sections.css` | `sections` | section accents (`data-accent`), artwork layer (`.art`), scrims; section compositions (D4) |
 | `public/css/v2/motion.css` | `motion` | keyframes, scroll-driven effects, lean, iris, lightbox transitions, calm mode |
+| `public/assets/svg/v2-sprite.svg` | — | SVG sprite: `#cl-leaf` (illustrated four-leaf clover), `#cl-round` (filled brand clover), `#spark`, `#heart`. Referenced by URL. **XML comments must never contain two hyphens in a row** (it breaks the whole file) |
 | `public/css/site.css` (v1) | `legacy` (during migration) | emptied section by section, deleted after D4 |
 
 Later layers win regardless of selector specificity, so motion rules can safely override component rules.
@@ -76,6 +79,30 @@ Later layers win regardless of selector specificity, so motion rules can safely 
 | Mascot cameo | `img.mascot-peek` | decorative, `alt=""` |
 | Empty / error | `.state-note` | mascot + text |
 
+### 4.1 Density vocabulary (Japanese fan-site style)
+
+Every section should feel full: a numbered title block, content on **both** sides where there's room, and a decoration layer.
+
+| Piece | Markup / classes | Notes |
+|---|---|---|
+| Clover icon | `<svg class="cl [cl--pink\|gold\|mint\|sky\|lav\|white]"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>` | illustrated: 4 heart leaves, lighter inner leaf, veins, gloss, stem, white die-cut edge. `#cl-round` = filled brand clover. Colours via `--c1…--c4` |
+| Sparkle / heart | `svg.spark(.spark--pink\|gold)` / `svg.heart` with `#spark` / `#heart` | `.twinkle`, `.float` idle loops (full motion only) |
+| Section title | `header.sec-title > .sec-title__num + h2.sec-title__en (+ .cl) + p.sec-title__ja + .sec-title__line` | big EN word with white sticker outline, JA subtitle pill, round number badge "NO. 01" |
+| Mini title | `.mini-title > .cl + .mini-title__en + .mini-title__ja` | sub-headings inside sections ("LATEST NEWS 最新情報") |
+| Background word | `span.bg-word[aria-hidden]` | giant outlined word behind content (KOTOHA, PROFILE, NEWS, MUSIC, FAN ART) |
+| Vertical text | `p.v-text(.v-text--green)[lang=ja][aria-hidden]` | vertical Japanese tagline at a section edge — **never over the character's face** |
+| Rotating badge | `.badge-round > svg.badge-round__text (textPath) + .cl` | circular "KOTOHA ✿ FAN SITE ✿ ことは" text; the path must be inline (textPath can't use the external sprite) |
+| Speech bubble | `span.bubble(.bubble--left)` | site voice only ("new cover ♡", "thank you, artists!") — never words attributed to Kotoha |
+| Stamps & labels | `.stamp`, `.stamp--pickup` ("PICK UP!"), `.label-chip` | "NEW" stamp on the newest item |
+| Paper textures | `.paper--grid` (grid paper), `.paper--lined` (notebook), `.lace` (scalloped bottom edge) | mix them so notes don't all look the same |
+| Weekly schedule | `ol.week > li.week__day(.is-stream .is-today)` | this week in JST (Mon-start); stream days pink with a clover |
+| Social badges | `ul.socials > li > a.social > img + span` | official icons + handles, up front on Home |
+| Fan art of the moment | `.paper.paper--grid.fanart` | one credited gallery artwork, random per visit |
+| Gingham background | `.board--pattern` | plain pink areas are never flat |
+
+### 4.2 Artworks: fixed crossfading backdrop
+All section artworks sit in one fixed `.backdrop` (`.backdrop__art[data-art]`); sections carry `data-art`. `startBackdrop()` (`motion/backdrop.js`) fades to the artwork of the section crossing the middle of the screen, so there is **never a hard edge between two artworks** (important with free scrolling on phones). The current art settles from a slight zoom and pans a little with page scroll (`scroll(root)` timeline). On desktop the snap + wipe hides the change as well. Calm mode: quick fade only.
+
 ## 5. Motion system
 
 ### 5.1 Principles
@@ -113,9 +140,10 @@ Later layers win regardless of selector specificity, so motion rules can safely 
 | `beat.js` | `BPM`, `BEAT`, `beats(n)`, `beatsMs(n)`, `EASE`, `whenGsap(ms)` |
 | `scroll-life.js` | `startScrollLife()` (velocity → `--lean`), `scrollVelocity()`, `onScrollVelocity(cb)`, `pageProgress()` |
 | `marquee.js` | `startMarquee(el, { speed })` — speeds up with scroll, reverses on scroll-up, pauses off-screen |
-| `sparkles.js` | `startSparkles()` — desktop mouse only, pooled, fades fast |
+| `sparkles.js` | `startSparkles()` — desktop mouse only, pooled; mixes sprite sparkles, hearts and clovers |
 | `wipe.js` | `playWipe({ direction, accent, onCovered })` → Promise — striped accent panel sweeps across |
-| `spinner.js` | `mountSpinner(host)` → `{ setProgress(0…1), complete(), reset() }` |
+| `spinner.js` | `mountSpinner(host)` → `{ setProgress(0…1), complete(), reset() }` — both clovers filled (outer white with inner shade; inner pale green whose petals turn green) |
+| `backdrop.js` | `startBackdrop(backdropEl, sections, { onChange })` — crossfading artwork backdrop (§4.2) |
 | `text.js` | `waveText(el, text)`, `popLetters(el, gsap)` (SplitText, accessible) |
 
 Lightbox growth uses `document.startViewTransition()` with a temporary `view-transition-name` on the tile image and the viewer image (removed after `finished`); without support it opens normally. The dialog's own fade is disabled (`.no-anim`) during the transition.

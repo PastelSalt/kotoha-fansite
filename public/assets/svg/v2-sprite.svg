@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Design v2 SVG sprite: illustrated, FILLED clovers (never hollow outlines), sparkles, hearts.
+     Use by URL, e.g. use href="/assets/svg/v2-sprite.svg#cl-leaf" inside an svg with class "cl".
+     Colours come from the CSS custom properties c1 (leaf), c2 (inner leaf), c3 (vein/gloss), c4 (centre + stem)
+     set on the host svg (see .cl colour variants in css/v2/components.css).
+     NOTE: XML comments must never contain two hyphens in a row. -->
+<svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- one heart-shaped leaf pointing up, tip at the clover centre -->
+    <path id="cl-heart" d="M0 -4 C -4 -8 -21 -14 -21 -28 C -21 -37.5 -14 -43 -7.5 -43 C -3.5 -43 -0.5 -40.5 0 -37 C 0.5 -40.5 3.5 -43 7.5 -43 C 14 -43 21 -37.5 21 -28 C 21 -14 4 -8 0 -4 Z"/>
+    <g id="cl-leaf-one">
+      <use href="#cl-heart" style="fill: var(--c1, #5ea73a)"/>
+      <use href="#cl-heart" transform="translate(0 -24) scale(0.6) translate(0 24)" style="fill: var(--c2, #8fd16b)"/>
+      <path d="M0 -8 L0 -34" style="fill: none; stroke: var(--c3, #dcf3c9); stroke-width: 1.8; stroke-linecap: round"/>
+      <path d="M0 -20 L-7 -27 M0 -20 L7 -27" style="fill: none; stroke: var(--c3, #dcf3c9); stroke-width: 1.2; stroke-linecap: round; opacity: 0.8"/>
+      <ellipse cx="-9.5" cy="-33" rx="2.6" ry="4.6" transform="rotate(-28 -9.5 -33)" style="fill: #fff; opacity: 0.55"/>
+    </g>
+    <!-- white die-cut edge: the whole clover drawn fat and white underneath -->
+    <g id="cl-leaf-edge" style="fill: #fff; stroke: #fff; stroke-width: 9; stroke-linejoin: round">
+      <use href="#cl-heart" transform="rotate(45)"/>
+      <use href="#cl-heart" transform="rotate(135)"/>
+      <use href="#cl-heart" transform="rotate(225)"/>
+      <use href="#cl-heart" transform="rotate(315)"/>
+      <path d="M3 3 C 9 13 13 21 24 28" style="fill: none; stroke-width: 11; stroke-linecap: round"/>
+    </g>
+  </defs>
+
+  <!-- four-leaf clover sticker (detailed) -->
+  <symbol id="cl-leaf" viewBox="-52 -52 104 104" overflow="visible">
+    <use href="#cl-leaf-edge"/>
+    <path d="M3 3 C 9 13 13 21 24 28" style="fill: none; stroke: var(--c4, #2f7a1f); stroke-width: 4; stroke-linecap: round"/>
+    <use href="#cl-leaf-one" transform="rotate(45)"/>
+    <use href="#cl-leaf-one" transform="rotate(135)"/>
+    <use href="#cl-leaf-one" transform="rotate(225)"/>
+    <use href="#cl-leaf-one" transform="rotate(315)"/>
+    <circle r="5.5" style="fill: var(--c4, #2f7a1f)"/>
+    <circle cx="-1.6" cy="-1.8" r="1.8" style="fill: #fff; opacity: 0.7"/>
+  </symbol>
+
+  <!-- the site's rounded brand clover, filled + shaded (logo style) -->
+  <symbol id="cl-round" viewBox="15 30 545 545" overflow="visible">
+    <path d="M286 85 A153 153 0 1 1 505 300 A153 153 0 1 1 288 517 A153 153 0 1 1 68 300 A153 153 0 1 1 286 85 Z" style="fill: #fff; stroke: #fff; stroke-width: 46; stroke-linejoin: round"/>
+    <path d="M286 85 A153 153 0 1 1 505 300 A153 153 0 1 1 288 517 A153 153 0 1 1 68 300 A153 153 0 1 1 286 85 Z" style="fill: var(--c1, #5ea73a)"/>
+    <path d="M286 85 A153 153 0 1 1 505 300 A153 153 0 1 1 288 517 A153 153 0 1 1 68 300 A153 153 0 1 1 286 85 Z" transform="translate(286.5 301) scale(0.6) translate(-286.5 -301)" style="fill: var(--c2, #8fd16b)"/>
+    <ellipse cx="190" cy="170" rx="42" ry="70" transform="rotate(-40 190 170)" style="fill: #fff; opacity: 0.5"/>
+    <circle cx="286.5" cy="301" r="30" style="fill: var(--c4, #2f7a1f)"/>
+  </symbol>
+
+  <!-- four-point sparkle -->
+  <symbol id="spark" viewBox="-10 -10 20 20" overflow="visible">
+    <path d="M0 -10 C 1.2 -3 3 -1.2 10 0 C 3 1.2 1.2 3 0 10 C -1.2 3 -3 1.2 -10 0 C -3 -1.2 -1.2 -3 0 -10 Z" style="fill: var(--c1, #fff); stroke: var(--c2, transparent); stroke-width: 1.2; stroke-linejoin: round"/>
+  </symbol>
+
+  <!-- filled heart with gloss -->
+  <symbol id="heart" viewBox="-12 -12 24 24" overflow="visible">
+    <path d="M0 9 C -8 3 -11 -1 -11 -4.5 C -11 -8.5 -7.5 -10.5 -4.8 -10.5 C -2.6 -10.5 -1 -9.3 0 -7.6 C 1 -9.3 2.6 -10.5 4.8 -10.5 C 7.5 -10.5 11 -8.5 11 -4.5 C 11 -1 8 3 0 9 Z" style="fill: var(--c1, #ef5f8d); stroke: #fff; stroke-width: 2.4; stroke-linejoin: round; paint-order: stroke"/>
+    <ellipse cx="-5" cy="-5.5" rx="1.8" ry="2.8" transform="rotate(-30 -5 -5.5)" style="fill: #fff; opacity: 0.65"/>
+  </symbol>
+
+</svg>
