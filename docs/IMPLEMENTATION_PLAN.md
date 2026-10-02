@@ -5,7 +5,7 @@
 | **Document status** | **v0.5: approved specification.** All owner questions answered |
 | **Implementation authorized?** | **YES**: owner authorized development on 2026-09-26. Progress is tracked in [`docs/PROGRESS.md`](PROGRESS.md) |
 | **Architecture clarity** | **97%**: the remaining 3% are technical items settled in the prototype (§7.1) |
-| **Last updated** | 2026-09-26 |
+| **Last updated** | 2026-09-26 (spec). **Note 2026-10-02:** the *visual and motion* parts of this plan (layout, loader look, animation libraries, section compositions) were superseded by the approved redesign in [`DESIGN_V2_PLAN.md`](DESIGN_V2_PLAN.md) / [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md), which is now live. Architecture, data model, API, auth, i18n, analytics and security sections here remain accurate |
 | **Changes in v0.5** | Descriptive DB text entered **once in any language, shown as typed** (`N7` = b); GitHub noreply commit email; analytics use **Japan time (JST)**, weeks start Monday; implementation authorized |
 | **Changes in v0.4** | GitHub route chosen; domain `kotoha-fansite.vercel.app`; pre-launch reset approved; Japanese handled via official wording + review list; **names/titles entered once in their original form**; new question on how far "type once" goes (§7.2 `N7`) |
 | **Changes in v0.3** | Round-2 decisions recorded (§16); role renamed **Owner**; admins auto-numbered; both languages required; shared DB for dev/prod; show all records in sections; connectors verified (§5.9) |

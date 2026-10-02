@@ -1,7 +1,7 @@
 # Kotoha Fan Site — Design System v2 ("Clover Scrapbook")
 
 Reference for the redesign on branch `designupdatev2` (plan: `docs/DESIGN_V2_PLAN.md`).
-Live demo of everything below: **`/design-v2/`** on the preview link (stand-alone style tile, deleted before the redesign goes live).
+**Live on the production site since 2026-10-02** (merged into `main`, `c7b6975`). The stand-alone style tile `/design-v2/` that demonstrated these pieces was deleted before the merge; the real page uses them (see §10 for the page modules).
 
 > **Owner direction (2026-09-28, after the first style tile):** this is a *creative-heavy Japanese fan site* — **dense and layered, never Western minimalism**. No large empty areas (especially Home), plenty of components and decoration, and **clovers are always illustrated and filled — never hollow outlines**.
 
@@ -179,7 +179,23 @@ GSAP **3.15.0** (+ SplitText, Flip, ScrollTrigger, CustomEase as needed) from js
 1. Use tokens only (no raw hex/px outside `tokens.css`, except one-off decoration geometry).
 2. Put it in the right layer file; name blocks `.thing`, parts `.thing__part`, variants `.thing--variant`.
 3. Decide its motion: which property it owns (§5.2), what calm mode does.
-4. Add it to the style tile (`/design-v2/`) while the redesign is in progress, and to this document.
+4. Use it on the real page (`public/index.html` + `public/css/v2/layout.css` for placement) and document it here.
 
 ## 9. Checks (scratchpad scripts used during the redesign)
-`tile-shot.mjs` (full-page screenshots + CSP/console/network issues), `tile-motion-test.mjs` (spinner, reveals, wipe, iris, lightbox, toggle, reduced motion), `lean-debug.mjs` (frame-by-frame lean), plus the v1 suite (admin/gallery/tracker/CSP/spin checks).
+Scripts live in Claude's temporary scratchpad, **not in the repo** (re-create or commit cleaned copies; harness gotchas are in `MIGRATION.md` §8): `site-shot.mjs` (per-section screenshots at several sizes + CSP/console/network issues), `site-behavior.mjs` (~50 checks: loader spin, petals, wheel snap, nav/anchors, EN↔JA, video, lightbox, motion toggle, tracking beacons, deep link, phone menu, reduced motion), the older `tile-shot.mjs` / `tile-motion-test.mjs` / `lean-debug.mjs`, plus the v1 suite (admin/gallery/tracker/CSP/spin checks).
+
+## 10. Public page modules (real site, since 2026-10-02)
+
+| Module (`public/js/public/`) | Role |
+|---|---|
+| `main.js` | boot order: tracking → language → lists → gallery → tiered loader tasks → motion/scroll/backdrop/menu/countdown → deep link → hide loader → home intro |
+| `render.js` | builders: `sprite()`, `icon()`, `videoPolaroid()`, `filmFrame()`, `newsNote()`, `releaseSleeve()`, `achievementRows()`, `galleryTile()`, `socialBadge()`, `stateNote()` (all text via `textContent`) |
+| `lists.js` | `getJson()`, `pagedList()` — `render(item, index, all)` may return several nodes (timeline year pills); `axis: 'x'` for the film strip |
+| `gallery.js` | JS masonry (2–5 columns by width), infinite load, lightbox that grows from its tile (View Transitions; plain open in calm mode) |
+| `home.js` | `renderWeek()` (this week's Tue/Fri streams, JST), `renderSoon()` (nearest future release, mini + wide), `renderFanArt()`, `isRecent()` (NEW stamp only for items ≤ 45 days old) |
+| `countdown.js` | `nextStream()` + flip-digit ticket, LIVE state, once-a-minute screen-reader text |
+| `loader.js` | petal progress from real task completion, wave text + "Did you know?" facts, iris/fade exit |
+| `scroll.js` | Lenis + strict snap for desktop mouse in full motion; native otherwise; `onSectionSnap(direction)` hook for the wipe (D7) |
+| `fx.js` | confetti, `boing()` (Web Animations), `homeIntro()`, `popTitlesOnArrival()` (GSAP SplitText) |
+
+Page CSS placement lives in `public/css/v2/layout.css` (layer `sections`): `.site-nav`, `.mobile-menu`, `.scene` + per-section compositions, `.loader`, `.foot`, and the short-laptop Home rules (`@media (min-width: 1100px) and (max-height: 960px)`).

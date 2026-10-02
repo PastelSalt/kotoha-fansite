@@ -1,7 +1,7 @@
 # MIGRATION.md — handoff context for the next Claude session
 
 > Give this file to Claude at the start of a new session ("read MIGRATION.md and continue").
-> Written 2026-10-02, right after the design v2 redesign was merged into `main`.
+> Written 2026-10-02, right after the design v2 redesign was merged into `main`; all other markdown docs were refreshed the same day (`docs/PROGRESS.md` §6/§11 and the plan §14/§16 are the most detailed running logs).
 > Read `docs/PROGRESS.md` and `docs/DESIGN_V2_PLAN.md` (§14 checklist, §16 work log) next — they are the living spec.
 > **No secrets live in this file.** Never put passwords/keys in tracked files.
 
@@ -69,7 +69,7 @@ Remaining, in order:
 4. **D7 motion:** wire `wipe.js` to the desktop snap (`initScroll({ onSectionSnap })` hook exists; reverse direction when scrolling up), velocity lean/parallax tuning, fps checks (≥ 55 fps desktop, ≥ 50 fps with 4× CPU slowdown). → ✋4.
 5. **D8 extras:** mascot cameo, special-day decorations (June 10 birthday / July 8 debut; confetti already exists), LIVE badge on the nav, "coming soon" already built; **gallery seed additions**: 5 extra credited artworks (About background, 2 loader arts "pajamas" + "green cardigan", profile avatar, About pose; unknown artist → "Artist unknown (作者不明)") via `scripts/seed-gallery.js`.
 6. **D9 QA:** keyboard path + focus, screen-reader labels, contrast sampler, no text < 13 px, ≤ 6 dashed (stitch) items per screen, JP line breaks, perf, CSP/SRI, tracker + admin regression, owner's own devices. Also remove now-unused generated SVGs (`clover-fill.svg`, `clover-outline.svg`, `divider.svg` are still produced by `scripts/optimize-images.js`) and the unused `legacy` layer name.
-7. Update `docs/PROGRESS.md` (not yet updated for the v2 merge — do it) and the plan's §14/§16 after each phase.
+7. Keep `docs/PROGRESS.md` (§5 Design v2 checklist, §6, §11), the plan's §14/§16 and `DESIGN_SYSTEM.md` updated after each phase (they were brought up to date on 2026-10-02).
 
 ## 7. Working rules (from the owner / memory)
 

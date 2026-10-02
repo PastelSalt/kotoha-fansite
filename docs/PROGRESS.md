@@ -6,9 +6,9 @@
 | | |
 |---|---|
 | **Implementation authorized** | ✅ 2026-09-26 by owner |
-| **Last checkpoint** | 2026-09-26: foundation done; Neon schema + seed applied; Owner bootstrapped; now on Phase 5 (backend core) |
-| **Current phase** | Phase 1 (Accounts & setup) + Phase 2 (Foundation) in parallel |
-| **Next action** | See §6 "Current focus / next action" |
+| **Last checkpoint** | 2026-10-02: **design v2 ("Clover Scrapbook") merged into `main`** (`c7b6975`) at the owner's request; `MIGRATION.md` handoff added (`ab773d3`). Production deploy not yet verified (see §6) |
+| **Current phase** | v1 phases 1–16 done (Phase 17 launch tasks open) · **Design v2: D1–D4 + D6 live; D5 phones, D7 motion, D8 extras, D9 QA remaining** |
+| **Next action** | See §6 "Current focus / next action". **Handoff for a fresh session: read [`../MIGRATION.md`](../MIGRATION.md) first.** |
 
 ---
 
@@ -170,6 +170,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 8.3 Fredoka + M PLUS Rounded 1c (Google Fonts); JA-specific sizes for nav/pill verified by screenshot
 
 ### Phase 9: Public UI
+> v1 public page. **Replaced by design v2 on 2026-10-02** (new markup, CSS, scroll, loader, gallery) — see "Design v2" below; the data/i18n/tracking hooks from this phase were kept.
 - [x] 9.1 `public/css/site.css` (tokens, mobile-first, desktop at ≥900w & ≥600h using vw/vh from the 1366×768 refs)
 - [x] 9.2 Hero header (inside Home), scrolled nav (fixed bar, no socials, JP/EN under the bar), mobile menu (focus trap, Esc)
 - [x] 9.3 Home: countdown (UTC math, live window), video facade, 2 news, divider, credit
@@ -181,12 +182,14 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [x] 9.9 States (skeleton/empty/error with mascot-front). Verified screenshots: desktop 1366×768 EN+JA, 1024×768, 1920×1080 (incl. desktop loader), mobile 360×800, tablet portrait 768×1024 (width capped), landscape phone 800×360
 
 ### Phase 10: Loader
+> v1 loader. Replaced by loader v2 (D6) on 2026-10-02; the rotating clover pair requirement (10.4) is preserved and verified.
 - [x] 10.1 Inline loader markup/critical CSS + **CSS failsafe (auto-hides at 12 s even if JS breaks)** + noscript; random art + credit
 - [x] 10.2 `loader.js`: tiers, min 3 s / soft 6 s / cap 10 s (measured 3.0 s locally); section images switched lazy→eager and decoded. `loader_timing` event pending Phase 15
 - [x] 10.3 Clover-bloom exit (GSAP), plain fade under reduced motion; boot errors still hide the loader
 - [x] 10.4 **Loader clovers rotate** for as long as the loader is visible (owner requirement 2026-09-26, missed in v1): outer clockwise 4 s/turn, inner counter-clockwise 2.5 s/turn (CSS, compositor thread); reduced motion keeps them turning slower (12 s / 8 s) since it's the loading indicator. Verified in headless Edge
 
 ### Phase 11: Animations
+> v1 effects (Anime.js / ScrollTrigger entrances). Replaced by the v2 motion system on 2026-10-02 (native CSS scroll-driven animations + GSAP 3.15 choreography).
 - [x] 11.1 GSAP section entrances (with an IntersectionObserver safety net), CSS header transition (`body.is-scrolled`)
 - [x] 11.2 Anime.js (menu stagger, clover bloom, boing), confetti (logo, pose, June 10 / July 8 JST), Animate.css (states, gallery tiles). Not all visually verified yet
 
@@ -220,35 +223,50 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [ ] 17.3 Owner first login + password change (**owner action**); delete bootstrap env vars
 - [ ] 17.4 Final docs: README, DB setup, deploy, admin guide (JA/EN), JA review list
 
+
+### Design v2: visual + motion redesign (post-v1; plan: `docs/DESIGN_V2_PLAN.md`, reference: `docs/DESIGN_SYSTEM.md`)
+- [x] D0 Plan v0.3 approved ("execute the plan", 2026-09-27); owner answers recorded in the plan
+- [x] D1 / D1.1 Style tile + density pass after owner feedback ("too minimal, avoid empty space, clovers never hollow") — design system `public/css/v2/*`, SVG sprite, motion modules
+- [x] D2 Foundations: layered CSS + tokens, "art by" labels / loader credit / credits dialog removed, GSAP 3.15 swap (Anime.js, Animate.css, ScrollTrigger gone from the public page)
+- [x] D3 Components with live data + EN/JA (ticket, polaroid, notes, film strip, profile card, sleeves, timeline, tiles, nav pill, footer, lightbox)
+- [x] D4 Desktop sections (Home / About / News / Discography / Gallery) — dense compositions, fixed crossfading artwork backdrop, short-laptop Home rules
+- [x] D6 Loader v2: static inline clovers turn from first paint, petals fill from real progress, facts, iris exit
+- [x] D10 (early) **Merged to `main` 2026-10-02 at the owner's explicit request** (`c7b6975`; `/design-v2/` style tile deleted first)
+- [ ] Verify the production deploy (hard-refresh kotoha-fansite.vercel.app; loader, sections, EN/JA, gallery, console)
+- [ ] ✋2 Owner review of the live desktop design → adjustments
+- [ ] D5 Phones + tablet design (works today, not designed) → ✋3 real-phone check by the owner
+- [ ] D7 Motion: wire the desktop section wipe (`wipe.js`, `initScroll({ onSectionSnap })`), tuning, fps → ✋4
+- [ ] D8 Extras: mascot cameo, special-day decorations, LIVE badge on the nav; **gallery seed +5 credited artworks** (About background, 2 loader arts, avatar, pose)
+- [ ] D9 QA: keyboard/screen-reader, contrast, ≥13 px text, JP line breaks, performance, tracker + admin regression; remove unused generated SVGs / `legacy` layer name; commit the headless-Edge test scripts into the repo
+
 ---
 
 ## 6. CURRENT FOCUS / NEXT ACTION
 
-- **Design update v2 (2026-09-26):** visual + motion redesign lives on branch **`designupdatev2`** → plan and its own checklist in `docs/DESIGN_V2_PLAN.md`. Plan approved 2026-09-27 ("execute the plan"); design system reference in `docs/DESIGN_SYSTEM.md`; progress + work log in the plan (§14, §16). `main` stays deployable; merge only with the owner's go-ahead.
-
-- **Done so far:** Phases 1 (except Cloudinary keys), 2, 3, 4 (except gallery seed), 5, 6, 7 (except TwitCasting icon), 8, 9 (v1), 10, 11; admin API (12.2/12.3 API-side). Public site v1 live at https://kotoha-fansite.vercel.app after each push.
-- **Next action (no owner input needed):** Phase 16 quality (CSP/SRI headers, a11y pass, Lighthouse, security review) → Phase 17 (pre-launch reset script, docs). Phase 13 gallery testing waits for the Cloudinary keys.
-- **Waiting on owner:** add the Cloudinary key/secret to Vercel (1.7; production gallery uploads) · real-phone swipe check (3.2, later).
-- **Workflow:** commit + push after each verified step (every push to `main` deploys production; the site is not announced yet, so that's fine pre-launch). Always run the secret scan before committing (see the command in the session log).
+- **State (2026-10-02):** public site v1 was live since 2026-09-26 (not announced). **Design v2 is now merged into `main`** (commit `c7b6975`), so every push deploys it. Phases 1–16 are done; Phase 17 (launch) still has owner-only items. Full handoff context: `../MIGRATION.md`.
+- **Next action 1 (Claude):** verify the production deploy at https://kotoha-fansite.vercel.app (the Vercel "list deployments" call was blocked by the permission classifier during the merge, so it is **unconfirmed**). If broken: promote the previous Vercel deployment and/or `git revert -m 1 c7b6975`.
+- **Next action 2:** owner reviews the live desktop design (✋2) → adjustments → D5 phones/tablet (✋3: owner tries it on a real phone, replaces the old swipe test) → D7 motion (✋4) → D8 extras (+ 5 gallery artworks) → D9 QA. One branch per phase; merge to `main` only with the owner's OK.
+- **Waiting on owner:** add `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` to Vercel (production gallery uploads) · first admin login + password change · native Japanese review of `docs/JA_REVIEW_LIST.md` (new v2 strings appended) · real-phone check (after D5) · go-ahead for the pre-launch reset when ready.
+- **Workflow:** commit + push after each verified step (every push to `main` deploys production). Always run the secret scan before committing. Commit trailer `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`; never force-push; docs (this file, the plan §14/§16, `DESIGN_SYSTEM.md`) updated after each phase.
 
 ---
 
 ## 7. OPEN QUESTIONS FOR OWNER
 
-_(none)_
+_(none blocking.)_ The five D1.1 density questions (density level, four-leaf vs rounded clover, phone crossfade + free scroll, extra art available, keep vertical JP text and giant background words) were never answered one by one; the owner said "start applying", so the recommended defaults are live. Revisit at ✋2 if the owner wants changes.
 
 ---
 
 ## 8. OWNER ACTION ITEMS
 
-- [ ] **Install GitHub CLI + log in** (run in your own terminal):
-  `winget install --id GitHub.cli -e` then open a new terminal and run `gh auth login` (choose GitHub.com → HTTPS → login with browser).
-- [ ] Approve Vercel's access to the GitHub repo when prompted (one click).
+- [x] Install GitHub CLI + log in (done 2026-09-26) · [x] Approve Vercel's access to the repo (done)
 - [x] Paste Cloudinary API key + secret into `.env.local` (done 2026-09-26).
 - [ ] **Add `CLOUDINARY_API_KEY` and `CLOUDINARY_API_SECRET` in Vercel** → Project `kotoha-fansite` → Settings → Environment Variables → type **Sensitive**, environments **Production + Preview**, same values as `.env.local`. Then redeploy (or tell Claude, who will push).
-- [ ] Real-phone swipe check (later).
-- [ ] After launch: first login with the default credential → change password immediately.
-- [ ] Later: share `docs/JA_REVIEW_LIST.md` with a Japanese speaker.
+- [ ] **First login at `/login`** with the default credentials from your original brief (still in the git-ignored `.env.local`, `ADMIN_BOOTSTRAP_*`) → the site forces a new password right away (≥ 12 characters, no username inside, not only site words, not in known leaks).
+- [ ] Look at the live site (hard refresh) and tell Claude what to adjust on desktop (✋2).
+- [ ] Real-phone check — after Claude finishes D5 (phones); it replaces the old swipe test.
+- [ ] Share `docs/JA_REVIEW_LIST.md` with a Japanese speaker (new v2 strings were added on 2026-10-02).
+- [ ] When ready to launch publicly: tell Claude to run `npm run prelaunch:reset` for real (wipes test data, rebuilds the Owner from `ADMIN_BOOTSTRAP_*`), then delete those two bootstrap env vars.
 
 ---
 
@@ -279,17 +297,31 @@ _(none)_
 | 2026-09-26 | `.vercelignore` anchored (`/assets` …) | The unanchored `assets` pattern also matched `public/assets` → **no images had ever been deployed** (every `/assets/*` 404 in production). Found while checking the TwitCasting icon; fixed and verified with production screenshots | Critical production fix |
 | 2026-09-26 | Admin render race | Each navigation renders into its own `.view__page` container; a slow page finishing after the admin moved on writes into a detached node | Found in testing: a cold-start dashboard overwrote the Gallery page |
 | 2026-09-26 | Password "guessable" rule | Reject when the password's letters consist **only** of site words (kotoha, hakoniwa, lily, clover, password, …), not when it merely contains one | Blocks "KotohaClover2026!" but allows real passphrases |
+| 2026-09-27 | Design v2 libraries | GSAP **3.15.0** + SplitText (SRI, jsdelivr) for choreography; native CSS scroll-driven animations for reveals/parallax/art camera; velocity lean in a tiny rAF module; Anime.js, Animate.css, ScrollTrigger and GSAP 3.12.5 dropped from the public page (login/admin keep Animate.css via `prepaint.js` + `html[data-site]`) | Lighter, fewer moving parts, progressive enhancement |
+| 2026-09-28 | Clovers | Illustrated filled SVG sprite (`/assets/svg/v2-sprite.svg`), never hollow outlines; XML comments in the sprite must not contain `--` | Owner feedback; a `--` in a comment silently broke the whole sprite |
+| 2026-09-28 | Section artworks | One fixed `.backdrop` that crossfades between sections (`motion/backdrop.js`) | No hard edge between artworks, essential for free scrolling on phones |
+| 2026-10-02 | Scrolling v2 | Lenis + strict snap only for a desktop mouse in full-motion mode; phones, tablets and calm mode scroll natively (free scroll) | Snap fights touch scrolling; the backdrop crossfade hides section changes |
+| 2026-10-02 | Loader v2 artwork | Pure-CSS background keyed by `html[data-loader-art]` (set pre-paint); clover pair is static inline SVG | Starts downloading with the stylesheet and turns before any script runs |
+| 2026-10-02 | Credits | "art by" labels, loader credit and credits dialog removed; artists credited on gallery tiles, lightbox and a footer list (static `CREDITS` + gallery authors) | Owner request (keeps the illusion) |
+| 2026-10-02 | `[hidden]` | `[hidden] { display: none !important }` in `base.css` | A `display:grid` author rule overrode the `hidden` attribute and showed empty cards |
+| 2026-10-02 | JA leading | `line-height` for Japanese applied to body and text blocks only, not to every `:lang(ja)` element | It stretched display titles (section headings) in Japanese |
+| 2026-10-02 | Short laptops | ≥ 1100 px wide and ≤ 960 px tall: Home hides the 2nd note, coming-soon and fan-art cards so the hero fits one screen | 1366×768 is common; the cards live in later sections anyway |
+| 2026-10-02 | Merge timing | Design v2 merged to `main` early (D10) at the owner's explicit request; D5/D7/D8/D9 continue afterwards | Owner wanted the new look on the real domain now |
 
 ---
 
 ## 10. KNOWN ISSUES / TODO LATER
 
-- Neon free tier caps storage at 512 MB → keep the analytics 90-day raw retention + daily rollups; consider pruning `login_attempts` / expired sessions in a scheduled job (Vercel Cron) in Phase 15.
-- CSP header still to be written (Phase 16).
-- `DATABASE_URL` converted to **Sensitive** (Production + Preview; owner approved 2026-09-26) without resending the value. Local dev uses `.env.local`.
+- Neon free tier caps storage at 512 MB → analytics keep 90-day raw retention + daily rollups (lazy rollup; expired sessions / login attempts are pruned in the same step).
+- CSP + SRI are live (Phase 16). The design-v2 CDN scripts (GSAP 3.15.0, SplitText, Lenis, confetti) are SRI-pinned; Google Fonts CSS is the one stylesheet without SRI (it varies per browser).
+- `DATABASE_URL` is **Sensitive** (Production + Preview). Local dev uses `.env.local`.
 - Each tracked visit wakes the Neon compute (free plan: limited compute hours). Fine for a fan site; watch Neon usage after launch.
-- The built-in browser pane reports `visibilityState: hidden` when not shown → rAF/animations pause and the loader never finishes there. Test the public page in headless Edge instead.
-- **Neon free compute sleeps after ~5 min and needs ~10 s to wake** (measured). Mitigated: public API `stale-while-revalidate=86400` at the edge; loader waits max 4 s for home data; client API timeout 15 s. The admin's first request after idle may take ~10 s: show a "waking up" hint in the admin UI.
+- The built-in browser pane reports `visibilityState: hidden` → rAF/animations pause and the loader never finishes there. Test the public page in **headless Edge via the DevTools protocol**.
+- **Neon free compute sleeps after ~5 min and needs ~10 s to wake.** Mitigated: public API `stale-while-revalidate=86400` at the edge; loader waits max 4 s for home data; client API timeout 15 s. The admin's first request after idle may take ~10 s.
+- **Production deploy of design v2 is unverified** (2026-10-02, see §6).
+- Design v2 leftovers: phones/tablet are functional but not designed (D5); `wipe.js` exists but is not wired (D7); unused generated SVGs `clover-fill.svg` / `clover-outline.svg` / `divider.svg` still come from `scripts/optimize-images.js`; the `legacy` cascade-layer name in `tokens.css` is unused; text-size/contrast audits not run on v2 yet (D9).
+- **Test scripts are not in the repo** (they lived in Claude's temporary scratchpad): `site-shot.mjs`, `site-behavior.mjs` (~50 checks), older admin/gallery/tracker/CSP suites. Re-create them or commit cleaned copies under `scripts/` (see `MIGRATION.md` §8 for the harness gotchas).
+- A stray `.kilo/worktrees/` folder and `previous_failed_attempt_v1_only_for_around_30-40%_of_intended/` exist in the working directory (the latter is untracked reference material from an earlier attempt); neither is deployed.
 
 ---
 
@@ -323,3 +355,10 @@ _(none)_
 - Cloudinary preset created + round-trip tested; gallery seeded (8); admin gallery upload/shrink/edit/delete verified end-to-end.
 - **Production images were missing since the first deploy** (`.vercelignore`) — fixed; production screenshots verified.
 - Fixed an admin navigation race (stale page overwrote the current one).
+
+### 2026-09-27 → 2026-10-02: Design v2 (sessions 2–4)
+- 2026-09-26/27: owner asked for a visual + motion redesign on branch `designupdatev2`; plan written (`docs/DESIGN_V2_PLAN.md`, v0.1 → v0.3 over three Q&A rounds), loader clover rotation fixed on `main` (`c58bfbc`), owner approved "execute the plan".
+- 2026-09-27: D1 style tile + motion sample (`/design-v2/` on the protected preview) with the real design-system files (`public/css/v2/*`, `public/js/motion-boot.js`, `public/js/public/motion/*`).
+- 2026-09-28: owner feedback (too minimal / empty / hollow clovers) → D1.1 density pass: illustrated SVG sprite, Japanese-fan-site vocabulary (numbered titles, background words, vertical text, badge, bubbles, stamps), Home filled on both sides, crossfading artwork backdrop.
+- 2026-10-02: answered the owner's "default password" question (it is the one from the original brief, still in `.env.local`; the DB only holds the hash). Owner asked to start applying the update → rebuilt the real public page on v2 (index.html, `layout.css`, main/render/lists/gallery/home/countdown/loader/scroll/fx modules, EN/JA keys), verified in headless Edge (≈50 checks pass, 0 CSP violations, no overflow at 1366/1920/390), commit `7b3895f`; removed `/design-v2/` (`2c8f181`); owner asked to put it on the main domain → merged `designupdatev2` into `main` (`c7b6975`) and pushed. A first merge attempt failed on a bad flag and changed nothing. Production deploy status could not be checked (Vercel list-deployments call blocked by the permission classifier). Wrote `MIGRATION.md` (`ab773d3`) and refreshed all markdown docs (this update).
+- **Next:** verify production → ✋2 → D5 phones → D7 → D8 → D9 (see §6).

@@ -2,8 +2,8 @@
 
 | | |
 |---|---|
-| **Status** | **Executing (approved 2026-09-27: "execute the plan"). D1 + D1.1 density pass done → waiting at checkpoint ✋1 round 2 (owner reviews `/design-v2/` on the preview link).** Design system reference: `docs/DESIGN_SYSTEM.md` |
-| **Branch** | `designupdatev2` (created from `main` @ `eef577f`) |
+| **Status** | **Executing. D1–D4 + D6 are built and MERGED INTO `main` (2026-10-02, `c7b6975`) at the owner's explicit request, so the new design is on the production domain. Remaining: verify production, ✋2 owner review, D5 phones, D7 motion, D8 extras, D9 QA.** Design system reference: `docs/DESIGN_SYSTEM.md`; handoff: `../MIGRATION.md` |
+| **Branch** | `designupdatev2` (created from `main` @ `eef577f`; merged into `main` 2026-10-02 — continue each remaining phase on a fresh branch from `main`, merge only with the owner's OK) |
 | **Scope** | How the public site looks and moves. Content, database, API, admin panel, analytics, i18n and security stay as they are |
 | **Clarity** | **90%** (v0.2.2: 88%) — every design question is answered; the rest is taste, settled at the D1 style tile |
 | **Technical confidence** | **91%** (v0.2: 88%) — no WebGL recommended any more; everything is standard GSAP/CSS |
@@ -380,16 +380,17 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 - [x] D1 Style tile + motion sample — `public/design-v2/` (page) + real v2 system: `public/css/v2/*`, `public/js/motion-boot.js`, `public/js/public/motion/*`; documented in `docs/DESIGN_SYSTEM.md`
 - [x] ✋1 round 1 — owner feedback (2026-09-28): "too many empty spaces", "feels incomplete / bland like Western minimalism", "Japanese sites are dense with info + visuals", "clover insides must not be hollow", "avoid empty areas especially Home"; question about snapping
 - [x] D1.1 Density pass on the style tile (see §16) — illustrated filled clovers (sprite), JP-site vocabulary, Home filled on both sides, crossfading artwork backdrop
-- [ ] ✋1 round 2 — owner review of the dense version
+- [x] ✋1 round 2 — owner replied "start applying the update" (2026-10-02) → recommended defaults kept (the five D1.1 questions were not answered one by one)
 - [x] D2 Foundations (+ credit labels removed) — built together with D3/D4/D6 (see §16 · 2026-10-02)
 - [x] D3 Components — real site uses the v2 components with live data + i18n
-- [x] D4 Sections (desktop) — built; **✋2 owner review of the preview link is next**
+- [x] D4 Sections (desktop) — built and merged; **✋2 owner review of the live site is next**
 - [ ] D5 Phones/tablet + native scroll + mobile menu
 - [x] D6 Loader v2 (rotating clover pair, petal progress, iris exit)
 - [ ] D7 Motion system
 - [ ] D8 Extras + gallery seed update
 - [ ] D9 QA
-- [ ] D10 Merge to `main` (owner go-ahead)
+- [x] D10 Merge to `main` — done **early** on 2026-10-02 with the owner's explicit go-ahead (`c7b6975`); `/design-v2/` deleted first. D5/D7/D8/D9 continue after the merge
+- [ ] D10b Verify the production deploy (unconfirmed: the Vercel status call was blocked) · ✋2 owner review of the live desktop design
 
 ### Decision log
 
@@ -415,6 +416,10 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 | 2026-09-28 | **Owner feedback on D1:** avoid minimalism/empty areas (esp. Home); creative-heavy JP-style density; clovers never hollow | Owner |
 | 2026-09-28 | Snapping: **desktop keeps strict snap** (one section per screen, glide + wipe hides the art change); **phones: free scroll with a crossfading fixed artwork backdrop** so there's never a hard art edge (owner to confirm after trying) | Claude (answer to owner's question) |
 | 2026-09-28 | Clover icons are an illustrated SVG sprite (`/assets/svg/v2-sprite.svg`); CSS-mask flat clovers removed from components | Claude |
+| 2026-10-02 | **"Start applying the update"** → real public page rebuilt on v2 (D2+D3+D4+D6 together) on the branch | Owner |
+| 2026-10-02 | **"Apply the changes to the vercel main domain"** → `designupdatev2` merged into `main` (`c7b6975`), style tile deleted first | Owner |
+| 2026-10-02 | Desktop-only strict snap (mouse + full motion); phones/tablets/calm = native free scroll (answer to the snapping question, now live) | Claude |
+| 2026-10-02 | Short laptops (≥1100 px wide, ≤960 px tall): Home keeps brand/socials/ticket/week + news + video and hides the 2nd note, coming-soon and fan-art cards | Claude |
 
 ---
 
@@ -540,3 +545,9 @@ Owner asked to "start applying the update": the style tile's compositions became
 - **Home on short laptops (≤ 960 px tall):** keeps brand, socials, ticket, week | news + video; the second note, coming-soon and fan-art cards are hidden there (they live in the sections below). At taller screens everything shows.
 - **Verified (headless Edge, dev server):** 0 CSP violations, 0 exceptions, no horizontal overflow (1366, 1920, 390); loader clovers turn (also with reduced motion), petals light with progress, loader exits; wheel snap Home→About→Home; nav/anchor glide; backdrop crossfade per section; EN↔JA switch (nav, facts, lists, week, credits); video click-to-load + film strip; gallery lightbox (arrows, Escape, scroll unlock); footer credits; motion toggle + Lenis stop/start; analytics beacons (page_view, loader_timing, section_dwell, gallery_open, video_play, language_switch); deep link `#discography`; phone menu circle reveal; reduced motion.
 - **Not yet done:** D5 phone/tablet polish (works, not designed yet), D7 section wipe on snap + deeper motion, D8 extras (mascot cameo, special-day decoration, LIVE badge on nav), gallery seed additions (5 extra credited artworks), D9 QA (contrast sampler, fps, screen reader pass), delete `/design-v2/` before the merge.
+
+### 2026-10-02 · Merged to `main` (D10, early) + docs refresh
+- Removed the preview-only `/design-v2/` page (`2c8f181`), merged `designupdatev2` into `main` with `--no-ff` (`c7b6975`) and pushed → production deploy triggered. (A first merge command failed on a bad flag and changed nothing; the push right after only re-sent the unchanged `main`.)
+- **Unverified:** the production deployment status — Vercel's list-deployments call was blocked by the permission classifier and was not worked around. Next session: hard-refresh kotoha-fansite.vercel.app and run the headless-Edge checks against it (`BASE=https://kotoha-fansite.vercel.app`).
+- `MIGRATION.md` (repo root, `ab773d3`) holds the full handoff; `docs/PROGRESS.md`, this plan, `docs/DESIGN_SYSTEM.md`, `docs/JA_REVIEW_LIST.md`, `README.md` and `docs/IMPLEMENTATION_PLAN.md` were refreshed.
+- **Still to do:** D5 phones/tablet design (✋3), D7 motion (wire `wipe.js` to the snap; fps checks; ✋4), D8 extras + 5 gallery artworks, D9 QA, owner review of the desktop design (✋2).

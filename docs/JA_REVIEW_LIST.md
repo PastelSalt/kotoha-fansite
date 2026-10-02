@@ -4,6 +4,8 @@ Japanese text **written by the developer** (not copied from official sources). P
 
 Status legend: ⏳ awaiting review · ✅ reviewed OK · ✏️ changed after review
 
+> **2026-10-02:** design v2 added new strings (see the "Design v2 additions" rows in §4) and removed others (`common.artBy`, the whole credits dialog, `home.latestWork` / `latestAbout` / `newsShort`, `about.title` / `name`, `news.latestWorks`, `gallery.title`, `footer.creditsOpen`) — those no longer need review. The big English section words (ABOUT / NEWS / DISCOGRAPHY / GALLERY) and the Japanese pills next to them are decorative and bilingual by design.
+
 ## 1. Seed news summaries (`db/seed.sql` → `news.summary`)
 
 Headlines are official wording (hakoniwalily.jp / YouTube titles). Only the summaries below are mine.
