@@ -224,6 +224,8 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 
 ## 6. CURRENT FOCUS / NEXT ACTION
 
+- **Design update v2 (2026-09-26):** visual + motion redesign lives on branch **`designupdatev2`** → plan and its own checklist in `docs/DESIGN_V2_PLAN.md`. Plan approved 2026-09-27 ("execute the plan"); design system reference in `docs/DESIGN_SYSTEM.md`; progress + work log in the plan (§14, §16). `main` stays deployable; merge only with the owner's go-ahead.
+
 - **Done so far:** Phases 1 (except Cloudinary keys), 2, 3, 4 (except gallery seed), 5, 6, 7 (except TwitCasting icon), 8, 9 (v1), 10, 11; admin API (12.2/12.3 API-side). Public site v1 live at https://kotoha-fansite.vercel.app after each push.
 - **Next action (no owner input needed):** Phase 16 quality (CSP/SRI headers, a11y pass, Lighthouse, security review) → Phase 17 (pre-launch reset script, docs). Phase 13 gallery testing waits for the Cloudinary keys.
 - **Waiting on owner:** add the Cloudinary key/secret to Vercel (1.7; production gallery uploads) · real-phone swipe check (3.2, later).

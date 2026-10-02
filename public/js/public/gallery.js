@@ -1,7 +1,9 @@
-// Infinite masonry gallery + accessible lightbox. Images come from Cloudinary via /api/public/gallery.
+// Infinite masonry gallery + accessible lightbox that grows out of the clicked tile.
+// Images come from Cloudinary via /api/public/gallery.
 import { t, onLangChange } from '../shared/i18n-core.js';
-import { el, galleryTile, cloudinaryUrl, stateMessage } from './render.js';
+import { el, galleryTile, cloudinaryUrl, stateNote } from './render.js';
 import { getJson } from './lists.js';
+import { isCalm } from './motion/prefs.js';
 
 const items = [];
 let cursor = null;
@@ -10,12 +12,16 @@ let busy = false;
 let columns = [];
 let heights = [];
 let current = -1;
+let onItemsCb = null;
 
 const masonry = () => document.getElementById('masonry');
 
 function columnCount() {
   const w = masonry().clientWidth;
-  return w >= 560 ? 3 : 2;
+  if (w >= 1100) return 5;
+  if (w >= 820) return 4;
+  if (w >= 520) return 3;
+  return 2;
 }
 
 function layout() {
@@ -29,7 +35,7 @@ function layout() {
 
 function place(img, index) {
   const col = heights.indexOf(Math.min(...heights)); // shortest column keeps the order roughly newest-first
-  columns[col].append(galleryTile(img, () => openLightbox(index)));
+  columns[col].append(galleryTile(img, (tile) => openLightbox(index, tile)));
   heights[col] += img.height / img.width;
 }
 
@@ -46,21 +52,19 @@ async function loadPage() {
     done = !cursor;
     if (box.dataset.state !== 'ready') {
       box.dataset.state = 'ready';
-      if (!items.length) {
-        box.replaceChildren(stateMessage('empty', { textKey: 'gallery.empty' }));
-      } else {
-        layout();
-      }
+      if (!items.length) box.replaceChildren(stateNote('empty', { textKey: 'gallery.empty' }));
+      else layout();
     } else {
       page.items.forEach((img, i) => place(img, start + i));
     }
     document.getElementById('gallery-more').hidden = done;
     document.getElementById('gallery-end').hidden = !done || !items.length;
+    onItemsCb?.(items, done);
   } catch (err) {
     console.warn(err);
     if (!items.length) {
       box.dataset.state = 'error';
-      box.replaceChildren(stateMessage('error', { onRetry: () => { box.dataset.state = 'loading'; box.replaceChildren(); busy = false; loadPage(); } }));
+      box.replaceChildren(stateNote('error', { onRetry: () => { box.dataset.state = 'loading'; box.replaceChildren(); busy = false; loadPage(); } }));
     }
   } finally {
     busy = false;
@@ -68,37 +72,53 @@ async function loadPage() {
 }
 
 // ---------------------------------------------------------------- lightbox
-function renderLightbox() {
+function fillLightbox() {
   const img = items[current];
   if (!img) return;
   const pic = document.getElementById('lightbox-img');
   pic.src = cloudinaryUrl(img.url, 1600);
   pic.alt = t('gallery.alt', { name: img.authorName });
-  const cap = document.getElementById('lightbox-caption');
-  cap.replaceChildren(
-    el('span', { text: `${t('gallery.by', { name: img.authorName })} · ${t('gallery.counter', { n: current + 1, total: items.length })} ` }),
+  document.getElementById('lightbox-caption').replaceChildren(
+    el('span', { class: 'lightbox__text', text: `${t('gallery.by', { name: img.authorName })} · ${t('gallery.counter', { n: current + 1, total: items.length })}` }),
     img.sourceUrl ? el('a', {
-      href: img.sourceUrl, target: '_blank', rel: 'noopener noreferrer', text: t('gallery.source'),
+      class: 'chip', href: img.sourceUrl, target: '_blank', rel: 'noopener noreferrer', text: `${t('gallery.source')} ↗`,
       'data-track': 'gallery_credit_click', 'data-track-type': 'gallery', 'data-track-id': img.id,
     }) : null,
   );
 }
 
-function openLightbox(index) {
+/** Opens the viewer; with View Transitions the artwork grows out of its tile (plain fade otherwise / in calm mode). */
+function openLightbox(index, tile) {
   current = index;
-  renderLightbox();
   const dlg = document.getElementById('lightbox');
-  if (!dlg.open) dlg.showModal();
+  if (dlg.open) { fillLightbox(); return; }
+  const pic = document.getElementById('lightbox-img');
+  const thumb = tile?.querySelector('img');
+  const show = async () => {
+    fillLightbox();
+    dlg.classList.add('no-anim');
+    dlg.showModal();
+    await pic.decode().catch(() => {});
+  };
+  if (!document.startViewTransition || isCalm() || !thumb) { dlg.classList.remove('no-anim'); show(); return; }
+  thumb.style.viewTransitionName = 'artwork';
+  const vt = document.startViewTransition(async () => {
+    thumb.style.viewTransitionName = '';
+    pic.style.viewTransitionName = 'artwork';
+    await show();
+  });
+  vt.finished.finally(() => { pic.style.viewTransitionName = ''; dlg.classList.remove('no-anim'); });
 }
 
 function step(delta) {
   if (!items.length) return;
   current = (current + delta + items.length) % items.length;
-  renderLightbox();
+  fillLightbox();
   if (current >= items.length - 3) loadPage();
 }
 
-export function initGallery({ onOpen, onClose } = {}) {
+export function initGallery({ onOpen, onClose, onItems } = {}) {
+  onItemsCb = onItems;
   const dlg = document.getElementById('lightbox');
   dlg.addEventListener('click', (e) => {
     if (e.target === dlg) dlg.close();                // backdrop click
@@ -124,7 +144,7 @@ export function initGallery({ onOpen, onClose } = {}) {
     const n = columnCount();
     if (n !== lastCols && masonry().dataset.state === 'ready' && items.length) { lastCols = n; layout(); }
   }).observe(masonry());
-  onLangChange(() => { if (items.length) layout(); if (dlg.open) renderLightbox(); });
+  onLangChange(() => { if (items.length) layout(); if (dlg.open) fillLightbox(); });
 
-  return { loadFirst: loadPage };
+  return { loadFirst: loadPage, items };
 }

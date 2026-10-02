@@ -15,7 +15,8 @@
   },
   "loader": {
     "loading": "ロード中…",
-    "credit": "このサイトはファンプロジェクトです　制作：Moeko Software and Technologies"
+    "credit": "このサイトはファンプロジェクトです　制作：Moeko Software and Technologies",
+    "didYouKnow": "知ってた？"
   },
   "nav": {
     "home": "ホーム",
@@ -29,7 +30,6 @@
     "menu": "メニュー",
     "close": "閉じる",
     "retry": "読み込めませんでした。タップしてもう一度試してね。",
-    "artBy": "イラスト：",
     "artUnknown": "作者不明（ご本人様はご連絡ください）",
     "opensNewTab": "（新しいタブで開きます）"
   },
@@ -46,10 +46,36 @@
     "streamSchedule": "毎週 火曜日・金曜日 21:00頃〜（日本時間）",
     "streamLive": "配信の時間です！（21:00頃〜）",
     "streamLocal": "あなたの現地時間：{time}",
-    "units": { "d": "日", "h": "時間", "m": "分", "s": "秒" },
-    "latestWork": "Kotohaの最新作：",
-    "latestAbout": "Kotohaの最新情報：",
-    "newsShort": "ニュース："
+    "units": {
+      "d": "日",
+      "h": "時間",
+      "m": "分",
+      "s": "秒"
+    },
+    "unitHoney": "HoneyWorksサポートボーカル",
+    "nextStream": "次の配信",
+    "live": "配信中！",
+    "unitsShort": {
+      "d": "日",
+      "h": "時間",
+      "m": "分",
+      "s": "秒"
+    },
+    "weekLabel": "今週の配信予定（日本時間）",
+    "days": [
+      "月",
+      "火",
+      "水",
+      "木",
+      "金",
+      "土",
+      "日"
+    ],
+    "pickUp": "PICK UP!",
+    "bubbleVideo": "見てね♡",
+    "fanArtTitle": "ファンアート",
+    "fanArtBy": "ピックアップ・{name}さん",
+    "seeGallery": "ギャラリーを見る ✿"
   },
   "video": {
     "play": "動画を再生：{title}",
@@ -58,28 +84,60 @@
     "list": "ほかの作品"
   },
   "about": {
-    "title": "Kotohaについて",
     "avatarAlt": "Kotohaのイラスト",
     "poseAlt": "ピースサインをするKotohaの全身モデル",
     "bio1": "Kotohaは、AiceClass所属の歌い手・VTuberです。Hanonとの2人組ユニット「ハコニワリリィ」のボーカルと、HoneyWorksのサポートボーカルを務めています。",
     "bio2": "2023年7月8日にVTuberとしてデビュー。毎週火曜日・金曜日の21:00頃から、トーク・歌・ゲームの配信をしています。ファンネームは「ことリス」、ファンマークは🍀（🥦じゃないよ！）。",
-    "name": "名前：Kotoha（ことは）",
     "pills": [
-      { "label": "誕生日", "value": "6月10日・ふたご座" },
-      { "label": "身長", "value": "152cm" },
-      { "label": "デビュー", "value": "2023年7月8日・AiceClass" },
-      { "label": "活動", "value": "ハコニワリリィのボーカル（with Hanon）・HoneyWorksのサポートボーカル" },
-      { "label": "ファン", "value": "ことリス・ファンマーク🍀・イメージカラー：緑" },
-      { "label": "定期配信", "value": "火・金 21:00頃〜・ツイキャス（トーク・歌）・Twitch（ゲーム）" },
-      { "label": "ハッシュタグ", "value": "#ことらじ 生配信・#ことぴく ファンアート・#ことメモ 切り抜き" },
-      { "label": "好きなもの", "value": "パンケーキ・たこ焼き・VALORANT・LoL・崩壊：スターレイル" }
+      {
+        "label": "誕生日",
+        "value": "6月10日・ふたご座"
+      },
+      {
+        "label": "身長",
+        "value": "152cm"
+      },
+      {
+        "label": "デビュー",
+        "value": "2023年7月8日・AiceClass"
+      },
+      {
+        "label": "活動",
+        "value": "ハコニワリリィのボーカル（with Hanon）・HoneyWorksのサポートボーカル"
+      },
+      {
+        "label": "ファン",
+        "value": "ことリス・ファンマーク🍀・イメージカラー：緑"
+      },
+      {
+        "label": "定期配信",
+        "value": "火・金 21:00頃〜・ツイキャス（トーク・歌）・Twitch（ゲーム）"
+      },
+      {
+        "label": "ハッシュタグ",
+        "value": "#ことらじ 生配信・#ことぴく ファンアート・#ことメモ 切り抜き"
+      },
+      {
+        "label": "好きなもの",
+        "value": "パンケーキ・たこ焼き・VALORANT・LoL・崩壊：スターレイル"
+      }
     ],
-    "tapHint": "Kotohaをタップしてね！"
+    "tapHint": "Kotohaをタップしてね！",
+    "heading": "ABOUT",
+    "role": "歌い手・VTuber（AiceClass所属）",
+    "hashtags": "ハッシュタグ",
+    "tags": [
+      "#ことらじ 生配信",
+      "#ことぴく ファンアート",
+      "#ことメモ 切り抜き"
+    ],
+    "fanMark": "ファンマークは🍀"
   },
   "news": {
     "title": "Kotohaのニュース",
-    "latestWorks": "Kotohaの最新作品：",
-    "empty": "ニュースはまだありません。また見に来てね！🍀"
+    "empty": "ニュースはまだありません。また見に来てね！🍀",
+    "heading": "NEWS",
+    "new": "NEW"
   },
   "discography": {
     "title": "ディスコグラフィ",
@@ -94,10 +152,14 @@
       "collab": "コラボ",
       "other": "リリース"
     },
-    "noCover": "ジャケット画像なし"
+    "noCover": "ジャケット画像なし",
+    "heading": "DISCOGRAPHY",
+    "comingSoon": "もうすぐ公開",
+    "inDays": "あと{n}日",
+    "daysToGo": "日後",
+    "releaseOn": "リリース日・{date}"
   },
   "gallery": {
-    "title": "ギャラリー",
     "by": "イラスト：{name}",
     "source": "元の投稿を見る",
     "loadMore": "もっと見る",
@@ -106,30 +168,30 @@
     "alt": "{name}さんによるKotohaのファンアート",
     "prev": "前の画像",
     "next": "次の画像",
-    "counter": "{n} / {total}"
+    "counter": "{n} / {total}",
+    "heading": "GALLERY",
+    "thanks": "絵師さん、ありがとう！♡",
+    "note": "すべてのイラストに作者名を表示し、元の投稿へのリンクを付けています。"
   },
   "footer": {
     "disclaimer": "このサイトは非公式・非営利のファンサイトです。Kotoha、ハコニワリリィ、HoneyWorks、AiceClassとは関係ありません。キャラクターおよびイラストの権利は、それぞれの権利者様・作者様に帰属します。",
     "contact": "不具合、クレジットの訂正、掲載の取り下げのご依頼はこちらまで：",
     "sections": "セクション",
-    "official": "Kotohaの公式リンク",
+    "official": "公式リンク",
     "credits": "イラストクレジット",
-    "creditsOpen": "すべてのクレジットを見る",
     "privacy": "ファンの皆さんに人気のセクションを知るため、訪問数を匿名で集計しています（Cookie・個人情報は使用しません）。",
     "backToTop": "トップへ戻る 🍀",
     "made": "ファンサイト制作：Moeko Software and Technologies",
-    "copyright": "© 2026 Moeko Software and Technologies（サイトのデザイン・プログラム）"
+    "copyright": "© 2026 Moeko Software and Technologies（サイトのデザイン・プログラム）",
+    "settings": "設定"
   },
   "credits": {
-    "title": "イラストクレジット",
-    "home": "ホームの背景",
-    "about": "プロフィールの背景",
-    "news": "ニュースの背景",
-    "discography": "ディスコグラフィの背景",
-    "gallery": "ギャラリーの背景",
-    "loader": "ロード画面のイラスト",
-    "profile": "プロフィール画像",
     "model": "キャラクターデザイン・モデル",
     "design": "デザイン：はなあられ・モデリング：鍋公かお・ネームロゴ：花杜ゆのき"
+  },
+  "motion": {
+    "on": "モーションON",
+    "off": "モーションOFF",
+    "device": "お使いの端末の設定で、動きを減らしています"
   }
 }
