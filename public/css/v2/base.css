@@ -23,9 +23,11 @@
 
   :lang(ja) {
     font-family: var(--font-ja);
-    line-height: var(--lh-ja);
     line-break: strict;
   }
+  /* Japanese needs more leading in running text; headings and components keep their own line-height
+     (a rule on every element would override the inherited value of display type such as the section titles) */
+  body:lang(ja), :where(p, li, dd, dt, figcaption):lang(ja) { line-height: var(--lh-ja); }
   /* Japanese headings break at natural phrase boundaries where supported */
   :is(h1, h2, h3, h4):lang(ja) { word-break: auto-phrase; }
 
@@ -45,6 +47,7 @@
   ::selection { background: var(--green-200); color: var(--green-900); }
 
   /* ---- utilities */
+  [hidden] { display: none !important; }
   .visually-hidden {
     position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;

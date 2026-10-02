@@ -43,6 +43,11 @@ export function setMotionOff(off) {
   apply();
 }
 
+/** Re-reads the toggles' translated labels (data-label-on/off/device) — call after a language change. */
+export function refreshMotionToggles() {
+  document.querySelectorAll('[data-motion-toggle]').forEach(syncToggle);
+}
+
 /** Wires every [data-motion-toggle] button (nav + footer). */
 export function mountMotionToggles(root = document) {
   root.querySelectorAll('[data-motion-toggle]').forEach((btn) => {

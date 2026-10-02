@@ -1,22 +1,28 @@
-// Public site entry point.
+// Public site entry point (design v2).
 import { t, setLang, currentLang, isLangChosen, onLangChange, mountLangSwitches } from '../shared/i18n-core.js';
-import { SOCIALS, OFFICIAL_LINKS, CREDITS, CREDIT_ENTRIES } from './data.js';
-import { el, icon, videoFacade, newsCard, videoChip, releaseCard, achievementItem, stateMessage } from './render.js';
-import { getJson, pagedList } from './lists.js';
-import { showLoaderArt, updateLoaderCredit, waitForAssets, hideLoader } from './loader.js';
-import { initScroll, lockScroll, unlockScroll, refreshScroll, reducedMotion } from './scroll.js';
-import { startCountdown } from './countdown.js';
-import { initScrollbars } from './scrollbars.js';
-import { initGallery } from './gallery.js';
-import { track, flush, setSection, startDwell, initTracking } from './track.js';
+import { SOCIALS, OFFICIAL_LINKS, CREDITS } from './data.js';
 import {
-  confettiBurst, celebrateSpecialDays, boing, staggerIn, cloverBloom, prepareEntrances, playEntrance, homeEntrance,
-} from './fx.js';
+  el, sprite, videoPolaroid, filmFrame, newsNote, releaseSleeve, achievementRows, socialBadge, stateNote,
+} from './render.js';
+import { getJson, pagedList } from './lists.js';
+import { showLoaderArt, showLoaderText, waitForAssets, hideLoader } from './loader.js';
+import { initScroll, scrollToEl, lockScroll, unlockScroll, refreshScroll } from './scroll.js';
+import { startCountdown } from './countdown.js';
+import { initGallery } from './gallery.js';
+import { renderWeek, renderSoon, renderFanArt, upcomingRelease, isRecent } from './home.js';
+import { track, flush, setSection, startDwell, initTracking } from './track.js';
+import { confettiBurst, celebrateSpecialDays, boing, homeIntro, popTitlesOnArrival } from './fx.js';
+import { mountMotionToggles, refreshMotionToggles } from './motion/prefs.js';
+import { startScrollLife, pageProgress } from './motion/scroll-life.js';
+import { startMarquee } from './motion/marquee.js';
+import { startSparkles } from './motion/sparkles.js';
+import { startBackdrop } from './motion/backdrop.js';
+import { whenGsap } from './motion/beat.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
-const state = { home: null, videos: [], currentVideoId: null };
+const state = { home: null, videos: [], currentVideoId: null, upcoming: null, galleryItems: [], activeSection: 'home' };
 
 // ---------------------------------------------------------------- language
 async function resolveInitialLanguage() {
@@ -40,46 +46,40 @@ function pickLanguage(lang) {
 
 // ---------------------------------------------------------------- static parts
 function renderSocials() {
-  $$('[data-socials]').forEach((ul) => {
-    ul.replaceChildren(...SOCIALS.map((s) => el('li', {}, [
-      el('a', {
-        href: s.url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${s.label} ${s.handle}`,
-        'data-track': 'outbound_click', 'data-track-type': 'social', 'data-track-target': s.id,
-      }, [
-        s.icon
-          ? el('img', { src: s.icon, alt: '', width: 96, height: 96, loading: 'lazy' })
-          : el('span', { class: 'social-fallback', 'aria-hidden': 'true' }, [icon('radio')]),
-        el('span', { class: 'social-handle sticker sticker--sm', text: s.handle }),
-      ]),
-    ])));
-  });
-  $('#footer-links').replaceChildren(...OFFICIAL_LINKS.map((l) =>
-    el('li', {}, [el('a', {
-      href: l.url, target: '_blank', rel: 'noopener noreferrer', text: l.label,
-      'data-track': 'outbound_click', 'data-track-type': 'social', 'data-track-target': l.id,
-    })])));
+  $$('[data-socials]').forEach((ul) => ul.replaceChildren(...SOCIALS.map(socialBadge)));
+  $('#footer-links').replaceChildren(...OFFICIAL_LINKS.map((l) => socialBadge({
+    ...l, handle: '', icon: SOCIALS.find((s) => s.id === l.id)?.icon || null,
+  })));
 }
 
-function renderCredits() {
-  $$('[data-credit]').forEach((a) => {
-    const c = CREDITS[a.dataset.credit];
-    if (c) { a.href = c.url; a.textContent = `${t('common.artBy')} ${c.handle}`; }
-    else { a.removeAttribute('href'); a.textContent = t('common.artUnknown'); }
-  });
-  $('#credits-list').replaceChildren(...CREDIT_ENTRIES.map(([key, labelKey]) => {
-    const c = CREDITS[key];
-    return el('li', {}, [
-      el('strong', { text: `${t(labelKey)}: ` }),
-      c ? el('a', { href: c.url, target: '_blank', rel: 'noopener noreferrer', text: c.handle }) : el('span', { text: t('common.artUnknown') }),
-    ]);
-  }).concat(el('li', {}, [el('strong', { text: `${t('credits.model')}: ` }), el('span', { text: '© AiceClass' })])));
-  updateLoaderCredit();
+/** Artists credited in the footer: the site's background artists plus everyone in the gallery. */
+function renderFooterCredits() {
+  const people = new Map();                                        // lower-case name → { name, url }
+  const unknown = /unknown|作者不明/i;
+  let anyUnknown = false;
+  const add = (name, url) => {
+    if (!name || name === 'AiceClass') return;
+    if (unknown.test(name)) { anyUnknown = true; return; }
+    const key = name.toLowerCase();
+    if (!people.has(key) || (!people.get(key).url && url)) people.set(key, { name, url });
+  };
+  Object.values(CREDITS).forEach((c) => { if (c) add(c.handle, c.url); else anyUnknown = true; });
+  state.galleryItems.forEach((g) => add(g.authorName, g.sourceUrl));
+  const rows = [...people.values()].map(({ name, url }) => el('li', {}, [
+    sprite('cl-leaf', 'cl cl--pink'),
+    url ? el('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: name, 'data-track': 'gallery_credit_click', 'data-track-type': 'gallery' }) : el('span', { text: name }),
+  ]));
+  rows.push(el('li', {}, [sprite('cl-leaf', 'cl'), el('span', { text: `${t('credits.model')}: © AiceClass` })]));
+  rows.push(el('li', {}, [sprite('cl-leaf', 'cl'), el('span', { text: t('credits.design') })]));
+  if (anyUnknown) rows.push(el('li', {}, [sprite('cl-leaf', 'cl cl--gold'), el('span', { text: t('common.artUnknown') })]));
+  $('#foot-credits').replaceChildren(...rows);
 }
 
-function renderAboutPills() {
+function renderAbout() {
   const pills = t('about.pills');
-  if (!Array.isArray(pills)) return;
-  $('#about-pills').replaceChildren(...pills.map((p) => el('li', {}, [el('strong', { text: p.label }), ' ', el('span', { text: p.value })])));
+  if (Array.isArray(pills)) $('#about-pills').replaceChildren(...pills.map((p) => el('div', {}, [el('dt', { text: p.label }), el('dd', { text: p.value })])));
+  const tags = t('about.tags');
+  if (Array.isArray(tags)) $('#about-tags').replaceChildren(...tags.map((tag) => el('span', { class: 'chip', text: tag })));
 }
 
 function setupContactMail() {
@@ -94,14 +94,16 @@ function renderHomeVideo() {
   const box = $('#home-video');
   box.dataset.state = 'ready';
   const v = state.home?.video;
-  box.replaceChildren(v ? videoFacade(v, { badge: t('video.latest') }) : stateMessage('empty', { textKey: 'video.empty' }));
+  box.replaceChildren(v ? videoPolaroid(v, { label: t('video.latest'), rot: 1.5 }) : stateNote('empty', { textKey: 'video.empty' }));
 }
 
 function renderHomeNews() {
   const box = $('#home-news');
   box.dataset.state = 'ready';
   const news = state.home?.news || [];
-  box.replaceChildren(...(news.length ? news.map((n) => newsCard(n, { compact: true })) : [stateMessage('empty', { textKey: 'news.empty' })]));
+  box.replaceChildren(...(news.length
+    ? news.map((n, i) => newsNote(n, { isNew: i === 0 && isRecent(n.postedOn), tape: i === 1 }))
+    : [stateNote('empty', { textKey: 'news.empty' })]));
 }
 
 async function loadHome() {
@@ -110,7 +112,7 @@ async function loadHome() {
   } catch (err) {
     console.warn(err);
     state.home = { video: null, news: [] };
-    $('#home-video').replaceChildren(stateMessage('error', { onRetry: () => loadHome() }));
+    $('#home-video').replaceChildren(stateNote('error', { onRetry: () => loadHome() }));
     return;
   }
   renderHomeVideo();
@@ -121,7 +123,7 @@ function renderPlayer() {
   const box = $('#news-player');
   box.dataset.state = 'ready';
   const v = state.videos.find((x) => x.youtubeId === state.currentVideoId) || state.videos[0];
-  box.replaceChildren(v ? videoFacade(v, { badge: v === state.videos[0] ? t('video.latest') : null }) : stateMessage('empty', { textKey: 'video.empty' }));
+  box.replaceChildren(v ? videoPolaroid(v, { label: v === state.videos[0] ? t('video.latest') : null, rot: -1.5 }) : stateNote('empty', { textKey: 'video.empty' }));
 }
 
 function selectVideo(video) {
@@ -136,23 +138,48 @@ let newsList;
 let discoList;
 let achievementsList;
 
-function setupLists() {
-  newsList = pagedList({ container: $('#news-list'), endpoint: '/api/public/news', render: (n) => newsCard(n), emptyKey: 'news.empty' });
-  videosList = pagedList({
-    container: $('#video-list'), endpoint: '/api/public/videos', emptyKey: 'video.empty',
-    render: (v) => videoChip(v, { current: v.youtubeId === (state.currentVideoId || state.videos[0]?.youtubeId), onSelect: selectVideo }),
-    onItems: (items) => { state.videos = items; if (!state.currentVideoId) renderPlayer(); },
-  });
-  discoList = pagedList({ container: $('#disco-list'), endpoint: '/api/public/discography', render: releaseCard, emptyKey: 'discography.empty' });
-  achievementsList = pagedList({ container: $('#achievements-list'), endpoint: '/api/public/achievements', render: achievementItem, emptyKey: 'discography.empty', limit: 30 });
+function renderSoonCards() {
+  renderSoon(state.upcoming, $('#home-soon'), $('#disco-soon'));
 }
 
-// ---------------------------------------------------------------- header, nav, menu
-function onActiveSection(name) {
-  setSection(name);
-  document.body.classList.toggle('is-scrolled', name !== 'home');
+function setupLists() {
+  newsList = pagedList({
+    container: $('#news-list'), endpoint: '/api/public/news', emptyKey: 'news.empty',
+    render: (n, i) => newsNote(n, { isNew: i === 0 && isRecent(n.postedOn), tape: i % 3 === 1 }),
+  });
+  videosList = pagedList({
+    container: $('#video-list'), endpoint: '/api/public/videos', emptyKey: 'video.empty', axis: 'x',
+    render: (v) => filmFrame(v, { current: v.youtubeId === (state.currentVideoId || state.videos[0]?.youtubeId), onSelect: selectVideo }),
+    onItems: (items) => { state.videos = items; if (!state.currentVideoId) renderPlayer(); },
+  });
+  discoList = pagedList({
+    container: $('#disco-list'), endpoint: '/api/public/discography', emptyKey: 'discography.empty',
+    render: (r) => (r === state.upcoming ? [] : releaseSleeve(r)),
+    onItems: (items) => { state.upcoming = upcomingRelease(items); renderSoonCards(); },
+  });
+  achievementsList = pagedList({ container: $('#achievements-list'), endpoint: '/api/public/achievements', render: achievementRows, emptyKey: 'discography.empty', limit: 30 });
+}
+
+// ---------------------------------------------------------------- nav, menu
+const navDot = $('.nav-pill__dot');
+function markNav(name) {
   $$('[data-nav-link]').forEach((a) => a.setAttribute('aria-current', String(a.dataset.navLink === name)));
-  playEntrance(name);
+  const link = $(`#nav-links a[data-nav-link="${name}"]`);
+  if (link && navDot) navDot.style.setProperty('--dot-x', `${link.offsetLeft + link.offsetWidth / 2 - 8}px`);
+}
+
+function onActiveSection(name) {
+  state.activeSection = name;
+  setSection(name);
+  markNav(name);
+}
+
+function setupNavProgress() {
+  const meter = $('#nav-progress');
+  let raf = 0;
+  const update = () => { raf = 0; meter.style.setProperty('--fill', pageProgress().toFixed(3)); };
+  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+  update();
 }
 
 function setupMenu() {
@@ -160,16 +187,19 @@ function setupMenu() {
   let lastTrigger = null;
   const open = (trigger) => {
     lastTrigger = trigger;
-    menu.hidden = false;
+    const r = trigger.getBoundingClientRect();
+    menu.style.setProperty('--menu-x', `${r.left + r.width / 2}px`);
+    menu.style.setProperty('--menu-y', `${r.top + r.height / 2}px`);
+    menu.inert = false;
+    menu.classList.add('is-open');
     lockScroll();
     $$('[data-menu-open]').forEach((b) => b.setAttribute('aria-expanded', 'true'));
-    cloverBloom(trigger);
-    staggerIn(menu.querySelectorAll('.mobile-menu__nav li'));
     $('[data-menu-close]', menu).focus();
   };
   const close = () => {
-    if (menu.hidden) return;
-    menu.hidden = true;
+    if (!menu.classList.contains('is-open')) return;
+    menu.classList.remove('is-open');
+    menu.inert = true;
     unlockScroll();
     $$('[data-menu-open]').forEach((b) => b.setAttribute('aria-expanded', 'false'));
     lastTrigger?.focus();
@@ -180,20 +210,14 @@ function setupMenu() {
   menu.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') close();
     if (e.key === 'Tab') {                                    // focus trap
-      const f = $$('a[href], button, [tabindex]:not([tabindex="-1"])', menu).filter((x) => x.offsetParent !== null);
+      const f = $$('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])', menu).filter((x) => x.offsetParent !== null);
       if (!f.length) return;
       if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f.at(-1).focus(); }
       else if (!e.shiftKey && document.activeElement === f.at(-1)) { e.preventDefault(); f[0].focus(); }
     }
   });
-}
-
-function setupDialogs() {
-  const credits = $('#credits-dialog');
-  $$('[data-credits-open]').forEach((b) => b.addEventListener('click', () => { lockScroll(); credits.showModal(); }));
-  $('[data-credits-close]', credits).addEventListener('click', () => credits.close());
-  credits.addEventListener('close', unlockScroll);
-  credits.addEventListener('click', (e) => { if (e.target === credits) credits.close(); });
+  // leaving the phone layout while the menu is open (rotating a tablet) must not trap the page
+  matchMedia('(min-width: 1000px)').addEventListener('change', (e) => { if (e.matches) close(); });
 }
 
 function setupFun() {
@@ -214,7 +238,7 @@ function decodeImage(img) {
 }
 
 /**
- * The CDN libraries (GSAP, Lenis, Anime.js, confetti) load async. Wait for them during the loader, but at most
+ * The CDN libraries (GSAP, Lenis, confetti) load async. Wait for them during the loader, but at most
  * `ms`: if a CDN is slow or blocked the site still works — without smooth scrolling and animations.
  */
 function librariesReady(ms) {
@@ -230,18 +254,30 @@ async function boot() {
   initTracking();
   showLoaderArt();
   mountLangSwitches(pickLanguage);
+  mountMotionToggles();
   renderSocials();
   setupContactMail();
   setupLists();
-  const gallery = initGallery({ onOpen: lockScroll, onClose: unlockScroll });
+  const gallery = initGallery({
+    onOpen: lockScroll,
+    onClose: unlockScroll,
+    onItems: (items) => { state.galleryItems = items; renderFanArt($('#home-fanart'), items); renderFooterCredits(); },
+  });
 
-  onLangChange(() => {
-    renderCredits();
-    renderAboutPills();
+  onLangChange((lang) => {
+    $$('.lang-pill').forEach((p) => { p.dataset.active = lang; });
+    document.title = t('meta.title');
+    refreshMotionToggles();
+    showLoaderText();
+    renderAbout();
+    renderWeek($('#week'));
+    renderFooterCredits();
     if (state.home) { renderHomeVideo(); renderHomeNews(); }
     if (state.videos.length) renderPlayer();
+    if (state.galleryItems.length) renderFanArt($('#home-fanart'), state.galleryItems);
+    renderSoonCards();
     [newsList, videosList, discoList, achievementsList].forEach((l) => l.rerender());
-    document.title = t('meta.title');
+    markNav(state.activeSection);
   });
 
   // Home content keeps loading in the background; the loader waits for it at most 4 s
@@ -257,8 +293,8 @@ async function boot() {
     ],
     tier2: [
       ...['about', 'news', 'discography', 'gallery'].map((n) => () => decodeImage($(`img[data-bg="${n}"]`))),
-      () => decodeImage($('.about-stage__pose img')),
-      () => decodeImage($('.avatar__img')),
+      () => decodeImage($('.clover-stage__pose img')),
+      () => decodeImage($('.profile__avatar')),
       () => newsList.load(),
       () => videosList.load(),
       () => discoList.load(),
@@ -269,23 +305,33 @@ async function boot() {
   document.documentElement.dataset.loadMs = String(timing);
   track('loader_timing', { ms: timing });
 
-  await initScroll({ onActiveChange: onActiveSection });
-  initScrollbars();
+  // Motion + scrolling (all of it progressive: each piece is skipped when its feature or library is missing)
+  startScrollLife();
+  startMarquee($('#marquee'));
+  startSparkles();
+  startBackdrop($('#backdrop'), $$('.scene[data-art]'));
+  initScroll();
+  setupNavProgress();
   setupMenu();
-  setupDialogs();
   setupFun();
   startCountdown();
-  prepareEntrances();
   refreshScroll();
+
+  // Active section (nav, dwell time): the one crossing the middle of the viewport — the footer counts too.
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) onActiveSection(e.target.dataset.section);
+  }, { rootMargin: '-50% 0px -50% 0px' });
+  $$('[data-section]').forEach((s) => io.observe(s));
 
   // Deep link (#news etc.) after everything is laid out.
   const target = location.hash && document.getElementById(location.hash.slice(1));
-  if (target) target.scrollIntoView();
+  if (target) scrollToEl(target, { immediate: true });
 
-  await hideLoader({ reduced: reducedMotion });
+  await hideLoader();
   startDwell();
-  homeEntrance();
+  homeIntro();
   celebrateSpecialDays();
+  whenGsap(2000).then(() => document.fonts?.ready).then(popTitlesOnArrival);
 }
 
 boot().catch((err) => {

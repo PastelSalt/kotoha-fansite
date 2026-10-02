@@ -30,11 +30,3 @@ export const CREDITS = {
   loader3: null,
   profile: null,
 };
-
-// Order and labels for the credits dialog.
-export const CREDIT_ENTRIES = [
-  ['home', 'credits.home'], ['about', 'credits.about'], ['news', 'credits.news'],
-  ['discography', 'credits.discography'], ['gallery', 'credits.gallery'],
-  ['loader1', 'credits.loader'], ['loader2', 'credits.loader'], ['loader3', 'credits.loader'],
-  ['profile', 'credits.profile'],
-];

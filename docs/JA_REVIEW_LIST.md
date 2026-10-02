@@ -60,6 +60,12 @@ The 27 entries from the official 実績 list are verbatim. These are mine:
 | `footer.contact` / `footer.privacy` | 不具合、クレジットの訂正、掲載の取り下げのご依頼はこちらまで：／…匿名で集計しています… | ⏳ |
 | `gallery.by` | イラスト：{name}（ギャラリーのクレジット。以前は「{name}さん」） | ⏳ |
 | `home.*`, `nav.*`, `gallery.*` | 定期配信まで：／スクロールしてね！／プロフィール／もっと見る／今はここまで！ など | ⏳ |
+| Design v2 additions (2026-10-02) | `home.nextStream` 次の配信／`home.live` 配信中！／`home.weekLabel` 今週の配信予定（日本時間）／`home.bubbleVideo` 見てね♡／`home.unitHoney` HoneyWorksサポートボーカル／`home.fanArtBy` ピックアップ・{name}さん／`home.seeGallery` ギャラリーを見る ✿ | ⏳ |
+| | `about.role` 歌い手・VTuber（AiceClass所属）／`about.hashtags` ハッシュタグ／`about.fanMark` ファンマークは🍀／`about.tags` #ことらじ 生配信・#ことぴく ファンアート・#ことメモ 切り抜き | ⏳ |
+| | `discography.comingSoon` もうすぐ公開／`discography.inDays` あと{n}日／`discography.daysToGo` 日後／`discography.releaseOn` リリース日・{date} | ⏳ |
+| | `gallery.thanks` 絵師さん、ありがとう！♡／`gallery.note` すべてのイラストに作者名を表示し、元の投稿へのリンクを付けています。 | ⏳ |
+| | `motion.on/off/device` モーションON／モーションOFF／お使いの端末の設定で、動きを減らしています／`loader.didYouKnow` 知ってた？／`footer.settings` 設定／`footer.official` 公式リンク／`video.latest` 最新 | ⏳ |
+| Section titles (not in the locale files) | ダイナミックな英字見出しに添えた日本語：プロフィール／ニュース／ディスコグラフィ・実績／ファンアート／最新情報／最新作／実績、縦書き：ことはってどんな人？／ことはの最新情報／うたとあゆみ | ⏳ |
 
 ## 5. Admin panel (`public/locales/admin/ja.json`)
 

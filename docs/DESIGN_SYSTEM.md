@@ -18,6 +18,7 @@ Live demo of everything below: **`/design-v2/`** on the preview link (stand-alon
 | `public/css/v2/components.css` | `components` | every reusable piece (§4) |
 | `public/css/v2/sections.css` | `sections` | section accents (`data-accent`), artwork layer (`.art`), scrims; section compositions (D4) |
 | `public/css/v2/motion.css` | `motion` | keyframes, scroll-driven effects, lean, iris, lightbox transitions, calm mode |
+| `public/css/v2/layout.css` | `sections` | the real page: nav pill, mobile menu, scenes (Home / About / News / Discography / Gallery), loader, footer, short-laptop rules |
 | `public/assets/svg/v2-sprite.svg` | — | SVG sprite: `#cl-leaf` (illustrated four-leaf clover), `#cl-round` (filled brand clover), `#spark`, `#heart`. Referenced by URL. **XML comments must never contain two hyphens in a row** (it breaks the whole file) |
 | `public/css/site.css` (v1) | `legacy` (during migration) | emptied section by section, deleted after D4 |
 

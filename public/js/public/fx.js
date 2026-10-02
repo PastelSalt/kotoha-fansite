@@ -1,11 +1,14 @@
-// Visual effects. Ownership (plan §11): GSAP = section entrances; Anime.js = micro-interactions; canvas-confetti = celebrations.
-import { reducedMotion } from './scroll.js';
+// Visual effects. Ownership: native CSS (css/v2/motion.css) = scroll-linked life, hovers, reveals;
+// GSAP = the arrival choreography (home intro, title letters); canvas-confetti = celebrations.
+import { isCalm } from './motion/prefs.js';
+import { beats } from './motion/beat.js';
+import { popLetters } from './motion/text.js';
 
 // ---------------------------------------------------------------- confetti
 let cloverShape = null;
 export function confettiBurst(originEl) {
   const confetti = window.confetti;
-  if (!confetti || reducedMotion) return;
+  if (!confetti || isCalm()) return;
   try { cloverShape ??= confetti.shapeFromText({ text: '🍀', scalar: 2 }); } catch { cloverShape = null; }
   let origin = { x: 0.5, y: 0.45 };
   if (originEl) {
@@ -30,63 +33,37 @@ export function celebrateSpecialDays() {
   }
 }
 
-// ---------------------------------------------------------------- Anime.js micro-interactions
+// ---------------------------------------------------------------- tap feedback (Web Animations — no library)
 export function boing(target) {
-  if (!window.anime || reducedMotion) return;
-  window.anime({ targets: target, scale: [1, 1.08, 0.97, 1], rotate: [0, -3, 2, 0], duration: 650, easing: 'easeOutElastic(1, .6)' });
+  if (!target?.animate || isCalm()) return;
+  target.animate([
+    { scale: 1, rotate: '0deg' }, { scale: 1.08, rotate: '-3deg', offset: 0.35 }, { scale: 0.97, rotate: '2deg', offset: 0.7 }, { scale: 1, rotate: '0deg' },
+  ], { duration: 650, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' });
 }
 
-export function staggerIn(targets) {
-  if (!window.anime || reducedMotion) return;
-  window.anime({ targets, translateX: [-24, 0], opacity: [0, 1], delay: window.anime.stagger(55, { start: 90 }), duration: 420, easing: 'easeOutQuad' });
-}
-
-export function cloverBloom(button) {
-  if (!window.anime || reducedMotion) return;
-  window.anime({ targets: button.querySelectorAll('.menu-btn__clovers i'), rotate: ['0deg', '90deg'], scale: [1, 1.15, 1], delay: window.anime.stagger(60), duration: 500, easing: 'easeOutBack' });
-}
-
-// ---------------------------------------------------------------- GSAP section entrances
-const ENTRANCE_TARGETS = {
-  about: ['.banner', '.avatar', '.about-bio', '.pill--name', '.pills li', '.about-stage'],
-  news: ['.banner', '.news-card', '.card--player', '.card--video-list'],
-  discography: ['.banner', '.release', '.card--achievements'],
-  gallery: ['.banner', '.card--gallery'],
-};
-const played = new Set();
-
-export function prepareEntrances() {
+// ---------------------------------------------------------------- arrival choreography (GSAP, in beats)
+/** Home arrives after the loader's iris opens: the two side columns slide in from their edges, the badge spins in. */
+export function homeIntro() {
   const gsap = window.gsap;
-  if (!gsap || reducedMotion) return;
-  for (const [id, selectors] of Object.entries(ENTRANCE_TARGETS)) {
-    const section = document.getElementById(id);
-    const targets = selectors.flatMap((s) => [...section.querySelectorAll(s)]);
-    gsap.set(targets, { autoAlpha: 0, y: 26 });
-  }
-  // Safety net: play a section's entrance when any part of it is visible, even if the active-section logic misses.
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) playEntrance(e.target.id); });
-  }, { threshold: 0.12 });
-  Object.keys(ENTRANCE_TARGETS).forEach((id) => io.observe(document.getElementById(id)));
+  if (!gsap || isCalm()) return;
+  const clear = { clearProps: 'transform,opacity,visibility' };
+  gsap.from('.site-nav', { y: -80, opacity: 0, duration: beats(1.2), ease: 'power3.out', ...clear });
+  gsap.from('.home-comp__left', { x: -80, opacity: 0, duration: beats(1.6), ease: 'power3.out', ...clear });
+  gsap.from('.home-comp__right', { x: 80, opacity: 0, duration: beats(1.6), delay: beats(0.25), ease: 'power3.out', ...clear });
+  gsap.from('.home-badge', { scale: 0, rotation: -140, duration: beats(1.6), delay: beats(1), ease: 'back.out(1.8)', ...clear });
+  gsap.from('.scene--home > .marquee', { yPercent: 160, duration: beats(1.2), delay: beats(0.8), ease: 'power3.out', ...clear });
 }
 
-export function playEntrance(id) {
+/** Section titles pop in letter by letter the first time each one arrives. */
+export function popTitlesOnArrival() {
   const gsap = window.gsap;
-  if (!gsap || reducedMotion || played.has(id) || !ENTRANCE_TARGETS[id]) return;
-  played.add(id);
-  const section = document.getElementById(id);
-  const targets = ENTRANCE_TARGETS[id].flatMap((s) => [...section.querySelectorAll(s)]);
-  gsap.to(targets, { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.05, ease: 'power3.out', clearProps: 'transform' });
-}
-
-/** Items added later (paged lists) should just be visible. */
-export function revealLate(nodes) {
-  if (window.gsap && !reducedMotion) window.gsap.set(nodes, { autoAlpha: 1, y: 0 });
-}
-
-export function homeEntrance() {
-  const gsap = window.gsap;
-  if (!gsap || reducedMotion) return;
-  gsap.from(['.hero-header__logo', '.hero-header__right', '.home-grid .card', '.home-grid .sticker--heading', '.section--home .scroll-more'],
-    { autoAlpha: 0, y: 20, duration: 0.7, stagger: 0.06, ease: 'power3.out', clearProps: 'all' });
+  if (!gsap || !window.SplitText) return;
+  gsap.registerPlugin(window.SplitText);
+  const seen = new WeakSet();
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting || seen.has(e.target) || isCalm()) return;
+    seen.add(e.target);
+    popLetters(e.target.querySelector('[data-i18n]') || e.target, gsap, { stagger: 0.035 });
+  }), { threshold: 0.6 });
+  document.querySelectorAll('.scene .sec-title__en').forEach((h) => io.observe(h));
 }

@@ -15,6 +15,24 @@ const svg = (tag, attrs = {}) => {
 
 /** Builds the spinner inside `host` (a .clover-spinner element). Returns { setProgress(0…1), complete() }. */
 export function mountSpinner(host) {
+  // Static markup (index.html) already holds the clovers so they turn before any script runs: adopt its petals.
+  const adopted = [...host.querySelectorAll('.petal')];
+  return adopted.length === 4 ? controls(host, adopted) : build(host);
+}
+
+function controls(host, rects) {
+  return {
+    setProgress(p) {
+      const lit = Math.max(0, Math.min(4, Math.floor(p * 4 + 0.0001)));
+      rects.forEach((r, i) => r.classList.toggle('is-on', i < lit));
+      host.classList.toggle('is-complete', lit === 4);
+    },
+    complete() { this.setProgress(1); },
+    reset() { this.setProgress(0); },
+  };
+}
+
+function build(host) {
   const id = `clover-clip-${++uid}`;
   // Outer: white clover with a green edge and a soft inner shade (filled, never hollow)
   const outer = svg('svg', { class: 'clover-spinner__outer', viewBox: VIEWBOX, 'aria-hidden': 'true', focusable: 'false' });
@@ -41,13 +59,5 @@ export function mountSpinner(host) {
   );
 
   host.replaceChildren(outer, inner);
-  return {
-    setProgress(p) {
-      const lit = Math.max(0, Math.min(4, Math.floor(p * 4 + 0.0001)));
-      rects.forEach((r, i) => r.classList.toggle('is-on', i < lit));
-      host.classList.toggle('is-complete', lit === 4);
-    },
-    complete() { this.setProgress(1); },
-    reset() { this.setProgress(0); },
-  };
+  return controls(host, rects);
 }

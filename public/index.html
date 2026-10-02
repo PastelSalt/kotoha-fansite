@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-motion="full" data-site="public">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -20,33 +20,35 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preload" href="/assets/img/logo-500.webp" as="image" type="image/webp">
 
-  <!-- Critical loader styles: the pink loader must paint before anything else loads -->
+  <!-- Critical loader styles: the pink loader must paint before anything else loads, and it fades away on its own
+       after 12 s even if no script ever runs (the clovers keep turning meanwhile: pure CSS). -->
   <style>
     html { background: #fe9fb9; }
     body { margin: 0; }
     .loader { position: fixed; inset: 0; z-index: 1000; background: #fe9fb9; overflow: hidden;
               font-family: 'Fredoka', 'M PLUS Rounded 1c', system-ui, sans-serif;
               animation: loader-failsafe 0.6s ease 12s forwards; }
-    .loader.is-done { animation: none; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .6s ease, visibility 0s .6s; }
+    .loader.is-done { animation: none; }
     @keyframes loader-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
-    .loader__art { position: absolute; inset: 0; }
-    .loader__art img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s ease; }
-    .loader__art img.is-loaded { opacity: .82; }
   </style>
-  <noscript><style>.loader { display: none !important; }</style><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet"></noscript>
+  <noscript><style>.loader { display: none !important; }</style><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Yomogi&display=swap" rel="stylesheet"></noscript>
+  <script src="/js/motion-boot.js"></script>
   <script src="/js/prepaint.js"></script>
 
-  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/v2/tokens.css">
+  <link rel="stylesheet" href="/css/v2/base.css">
+  <link rel="stylesheet" href="/css/v2/components.css">
+  <link rel="stylesheet" href="/css/v2/sections.css">
+  <link rel="stylesheet" href="/css/v2/layout.css">
+  <link rel="stylesheet" href="/css/v2/motion.css">
 
   <!-- async: main.js waits for these at most a few seconds (librariesReady), then runs without them -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" data-lib="gsap" async></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" data-lib="ScrollTrigger" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" integrity="sha256-krualkdvmD0hKivE9UyIkDnBaW3URh1ApzaGCThXD7s=" crossorigin="anonymous" data-lib="gsap" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" integrity="sha256-QZ9wJ6XwhqEst5iHNtj906btIgAilmHeJbZijKfO00Q=" crossorigin="anonymous" data-lib="SplitText" async></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" integrity="sha256-C/F005uavDBKPVAatkV1h+dW0HvYJPhopTJLXPFRJbA=" crossorigin="anonymous" data-lib="Lenis" async></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" integrity="sha384-/Mc/2ffICYME94wcPOYwoL99IzpbvFsDTty0/5V5t22x2n26tp8JRSsxKjvgZuZs" crossorigin="anonymous" data-lib="anime" async></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.js" integrity="sha256-SfS8vFbnzrXD0l0T2x0NqWW2zRyKVKcHuwVb4GhbCpU=" crossorigin="anonymous" data-lib="confetti" async></script>
   <script type="module" src="/js/public/main.js"></script>
 </head>
@@ -54,68 +56,92 @@
   <!-- Lucide icons (ISC), inlined as a sprite: https://lucide.dev -->
   <svg class="sprite" aria-hidden="true" focusable="false">
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
-    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
     <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
     <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></symbol>
     <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
-    <symbol id="i-languages" viewBox="0 0 24 24"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></symbol>
     <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
     <symbol id="i-radio" viewBox="0 0 24 24"><path d="M16.247 7.761a6 6 0 0 1 0 8.478"/><path d="M19.075 4.933a10 10 0 0 1 0 14.134"/><path d="M4.925 19.067a10 10 0 0 1 0-14.134"/><path d="M7.753 16.239a6 6 0 0 1 0-8.478"/><circle cx="12" cy="12" r="2"/></symbol>
   </svg>
 
   <a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to content</a>
 
-  <!-- ===================================================================== LOADER -->
-  <div class="loader" id="loader" role="status" aria-live="polite" data-i18n-attr="aria-label:a11y.loading" aria-label="Loading the Kotoha fan site">
-    <picture class="loader__art">
-      <source id="loader-art-portrait" media="(max-aspect-ratio: 3/4)" sizes="100vw">
-      <img id="loader-art-img" alt="" sizes="100vw" decoding="async">
-    </picture>
-    <a class="art-credit loader__art-credit" id="loader-art-credit" target="_blank" rel="noopener noreferrer" hidden></a>
-    <img class="loader__logo" src="/assets/img/logo-500.webp" srcset="/assets/img/logo-500.webp 500w, /assets/img/logo-1000.webp 1000w" sizes="(min-width: 900px) 30vw, 88vw" alt="Kotoha" width="1000" height="288">
+  <!-- ===================================================================== LOADER (static markup: turns before any script runs) -->
+  <div class="loader iris-out" id="loader" role="status" aria-live="polite" data-i18n-attr="aria-label:a11y.loading" aria-label="Loading the Kotoha fan site">
+    <div class="loader__art" aria-hidden="true"></div>
+    <div class="loader__scrim"></div>
+    <div class="deco" aria-hidden="true">
+      <svg class="cl float" style="--d: .4; left: 8%; top: 12%; width: 34px; height: 34px"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+      <svg class="cl cl--pink float" style="--d: 1.3; left: 88%; top: 16%; width: 28px; height: 28px"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+      <svg class="spark spark--gold twinkle" style="--d: .8; left: 78%; top: 70%"><use href="/assets/svg/v2-sprite.svg#spark"/></svg>
+      <svg class="spark spark--pink twinkle" style="--d: 1.5; left: 14%; top: 44%"><use href="/assets/svg/v2-sprite.svg#spark"/></svg>
+    </div>
+    <img class="loader__logo" src="/assets/img/logo-500.webp" srcset="/assets/img/logo-500.webp 500w, /assets/img/logo-1000.webp 1000w" sizes="(min-width: 900px) 30vw, 80vw" alt="Kotoha" width="1000" height="288">
     <div class="loader__status">
-      <div class="loader__clover" aria-hidden="true">
-        <img class="loader__clover-fill" src="/assets/svg/clover-fill.svg" alt="">
-        <img class="loader__clover-inner" src="/assets/svg/clover-outline.svg" alt="">
+      <div class="clover-spinner" id="loader-spinner" aria-hidden="true">
+        <svg class="clover-spinner__outer" viewBox="15 30 545 545" focusable="false">
+          <path class="c-outer" d="M286 85 A153 153 0 1 1 505 300 A153 153 0 1 1 288 517 A153 153 0 1 1 68 300 A153 153 0 1 1 286 85 Z"/>
+          <path class="c-outer-shade" d="M286 85 A153 153 0 1 1 505 300 A153 153 0 1 1 288 517 A153 153 0 1 1 68 300 A153 153 0 1 1 286 85 Z" transform="translate(286.5 301) scale(0.8) translate(-286.5 -301)"/>
+        </svg>
+        <svg class="clover-spinner__inner" viewBox="15 30 545 545" focusable="false">
+          <defs><clipPath id="loader-clip"><path d="M286 85 A153 153 0 1 1 505 300 A153 153 0 1 1 288 517 A153 153 0 1 1 68 300 A153 153 0 1 1 286 85 Z"/></clipPath></defs>
+          <path class="c-inner-bg" d="M286 85 A153 153 0 1 1 505 300 A153 153 0 1 1 288 517 A153 153 0 1 1 68 300 A153 153 0 1 1 286 85 Z"/>
+          <g clip-path="url(#loader-clip)">
+            <rect class="petal" x="15" y="30" width="271.5" height="271"/>
+            <rect class="petal" x="286.5" y="30" width="273.5" height="271"/>
+            <rect class="petal" x="286.5" y="301" width="273.5" height="274"/>
+            <rect class="petal" x="15" y="301" width="271.5" height="274"/>
+          </g>
+          <ellipse class="c-inner-gloss" cx="185" cy="170" rx="44" ry="72" transform="rotate(-40 185 170)"/>
+          <circle class="c-centre" cx="286.5" cy="301" r="34"/>
+        </svg>
       </div>
-      <p class="loader__text sticker" data-i18n="loader.loading">Loading…</p>
-      <img class="loader__moesoft" src="/assets/img/moesoft-360.webp" srcset="/assets/img/moesoft-360.webp 360w, /assets/img/moesoft-707.webp 707w" sizes="180px" alt="Moesoft" width="707" height="354">
-      <p class="loader__made sticker sticker--sm" data-i18n="loader.credit">This is a fan-project made by: Moeko Software and Technologies</p>
+      <p class="loader__text" id="loader-text">Loading…</p>
+      <p class="loader__fact paper" id="loader-fact"></p>
+    </div>
+    <div class="loader__made">
+      <img src="/assets/img/moesoft-360.webp" srcset="/assets/img/moesoft-360.webp 360w, /assets/img/moesoft-707.webp 707w" sizes="110px" alt="Moesoft" width="707" height="354">
+      <span data-i18n="loader.credit">This is a fan-project made by: Moeko Software and Technologies</span>
     </div>
   </div>
 
-  <!-- ===================================================================== SCROLLED NAV (non-home sections) -->
-  <header class="scrolled-nav" id="scrolled-nav">
-    <div class="scrolled-nav__bar">
-      <a class="scrolled-nav__logo" href="#home" data-nav-link="home"><img src="/assets/img/logo-500.webp" alt="Kotoha — home" width="500" height="144"></a>
-      <nav class="nav nav--bar" data-i18n-attr="aria-label:a11y.mainNav" aria-label="Main navigation">
-        <ul>
-          <li><a href="#home" data-nav-link="home" data-i18n="nav.home">home</a></li>
-          <li><a href="#about" data-nav-link="about" data-i18n="nav.about">about</a></li>
-          <li><a href="#news" data-nav-link="news" data-i18n="nav.news">news</a></li>
-          <li><a href="#discography" data-nav-link="discography" data-i18n="nav.discography">discography</a></li>
-          <li><a href="#gallery" data-nav-link="gallery" data-i18n="nav.gallery">gallery</a></li>
-        </ul>
-      </nav>
-      <div class="lang-switch" data-lang-switch></div>
-      <button class="menu-btn" type="button" data-menu-open aria-controls="mobile-menu" aria-expanded="false">
-        <span class="menu-btn__clovers" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="menu-btn__label sticker sticker--sm" data-i18n="common.menu">menu</span>
+  <!-- ===================================================================== FIXED ARTWORK BACKDROP (crossfades between sections) -->
+  <div class="backdrop" id="backdrop" aria-hidden="true">
+    <picture class="backdrop__art" data-art="home"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/home-p720.webp 720w, /assets/bg/home-p1080.webp 1080w" sizes="100vw"><img data-bg="home" src="/assets/bg/home-1920.webp" srcset="/assets/bg/home-1280.webp 1280w, /assets/bg/home-1920.webp 1920w, /assets/bg/home-2560.webp 2560w" sizes="100vw" alt="" decoding="async" fetchpriority="high"></picture>
+    <picture class="backdrop__art" data-art="about"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/about-p720.webp 720w, /assets/bg/about-p1080.webp 1080w" sizes="100vw"><img data-bg="about" src="/assets/bg/about-1920.webp" srcset="/assets/bg/about-1280.webp 1280w, /assets/bg/about-1920.webp 1920w" sizes="100vw" alt="" decoding="async"></picture>
+    <picture class="backdrop__art" data-art="news"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/news-p720.webp 720w, /assets/bg/news-p1080.webp 1080w" sizes="100vw"><img data-bg="news" src="/assets/bg/news-1920.webp" srcset="/assets/bg/news-1280.webp 1280w, /assets/bg/news-1920.webp 1920w, /assets/bg/news-2560.webp 2560w" sizes="100vw" alt="" decoding="async"></picture>
+    <picture class="backdrop__art" data-art="discography"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/discography-p720.webp 720w, /assets/bg/discography-p1080.webp 1080w" sizes="100vw"><img data-bg="discography" src="/assets/bg/discography-1920.webp" srcset="/assets/bg/discography-1280.webp 1280w, /assets/bg/discography-1920.webp 1920w" sizes="100vw" alt="" decoding="async"></picture>
+    <picture class="backdrop__art" data-art="gallery"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/gallery-p720.webp 720w, /assets/bg/gallery-p1080.webp 1080w" sizes="100vw"><img data-bg="gallery" src="/assets/bg/gallery-1920.webp" srcset="/assets/bg/gallery-1280.webp 1280w, /assets/bg/gallery-1920.webp 1920w" sizes="100vw" alt="" decoding="async"></picture>
+  </div>
+
+  <!-- ===================================================================== FLOATING NAV -->
+  <header class="site-nav">
+    <nav class="nav-pill paper" data-i18n-attr="aria-label:a11y.mainNav" aria-label="Main navigation">
+      <a class="nav-pill__logo" href="#home" data-nav-link="home" data-confetti><img src="/assets/img/logo-500.webp" alt="Kotoha — home" width="500" height="144"></a>
+      <ul class="nav-pill__links" id="nav-links">
+        <li><a href="#home" data-nav-link="home" data-i18n="nav.home">home</a></li>
+        <li><a href="#about" data-nav-link="about" data-i18n="nav.about">about</a></li>
+        <li><a href="#news" data-nav-link="news" data-i18n="nav.news">news</a></li>
+        <li><a href="#discography" data-nav-link="discography" data-i18n="nav.discography">discography</a></li>
+        <li><a href="#gallery" data-nav-link="gallery" data-i18n="nav.gallery">gallery</a></li>
+        <li class="nav-pill__dot" aria-hidden="true"><svg class="cl cl--pink" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg></li>
+      </ul>
+      <span class="clover-meter" id="nav-progress" aria-hidden="true">
+        <svg class="cl clover-meter__base"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+        <svg class="cl clover-meter__fill"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+      </span>
+      <div class="lang-pill" data-lang-switch data-active="en"></div>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="true" data-i18n-attr="data-label-on:motion.on;data-label-off:motion.off;data-label-device:motion.device">
+        <svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span data-motion-label>Motion on</span>
       </button>
-    </div>
+      <button class="menu-btn nav-pill__menu" type="button" data-menu-open aria-controls="mobile-menu" aria-expanded="false">
+        <svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span data-i18n="common.menu">menu</span>
+      </button>
+    </nav>
   </header>
 
   <!-- ===================================================================== MOBILE MENU -->
-  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" data-i18n-attr="aria-label:common.menu" aria-label="menu" hidden>
-    <picture class="mobile-menu__art" aria-hidden="true">
-      <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/loader1-p720.webp 720w, /assets/bg/loader1-p1080.webp 1080w" sizes="100vw">
-      <img src="/assets/bg/loader1-1280.webp" srcset="/assets/bg/loader1-1280.webp 1280w, /assets/bg/loader1-1920.webp 1920w" sizes="100vw" alt="" loading="lazy" decoding="async">
-    </picture>
-    <button class="mobile-menu__close icon-btn" type="button" data-menu-close data-i18n-attr="aria-label:a11y.closeMenu" aria-label="Close menu">
-      <svg class="icon"><use href="#i-x"/></svg>
-    </button>
-    <ul class="socials socials--menu" data-socials></ul>
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" data-i18n-attr="aria-label:common.menu" aria-label="menu" inert>
+    <button class="mobile-menu__close" type="button" data-menu-close data-i18n-attr="aria-label:a11y.closeMenu" aria-label="Close menu"><svg class="icon"><use href="#i-x"/></svg></button>
     <img class="mobile-menu__logo" src="/assets/img/logo-500.webp" alt="Kotoha" width="500" height="144">
     <nav class="mobile-menu__nav" data-i18n-attr="aria-label:a11y.mainNav" aria-label="Main navigation">
       <ul>
@@ -126,10 +152,16 @@
         <li><a href="#gallery" data-nav-link="gallery" data-i18n="nav.gallery">gallery</a></li>
       </ul>
     </nav>
-    <div class="lang-switch lang-switch--menu" data-lang-switch></div>
+    <ul class="socials" data-socials data-i18n-attr="aria-label:a11y.socials" aria-label="Kotoha's official channels"></ul>
+    <div class="mobile-menu__row">
+      <div class="lang-pill" data-lang-switch data-active="en"></div>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="true" data-i18n-attr="data-label-on:motion.on;data-label-off:motion.off;data-label-device:motion.device">
+        <svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span data-motion-label>Motion on</span>
+      </button>
+    </div>
     <div class="mobile-menu__credit">
       <img src="/assets/img/moesoft-360.webp" alt="Moesoft" width="360" height="180" loading="lazy">
-      <p class="sticker sticker--sm" data-i18n="loader.credit">This is a fan-project made by: Moeko Software and Technologies</p>
+      <span data-i18n="loader.credit">This is a fan-project made by: Moeko Software and Technologies</span>
     </div>
   </div>
 
@@ -137,240 +169,249 @@
     <h1 class="visually-hidden" data-i18n="meta.title">Kotoha Fan Site 🍀</h1>
 
     <!-- =================================================================== HOME -->
-    <section class="section section--home" id="home" data-section="home" aria-labelledby="home-heading">
-      <picture class="section__bg" aria-hidden="true">
-        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/home-p720.webp 720w, /assets/bg/home-p1080.webp 1080w" sizes="100vw">
-        <img data-bg="home" src="/assets/bg/home-1280.webp" srcset="/assets/bg/home-1280.webp 1280w, /assets/bg/home-1920.webp 1920w, /assets/bg/home-2560.webp 2560w" sizes="100vw" alt="" decoding="async" fetchpriority="high">
-      </picture>
-      <a class="art-credit" data-credit="home" target="_blank" rel="noopener noreferrer"></a>
+    <section class="scene scene--home" id="home" data-section="home" data-art="home" data-accent="home" aria-label="Home">
+      <div class="scrim scrim--home" aria-hidden="true"></div>
+      <span class="bg-word bg-word--home" aria-hidden="true">KOTOHA</span>
 
-      <header class="hero-header">
-        <a class="hero-header__logo" href="#home" data-confetti><img src="/assets/img/logo-500.webp" srcset="/assets/img/logo-500.webp 500w, /assets/img/logo-1000.webp 1000w" sizes="(min-width: 900px) 30vw, 94vw" alt="Kotoha" width="1000" height="288"></a>
-        <div class="hero-header__right">
-          <nav class="nav nav--hero" data-i18n-attr="aria-label:a11y.mainNav" aria-label="Main navigation">
-            <ul>
-              <li><a href="#home" data-nav-link="home" data-i18n="nav.home">home</a></li>
-              <li><a href="#about" data-nav-link="about" data-i18n="nav.about">about</a></li>
-              <li><a href="#news" data-nav-link="news" data-i18n="nav.news">news</a></li>
-              <li><a href="#discography" data-nav-link="discography" data-i18n="nav.discography">discography</a></li>
-              <li><a href="#gallery" data-nav-link="gallery" data-i18n="nav.gallery">gallery</a></li>
-            </ul>
-          </nav>
-          <ul class="socials socials--hero" data-socials data-i18n-attr="aria-label:a11y.socials" aria-label="Kotoha's official channels"></ul>
-          <div class="lang-switch" data-lang-switch></div>
-        </div>
-      </header>
+      <!-- decorations around the character -->
+      <div class="deco" aria-hidden="true">
+        <svg class="cl deco-parallax float" style="--d: 0; left: 44%; top: 16%; width: 38px; height: 38px"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+        <svg class="cl cl--pink float" style="--d: 1.2; left: 60%; top: 74%; width: 30px; height: 30px"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+        <svg class="cl cl--gold float" style="--d: 0.6; left: 64%; top: 22%; width: 24px; height: 24px"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+        <svg class="spark spark--gold twinkle" style="--d: 0.2; left: 41%; top: 42%"><use href="/assets/svg/v2-sprite.svg#spark"/></svg>
+        <svg class="spark spark--pink twinkle" style="--d: 1; left: 66%; top: 50%; width: 24px; height: 24px"><use href="/assets/svg/v2-sprite.svg#spark"/></svg>
+        <svg class="spark twinkle" style="--d: 1.6; left: 52%; top: 88%"><use href="/assets/svg/v2-sprite.svg#spark"/></svg>
+        <svg class="heart float" style="--d: 0.9; left: 48%; top: 66%"><use href="/assets/svg/v2-sprite.svg#heart"/></svg>
+      </div>
 
-      <div class="home-grid">
-        <div class="home-col home-col--left">
-          <div class="home-stream-row">
-            <div class="card card--stream" id="stream-card">
-              <p class="stream__head">
-                <span class="stream__label" data-i18n="home.streamLabel">Regular Stream:</span>
-                <span class="stream__time" id="stream-countdown" aria-hidden="true">00 00 00 00</span>
-              </p>
-              <p class="stream__schedule" id="stream-schedule" data-i18n="home.streamSchedule">Tuesdays &amp; Fridays around 21:00 JST</p>
-              <p class="visually-hidden" id="stream-sr" aria-live="off"></p>
-            </div>
-            <button class="menu-btn menu-btn--hero" type="button" data-menu-open aria-controls="mobile-menu" aria-expanded="false">
-              <span class="menu-btn__clovers" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="menu-btn__label sticker sticker--sm" data-i18n="common.menu">menu</span>
-            </button>
+      <div class="home-comp">
+        <div class="home-comp__left">
+          <div class="home-brand">
+            <img class="home-brand__logo reveal-pop" src="/assets/img/logo-1000.webp" srcset="/assets/img/logo-500.webp 500w, /assets/img/logo-1000.webp 1000w" sizes="(min-width: 1100px) 460px, 90vw" alt="Kotoha" width="1000" height="288">
+            <p class="home-brand__tag"><span class="label-chip"><svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>HaKoniwalily</span><span class="label-chip" data-i18n="home.unitHoney">HoneyWorks support vocal</span><span class="label-chip">AiceClass</span></p>
           </div>
-          <h2 class="sticker sticker--heading" id="home-heading" data-i18n="home.latestWork">latest work of Kotoha:</h2>
-          <div class="card card--video" id="home-video" data-state="loading"></div>
+          <ul class="socials reveal" data-socials data-i18n-attr="aria-label:a11y.socials" aria-label="Kotoha's official channels"></ul>
+          <div class="home-stream reveal">
+            <article class="paper ticket stitch" id="ticket">
+              <div class="ticket__stub"><span data-i18n="home.nextStream">Next stream</span></div>
+              <div class="ticket__body">
+                <p class="ticket__label" id="stream-schedule" data-i18n="home.streamSchedule">Tuesdays &amp; Fridays around 21:00 JST</p>
+                <div class="flip" id="flip" aria-hidden="true">
+                  <span class="flip__unit"><span class="flip__num">00</span><small data-i18n="home.unitsShort.d">days</small></span><span class="flip__sep">:</span>
+                  <span class="flip__unit"><span class="flip__num">00</span><small data-i18n="home.unitsShort.h">hrs</small></span><span class="flip__sep">:</span>
+                  <span class="flip__unit"><span class="flip__num">00</span><small data-i18n="home.unitsShort.m">min</small></span><span class="flip__sep">:</span>
+                  <span class="flip__unit"><span class="flip__num">00</span><small data-i18n="home.unitsShort.s">sec</small></span>
+                </div>
+                <p class="visually-hidden" id="stream-sr" aria-live="off"></p>
+                <span class="ticket__live" data-i18n="home.live">LIVE NOW</span>
+              </div>
+            </article>
+            <ol class="week" id="week" data-i18n-attr="aria-label:home.weekLabel" aria-label="This week's streams (Japan time)"></ol>
+          </div>
+          <article class="paper soon soon--mini stitch reveal" id="home-soon" hidden></article>
+          <article class="paper paper--grid fanart reveal" id="home-fanart" hidden></article>
         </div>
-        <div class="home-col home-col--right">
-          <h2 class="sticker sticker--heading">
-            <span class="only-wide" data-i18n="home.latestAbout">latest about Kotoha:</span>
-            <span class="only-narrow" data-i18n="home.newsShort">news:</span>
-          </h2>
-          <div class="home-news" id="home-news" data-state="loading"></div>
+
+        <div class="home-comp__right">
+          <header class="mini-title reveal">
+            <svg class="cl cl--pink" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+            <span class="mini-title__en">LATEST NEWS</span><span class="mini-title__ja" lang="ja">最新情報</span>
+          </header>
+          <div class="home-notes" id="home-news" data-state="loading"></div>
+          <div class="home-video reveal">
+            <span class="stamp stamp--pickup home-video__stamp" data-i18n="home.pickUp">PICK UP!</span>
+            <div id="home-video" data-state="loading"></div>
+            <span class="bubble home-video__bubble" data-i18n="home.bubbleVideo">check it out ♡</span>
+          </div>
         </div>
       </div>
 
-      <a class="scroll-more" href="#about" data-i18n-attr="aria-label:a11y.scrollNext" aria-label="Go to the next section">
-        <span class="sticker sticker--sm" data-i18n="common.scrollMore">scroll for more!</span>
-        <svg class="icon"><use href="#i-chevron-down"/></svg>
-      </a>
-      <div class="section-divider" aria-hidden="true"></div>
+      <div class="badge-round home-badge" aria-hidden="true">
+        <svg class="badge-round__text" viewBox="0 0 120 120"><defs><path id="badge-path" d="M60 60 m -45 0 a 45 45 0 1 1 90 0 a 45 45 0 1 1 -90 0"/></defs><text><textPath href="#badge-path">KOTOHA ✿ FAN SITE ✿ ことは ✿ KOTORISU ✿</textPath></text></svg>
+        <svg class="cl cl--pink"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+      </div>
+      <a class="scroll-cue bob" href="#about" data-i18n-attr="aria-label:a11y.scrollNext" aria-label="Go to the next section"><span data-i18n="common.scrollMore">scroll for more!</span> ✿</a>
+
+      <div class="marquee" id="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>KOTOHA ✿ ことは ✿ HaKoniwalily ✿ HoneyWorks ✿ AiceClass ✿ Kotorisu 🍀 ✿ #ことらじ ✿ #ことぴく ✿&nbsp;</span>
+          <span>KOTOHA ✿ ことは ✿ HaKoniwalily ✿ HoneyWorks ✿ AiceClass ✿ Kotorisu 🍀 ✿ #ことらじ ✿ #ことぴく ✿&nbsp;</span>
+        </div>
+      </div>
     </section>
 
-    <!-- =================================================================== ABOUT -->
-    <section class="section section--about" id="about" data-section="about" aria-labelledby="about-title">
-      <picture class="section__bg" aria-hidden="true">
-        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/about-p720.webp 720w, /assets/bg/about-p1080.webp 1080w" sizes="100vw">
-        <img data-bg="about" src="/assets/bg/about-1280.webp" srcset="/assets/bg/about-1280.webp 1280w, /assets/bg/about-1920.webp 1920w" sizes="100vw" alt="" loading="lazy" decoding="async">
-      </picture>
-      <a class="art-credit" data-credit="about" target="_blank" rel="noopener noreferrer"></a>
-
-      <h2 class="banner banner--left" id="about-title"><span data-i18n="about.title">About Kotoha</span></h2>
-
-      <div class="about-intro">
-        <div class="avatar">
-          <img class="avatar__img" src="/assets/img/profile-400.webp" srcset="/assets/img/profile-200.webp 200w, /assets/img/profile-400.webp 400w" sizes="(min-width: 900px) 18vw, 28vw" alt="Illustration of Kotoha" data-i18n-attr="alt:about.avatarAlt" width="400" height="400" loading="lazy">
-          <img class="avatar__clover" src="/assets/svg/clover-fill.svg" alt="" aria-hidden="true">
+    <!-- =================================================================== 01 ABOUT -->
+    <section class="scene" id="about" data-section="about" data-art="about" data-accent="about" aria-labelledby="about-title">
+      <div class="scrim scrim--soft" aria-hidden="true"></div>
+      <span class="bg-word" aria-hidden="true" style="right: -2%; bottom: 4%">PROFILE</span>
+      <p class="v-text v-text--green" lang="ja" aria-hidden="true" style="right: 1.5%; top: 18%">ことはってどんな人？</p>
+      <div class="scene__inner">
+        <header class="sec-title reveal">
+          <span class="sec-title__num"><small>NO.</small>01</span>
+          <h2 class="sec-title__en" id="about-title"><span data-i18n="about.heading">ABOUT</span> <svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg></h2>
+          <p class="sec-title__ja" lang="ja">プロフィール</p>
+          <span class="sec-title__line" aria-hidden="true"></span>
+        </header>
+        <div class="about-comp">
+          <div class="about-comp__card">
+            <article class="paper profile stitch reveal" aria-labelledby="profile-name">
+              <span class="tape"></span>
+              <header class="profile__head">
+                <img class="profile__avatar" src="/assets/img/profile-200.webp" srcset="/assets/img/profile-200.webp 200w, /assets/img/profile-400.webp 400w" sizes="84px" alt="Illustration of Kotoha" data-i18n-attr="alt:about.avatarAlt" width="200" height="200" loading="lazy">
+                <div>
+                  <h3 class="profile__name" id="profile-name">Kotoha <span lang="ja">ことは</span></h3>
+                  <p class="profile__role" data-i18n="about.role">Singer · VTuber · AiceClass</p>
+                  <p class="profile__units"><span class="label-chip">HaKoniwalily</span><span class="label-chip">HoneyWorks</span></p>
+                </div>
+              </header>
+              <dl class="facts" id="about-pills"></dl>
+            </article>
+          </div>
+          <div class="about-comp__side">
+            <div class="paper paper--lined lace about-bio reveal">
+              <p data-i18n="about.bio1">Kotoha is a singer and VTuber with AiceClass.</p>
+              <p data-i18n="about.bio2"></p>
+            </div>
+            <div class="paper about-tags reveal">
+              <p class="about-tags__title"><svg class="cl cl--pink" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg> <span data-i18n="about.hashtags">Hashtags</span></p>
+              <p class="chips" id="about-tags"></p>
+            </div>
+          </div>
+          <div class="clover-stage reveal">
+            <svg class="cl cl--sky clover-stage__clover" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-round"/></svg>
+            <button class="clover-stage__pose drift" type="button" data-pose data-i18n-attr="aria-label:about.tapHint" aria-label="Tap Kotoha!">
+              <img src="/assets/img/pose-450.webp" srcset="/assets/img/pose-450.webp 450w, /assets/img/pose-900.webp 900w" sizes="(min-width: 900px) 300px, 60vw" alt="Kotoha's full-body model, making a peace sign" data-i18n-attr="alt:about.poseAlt" width="1339" height="2400" loading="lazy" decoding="async">
+            </button>
+            <svg class="spark spark--gold twinkle" aria-hidden="true" style="--d: .3; position: absolute; left: 8%; top: 12%; width: 26px; height: 26px"><use href="/assets/svg/v2-sprite.svg#spark"/></svg>
+            <svg class="spark spark--pink twinkle" aria-hidden="true" style="--d: 1.1; position: absolute; right: 6%; top: 30%; width: 20px; height: 20px"><use href="/assets/svg/v2-sprite.svg#spark"/></svg>
+            <span class="bubble bubble--left clover-stage__bubble" data-i18n="about.fanMark">fan mark 🍀</span>
+          </div>
         </div>
-        <div class="about-bio">
-          <p data-i18n="about.bio1">Kotoha is a singer and VTuber with AiceClass. She's the vocalist of the duo HaKoniwalily together with Hanon, and a support vocalist for HoneyWorks.</p>
-          <p class="about-bio__more" data-i18n="about.bio2">She debuted as a VTuber on July 8, 2023, and streams talk, singing and games every Tuesday and Friday around 21:00 JST. Her fans are called Kotorisu, and her fan mark is 🍀 (not 🥦!).</p>
-        </div>
       </div>
-
-      <div class="about-frame">
-        <img class="about-frame__clover about-frame__clover--top" src="/assets/svg/clover-fill.svg" alt="" aria-hidden="true">
-        <img class="about-frame__clover about-frame__clover--bottom" src="/assets/svg/clover-fill.svg" alt="" aria-hidden="true">
-        <p class="pill pill--name" data-i18n="about.name">Name: Kotoha (ことは)</p>
-        <ul class="pills" id="about-pills" data-lenis-prevent></ul>
-      </div>
-
-      <div class="about-stage">
-        <img class="about-stage__clover" src="/assets/svg/clover-outline.svg" alt="" aria-hidden="true">
-        <button class="about-stage__pose" type="button" data-pose data-i18n-attr="aria-label:about.tapHint" aria-label="Tap Kotoha!">
-          <img src="/assets/img/pose-900.webp" srcset="/assets/img/pose-450.webp 450w, /assets/img/pose-900.webp 900w" sizes="(min-width: 900px) 22vw, 50vw" alt="Kotoha's full-body model, making a peace sign" data-i18n-attr="alt:about.poseAlt" width="1339" height="2400" loading="lazy" decoding="async">
-        </button>
-      </div>
-
-      <a class="scroll-more" href="#news" data-i18n-attr="aria-label:a11y.scrollNext" aria-label="Go to the next section">
-        <span class="sticker sticker--sm" data-i18n="common.scrollMore">scroll for more!</span>
-        <svg class="icon"><use href="#i-chevron-down"/></svg>
-      </a>
+      <img class="mascot-peek deco-parallax" src="/assets/img/mascot-front-240.webp" alt="" width="240" height="204" style="right: 4%; bottom: -6px">
     </section>
 
-    <!-- =================================================================== NEWS -->
-    <section class="section section--news" id="news" data-section="news" aria-labelledby="news-title">
-      <picture class="section__bg" aria-hidden="true">
-        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/news-p720.webp 720w, /assets/bg/news-p1080.webp 1080w" sizes="100vw">
-        <img data-bg="news" src="/assets/bg/news-1280.webp" srcset="/assets/bg/news-1280.webp 1280w, /assets/bg/news-1920.webp 1920w, /assets/bg/news-2560.webp 2560w" sizes="100vw" alt="" loading="lazy" decoding="async">
-      </picture>
-      <a class="art-credit" data-credit="news" target="_blank" rel="noopener noreferrer"></a>
-
-      <h2 class="banner banner--left" id="news-title"><span data-i18n="news.title">News on Kotoha</span></h2>
-
-      <div class="scroll-area scroll-area--news">
-        <div class="scroll-list news-list" id="news-list" tabindex="0" data-lenis-prevent data-state="loading" data-i18n-attr="aria-label:news.title" aria-label="News on Kotoha"></div>
-        <div class="scroll-bar" aria-hidden="true"><span class="scroll-bar__thumb"></span></div>
-      </div>
-
-      <div class="news-works">
-        <h3 class="banner banner--right banner--sm"><span data-i18n="news.latestWorks">Latest works of Kotoha:</span></h3>
-        <div class="card card--video card--player" id="news-player" data-state="loading"></div>
-        <div class="card card--video-list">
-          <div class="scroll-list video-list" id="video-list" tabindex="0" data-lenis-prevent data-i18n-attr="aria-label:video.list" aria-label="More works"></div>
+    <!-- =================================================================== 02 NEWS -->
+    <section class="scene" id="news" data-section="news" data-art="news" data-accent="news" aria-labelledby="news-title">
+      <div class="scrim scrim--left" aria-hidden="true"></div>
+      <span class="bg-word" aria-hidden="true" style="left: -2%; bottom: 2%">NEWS</span>
+      <p class="v-text" lang="ja" aria-hidden="true" style="right: 1.5%; top: 16%">ことはの最新情報</p>
+      <div class="scene__inner">
+        <header class="sec-title reveal">
+          <span class="sec-title__num"><small>NO.</small>02</span>
+          <h2 class="sec-title__en" id="news-title"><span data-i18n="news.heading">NEWS</span> <svg class="cl cl--pink" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg></h2>
+          <p class="sec-title__ja" lang="ja">ニュース</p>
+          <span class="sec-title__line" aria-hidden="true"></span>
+        </header>
+        <div class="news-comp">
+          <div class="news-list" id="news-list" tabindex="0" data-lenis-prevent data-state="loading" data-i18n-attr="aria-label:news.title" aria-label="News on Kotoha"></div>
+          <div class="news-side">
+            <p class="mini-title reveal"><svg class="cl cl--gold" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en">LATEST WORKS</span><span class="mini-title__ja" lang="ja">最新作</span></p>
+            <div id="news-player" class="reveal" data-state="loading"></div>
+            <div class="film reveal" id="video-list" tabindex="0" data-lenis-prevent data-i18n-attr="aria-label:video.list" aria-label="More works"></div>
+          </div>
         </div>
       </div>
-
-      <a class="scroll-more" href="#discography" data-i18n-attr="aria-label:a11y.scrollNext" aria-label="Go to the next section">
-        <span class="sticker sticker--sm" data-i18n="common.scrollMore">scroll for more!</span>
-        <svg class="icon"><use href="#i-chevron-down"/></svg>
-      </a>
     </section>
 
-    <!-- =================================================================== DISCOGRAPHY -->
-    <section class="section section--discography" id="discography" data-section="discography" aria-labelledby="disco-title">
-      <picture class="section__bg" aria-hidden="true">
-        <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/discography-p720.webp 720w, /assets/bg/discography-p1080.webp 1080w" sizes="100vw">
-        <img data-bg="discography" src="/assets/bg/discography-1280.webp" srcset="/assets/bg/discography-1280.webp 1280w, /assets/bg/discography-1920.webp 1920w" sizes="100vw" alt="" loading="lazy" decoding="async">
-      </picture>
-      <a class="art-credit" data-credit="discography" target="_blank" rel="noopener noreferrer"></a>
-
-      <h2 class="banner banner--left" id="disco-title"><span data-i18n="discography.title">Discography</span></h2>
-
-      <div class="scroll-area scroll-area--disco">
-        <div class="scroll-list disco-list" id="disco-list" tabindex="0" data-lenis-prevent data-state="loading" data-i18n-attr="aria-label:discography.title" aria-label="Discography"></div>
-        <div class="scroll-bar" aria-hidden="true"><span class="scroll-bar__thumb"></span></div>
-      </div>
-
-      <div class="achievements">
-        <h3 class="banner banner--right"><span data-i18n="discography.achievements">Achievements</span></h3>
-        <div class="card card--achievements scroll-area scroll-area--inside">
-          <ol class="scroll-list achievements-list" id="achievements-list" tabindex="0" data-lenis-prevent data-state="loading" data-i18n-attr="aria-label:discography.achievements" aria-label="Achievements"></ol>
-          <div class="scroll-bar" aria-hidden="true"><span class="scroll-bar__thumb"></span></div>
+    <!-- =================================================================== 03 DISCOGRAPHY -->
+    <section class="scene" id="discography" data-section="discography" data-art="discography" data-accent="disco" aria-labelledby="disco-title">
+      <div class="scrim scrim--soft" aria-hidden="true"></div>
+      <span class="bg-word" aria-hidden="true" style="right: -3%; top: 12%">MUSIC</span>
+      <p class="v-text v-text--green" lang="ja" aria-hidden="true" style="left: 1.2%; bottom: 10%">うたとあゆみ</p>
+      <div class="scene__inner">
+        <header class="sec-title reveal">
+          <span class="sec-title__num"><small>NO.</small>03</span>
+          <h2 class="sec-title__en" id="disco-title"><span data-i18n="discography.heading">DISCOGRAPHY</span> <svg class="cl cl--gold" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg></h2>
+          <p class="sec-title__ja" lang="ja">ディスコグラフィ・実績</p>
+          <span class="sec-title__line" aria-hidden="true"></span>
+        </header>
+        <article class="paper soon soon--wide stitch reveal" id="disco-soon" hidden></article>
+        <div class="disco-comp">
+          <div class="paper paper--grid reveal">
+            <div class="sleeves" id="disco-list" tabindex="0" data-lenis-prevent data-state="loading" data-i18n-attr="aria-label:discography.title" aria-label="Discography"></div>
+          </div>
+          <div class="paper paper--panel reveal">
+            <p class="mini-title"><svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en">ACHIEVEMENTS</span><span class="mini-title__ja" lang="ja">実績</span></p>
+            <ol class="timeline" id="achievements-list" tabindex="0" data-lenis-prevent data-state="loading" data-i18n-attr="aria-label:discography.achievements" aria-label="Achievements"></ol>
+          </div>
         </div>
       </div>
-
-      <a class="scroll-more" href="#gallery" data-i18n-attr="aria-label:a11y.scrollNext" aria-label="Go to the next section">
-        <span class="sticker sticker--sm" data-i18n="common.scrollMore">scroll for more!</span>
-        <svg class="icon"><use href="#i-chevron-down"/></svg>
-      </a>
     </section>
 
-    <!-- =================================================================== GALLERY (grows with the page) -->
-    <section class="section section--gallery" id="gallery" data-section="gallery" aria-labelledby="gallery-title">
-      <div class="gallery-bg" aria-hidden="true">
-        <picture class="section__bg section__bg--pinned">
-          <source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/gallery-p720.webp 720w, /assets/bg/gallery-p1080.webp 1080w" sizes="100vw">
-          <img data-bg="gallery" src="/assets/bg/gallery-1280.webp" srcset="/assets/bg/gallery-1280.webp 1280w, /assets/bg/gallery-1920.webp 1920w" sizes="100vw" alt="" loading="lazy" decoding="async">
-        </picture>
-      </div>
-      <a class="art-credit" data-credit="gallery" target="_blank" rel="noopener noreferrer"></a>
-
-      <h2 class="banner banner--center" id="gallery-title"><span data-i18n="gallery.title">Gallery</span></h2>
-
-      <div class="card card--gallery">
+    <!-- =================================================================== 04 GALLERY (grows with the page) -->
+    <section class="scene" id="gallery" data-section="gallery" data-art="gallery" data-accent="gallery" aria-labelledby="gallery-title">
+      <div class="scrim scrim--soft" aria-hidden="true"></div>
+      <span class="bg-word" aria-hidden="true" style="left: 2%; top: 6%">FAN ART</span>
+      <div class="scene__inner">
+        <header class="sec-title reveal">
+          <span class="sec-title__num"><small>NO.</small>04</span>
+          <h2 class="sec-title__en" id="gallery-title"><span data-i18n="gallery.heading">GALLERY</span> <svg class="cl cl--mint" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg></h2>
+          <p class="sec-title__ja" lang="ja">ファンアート</p>
+          <span class="sec-title__line" aria-hidden="true"></span>
+        </header>
+        <p class="gallery-note reveal"><span class="bubble" data-i18n="gallery.thanks">thank you, artists! ♡</span><span class="paper board-note" data-i18n="gallery.note">Every artwork is credited on its tile and in the viewer, with a link to the original post.</span></p>
         <div class="masonry" id="masonry" data-state="loading"></div>
         <div class="gallery-sentinel" id="gallery-sentinel" aria-hidden="true"></div>
-        <button class="btn btn--soft" type="button" id="gallery-more" hidden data-i18n="gallery.loadMore">Load more</button>
-        <p class="gallery-end sticker sticker--sm" id="gallery-end" hidden data-i18n="gallery.end">That's everything for now! 🍀</p>
+        <div class="gallery-more">
+          <button class="btn btn--ghost" type="button" id="gallery-more" hidden data-i18n="gallery.loadMore">Load more</button>
+          <p class="sticker sticker--sm" id="gallery-end" hidden data-i18n="gallery.end">That's everything for now! 🍀</p>
+        </div>
       </div>
     </section>
   </main>
 
   <!-- ===================================================================== FOOTER -->
-  <footer class="site-footer" id="site-footer" data-section="footer">
-    <div class="site-footer__inner">
-      <div class="site-footer__brand">
-        <img src="/assets/img/moesoft-360.webp" srcset="/assets/img/moesoft-360.webp 360w, /assets/img/moesoft-707.webp 707w" sizes="220px" alt="Moesoft — Moeko Software and Technologies" width="707" height="354" loading="lazy">
-        <p class="site-footer__made" data-i18n="footer.made">Fan site made by Moeko Software and Technologies</p>
+  <footer class="foot" id="site-footer" data-section="footer">
+    <div class="foot__inner">
+      <div class="foot__brand">
+        <img src="/assets/img/moesoft-360.webp" srcset="/assets/img/moesoft-360.webp 360w, /assets/img/moesoft-707.webp 707w" sizes="170px" alt="Moesoft — Moeko Software and Technologies" width="707" height="354" loading="lazy">
+        <p class="paper paper--lined" data-i18n="footer.disclaimer">This is an unofficial, non-profit fan site.</p>
+        <p class="ink-soft"><span data-i18n="footer.contact">For issues, credit corrections or removal requests, contact:</span>
+          <a id="contact-mail" href="#contact" data-user="moekosoftware" data-domain="outlook.com">moekosoftware [at] outlook.com</a></p>
       </div>
-      <div class="site-footer__disclaimer">
-        <p data-i18n="footer.disclaimer">This is an unofficial, non-profit fan site. It is not affiliated with Kotoha, HaKoniwalily, HoneyWorks or AiceClass. All characters and artwork belong to their respective owners and artists.</p>
-        <p><span data-i18n="footer.contact">For issues, credit corrections or removal requests, contact:</span>
-          <a class="site-footer__mail" id="contact-mail" href="#contact" data-user="moekosoftware" data-domain="outlook.com">moekosoftware [at] outlook.com</a></p>
-        <p class="site-footer__privacy" data-i18n="footer.privacy">This site counts visits anonymously (no cookies, no personal data) to see which sections fans enjoy.</p>
-      </div>
-      <nav class="site-footer__col" data-i18n-attr="aria-label:footer.sections" aria-label="Sections">
-        <h2 class="site-footer__heading" data-i18n="footer.sections">Sections</h2>
-        <ul>
+      <nav data-i18n-attr="aria-label:footer.sections" aria-label="Sections">
+        <p class="mini-title"><svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en" data-i18n="footer.sections">Sections</span></p>
+        <ul class="foot__links">
           <li><a href="#home" data-nav-link="home" data-i18n="nav.home">home</a></li>
           <li><a href="#about" data-nav-link="about" data-i18n="nav.about">about</a></li>
           <li><a href="#news" data-nav-link="news" data-i18n="nav.news">news</a></li>
           <li><a href="#discography" data-nav-link="discography" data-i18n="nav.discography">discography</a></li>
           <li><a href="#gallery" data-nav-link="gallery" data-i18n="nav.gallery">gallery</a></li>
         </ul>
+        <p class="foot__privacy" data-i18n="footer.privacy">This site counts visits anonymously (no cookies, no personal data).</p>
       </nav>
-      <div class="site-footer__col">
-        <h2 class="site-footer__heading" data-i18n="footer.official">Kotoha's official links</h2>
-        <ul id="footer-links"></ul>
+      <div>
+        <p class="mini-title"><svg class="cl cl--pink" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en" data-i18n="footer.official">Official links</span></p>
+        <ul class="socials socials--stack" id="footer-links"></ul>
       </div>
-      <div class="site-footer__col">
-        <h2 class="site-footer__heading" data-i18n="footer.credits">Artwork credits</h2>
-        <button class="btn btn--soft" type="button" data-credits-open data-i18n="footer.creditsOpen">Show all credits</button>
-        <div class="lang-switch lang-switch--footer" data-lang-switch></div>
+      <div>
+        <p class="mini-title"><svg class="cl cl--gold" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en" data-i18n="footer.credits">Artwork credits</span></p>
+        <ul class="foot__credits" id="foot-credits"></ul>
+        <p class="mini-title" style="margin-top: var(--s-5)"><svg class="cl cl--mint" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en" data-i18n="footer.settings">Settings</span></p>
+        <div class="pieces">
+          <div class="lang-pill" data-lang-switch data-active="en"></div>
+          <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="true" data-i18n-attr="data-label-on:motion.on;data-label-off:motion.off;data-label-device:motion.device">
+            <svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span data-motion-label>Motion on</span>
+          </button>
+        </div>
       </div>
     </div>
-    <div class="site-footer__bottom">
-      <p data-i18n="footer.copyright">© 2026 Moeko Software and Technologies (site design &amp; code)</p>
-      <a class="btn btn--soft" href="#home" data-nav-link="home"><svg class="icon"><use href="#i-arrow-up"/></svg> <span data-i18n="footer.backToTop">Back to top 🍀</span></a>
+    <div class="foot__bar">
+      <span data-i18n="footer.copyright">© 2026 Moeko Software and Technologies (site design &amp; code)</span>
+      <a class="btn btn--ghost btn--sm" href="#home" data-nav-link="home"><svg class="icon"><use href="#i-arrow-up"/></svg> <span data-i18n="footer.backToTop">Back to top 🍀</span></a>
     </div>
   </footer>
 
-  <!-- ===================================================================== DIALOGS -->
+  <!-- ===================================================================== LIGHTBOX -->
   <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-caption">
-    <button class="lightbox__close icon-btn" type="button" data-lightbox-close data-i18n-attr="aria-label:common.close" aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
-    <button class="lightbox__nav lightbox__nav--prev icon-btn" type="button" data-lightbox-prev data-i18n-attr="aria-label:gallery.prev" aria-label="Previous image"><svg class="icon"><use href="#i-chevron-left"/></svg></button>
-    <figure class="lightbox__figure">
-      <img class="lightbox__img" id="lightbox-img" alt="">
+    <button class="lightbox__close" type="button" data-lightbox-close data-i18n-attr="aria-label:common.close" aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" data-lightbox-prev data-i18n-attr="aria-label:gallery.prev" aria-label="Previous image"><svg class="icon"><use href="#i-chevron-left"/></svg></button>
+    <figure>
+      <img id="lightbox-img" alt="">
       <figcaption class="lightbox__caption" id="lightbox-caption"></figcaption>
     </figure>
-    <button class="lightbox__nav lightbox__nav--next icon-btn" type="button" data-lightbox-next data-i18n-attr="aria-label:gallery.next" aria-label="Next image"><svg class="icon"><use href="#i-chevron-right"/></svg></button>
-  </dialog>
-
-  <dialog class="credits-dialog" id="credits-dialog" aria-labelledby="credits-title">
-    <h2 class="credits-dialog__title" id="credits-title" data-i18n="credits.title">Artwork credits</h2>
-    <ul class="credits-dialog__list" id="credits-list"></ul>
-    <p class="credits-dialog__design" data-i18n="credits.design">Design: はなあられ · Modeling: 鍋公かお · Name logo: 花杜ゆのき</p>
-    <button class="btn btn--soft" type="button" data-credits-close data-i18n="common.close">Close</button>
+    <button class="lightbox__nav lightbox__nav--next" type="button" data-lightbox-next data-i18n-attr="aria-label:gallery.next" aria-label="Next image"><svg class="icon"><use href="#i-chevron-right"/></svg></button>
   </dialog>
 </body>
 </html>

@@ -381,11 +381,11 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 - [x] ✋1 round 1 — owner feedback (2026-09-28): "too many empty spaces", "feels incomplete / bland like Western minimalism", "Japanese sites are dense with info + visuals", "clover insides must not be hollow", "avoid empty areas especially Home"; question about snapping
 - [x] D1.1 Density pass on the style tile (see §16) — illustrated filled clovers (sprite), JP-site vocabulary, Home filled on both sides, crossfading artwork backdrop
 - [ ] ✋1 round 2 — owner review of the dense version
-- [ ] D2 Foundations (+ credit labels removed)
-- [ ] D3 Components
-- [ ] D4 Sections (desktop)
+- [x] D2 Foundations (+ credit labels removed) — built together with D3/D4/D6 (see §16 · 2026-10-02)
+- [x] D3 Components — real site uses the v2 components with live data + i18n
+- [x] D4 Sections (desktop) — built; **✋2 owner review of the preview link is next**
 - [ ] D5 Phones/tablet + native scroll + mobile menu
-- [ ] D6 Loader v2 (rotating clover pair, petal progress, iris exit)
+- [x] D6 Loader v2 (rotating clover pair, petal progress, iris exit)
 - [ ] D7 Motion system
 - [ ] D8 Extras + gallery seed update
 - [ ] D9 QA
@@ -529,3 +529,14 @@ Only the 4 checkpoint reviews (✋1–✋4) and the merge go-ahead. Between chec
 - **Artwork changes:** fixed crossfading backdrop (`motion/backdrop.js`) — no hard edges between section artworks.
 - **Bug found:** the sprite didn't render at first — XML comments may not contain double hyphens (`--c1`); fixed + documented.
 - **Verified:** 0 CSP violations, 0 exceptions, no sideways scroll at 1366 and 390; all content renders.
+
+### 2026-10-02 · D2 + D3 + D4 + D6 — the real public page now runs on design v2 (branch only)
+Owner asked to "start applying the update": the style tile's compositions became the real site on `designupdatev2` (nothing is on `main`/production; the merge stays a separate go-ahead).
+- **Page:** `public/index.html` rebuilt (floating nav pill, fixed crossfading backdrop, Home / About / News / Discography / Gallery scenes, footer, lightbox, mobile menu, static loader markup). IDs, `data-section`, `data-track*`, i18n keys and ARIA kept; "art by" labels, the loader credit and the credits dialog are gone (artists are credited on gallery tiles + in the viewer + in the footer list).
+- **CSS:** `public/css/v2/layout.css` (new: nav, scenes, Home/About/News/Discography/Gallery compositions, loader, footer, menu, short-laptop rules). Legacy `public/css/site.css` deleted. `[hidden]` now always hides (base.css). JA line-height is applied to text blocks, not to every element (it was stretching display titles in Japanese).
+- **JS:** `main.js` (boot, nav, menu, credits), `render.js` (v2 builders), `lists.js` (render may return several nodes; horizontal lists), `gallery.js` (JS masonry, 2–5 columns, lightbox grows from its tile via View Transitions), `home.js` (week strip, coming-soon cards, fan art, NEW logic), `countdown.js` (flip-digit ticket), `loader.js` (petal progress from real task progress, wave text, "Did you know?" facts, iris-open exit), `scroll.js` (Lenis + strict snap **only for a desktop mouse in full-motion mode**; phones/tablets/calm mode scroll natively), `fx.js` (confetti kept; Anime.js removed; GSAP home intro + title letters). `scrollbars.js` deleted (native thin scrollbars).
+- **Libraries (public page):** GSAP 3.15.0 + SplitText + Lenis 1.1.18 + canvas-confetti (all SRI-pinned). Removed from the public page: GSAP 3.12.5, ScrollTrigger, Anime.js, Animate.css (login/admin keep Animate.css; `prepaint.js` loads it only when `html[data-site]` is not `public`).
+- **Loader:** the artwork is a pure-CSS background keyed by `html[data-loader-art]` (starts downloading with the stylesheet); the two clovers are static inline SVG so they turn before any script; failsafe fade at 12 s unchanged.
+- **Home on short laptops (≤ 960 px tall):** keeps brand, socials, ticket, week | news + video; the second note, coming-soon and fan-art cards are hidden there (they live in the sections below). At taller screens everything shows.
+- **Verified (headless Edge, dev server):** 0 CSP violations, 0 exceptions, no horizontal overflow (1366, 1920, 390); loader clovers turn (also with reduced motion), petals light with progress, loader exits; wheel snap Home→About→Home; nav/anchor glide; backdrop crossfade per section; EN↔JA switch (nav, facts, lists, week, credits); video click-to-load + film strip; gallery lightbox (arrows, Escape, scroll unlock); footer credits; motion toggle + Lenis stop/start; analytics beacons (page_view, loader_timing, section_dwell, gallery_open, video_play, language_switch); deep link `#discography`; phone menu circle reveal; reduced motion.
+- **Not yet done:** D5 phone/tablet polish (works, not designed yet), D7 section wipe on snap + deeper motion, D8 extras (mascot cameo, special-day decoration, LIVE badge on nav), gallery seed additions (5 extra credited artworks), D9 QA (contrast sampler, fps, screen reader pass), delete `/design-v2/` before the merge.
