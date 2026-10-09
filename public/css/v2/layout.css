@@ -203,6 +203,7 @@
   .foot__credits li { display: flex; align-items: center; gap: 6px; }
   .foot__credits .cl { width: 16px; height: 16px; }
   .foot__privacy { margin-top: var(--s-3); font-size: var(--fs-meta); color: var(--ink-soft); }
+  .foot__sister .chip { background: var(--white); }
   .foot__bar { max-width: 1240px; margin: var(--s-6) auto 0; display: flex; flex-wrap: wrap; gap: var(--s-3); justify-content: space-between; align-items: center; font-size: var(--fs-meta); color: var(--ink-soft); }
   .pieces { display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: center; }
 

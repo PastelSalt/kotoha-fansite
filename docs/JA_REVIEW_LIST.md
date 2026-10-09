@@ -4,6 +4,8 @@ Japanese text **written by the developer** (not copied from official sources). P
 
 Status legend: ⏳ awaiting review · ✅ reviewed OK · ✏️ changed after review
 
+> **2026-10-09 (sister site):** new footer link `footer.sister` 「姉妹サイト：Hanonファンサイト」 (links https://hanon-fansite.vercel.app/) — please review.
+
 > **2026-10-09:** AiceClass is now mentioned only as history (it appears to have dissolved): `about.bio1`, `about.bio2`, `about.role` and the debut pill (「2023年7月8日（AiceClassからデビュー）」) were reworded, and the Home chip 「AiceClass」 became `home.unitVtuber` 「歌い手・VTuber」 — please review them again. New achievement text: 「TVアニメ『29歳独身中堅冒険者の日常』EDテーマ「君の隣は空気が美味しい」歌唱担当（HoneyWorks feat.Kotoha）」 (official wording style).
 
 > **2026-10-02:** design v2 added new strings (see the "Design v2 additions" rows in §4) and removed others (`common.artBy`, the whole credits dialog, `home.latestWork` / `latestAbout` / `newsShort`, `about.title` / `name`, `news.latestWorks`, `gallery.title`, `footer.creditsOpen`) — those no longer need review. The big English section words (ABOUT / NEWS / DISCOGRAPHY / GALLERY) and the Japanese pills next to them are decorative and bilingual by design.
