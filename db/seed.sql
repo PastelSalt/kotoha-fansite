@@ -128,12 +128,11 @@ from (values
   ('フローライト', 'album', '2026-03-11',
    'ハコニワリリィ 1st ALBUM', null,
    '[{"url":"https://hakoniwalily.jp/release/727/","label_key":"details"}]'),
-  ('君の隣は空気が美味しい', 'single', '2026-01-14',
-   'ハコニワリリィ デジタルシングル', null,
+  -- Kotoha's solo tie-in (official credit "HoneyWorks feat.Kotoha"). Its OP twin 「君が灯してくれた光を今」 is
+  -- "HoneyWorks feat.Hanon" (Hanon's solo work), so it is not part of Kotoha's discography.
+  ('君の隣は空気が美味しい', 'tie_in', '2026-01-14',
+   'HoneyWorks feat.Kotoha / TVアニメ『29歳独身中堅冒険者の日常』EDテーマ', null,
    '[{"url":"https://hakoniwalily.jp/release/%e5%90%9b%e3%81%ae%e9%9a%a3%e3%81%af%e7%a9%ba%e6%b0%97%e3%81%8c%e7%be%8e%e5%91%b3%e3%81%97%e3%81%84/","label_key":"details"}]'),
-  ('君が灯してくれた光を今', 'single', '2026-01-07',
-   'ハコニワリリィ デジタルシングル', null,
-   '[{"url":"https://hakoniwalily.jp/release/%e5%90%9b%e3%81%8c%e7%81%af%e3%81%97%e3%81%a6%e3%81%8f%e3%82%8c%e3%81%9f%e5%85%89%e3%82%92%e4%bb%8a/","label_key":"details"}]'),
   ('絶対称賛！', 'tie_in', '2025-10-06',
    'TVアニメ「笑顔のたえない職場です。」OPテーマ', null,
    '[{"url":"https://hakoniwalily.jp/release/%e7%b5%b6%e5%af%be%e7%a7%b0%e8%b3%9b%ef%bc%81/","label_key":"details"}]'),
