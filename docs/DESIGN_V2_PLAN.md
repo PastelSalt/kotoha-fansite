@@ -419,6 +419,7 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 | 2026-10-02 | **"Start applying the update"** → real public page rebuilt on v2 (D2+D3+D4+D6 together) on the branch | Owner |
 | 2026-10-02 | **"Apply the changes to the vercel main domain"** → `designupdatev2` merged into `main` (`c7b6975`), style tile deleted first | Owner |
 | 2026-10-02 | Desktop-only strict snap (mouse + full motion); phones/tablets/calm = native free scroll (answer to the snapping question, now live) | Claude |
+| 2026-10-09 | **Snapping removed on every device; Lenis removed** (owner: "don't make it snap anymore"). Performance pass without removing content: `docs/PERFORMANCE_PLAN.md` | Owner / Claude |
 | 2026-10-02 | Short laptops (≥1100 px wide, ≤960 px tall): Home keeps brand/socials/ticket/week + news + video and hides the 2nd note, coming-soon and fan-art cards | Claude |
 
 ---

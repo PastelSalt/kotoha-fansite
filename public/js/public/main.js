@@ -6,14 +6,14 @@ import {
 } from './render.js';
 import { getJson, pagedList } from './lists.js';
 import { showLoaderArt, showLoaderText, waitForAssets, hideLoader } from './loader.js';
-import { initScroll, scrollToEl, lockScroll, unlockScroll, refreshScroll } from './scroll.js';
+import { initScroll, scrollToEl, lockScroll, unlockScroll } from './scroll.js';
 import { startCountdown } from './countdown.js';
 import { initGallery } from './gallery.js';
 import { renderWeek, renderSoon, renderFanArt, upcomingRelease, isRecent } from './home.js';
 import { track, flush, setSection, startDwell, initTracking } from './track.js';
-import { confettiBurst, celebrateSpecialDays, boing, homeIntro, popTitlesOnArrival } from './fx.js';
+import { confettiBurst, loadConfetti, celebrateSpecialDays, boing, homeIntro, popTitlesOnArrival } from './fx.js';
 import { mountMotionToggles, refreshMotionToggles } from './motion/prefs.js';
-import { startScrollLife, pageProgress } from './motion/scroll-life.js';
+import { startScrollLife, pageProgress, onScrollVelocity } from './motion/scroll-life.js';
 import { startMarquee } from './motion/marquee.js';
 import { startSparkles } from './motion/sparkles.js';
 import { startBackdrop } from './motion/backdrop.js';
@@ -176,9 +176,12 @@ function onActiveSection(name) {
 
 function setupNavProgress() {
   const meter = $('#nav-progress');
-  let raf = 0;
-  const update = () => { raf = 0; meter.style.setProperty('--fill', pageProgress().toFixed(3)); };
-  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+  let last = '';
+  const update = () => {
+    const v = pageProgress().toFixed(3);
+    if (v !== last) { last = v; meter.style.setProperty('--fill', v); }
+  };
+  onScrollVelocity(update);            // runs inside the shared scroll ticker (motion/scroll-life.js)
   update();
 }
 
@@ -238,8 +241,8 @@ function decodeImage(img) {
 }
 
 /**
- * The CDN libraries (GSAP, Lenis, confetti) load async. Wait for them during the loader, but at most
- * `ms`: if a CDN is slow or blocked the site still works — without smooth scrolling and animations.
+ * The CDN libraries (GSAP, SplitText) load async. Wait for them during the loader, but at most
+ * `ms`: if a CDN is slow or blocked the site still works — without the arrival animations.
  */
 function librariesReady(ms) {
   const each = $$('script[data-lib]').map((s) => (window[s.dataset.lib] ? null : new Promise((resolve) => {
@@ -315,7 +318,6 @@ async function boot() {
   setupMenu();
   setupFun();
   startCountdown();
-  refreshScroll();
 
   // Active section (nav, dwell time): the one crossing the middle of the viewport — the footer counts too.
   const io = new IntersectionObserver((entries) => {
@@ -328,9 +330,15 @@ async function boot() {
   if (target) scrollToEl(target, { immediate: true });
 
   await hideLoader();
+  // Sections more than a screen away drop their animations until the visitor gets close (layout.css: .is-far).
+  const far = new IntersectionObserver((entries) => {
+    for (const e of entries) e.target.classList.toggle('is-far', !e.isIntersecting);
+  }, { rootMargin: '100% 0px' });
+  $$('.scene').forEach((s) => far.observe(s));
   startDwell();
   homeIntro();
   celebrateSpecialDays();
+  (window.requestIdleCallback || ((cb) => setTimeout(cb, 1500)))(() => loadConfetti(), { timeout: 4000 });
   whenGsap(2000).then(() => document.fonts?.ready).then(popTitlesOnArrival);
 }
 

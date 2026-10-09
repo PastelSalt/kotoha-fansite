@@ -53,7 +53,6 @@ Behind the scenes it is a lightweight site with **no build step** (HTML, modern 
 
 ### Libraries
 - **GSAP** — Arrival choreography and SplitText letter pops
-- **Lenis** — Smooth wheel scrolling and section glides on desktop
 - **canvas-confetti** — Clover confetti on special days
 - **Lucide** — Interface icons
 - **Animate.css** — Small transitions in the admin panel

@@ -5,10 +5,30 @@ import { beats } from './motion/beat.js';
 import { popLetters } from './motion/text.js';
 
 // ---------------------------------------------------------------- confetti
+// Loaded after the loader has finished (main.js, when the browser is idle) instead of competing with the art and
+// data during loading; a burst requested before that loads it on demand.
+const CONFETTI = ['https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.js', 'sha256-SfS8vFbnzrXD0l0T2x0NqWW2zRyKVKcHuwVb4GhbCpU='];
+let confettiLoading = null;
+export function loadConfetti() {
+  if (window.confetti) return Promise.resolve(window.confetti);
+  confettiLoading ??= new Promise((resolve) => {
+    const s = document.createElement('script');
+    s.src = CONFETTI[0];
+    s.integrity = CONFETTI[1];
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+    s.addEventListener('load', () => resolve(window.confetti || null), { once: true });
+    s.addEventListener('error', () => { confettiLoading = null; resolve(null); }, { once: true });
+    document.head.append(s);
+  });
+  return confettiLoading;
+}
+
 let cloverShape = null;
 export function confettiBurst(originEl) {
+  if (isCalm()) return;
   const confetti = window.confetti;
-  if (!confetti || isCalm()) return;
+  if (!confetti) { loadConfetti().then((c) => { if (c) confettiBurst(originEl); }); return; }
   try { cloverShape ??= confetti.shapeFromText({ text: '🍀', scalar: 2 }); } catch { cloverShape = null; }
   let origin = { x: 0.5, y: 0.45 };
   if (originEl) {

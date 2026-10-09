@@ -45,7 +45,7 @@
 
 An **unofficial, non-profit, bilingual (Japanese/English) fan website for Kotoha (ことは)**: vocalist of HaKoniwalily (with Hanon), HoneyWorks support vocalist, AiceClass. Made by **Moeko Software and Technologies (Moesoft)**.
 
-1. **Public site** ✅: animated, responsive single page of full-screen sections with strict snap: Home → About → News → Discography → Gallery (infinite) → Footer.
+1. **Public site** ✅: animated, responsive single page of full-screen sections ~~with strict snap~~ (snapping removed 2026-10-09 at the owner's request; native free scrolling): Home → About → News → Discography → Gallery (infinite) → Footer.
 2. **Admin area** ✅ (`/login`, `/admin`): roles **Owner** and **Admin**; manages videos, news, achievements, discography and gallery; analytics; archive; accounts (Owner only).
 
 ### 1.2 Intended user experience
@@ -53,7 +53,7 @@ An **unofficial, non-profit, bilingual (Japanese/English) fan website for Kotoha
 - **Loader** ✅: automatic, ≥ 3 s to showcase one of three artworks while all images/assets preload.
 - **Language** ✅: visitors in Japan (IP) get Japanese; everyone else gets English; a JP/EN switcher is always available; **all text switches, including headings and menus**; the admin panel is switchable too.
 - **Header** ✅: a hero header inside Home; a scrolled nav (green bar, **no social icons**) on the other sections.
-- **Scroll** ✅: strict snap in the feel "scroll freely, then glide to the nearest section".
+- **Scroll** ✅: ~~strict snap in the feel "scroll freely, then glide to the nearest section"~~ → **superseded 2026-10-09: no snapping, native free scrolling** (see `PERFORMANCE_PLAN.md`).
 - **Content** ✅: Home shows the newest video and the 2 newest news items; each section shows **all** its records (newest first).
 - **Gallery** ✅: grows with the page (snap turns off inside it), loads more as you scroll, ends with the footer.
 - **No sound** ✅.

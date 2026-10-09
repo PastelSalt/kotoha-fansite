@@ -102,7 +102,7 @@ Every section should feel full: a numbered title block, content on **both** side
 | Gingham background | `.board--pattern` | plain pink areas are never flat |
 
 ### 4.2 Artworks: fixed crossfading backdrop
-All section artworks sit in one fixed `.backdrop` (`.backdrop__art[data-art]`); sections carry `data-art`. `startBackdrop()` (`motion/backdrop.js`) fades to the artwork of the section crossing the middle of the screen, so there is **never a hard edge between two artworks** (important with free scrolling on phones). The current art settles from a slight zoom and pans a little with page scroll (`scroll(root)` timeline). On desktop the snap + wipe hides the change as well. Calm mode: quick fade only.
+All section artworks sit in one fixed `.backdrop` (`.backdrop__art[data-art]`); sections carry `data-art`. `startBackdrop()` (`motion/backdrop.js`) fades to the artwork of the section crossing the middle of the screen, so there is **never a hard edge between two artworks** (important with free scrolling on phones). The current art settles from a slight zoom and pans a little with page scroll (one `scroll(root)` animation on `.backdrop__pan`, which also carries the pink veil); an artwork that has faded out is `visibility: hidden` so it isn't composited. Calm mode: quick fade only.
 
 ## 5. Motion system
 
@@ -119,7 +119,7 @@ All section artworks sit in one fixed `.backdrop` (`.backdrop__art[data-art]`); 
 |---|---|
 | `transform` | scroll-driven reveal / camera / parallax keyframes |
 | `translate`, `scale` | hover & tap micro-interactions |
-| `rotate` | resting tilt + velocity lean: `.lean { rotate: calc(var(--rest-rot) + var(--lean) * 1deg) }` |
+| `rotate` | resting tilt + velocity lean: `.lean { rotate: calc(var(--rest-rot) + var(--lean) * 1deg) }` (the polaroid leans via `transform` so its hover `rotate` transition isn't restarted every frame) |
 
 ### 5.3 CSS classes (motion.css)
 | Class | Effect |
@@ -139,8 +139,8 @@ All section artworks sit in one fixed `.backdrop` (`.backdrop__art[data-art]`); 
 | `../../motion-boot.js` (classic, in `<head>`) | sets `data-motion` before first paint |
 | `prefs.js` | `motionMode()`, `isCalm()`, `onMotionChange(cb)`, `setMotionOff(bool)`, `mountMotionToggles()` — stores the choice in `localStorage.kf_motion` |
 | `beat.js` | `BPM`, `BEAT`, `beats(n)`, `beatsMs(n)`, `EASE`, `whenGsap(ms)` |
-| `scroll-life.js` | `startScrollLife()` (velocity → `--lean`), `scrollVelocity()`, `onScrollVelocity(cb)`, `pageProgress()` |
-| `marquee.js` | `startMarquee(el, { speed })` — speeds up with scroll, reverses on scroll-up, pauses off-screen |
+| `scroll-life.js` | the single scroll ticker: `startScrollLife()` (velocity → `--lean` on the on-screen `.lean` cards only, never on `<html>`), `scrollVelocity()`, `onScrollVelocity(cb)` (marquee + nav clover subscribe), `pageProgress()` (cached page height) |
+| `marquee.js` | `startMarquee(el, { speed })` — one looping Web Animation (compositor); scroll speed sets its `playbackRate` (faster, negative = reversed on scroll-up); pauses off-screen |
 | `sparkles.js` | `startSparkles()` — desktop mouse only, pooled; mixes sprite sparkles, hearts and clovers |
 | `wipe.js` | `playWipe({ direction, accent, onCovered })` → Promise — striped accent panel sweeps across |
 | `spinner.js` | `mountSpinner(host)` → `{ setProgress(0…1), complete(), reset() }` — both clovers filled (outer white with inner shade; inner pale green whose petals turn green) |
@@ -195,7 +195,16 @@ Scripts live in Claude's temporary scratchpad, **not in the repo** (re-create or
 | `home.js` | `renderWeek()` (this week's Tue/Fri streams, JST), `renderSoon()` (nearest future release, mini + wide), `renderFanArt()`, `isRecent()` (NEW stamp only for items ≤ 45 days old) |
 | `countdown.js` | `nextStream()` + flip-digit ticket, LIVE state, once-a-minute screen-reader text |
 | `loader.js` | petal progress from real task completion, wave text + "Did you know?" facts, iris/fade exit |
-| `scroll.js` | Lenis + strict snap for desktop mouse in full motion; native otherwise; `onSectionSnap(direction)` hook for the wipe (D7) |
+| `scroll.js` | native free scrolling everywhere (no snap, no Lenis); `scrollToEl()` for in-page jumps (smooth in full motion, instant in calm), `lockScroll()` / `unlockScroll()` |
 | `fx.js` | confetti, `boing()` (Web Animations), `homeIntro()`, `popTitlesOnArrival()` (GSAP SplitText) |
 
 Page CSS placement lives in `public/css/v2/layout.css` (layer `sections`): `.site-nav`, `.mobile-menu`, `.scene` + per-section compositions, `.loader`, `.foot`, and the short-laptop Home rules (`@media (min-width: 1100px) and (max-height: 960px)`).
+
+## Performance rules (2026-10-09, see `PERFORMANCE_PLAN.md`)
+
+- No `backdrop-filter` on surfaces over the moving backdrop or on anything that animates (`.paper` uses a 94 % fill instead).
+- Never write per-frame custom properties on `<html>`: it restyles the whole document. Write them on the few elements that need them.
+- One scroll ticker (`motion/scroll-life.js`); subscribe with `onScrollVelocity()` instead of adding `requestAnimationFrame` loops. No layout reads (`getBoundingClientRect`, `scrollHeight`) inside frames — cache them with a `ResizeObserver`.
+- No CSS transition on a property that JS changes every frame (it restarts each frame).
+- Sections more than a screen away get `.is-far` (`animation: none`). **Don't use `content-visibility` on `.scene`**: in Chrome 154 it makes the lightbox's View Transition hang the page.
+

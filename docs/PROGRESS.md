@@ -6,7 +6,7 @@
 | | |
 |---|---|
 | **Implementation authorized** | ✅ 2026-09-26 by owner |
-| **Last checkpoint** | 2026-10-02: **design v2 ("Clover Scrapbook") merged into `main`** (`c7b6975`) at the owner's request; `MIGRATION.md` handoff added (`ab773d3`). Production deploy not yet verified (see §6) |
+| **Last checkpoint** | 2026-10-09: **performance pass** (`docs/PERFORMANCE_PLAN.md`): snapping + Lenis removed, rendering cost cut, no content removed. Before that, 2026-10-02: **design v2 ("Clover Scrapbook") merged into `main`** (`c7b6975`) at the owner's request; `MIGRATION.md` handoff added (`ab773d3`). Production deploy not yet verified (see §6) |
 | **Current phase** | v1 phases 1–16 done (Phase 17 launch tasks open) · **Design v2: D1–D4 + D6 live; D5 phones, D7 motion, D8 extras, D9 QA remaining** |
 | **Next action** | See §6 "Current focus / next action". **Handoff for a fresh session: read [`../MIGRATION.md`](../MIGRATION.md) first.** |
 
@@ -36,7 +36,7 @@
 6. **Admin-entered DB text is single-field, shown as typed in both languages.** Only static UI/About/footer/headings are bilingual (locale files).
 7. **Sections show ALL records** (paged loading inside lists); the Home hero shows the newest 1 video + 2 newest news. Newest first everywhere.
 8. **Role names: `owner` and `admin`** (never "Super Admin"). Admin usernames are auto-numbered `<owner-username>2`, `3`, … (derived from the DB, never hardcoded), and numbers are never reused.
-9. **No sound / no Howler.js.** Use pinned CDN versions from the plan (GSAP 3.12.5, Lenis 1.1.18 + lenis-snap, Anime.js 3.2.2, Animate.css 4.1.1, canvas-confetti 1.9.4, Lucide pinned).
+9. **No sound / no Howler.js.** Use pinned CDN versions from the plan (GSAP 3.12.5, Anime.js 3.2.2, Animate.css 4.1.1, canvas-confetti 1.9.4, Lucide pinned). Design v2 moved the public page to GSAP 3.15.0 + SplitText; **Lenis is no longer used** (removed 2026-10-09 with the snapping, see `PERFORMANCE_PLAN.md`).
 10. **Never reuse fabricated content** from the previous attempt (plan §5.6). Seed only researched/official data (plan §5.7).
 11. **Ask the owner first before:** downloading files (state name/source/size; e.g. the TwitCasting logo), installing software that requires accepting agreements, deleting/overwriting anything not created by me, any outward-facing action not already covered by the approved plan.
 12. **Git:** branch `main` for production. Author = owner's name + **GitHub noreply email** (repo-local config). Never force-push, never skip hooks. Every commit message ends with:
@@ -53,7 +53,7 @@ Deliverables (from the brief + decisions). Tick when **verified working**, not j
 - [ ] Public site: Loader → Home → About → News → Discography → Gallery (infinite) → Footer
 - [ ] Responsive layouts (mobile / tablet / desktop / large), matching references
 - [ ] Loader: ≥ 3 s, tiered preloading, cap 10 s, random art + credit
-- [ ] Strict snap (free scroll → glide), gallery free-scroll zone, reduced-motion fallback
+- [x] ~~Strict snap (free scroll → glide), gallery free-scroll zone~~ → **replaced 2026-10-09 by native free scrolling on every device (owner: no snapping)**; reduced-motion fallback
 - [ ] Bilingual JA/EN (Japan IP → JA; saved choice; switcher everywhere; admin too)
 - [ ] Hero header (Home) + scrolled nav (other sections, no socials)
 - [ ] `/login` + authenticated `/admin` with forced password change
@@ -95,7 +95,7 @@ Deliverables (from the brief + decisions). Tick when **verified working**, not j
 (Full list: plan §16.)
 
 - Stack: static vanilla frontend in `public/` + Vercel Functions (Node, ESM) in `api/` + shared `lib/`. No front-end build step.
-- Sections: Home, About, News, Discography, Gallery; strict snap; the gallery grows with the page (snap off inside) → footer.
+- Sections: Home, About, News, Discography, Gallery; **native free scrolling, no snapping** (since 2026-10-09); the gallery grows with the page → footer.
 - Language: `?lang` → saved choice → middleware cookie (JP IP → `ja`, else `en`) → `en`. Fonts: Fredoka + M PLUS Rounded 1c.
 - About = hardcoded (locale files). Videos/News/Achievements/Discography/Gallery = DB, newest first, drafts supported.
 - News: posted date (default today), headline, summary, ≤ 3 links with dropdown labels (`watch|listen|details|tickets|official|shop`).
@@ -235,7 +235,8 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [ ] Verify the production deploy (hard-refresh kotoha-fansite.vercel.app; loader, sections, EN/JA, gallery, console)
 - [ ] ✋2 Owner review of the live desktop design → adjustments
 - [ ] D5 Phones + tablet design (works today, not designed) → ✋3 real-phone check by the owner
-- [ ] D7 Motion: wire the desktop section wipe (`wipe.js`, `initScroll({ onSectionSnap })`), tuning, fps → ✋4
+- [ ] D7 Motion: tuning → ✋4. (The snap and its `onSectionSnap` hook are gone; `wipe.js` is kept unwired and could play on nav-link jumps if the owner wants it.)
+- [x] **Performance pass (2026-10-09, `docs/PERFORMANCE_PLAN.md`)**: snap + Lenis removed, paper blur replaced, lean scoped to on-screen cards, one scroll ticker, compositor marquee, single backdrop pan layer, far sections drop their animations, confetti loaded after the loader. Measured with headless Chrome on the real GPU (Radeon Vega 3): 1366×768 at 4× CPU slowdown 22 → 35 fps, janky frames (> 33 ms) −58 %; no content removed
 - [ ] D8 Extras: mascot cameo, special-day decorations, LIVE badge on the nav; **gallery seed +5 credited artworks** (About background, 2 loader arts, avatar, pose)
 - [ ] D9 QA: keyboard/screen-reader, contrast, ≥13 px text, JP line breaks, performance, tracker + admin regression; remove unused generated SVGs / `legacy` layer name; commit the headless-Edge test scripts into the repo
 
@@ -301,6 +302,9 @@ _(none blocking.)_ The five D1.1 density questions (density level, four-leaf vs 
 | 2026-09-28 | Clovers | Illustrated filled SVG sprite (`/assets/svg/v2-sprite.svg`), never hollow outlines; XML comments in the sprite must not contain `--` | Owner feedback; a `--` in a comment silently broke the whole sprite |
 | 2026-09-28 | Section artworks | One fixed `.backdrop` that crossfades between sections (`motion/backdrop.js`) | No hard edge between artworks, essential for free scrolling on phones |
 | 2026-10-02 | Scrolling v2 | Lenis + strict snap only for a desktop mouse in full-motion mode; phones, tablets and calm mode scroll natively (free scroll) | Snap fights touch scrolling; the backdrop crossfade hides section changes |
+| 2026-10-09 | **No snapping; Lenis removed** | Native free scrolling on every device; in-page jumps use `scrollIntoView` (smooth in full motion, instant in calm) | Owner: the snap was "a total mess"; native scrolling runs on the compositor thread, so it stays smooth while scripts are busy |
+| 2026-10-09 | Performance pass | See `PERFORMANCE_PLAN.md` §7. Notable: `.paper` without `backdrop-filter`; `--lean` written per visible card, never on `<html>`; marquee = one Web Animation whose `playbackRate` follows scroll speed; far sections (> 1 screen away) get `.is-far` → `animation: none` | Same look; GPU/CPU time per frame cut |
+| 2026-10-09 | **No `content-visibility` on sections** | Tried `content-visibility: auto` on `.scene` (biggest single CPU win), but in Chrome 154 any View Transition (the lightbox grow) **hangs the page** while a rendered-but-off-screen section has it — reproduced on the original build too. Replaced by the `.is-far` animation drop | A frozen page is far worse than lag; revisit when Chrome fixes it |
 | 2026-10-02 | Loader v2 artwork | Pure-CSS background keyed by `html[data-loader-art]` (set pre-paint); clover pair is static inline SVG | Starts downloading with the stylesheet and turns before any script runs |
 | 2026-10-02 | Credits | "art by" labels, loader credit and credits dialog removed; artists credited on gallery tiles, lightbox and a footer list (static `CREDITS` + gallery authors) | Owner request (keeps the illusion) |
 | 2026-10-02 | `[hidden]` | `[hidden] { display: none !important }` in `base.css` | A `display:grid` author rule overrode the `hidden` attribute and showed empty cards |
@@ -313,13 +317,13 @@ _(none blocking.)_ The five D1.1 density questions (density level, four-leaf vs 
 ## 10. KNOWN ISSUES / TODO LATER
 
 - Neon free tier caps storage at 512 MB → analytics keep 90-day raw retention + daily rollups (lazy rollup; expired sessions / login attempts are pruned in the same step).
-- CSP + SRI are live (Phase 16). The design-v2 CDN scripts (GSAP 3.15.0, SplitText, Lenis, confetti) are SRI-pinned; Google Fonts CSS is the one stylesheet without SRI (it varies per browser).
+- CSP + SRI are live (Phase 16). The design-v2 CDN scripts (GSAP 3.15.0, SplitText, confetti — the latter now injected by `fx.js` after the loader, still with SRI) are SRI-pinned; Google Fonts CSS is the one stylesheet without SRI (it varies per browser).
 - `DATABASE_URL` is **Sensitive** (Production + Preview). Local dev uses `.env.local`.
 - Each tracked visit wakes the Neon compute (free plan: limited compute hours). Fine for a fan site; watch Neon usage after launch.
 - The built-in browser pane reports `visibilityState: hidden` → rAF/animations pause and the loader never finishes there. Test the public page in **headless Edge via the DevTools protocol**.
 - **Neon free compute sleeps after ~5 min and needs ~10 s to wake.** Mitigated: public API `stale-while-revalidate=86400` at the edge; loader waits max 4 s for home data; client API timeout 15 s. The admin's first request after idle may take ~10 s.
 - **Production deploy of design v2 is unverified** (2026-10-02, see §6).
-- Design v2 leftovers: phones/tablet are functional but not designed (D5); `wipe.js` exists but is not wired (D7); unused generated SVGs `clover-fill.svg` / `clover-outline.svg` / `divider.svg` still come from `scripts/optimize-images.js`; the `legacy` cascade-layer name in `tokens.css` is unused; text-size/contrast audits not run on v2 yet (D9).
+- Design v2 leftovers: phones/tablet are functional but not designed (D5); `wipe.js` exists but is not wired (the snap it was meant for is gone); unused generated SVGs `clover-fill.svg` / `clover-outline.svg` / `divider.svg` still come from `scripts/optimize-images.js`; the `legacy` cascade-layer name in `tokens.css` is unused; text-size/contrast audits not run on v2 yet (D9).
 - **Test scripts are not in the repo** (they lived in Claude's temporary scratchpad): `site-shot.mjs`, `site-behavior.mjs` (~50 checks), older admin/gallery/tracker/CSP suites. Re-create them or commit cleaned copies under `scripts/` (see `MIGRATION.md` §8 for the harness gotchas).
 - A stray `.kilo/worktrees/` folder and `previous_failed_attempt_v1_only_for_around_30-40%_of_intended/` exist in the working directory (the latter is untracked reference material from an earlier attempt); neither is deployed.
 
@@ -362,3 +366,9 @@ _(none blocking.)_ The five D1.1 density questions (density level, four-leaf vs 
 - 2026-09-28: owner feedback (too minimal / empty / hollow clovers) → D1.1 density pass: illustrated SVG sprite, Japanese-fan-site vocabulary (numbered titles, background words, vertical text, badge, bubbles, stamps), Home filled on both sides, crossfading artwork backdrop.
 - 2026-10-02: answered the owner's "default password" question (it is the one from the original brief, still in `.env.local`; the DB only holds the hash). Owner asked to start applying the update → rebuilt the real public page on v2 (index.html, `layout.css`, main/render/lists/gallery/home/countdown/loader/scroll/fx modules, EN/JA keys), verified in headless Edge (≈50 checks pass, 0 CSP violations, no overflow at 1366/1920/390), commit `7b3895f`; removed `/design-v2/` (`2c8f181`); owner asked to put it on the main domain → merged `designupdatev2` into `main` (`c7b6975`) and pushed. A first merge attempt failed on a bad flag and changed nothing. Production deploy status could not be checked (Vercel list-deployments call blocked by the permission classifier). Wrote `MIGRATION.md` (`ab773d3`) and refreshed all markdown docs (this update).
 - **Next:** verify production → ✋2 → D5 phones → D7 → D8 → D9 (see §6).
+
+### 2026-10-09: Performance pass (session 5)
+- Owner: the site is "really laggy" from the amount of motion and visuals; plan a performance optimisation that removes no content, and drop the snapping ("a total mess"). Wrote `docs/PERFORMANCE_PLAN.md`; owner said "execute the plan" (the optional lite tier, Phase 8, **not approved**) and asked to keep the feel unchanged.
+- Done: Phases 0–5 and 7 (Phase 6 measured, not needed). Measured with headless Chrome over CDP on this machine's Radeon Vega 3 (scripts in the scratchpad: static server proxying the production public API with `/api/track` swallowed, wheel-scroll benchmark, layer/compositing-reason dump, before/after screenshots, ~35-check behaviour suite).
+- Found + avoided a Chrome bug: `content-visibility: auto` + View Transition = page hang (see §9).
+- Not committed yet at the time of writing; production not touched.

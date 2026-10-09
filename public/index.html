@@ -48,8 +48,6 @@
   <!-- async: main.js waits for these at most a few seconds (librariesReady), then runs without them -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" integrity="sha256-krualkdvmD0hKivE9UyIkDnBaW3URh1ApzaGCThXD7s=" crossorigin="anonymous" data-lib="gsap" async></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" integrity="sha256-QZ9wJ6XwhqEst5iHNtj906btIgAilmHeJbZijKfO00Q=" crossorigin="anonymous" data-lib="SplitText" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" integrity="sha256-C/F005uavDBKPVAatkV1h+dW0HvYJPhopTJLXPFRJbA=" crossorigin="anonymous" data-lib="Lenis" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.js" integrity="sha256-SfS8vFbnzrXD0l0T2x0NqWW2zRyKVKcHuwVb4GhbCpU=" crossorigin="anonymous" data-lib="confetti" async></script>
   <script type="module" src="/js/public/main.js"></script>
 </head>
 <body>
@@ -106,11 +104,13 @@
 
   <!-- ===================================================================== FIXED ARTWORK BACKDROP (crossfades between sections) -->
   <div class="backdrop" id="backdrop" aria-hidden="true">
-    <picture class="backdrop__art" data-art="home"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/home-p720.webp 720w, /assets/bg/home-p1080.webp 1080w" sizes="100vw"><img data-bg="home" src="/assets/bg/home-1920.webp" srcset="/assets/bg/home-1280.webp 1280w, /assets/bg/home-1920.webp 1920w, /assets/bg/home-2560.webp 2560w" sizes="100vw" alt="" decoding="async" fetchpriority="high"></picture>
-    <picture class="backdrop__art" data-art="about"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/about-p720.webp 720w, /assets/bg/about-p1080.webp 1080w" sizes="100vw"><img data-bg="about" src="/assets/bg/about-1920.webp" srcset="/assets/bg/about-1280.webp 1280w, /assets/bg/about-1920.webp 1920w" sizes="100vw" alt="" decoding="async"></picture>
-    <picture class="backdrop__art" data-art="news"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/news-p720.webp 720w, /assets/bg/news-p1080.webp 1080w" sizes="100vw"><img data-bg="news" src="/assets/bg/news-1920.webp" srcset="/assets/bg/news-1280.webp 1280w, /assets/bg/news-1920.webp 1920w, /assets/bg/news-2560.webp 2560w" sizes="100vw" alt="" decoding="async"></picture>
-    <picture class="backdrop__art" data-art="discography"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/discography-p720.webp 720w, /assets/bg/discography-p1080.webp 1080w" sizes="100vw"><img data-bg="discography" src="/assets/bg/discography-1920.webp" srcset="/assets/bg/discography-1280.webp 1280w, /assets/bg/discography-1920.webp 1920w" sizes="100vw" alt="" decoding="async"></picture>
-    <picture class="backdrop__art" data-art="gallery"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/gallery-p720.webp 720w, /assets/bg/gallery-p1080.webp 1080w" sizes="100vw"><img data-bg="gallery" src="/assets/bg/gallery-1920.webp" srcset="/assets/bg/gallery-1280.webp 1280w, /assets/bg/gallery-1920.webp 1920w" sizes="100vw" alt="" decoding="async"></picture>
+    <div class="backdrop__pan">
+      <picture class="backdrop__art" data-art="home"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/home-p720.webp 720w, /assets/bg/home-p1080.webp 1080w" sizes="100vw"><img data-bg="home" src="/assets/bg/home-1920.webp" srcset="/assets/bg/home-1280.webp 1280w, /assets/bg/home-1920.webp 1920w, /assets/bg/home-2560.webp 2560w" sizes="100vw" alt="" decoding="async" fetchpriority="high"></picture>
+      <picture class="backdrop__art" data-art="about"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/about-p720.webp 720w, /assets/bg/about-p1080.webp 1080w" sizes="100vw"><img data-bg="about" fetchpriority="low" src="/assets/bg/about-1920.webp" srcset="/assets/bg/about-1280.webp 1280w, /assets/bg/about-1920.webp 1920w" sizes="100vw" alt="" decoding="async"></picture>
+      <picture class="backdrop__art" data-art="news"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/news-p720.webp 720w, /assets/bg/news-p1080.webp 1080w" sizes="100vw"><img data-bg="news" fetchpriority="low" src="/assets/bg/news-1920.webp" srcset="/assets/bg/news-1280.webp 1280w, /assets/bg/news-1920.webp 1920w, /assets/bg/news-2560.webp 2560w" sizes="100vw" alt="" decoding="async"></picture>
+      <picture class="backdrop__art" data-art="discography"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/discography-p720.webp 720w, /assets/bg/discography-p1080.webp 1080w" sizes="100vw"><img data-bg="discography" fetchpriority="low" src="/assets/bg/discography-1920.webp" srcset="/assets/bg/discography-1280.webp 1280w, /assets/bg/discography-1920.webp 1920w" sizes="100vw" alt="" decoding="async"></picture>
+      <picture class="backdrop__art" data-art="gallery"><source media="(max-aspect-ratio: 3/4)" srcset="/assets/bg/gallery-p720.webp 720w, /assets/bg/gallery-p1080.webp 1080w" sizes="100vw"><img data-bg="gallery" fetchpriority="low" src="/assets/bg/gallery-1920.webp" srcset="/assets/bg/gallery-1280.webp 1280w, /assets/bg/gallery-1920.webp 1920w" sizes="100vw" alt="" decoding="async"></picture>
+    </div>
   </div>
 
   <!-- ===================================================================== FLOATING NAV -->
@@ -304,11 +304,11 @@
           <span class="sec-title__line" aria-hidden="true"></span>
         </header>
         <div class="news-comp">
-          <div class="news-list" id="news-list" tabindex="0" data-lenis-prevent data-state="loading" data-i18n-attr="aria-label:news.title" aria-label="News on Kotoha"></div>
+          <div class="news-list" id="news-list" tabindex="0" data-state="loading" data-i18n-attr="aria-label:news.title" aria-label="News on Kotoha"></div>
           <div class="news-side">
             <p class="mini-title reveal"><svg class="cl cl--gold" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en">LATEST WORKS</span><span class="mini-title__ja" lang="ja">最新作</span></p>
             <div id="news-player" class="reveal" data-state="loading"></div>
-            <div class="film reveal" id="video-list" tabindex="0" data-lenis-prevent data-i18n-attr="aria-label:video.list" aria-label="More works"></div>
+            <div class="film reveal" id="video-list" tabindex="0" data-i18n-attr="aria-label:video.list" aria-label="More works"></div>
           </div>
         </div>
       </div>
@@ -329,11 +329,11 @@
         <article class="paper soon soon--wide stitch reveal" id="disco-soon" hidden></article>
         <div class="disco-comp">
           <div class="paper paper--grid reveal">
-            <div class="sleeves" id="disco-list" tabindex="0" data-lenis-prevent data-state="loading" data-i18n-attr="aria-label:discography.title" aria-label="Discography"></div>
+            <div class="sleeves" id="disco-list" tabindex="0" data-state="loading" data-i18n-attr="aria-label:discography.title" aria-label="Discography"></div>
           </div>
           <div class="paper paper--panel reveal">
             <p class="mini-title"><svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en">ACHIEVEMENTS</span><span class="mini-title__ja" lang="ja">実績</span></p>
-            <ol class="timeline" id="achievements-list" tabindex="0" data-lenis-prevent data-state="loading" data-i18n-attr="aria-label:discography.achievements" aria-label="Achievements"></ol>
+            <ol class="timeline" id="achievements-list" tabindex="0" data-state="loading" data-i18n-attr="aria-label:discography.achievements" aria-label="Achievements"></ol>
           </div>
         </div>
       </div>

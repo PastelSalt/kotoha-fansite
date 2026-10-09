@@ -12,6 +12,8 @@
     background: var(--white); color: var(--green-700); font-weight: 700; text-decoration: none; transition: top 0.2s;
   }
   .skip-link:focus { top: 12px; }
+  /* native free scrolling everywhere (no snap); the gutter stays reserved so locking scroll (menu, lightbox) doesn't shift the page */
+  html { scrollbar-gutter: stable; }
   html.scroll-locked, html.scroll-locked body { overflow: hidden; }
 
   /* ---------------------------------------------------------------- floating nav */
@@ -69,6 +71,11 @@
 
   /* ---------------------------------------------------------------- scenes (over the backdrop) */
   .scene { position: relative; isolation: isolate; min-height: 100svh; padding: clamp(92px, 12vh, 124px) var(--gutter) clamp(56px, 9vh, 100px); overflow: clip; }
+  /* Sections more than a screen away from the viewport drop their animations (scroll-linked reveals, parallax,
+     looping decorations), so the browser stops compositing and ticking them. main.js toggles .is-far well before a
+     section comes into view; scroll-linked effects then pick up exactly where the scroll position says.
+     (Not content-visibility: in current Chrome it makes view transitions — the lightbox grow — hang the page.) */
+  .scene.is-far, .scene.is-far *, .scene.is-far *::before, .scene.is-far *::after { animation: none !important; }
   .scene__inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; display: grid; gap: var(--s-5); }
   .deco { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
   .deco > * { position: absolute; }

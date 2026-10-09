@@ -14,20 +14,27 @@ const SHAPES = [
   ['cl-leaf', { '--c1': '#ec6a95', '--c2': '#ffa5c2', '--c3': '#ffe3ec', '--c4': '#b8325f' }],
 ];
 
-export function startSparkles({ max = 14, every = 42 } = {}) {
+export function startSparkles({ perShape = 4, every = 42 } = {}) {
   if (!matchMedia('(pointer: fine)').matches) return;
   const layer = document.createElement('div');
+  layer.className = 'sparkle-layer';
   layer.setAttribute('aria-hidden', 'true');
-  const pool = Array.from({ length: max }, () => {
-    const s = document.createElementNS(NS, 'svg');
-    s.setAttribute('class', 'sparkle');
-    const use = document.createElementNS(NS, 'use');
-    s.append(use);
-    layer.append(s);
-    return { s, use };
-  });
+  // A few ready-made sparkles per shape: spawning only moves and animates one, it never re-points its <use>.
+  const pools = SHAPES.map(([symbol, colours]) => ({
+    symbol,
+    next: 0,
+    items: Array.from({ length: perShape }, () => {
+      const s = document.createElementNS(NS, 'svg');
+      s.setAttribute('class', 'sparkle');
+      for (const [k, v] of Object.entries(colours)) s.style.setProperty(k, v);
+      const use = document.createElementNS(NS, 'use');
+      use.setAttribute('href', `${SPRITE}#${symbol}`);
+      s.append(use);
+      layer.append(s);
+      return s;
+    }),
+  }));
   document.body.append(layer);
-  let next = 0;
   let lastSpawn = 0;
 
   window.addEventListener('pointermove', (e) => {
@@ -35,12 +42,10 @@ export function startSparkles({ max = 14, every = 42 } = {}) {
     const now = performance.now();
     if (now - lastSpawn < every) return;
     lastSpawn = now;
-    const { s, use } = pool[next];
-    next = (next + 1) % max;
-    const [symbol, colours] = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-    use.setAttribute('href', `${SPRITE}#${symbol}`);
-    for (const [k, v] of Object.entries(colours)) s.style.setProperty(k, v);
-    const size = symbol === 'cl-leaf' ? 12 + Math.random() * 6 : 10 + Math.random() * 8;
+    const pool = pools[Math.floor(Math.random() * pools.length)];
+    const s = pool.items[pool.next];
+    pool.next = (pool.next + 1) % pool.items.length;
+    const size = pool.symbol === 'cl-leaf' ? 12 + Math.random() * 6 : 10 + Math.random() * 8;
     const x = e.clientX - size / 2;
     const y = e.clientY - size / 2;
     const dx = (Math.random() - 0.5) * 36;

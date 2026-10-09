@@ -1,6 +1,6 @@
 // Fixed artwork backdrop that CROSSFADES between section artworks as the visitor moves through the page,
-// so there is never a hard cut where one section's art ends and the next begins (key for free scrolling on
-// phones; on desktop the snap glide + wipe hides the change as well).
+// so there is never a hard cut where one section's art ends and the next begins (the page scrolls freely on
+// every device).
 // Markup: .backdrop > .backdrop__art[data-art="home"] … ; sections carry data-art="home" etc.
 
 export function startBackdrop(backdrop, sections, { onChange } = {}) {

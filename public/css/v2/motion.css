@@ -7,7 +7,8 @@
    Property ownership (so effects never fight each other):
      transform  → scroll-driven reveal / parallax / camera keyframes
      translate, scale → hover & tap micro-interactions
-     rotate     → resting tilt + velocity lean: calc(var(--x-rot) + var(--lean) * 1deg)  */
+     rotate     → resting tilt + velocity lean: calc(var(--x-rot) + var(--lean) * 1deg)
+                  (polaroid: lean via transform, see below)  */
 
 @layer motion {
   /* ---------------------------------------------------------------- keyframes */
@@ -38,12 +39,15 @@
   :root[data-motion='full'] .badge-round__text { animation: v2-turn 18s linear infinite; }
   :root[data-motion='full'] .twinkle { animation: v2-twinkle calc(var(--beat) * 4) var(--ease-in-out) infinite; animation-delay: calc(var(--d, 0) * 1s); }
   :root[data-motion='full'] .float { animation: v2-float calc(var(--beat) * 6) var(--ease-in-out) infinite; animation-delay: calc(var(--d, 0) * 1s); }
-  :root[data-motion='calm'] .backdrop__art { transition-duration: 0.3s; }
+  :root[data-motion='calm'] .backdrop__art { transition-duration: 0.3s, 0s; transition-delay: 0s, 0.3s; }
+  :root[data-motion='calm'] .backdrop__art.is-active { transition-delay: 0s; }
   :root[data-motion='calm'] .backdrop__art img { scale: 1.06; transition: none; }
 
-  /* Velocity lean: JS sets --lean on :root (−2…2) while scrolling; settles back to 0 */
+  /* Velocity lean: JS sets --lean (−2…2) on the .lean cards that are on screen while scrolling; settles back to 0 */
   .lean { rotate: calc(var(--rest-rot, 0deg) + var(--lean, 0) * 1deg); }
-  .polaroid.lean { --rest-rot: var(--polaroid-rot); }
+  /* the polaroid animates its resting tilt on hover (a rotate transition), so its lean goes through transform:
+     otherwise every scroll frame would restart that transition */
+  .polaroid.lean { --rest-rot: var(--polaroid-rot); rotate: var(--rest-rot); transform: rotate(calc(var(--lean, 0) * 1deg)); }
   .polaroid.lean:hover { --rest-rot: 0deg; }
   .sticker.lean { --rest-rot: var(--sticker-rot); }
 
@@ -69,7 +73,7 @@
         animation-range: cover 0% cover 100%;
       }
       /* the fixed backdrop pans very slightly with whole-page scroll (depth behind the scenes) */
-      :root[data-motion='full'] .backdrop__art {
+      :root[data-motion='full'] .backdrop__pan {
         animation: v2-backdrop-pan linear both;
         animation-timeline: scroll(root);
       }
