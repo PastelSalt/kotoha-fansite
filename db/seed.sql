@@ -71,11 +71,12 @@ where not exists (
 insert into achievements (achieved_on, text, status, published_at)
 select v.achieved_on::date, v.text, v.status, case when v.status = 'published' then now() end
 from (values
-  -- Announced, releases 2026-10-07: kept as draft until release (publish from the admin panel)
-  ('2026-10-07', 'TVアニメ「世界最強の魔女、始めました」OP主題歌「影響力∞アイドル」歌唱担当（HoneyWorks feat.ハコニワリリィ）', 'draft'),
+  -- Released 2026-10-07 (was a draft until the release; published 2026-10-09)
+  ('2026-10-07', 'TVアニメ「世界最強の魔女、始めました」OP主題歌「影響力∞アイドル」歌唱担当（HoneyWorks feat.ハコニワリリィ）', 'published'),
   ('2026-09-23', 'Kotoha×MIMI コラボミニアルバム「透明夜」デジタルリリース', 'published'),
   ('2026-07-08', 'TVアニメ『乙女怪獣キャラメリゼ』EDテーマ「オトメノホンキ」歌唱担当（HoneyWorks feat.ハコニワリリィ）', 'published'),
   ('2026-03-11', 'ハコニワリリィ 1st ALBUM『フローライト』発売', 'published'),
+  ('2026-01-14', 'TVアニメ『29歳独身中堅冒険者の日常』EDテーマ「君の隣は空気が美味しい」歌唱担当（HoneyWorks feat.Kotoha）', 'published'),
   ('2025-10-06', 'TVアニメ「笑顔のたえない職場です。」OPテーマ「絶対称賛！」歌唱担当', 'published'),
   ('2025-07-27', 'Tani Yuuki×Kotoha「点描の唄」カバー動画投稿', 'published'),
   ('2025-07-06', 'ゼンレスゾーンゼロ イメージソング『ジャンキーハニー！』歌唱担当', 'published'),

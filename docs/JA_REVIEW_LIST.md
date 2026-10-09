@@ -4,6 +4,8 @@ Japanese text **written by the developer** (not copied from official sources). P
 
 Status legend: ⏳ awaiting review · ✅ reviewed OK · ✏️ changed after review
 
+> **2026-10-09:** AiceClass is now mentioned only as history (it appears to have dissolved): `about.bio1`, `about.bio2`, `about.role` and the debut pill (「2023年7月8日（AiceClassからデビュー）」) were reworded, and the Home chip 「AiceClass」 became `home.unitVtuber` 「歌い手・VTuber」 — please review them again. New achievement text: 「TVアニメ『29歳独身中堅冒険者の日常』EDテーマ「君の隣は空気が美味しい」歌唱担当（HoneyWorks feat.Kotoha）」 (official wording style).
+
 > **2026-10-02:** design v2 added new strings (see the "Design v2 additions" rows in §4) and removed others (`common.artBy`, the whole credits dialog, `home.latestWork` / `latestAbout` / `newsShort`, `about.title` / `name`, `news.latestWorks`, `gallery.title`, `footer.creditsOpen`) — those no longer need review. The big English section words (ABOUT / NEWS / DISCOGRAPHY / GALLERY) and the Japanese pills next to them are decorative and bilingual by design.
 
 ## 1. Seed news summaries (`db/seed.sql` → `news.summary`)
@@ -54,8 +56,8 @@ The 27 entries from the official 実績 list are verbatim. These are mine:
 
 | Key | Text | Status |
 |---|---|---|
-| `about.bio1` | Kotohaは、AiceClass所属の歌い手・VTuberです。Hanonとの2人組ユニット「ハコニワリリィ」のボーカルと、HoneyWorksのサポートボーカルを務めています。 | ⏳ |
-| `about.bio2` | 2023年7月8日にVTuberとしてデビュー。毎週火曜日・金曜日の21:00頃から、トーク・歌・ゲームの配信をしています。ファンネームは「ことリス」、ファンマークは🍀（🥦じゃないよ！）。 | ⏳ |
+| `about.bio1` | Kotohaは、歌い手・VTuberです。Hanonとの2人組ユニット「ハコニワリリィ」のボーカルと、HoneyWorksのサポートボーカルを務めています。 | ⏳ |
+| `about.bio2` | 2023年7月8日にAiceClassからVTuberとしてデビュー。毎週火曜日・金曜日の21:00頃から、トーク・歌・ゲームの配信をしています。ファンネームは「ことリス」、ファンマークは🍀（🥦じゃないよ！）。 | ⏳ |
 | `about.pills` | 誕生日／身長／デビュー／活動／ファン／定期配信／ハッシュタグ／好きなもの | ⏳ |
 | `loader.credit` | このサイトはファンプロジェクトです　制作：Moeko Software and Technologies | ⏳ |
 | `footer.disclaimer` | このサイトは非公式・非営利のファンサイトです。…権利は、それぞれの権利者様・作者様に帰属します。 | ⏳ |
@@ -63,7 +65,7 @@ The 27 entries from the official 実績 list are verbatim. These are mine:
 | `gallery.by` | イラスト：{name}（ギャラリーのクレジット。以前は「{name}さん」） | ⏳ |
 | `home.*`, `nav.*`, `gallery.*` | 定期配信まで：／スクロールしてね！／プロフィール／もっと見る／今はここまで！ など | ⏳ |
 | Design v2 additions (2026-10-02) | `home.nextStream` 次の配信／`home.live` 配信中！／`home.weekLabel` 今週の配信予定（日本時間）／`home.bubbleVideo` 見てね♡／`home.unitHoney` HoneyWorksサポートボーカル／`home.fanArtBy` ピックアップ・{name}さん／`home.seeGallery` ギャラリーを見る ✿ | ⏳ |
-| | `about.role` 歌い手・VTuber（AiceClass所属）／`about.hashtags` ハッシュタグ／`about.fanMark` ファンマークは🍀／`about.tags` #ことらじ 生配信・#ことぴく ファンアート・#ことメモ 切り抜き | ⏳ |
+| | `about.role` 歌い手・VTuber（ハコニワリリィ）／`about.hashtags` ハッシュタグ／`about.fanMark` ファンマークは🍀／`about.tags` #ことらじ 生配信・#ことぴく ファンアート・#ことメモ 切り抜き | ⏳ |
 | | `discography.comingSoon` もうすぐ公開／`discography.inDays` あと{n}日／`discography.daysToGo` 日後／`discography.releaseOn` リリース日・{date} | ⏳ |
 | | `gallery.thanks` 絵師さん、ありがとう！♡／`gallery.note` すべてのイラストに作者名を表示し、元の投稿へのリンクを付けています。 | ⏳ |
 | | `motion.on/off/device` モーションON／モーションOFF／お使いの端末の設定で、動きを減らしています／`loader.didYouKnow` 知ってた？／`footer.settings` 設定／`footer.official` 公式リンク／`video.latest` 最新 | ⏳ |

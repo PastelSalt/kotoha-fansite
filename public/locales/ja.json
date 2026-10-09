@@ -53,6 +53,7 @@
       "s": "秒"
     },
     "unitHoney": "HoneyWorksサポートボーカル",
+    "unitVtuber": "歌い手・VTuber",
     "nextStream": "次の配信",
     "live": "配信中！",
     "unitsShort": {
@@ -86,8 +87,8 @@
   "about": {
     "avatarAlt": "Kotohaのイラスト",
     "poseAlt": "ピースサインをするKotohaの全身モデル",
-    "bio1": "Kotohaは、AiceClass所属の歌い手・VTuberです。Hanonとの2人組ユニット「ハコニワリリィ」のボーカルと、HoneyWorksのサポートボーカルを務めています。",
-    "bio2": "2023年7月8日にVTuberとしてデビュー。毎週火曜日・金曜日の21:00頃から、トーク・歌・ゲームの配信をしています。ファンネームは「ことリス」、ファンマークは🍀（🥦じゃないよ！）。",
+    "bio1": "Kotohaは、歌い手・VTuberです。Hanonとの2人組ユニット「ハコニワリリィ」のボーカルと、HoneyWorksのサポートボーカルを務めています。",
+    "bio2": "2023年7月8日にAiceClassからVTuberとしてデビュー。毎週火曜日・金曜日の21:00頃から、トーク・歌・ゲームの配信をしています。ファンネームは「ことリス」、ファンマークは🍀（🥦じゃないよ！）。",
     "pills": [
       {
         "label": "誕生日",
@@ -99,7 +100,7 @@
       },
       {
         "label": "デビュー",
-        "value": "2023年7月8日・AiceClass"
+        "value": "2023年7月8日（AiceClassからデビュー）"
       },
       {
         "label": "活動",
@@ -124,7 +125,7 @@
     ],
     "tapHint": "Kotohaをタップしてね！",
     "heading": "ABOUT",
-    "role": "歌い手・VTuber（AiceClass所属）",
+    "role": "歌い手・VTuber（ハコニワリリィ）",
     "hashtags": "ハッシュタグ",
     "tags": [
       "#ことらじ 生配信",

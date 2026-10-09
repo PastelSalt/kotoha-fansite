@@ -2,7 +2,7 @@
 
 > **For Claude, in the new Hanon repo.** The owner (Moesoft) wrote this guide with Claude inside `kotoha-fansite` and pasted it into the new repo.
 > Read the whole file before doing anything. Then work through **§12 Open questions** with the owner (answers recorded there), then follow **§11 Build order**.
-> **Version 1.1 — 2026-10-09** (owner answered Q1, Q2, Q3, Q6 — see §12). Data was researched on 2026-10-09 and is marked ✅ verified / ⚠️ verify before seeding / ❓ unknown.
+> **Version 1.2 — 2026-10-09** (owner answered Q1, Q2, Q3, Q6, then said "do all the recommended" → Q4, Q5, Q7, Q8 decided as recommended; only Q9 (art) is still open — see §12). Data was researched on 2026-10-09 and is marked ✅ verified / ⚠️ verify before seeding / ❓ unknown.
 > **No secrets in this file, ever.** Credentials live only in `.env.local` (git-ignored) and Vercel env vars.
 
 ---
@@ -23,7 +23,7 @@
 | | Kotoha fan site (exists) | Hanon fan site (to build) |
 |---|---|---|
 | Repo | private `PastelSalt/kotoha-fansite` | new repo (owner creates it) |
-| URL | `kotoha-fansite.vercel.app` | proposed `hanon-fansite.vercel.app` (❓ owner) |
+| URL | `kotoha-fansite.vercel.app` | `hanon-fansite.vercel.app` (✅ Q5) |
 | Theme name | "Clover Scrapbook" | **"Sazanami Scrapbook"** (さざなみ = ripples, from her catchphrase) |
 | Mark / motif | 🍀 illustrated filled clovers | 🐧 illustrated filled penguin + ripples, water drops, stars (✅ owner, Q2) |
 | Page base colour | pink `#fe9fb9` | Hanon blue `#b7d7ef`, her official image colour (✅ owner, Q1, §5.2) |
@@ -33,7 +33,7 @@
 | Stream schedule | Tue & Fri 21:00 JST | **Mon & Thu 21:00 JST** (#はのらじ) |
 | Special days | June 10 (birthday), July 8 (debut) | **March 6** (birthday) + **July 9** (VTuber debut anniversary) (✅ Q6) |
 
-**Cross-links:** each site should link to the other in the footer ("Sister site: Kotoha fan site 🍀" / "Hanon fan site 🐧") once both are live. Ask before editing the Kotoha site.
+**Cross-links (✅ Q8):** each site links to the other in the footer ("Sister site: Kotoha fan site 🍀" / "Hanon fan site 🐧") **once both are live**. Adding the link to the Kotoha site is approved for that moment (it's a separate commit in the Kotoha repo).
 
 ---
 
@@ -81,7 +81,7 @@
 
 ## 4. Starting the repo: copy, then rebrand
 
-**Recommended:** start from a copy of `kotoha-fansite` at its latest `main` (at writing: `f8b510d`, which includes the performance pass). Ask the owner how they want to get the code in (they may copy the folder, or give access). Then:
+**Decided (✅ Q4):** start from a copy of `kotoha-fansite` at its latest `main` (it includes the performance pass and the 2026-10-09 data fixes). Ask the owner only *how* the code gets into the new repo (they may copy the folder, or give access). Then:
 
 ### 4.1 Don't copy
 
@@ -210,7 +210,7 @@ Sources are listed in §13. "Shared" items are identical on the Kotoha site; reu
 
 ### 7.1 Status notes (read first)
 
-- ⚠️ **AiceClass appears to be dissolved.** **Owner decision (Q3): on the Hanon site, mention AiceClass only as history** (e.g. "VTuber debut in July 2023 with AiceClass"); never as her current agency. **Leave the Kotoha site as it is** (owner's choice for now). The Idol department was dissolved on **2025-10-31** (official AiceClass X post, 2025-10-14). Search results show an official notice 「AiceClass」解散のご報告に関するお知らせ dated **2026-06-18**, and **aiceclass.com now returns 404 on every page** (checked 2026-10-09). Hanon's lit.link no longer mentions AiceClass; her bio reads 「Hanonです！歌を歌ってます。2人組女性ボーカルユニット『ハコニワリリィ』、3人組音楽ユニット『StellaPhizz』としても活動しています！」. Wikipedia lists the unit's office as **MARUMOCHI** (HoneyWorks-related) and label **Pony Canyon**. → **Don't present AiceClass as her current agency.** (See the decision above.)
+- ⚠️ **AiceClass appears to be dissolved.** **Owner decision (Q3): mention AiceClass only as history** (e.g. "VTuber debut in July 2023 with AiceClass"); never as her current agency. The Kotoha site was changed the same way on 2026-10-09 (role → "Singer · VTuber · HaKoniwalily", debut pill "July 8, 2023 (with AiceClass)", AiceClass chip → "Singer · VTuber", marquee without AiceClass; the non-affiliation disclaimer and the "© AiceClass" model credit stay). Copy that wording pattern. The Idol department was dissolved on **2025-10-31** (official AiceClass X post, 2025-10-14). Search results show an official notice 「AiceClass」解散のご報告に関するお知らせ dated **2026-06-18**, and **aiceclass.com now returns 404 on every page** (checked 2026-10-09). Hanon's lit.link no longer mentions AiceClass; her bio reads 「Hanonです！歌を歌ってます。2人組女性ボーカルユニット『ハコニワリリィ』、3人組音楽ユニット『StellaPhizz』としても活動しています！」. Wikipedia lists the unit's office as **MARUMOCHI** (HoneyWorks-related) and label **Pony Canyon**. → **Don't present AiceClass as her current agency.** (See the decision above.)
 - Hanon is in **two units**: ハコニワリリィ (with Kotoha) and **StellaPhizz** (with keyboardist 宇都圭輝 and DJ/composer 早川博隆). She is also a **HoneyWorks guest/support vocalist** ("HoneyWorks feat. Hanon").
 - Her **stream schedule differs from Kotoha's**: #はのらじ **Mondays & Thursdays 21:00** JST (lit.link). Recent streams are on YouTube (e.g. GTA V "#SURGETown" event, Sept 2026), plus TwitCasting/Twitch.
 
@@ -459,14 +459,14 @@ The Kotoha tests lived in a temporary scratchpad and were lost; commit cleaned c
 
 ---
 
-## 10. Infrastructure plan (❓ owner confirms each before anything is created)
+## 10. Infrastructure plan (✅ Q5 decided as below; still ask before *creating* each resource)
 
 | Item | Kotoha | Hanon proposal |
 |---|---|---|
 | GitHub | `PastelSalt/kotoha-fansite` (private) | owner creates the new repo (this guide does **not** create repos) |
 | Vercel project | `kotoha-fansite` (`prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn`), region `sin1`; **don't touch `moesoft-web`** | new project `hanon-fansite`, `sin1`, `outputDirectory: public` |
-| Neon | project `kotoha-fansite` (`odd-base-44136456`), free tier 512 MB | **separate** Neon project `hanon-fansite` (recommended; keeps data, limits and resets independent) |
-| Cloudinary | cloud `dijqsw0k8`, folder `kotoha-fansite/gallery`, preset `kotoha_gallery_signed` (free plan: 10 MB & 25 MP per image) | same cloud (shared free quota) with folder `hanon-fansite/gallery` + preset `hanon_gallery_signed`, or a separate free account — ❓ |
+| Neon | project `kotoha-fansite` (`odd-base-44136456`), free tier 512 MB | **separate** Neon project `hanon-fansite` (keeps data, limits and resets independent) |
+| Cloudinary | cloud `dijqsw0k8`, folder `kotoha-fansite/gallery`, preset `kotoha_gallery_signed` (free plan: 10 MB & 25 MP per image) | **same cloud** (shared free quota) with folder `hanon-fansite/gallery` + preset `hanon_gallery_signed` |
 | Env vars | `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `CLOUDINARY_CLOUD_NAME/API_KEY/API_SECRET/FOLDER/UPLOAD_PRESET`, `ANALYTICS_SALT`, `ADMIN_BOOTSTRAP_USERNAME/PASSWORD` (one-time), `ALLOWED_ORIGINS` | same keys, **new values** (new `ANALYTICS_SALT`); `DATABASE_URL` marked Sensitive |
 | Admin | Owner + auto-numbered admins | same; the owner chooses the bootstrap username/password and puts them in `.env.local` themself |
 
@@ -479,7 +479,7 @@ Before launch: run `npm run prelaunch:reset` only with the owner's go-ahead; aft
 | # | Phase | Done when |
 |---|---|---|
 | 0 | Read this file; ask §12; record answers here | answers recorded |
-| 1 | Bring in the Kotoha code (§4), strip Kotoha data, rename identifiers, fresh `docs/PROGRESS.md` (same structure: resume protocol, hard rules, checklist, decisions log, session log) and `MIGRATION.md`-style handoff | site runs locally with placeholder content, no Kotoha leftovers |
+| 1 | Bring in the Kotoha code (§4, ✅ Q4), strip Kotoha data, rename identifiers, fresh `docs/PROGRESS.md` (same structure: resume protocol, hard rules, checklist, decisions log, session log) and `MIGRATION.md`-style handoff | site runs locally with placeholder content, no Kotoha leftovers |
 | 2 | Palette + tokens (§5.2), sprite (§5.3), loader spinner variant | style tile approved by the owner ✋ |
 | 3 | Owner's assets → `npm run images:optimize`; backdrop + loader art wired; accents picked from the art; credits | all sections show Hanon art |
 | 4 | Locale files EN/JA (About, facts, footer, bubbles, marquee, bg words); JA review list | EN↔JA complete |
@@ -497,12 +497,12 @@ Before launch: run `npm run prelaunch:reset` only with the owner's go-ahead; aft
 |---|---|---|---|
 | Q1 | Palette: blue base `#b7d7ef` + deep blue `#1f5e9e` + penguin gold, navy ink (§5.2)? Cool-white paper or Kotoha's cream? | yes; cool-white paper (more Hanon, still clearly a sibling) | ✅ 2026-10-09: **Blue + gold, cool-white cards** |
 | Q2 | Motif & loader: penguin sticker + ripples/drops/stars; loader = two counter-rotating 4-point stars whose rays fill with progress, penguin in the centre? | yes | ✅ 2026-10-09: **Penguin + stars** (as recommended) |
-| Q3 | AiceClass wording (appears dissolved, §7.1): mention only historically, or not at all? Also fix the Kotoha site? | historically only ("VTuber debut 2023 with AiceClass"); fix Kotoha too | ✅ 2026-10-09: **historical only, on the Hanon site; leave the Kotoha site as is** |
-| Q4 | Start the repo from a copy of the Kotoha code? How will the code get there? | yes, copy `kotoha-fansite` `main` | |
-| Q5 | Site URL / project names (`hanon-fansite`), separate Neon project, Cloudinary account/folder (§10) | `hanon-fansite.vercel.app`; separate Neon project; same Cloudinary cloud, own folder | |
+| Q3 | AiceClass wording (appears dissolved, §7.1): mention only historically, or not at all? Also fix the Kotoha site? | historically only ("VTuber debut 2023 with AiceClass"); fix Kotoha too | ✅ 2026-10-09: **historical only**; first "Hanon site only", then "do all the recommended" → **the Kotoha site was fixed too** |
+| Q4 | Start the repo from a copy of the Kotoha code? How will the code get there? | yes, copy `kotoha-fansite` `main` | ✅ 2026-10-09: **yes, copy the Kotoha code** (ask only how it gets into the repo) |
+| Q5 | Site URL / project names (`hanon-fansite`), separate Neon project, Cloudinary account/folder (§10) | `hanon-fansite.vercel.app`; separate Neon project; same Cloudinary cloud, own folder | ✅ 2026-10-09: **as recommended** (still ask before creating each resource) |
 | Q6 | Special days: March 6 birthday + which anniversary — VTuber debut (July 9), major debut (Sept 1, shared with the unit), or none? | March 6 + July 9 | ✅ 2026-10-09: **March 6 + July 9** |
-| Q7 | Discography scope: include StellaPhizz and "HoneyWorks feat. Hanon" works and Hanon solo vers (as notes), exclude Kotoha-only works? | yes | |
-| Q8 | Sister-site cross-links in both footers? | yes, after both are live | |
+| Q7 | Discography scope: include StellaPhizz and "HoneyWorks feat. Hanon" works and Hanon solo vers (as notes), exclude Kotoha-only works? | yes | ✅ 2026-10-09: **yes** |
+| Q8 | Sister-site cross-links in both footers? | yes, after both are live | ✅ 2026-10-09: **yes, once both are live** |
 | Q9 | Does Hanon have a mascot (like Kotoha's) for the cameo / empty states? Which artworks + credits for the 5 sections and 3 loaders? | owner supplies | |
 
 ---

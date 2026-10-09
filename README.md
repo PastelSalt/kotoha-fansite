@@ -12,7 +12,7 @@
 
 ## Project Description
 
-An unofficial, non-profit, bilingual (日本語 / English) fan site for **Kotoha (ことは)**, vocalist of HaKoniwalily, HoneyWorks support vocalist, and AiceClass member. Built by **Moeko Software and Technologies** as a comprehensive fan resource featuring latest works, news, discography, and fan art gallery.
+An unofficial, non-profit, bilingual (日本語 / English) fan site for **Kotoha (ことは)**, vocalist of HaKoniwalily and HoneyWorks support vocalist (debuted as a VTuber with AiceClass in 2023). Built by **Moeko Software and Technologies** as a comprehensive fan resource featuring latest works, news, discography, and fan art gallery.
 
 The v2 design, **"Clover Scrapbook,"** turns the page into a scrapbook. Paper notes are taped onto artwork, die-cut stickers mark the details, and stitched borders highlight featured items, all over an artwork backdrop that crossfades between sections. Every entrance is timed to one tempo (128 BPM) so the motion feels coordinated. A Motion toggle, together with the device's reduced-motion setting, switches the whole site to a calm mode.
 

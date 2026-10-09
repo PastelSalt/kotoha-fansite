@@ -53,6 +53,7 @@
       "s": "seconds"
     },
     "unitHoney": "HoneyWorks support vocal",
+    "unitVtuber": "Singer · VTuber",
     "nextStream": "Next stream",
     "live": "LIVE NOW",
     "unitsShort": {
@@ -86,8 +87,8 @@
   "about": {
     "avatarAlt": "Illustration of Kotoha",
     "poseAlt": "Kotoha's full-body model, making a peace sign",
-    "bio1": "Kotoha is a singer and VTuber with AiceClass. She's the vocalist of the duo HaKoniwalily together with Hanon, and a support vocalist for HoneyWorks.",
-    "bio2": "She debuted as a VTuber on July 8, 2023, and streams talk, singing and games every Tuesday and Friday around 21:00 JST. Her fans are called Kotorisu, and her fan mark is 🍀 (not 🥦!).",
+    "bio1": "Kotoha is a singer and VTuber. She's the vocalist of the duo HaKoniwalily together with Hanon, and a support vocalist for HoneyWorks.",
+    "bio2": "She debuted as a VTuber with AiceClass on July 8, 2023, and streams talk, singing and games every Tuesday and Friday around 21:00 JST. Her fans are called Kotorisu, and her fan mark is 🍀 (not 🥦!).",
     "pills": [
       {
         "label": "Birthday",
@@ -99,7 +100,7 @@
       },
       {
         "label": "Debut",
-        "value": "July 8, 2023 · AiceClass"
+        "value": "July 8, 2023 (with AiceClass)"
       },
       {
         "label": "Activities",
@@ -124,7 +125,7 @@
     ],
     "tapHint": "Tap Kotoha!",
     "heading": "ABOUT",
-    "role": "Singer · VTuber · AiceClass",
+    "role": "Singer · VTuber · HaKoniwalily",
     "hashtags": "Hashtags",
     "tags": [
       "#ことらじ live",
