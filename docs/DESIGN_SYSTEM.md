@@ -34,7 +34,7 @@ Later layers win regardless of selector specificity, so motion rules can safely 
 | `--pink-50/100/200/500/700` | `#fff5f8` `#ffe2eb` `#ffc6d6` `#ef5f8d` `#b8325f` | highlights; **700** = pink text / white-on-pink (AA) |
 | `--green-500` | `#63a23d` | brand green (stickers, clovers) |
 | `--green-50/100/200/300/600/700/900` | … `#2f7a1f` (700) … `#1f4f15` (900) | **700** = buttons, links, white-on-green (AA 5.4:1) |
-| `--paper` / `--paper-rgb` | `#fffaf2` / `255 250 242` | cards (`rgb(var(--paper-rgb) / .9)`) |
+| `--paper` / `--paper-rgb` | `#fffaf2` / `255 250 242` | cards (`rgb(var(--paper-rgb) / .94)`) |
 | `--ink` / `--ink-soft` | `#2b3326` / `#56614f` | body / meta text (AA on paper) |
 | `--accent-home/about/news/disco/gallery` | lavender `#c9b6f4` · sky `#bfe4ff` · rose `#ffb3c7` · peach `#ffd3b0` · mint `#c8ecd9` | set `--accent` per section via `data-accent="…"` |
 
@@ -49,7 +49,7 @@ Later layers win regardless of selector specificity, so motion rules can safely 
 
 | Class | What | Rule |
 |---|---|---|
-| `.paper` (+ `.paper--panel`) | cream note, 14 px blur, soft shadow | default container for content over artwork |
+| `.paper` (+ `.paper--panel`) | cream note (94 % opaque, **no blur** since 2026-10-09 for performance), soft shadow | default container for content over artwork |
 | `.stitch` | inset dashed line | **featured items only** (next-stream ticket, latest video, profile card, "coming soon") — ≈4–6 per screen |
 | `.tape` (`--right`, `--center`) | washi tape strip in `--accent` | 1 per card at most |
 | `.sticker` (`--sm`, `--pink`) + `.sticker__clover` | die-cut heading, slight tilt (`--sticker-rot`) | section headings; white text on green (large text AA) |
