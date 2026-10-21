@@ -1,6 +1,5 @@
 # Only public/, api/, lib/, package*.json and vercel.json are needed at runtime.
 # Patterns start with "/" so they match the project root only — an unanchored "assets" would also drop public/assets.
-/previous_failed_attempt_v1_only_for_around_30-40%_of_intended
 /references
 /docs
 /assets

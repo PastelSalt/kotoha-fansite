@@ -39,7 +39,7 @@ const PORTRAIT_WIDTHS = [720, 1080];
 
 const UI_IMAGES = [
   { name: 'logo', file: 'icons/kotoha_logo.png', widths: [500, 1000] },
-  { name: 'moesoft', file: 'icons/moesoft_logo.png', widths: [360, 707] },
+  { name: 'moekoworks', file: 'icons/moekoworks_logo.png', widths: [360, 707] },
   { name: 'profile', file: 'icons/kotoha_profile_picture_square.jpg', widths: [200, 400] },
   { name: 'pose', file: 'model/kotoha_pose1_fullbody.png', widths: [450, 900] },
   { name: 'mascot', file: 'model/kotoha_mascot_fullbody_modelsheet.png', widths: [300, 600] },

@@ -62,7 +62,7 @@ Deliverables (from the brief + decisions). Tick when **verified working**, not j
 - [ ] Cloudinary signed upload, auto-downscale, permanent file delete + archive record
 - [ ] Admin CRUD: videos, news, achievements, discography, gallery; drafts; archive + restore; activity log
 - [ ] Analytics tracking + dashboard (JST; all agreed metrics)
-- [ ] Footer (Moesoft logo, disclaimer, obfuscated email, links, credits, privacy note)
+- [ ] Footer (Moeko Works logo, disclaimer, obfuscated email, links, credits, privacy note)
 - [ ] Loading / empty / error states everywhere
 - [ ] `.env.example`, README (setup, local dev, DB setup, deployment), admin guide (JA/EN)
 - [ ] `docs/JA_REVIEW_LIST.md` (Japanese I wrote myself)
@@ -116,7 +116,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 
 ### Phase 1: Accounts & setup
 - [x] 1.1 Owner installed GitHub CLI 2.101.0 + logged in as **PastelSalt** (gh at `C:\Program Files\GitHub CLI\gh.exe`; not on Git Bash PATH → call by full path, and use `MSYS_NO_PATHCONV=1` for `gh api`)
-- [x] 1.2 Repo-local git email = `214653345+PastelSalt@users.noreply.github.com` (name: "Moesoft: Moeko Software and Technologies")
+- [x] 1.2 Repo-local git email = `214653345+PastelSalt@users.noreply.github.com` (name: "Moeko Works")
 - [x] 1.3 Private repo https://github.com/PastelSalt/kotoha-fansite, `main` pushed (initial commit `9aa41e5`, secret scan clean)
 - [x] 1.4 Vercel project `kotoha-fansite` created and **Git link verified** (push to `main` → production deployment). Details: (`prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn`, account `team_iTXgjBMqb9YpVCwrSPc0UKWO`, Node 24.x, no framework, output `public`). Deployment protection set to **preview only**. Git link to be confirmed by the first push-triggered deployment. Note: connector `create_git_project` fails with 403 (scope `pastelsalts-projects`); plain `create_project` / `update_project` / env calls work **without** a teamId
 - [x] 1.5 Create Neon project `kotoha-fansite` (Singapore); record ID; put connection strings in `.env.local` (see §3)
@@ -378,4 +378,4 @@ _(none blocking.)_ The five D1.1 density questions (density level, four-leaf vs 
   - **New achievement** (seed + live DB, activity logged): 2026-01-14 「TVアニメ『29歳独身中堅冒険者の日常』EDテーマ「君の隣は空気が美味しい」歌唱担当（HoneyWorks feat.Kotoha）」.
   - **Published the 影響力∞アイドル achievement** (id 24, 2026-10-07): it was a draft "until release" and the song is out; seed now has it as published.
   - `FORHANON.md` v1.2: Q4/Q5/Q7/Q8 recorded with the recommended answers (only Q9, the Hanon art, is still open).
-  - Repo-local git identity set to `Moesoft: Moeko Software and Technologies <214653345+PastelSalt@users.noreply.github.com>` (this Linux checkout had none, so the global Gmail address was being used).
+  - Repo-local git identity set to `Moeko Works <214653345+PastelSalt@users.noreply.github.com>` (this Linux checkout had none, so the global Gmail address was being used).

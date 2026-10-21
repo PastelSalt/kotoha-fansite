@@ -161,7 +161,7 @@ DESKTOP · Home                                  PHONE · Home
 | News | notes column (scrolls inside) + latest-video polaroid + film strip of other videos | notes → polaroid → strip |
 | Discography | release sleeves (designed covers when no video) + achievements timeline | sleeves 2-up → timeline |
 | Gallery | full-width masonry (4–5 columns), small sticker heading | 2 columns |
-| Footer | proper footer on a paper panel: Moesoft, disclaimer, contact, links, **artwork credits list** | stacked |
+| Footer | proper footer on a paper panel: Moeko Works, disclaimer, contact, links, **artwork credits list** | stacked |
 | Nav (after Home) | floating paper pill: logo · links · clover progress · JP/EN | logo · clover progress · menu |
 
 **Credits:** "art by …" labels removed from all sections and the loader. Every artwork used on the site gets a **gallery entry with its credit** (missing today: About background, loader "pajamas" and "green cardigan" arts — artist unknown), and the footer keeps a tidy **artwork credits** list. Avatar + About pose → Q6.
@@ -222,7 +222,7 @@ During the glide to the next section: a short clean transition in the next secti
 | Artwork | one of the 3 loader artworks at random, full-screen | same, portrait crop |
 | Logo | bottom-left, as a sticker | top |
 | Spinner + "Loading…" | right-middle | centre |
-| Moesoft line | bottom ("This is a fan-project made by: Moeko Software and Technologies") | bottom |
+| Moeko Works line | bottom ("This is a fan-project made by: Moeko Works") | bottom |
 | Credit label | **removed** (art credited in the gallery + footer) | removed |
 | Legibility | soft pink gradient at the bottom behind the text | same |
 
@@ -456,7 +456,7 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 **D6 · Loader v2** (§7.4a; moved up right after D2 because it only needs the tokens) — inline SVG clovers (CSS rotation keeps turning even while scripts load), petals fill from real loading progress, wave "Loading…", "Did you know?" facts from the About data, iris exit into Home (plain-fade fallback for older browsers), calm mode. Tiers (3 s / 6 s / 10 s) + 12 s failsafe unchanged.
 - ✔ Done when: rotation verified (spin check), all 4 petals fill, exit ≤ 1 s, failsafe still works with scripts blocked.
 
-**D3 · Components** — ticket (countdown + LIVE), polaroid, news note, film strip, profile card + facts grid, sleeves (+ designed placeholder covers), achievements timeline, masonry tile, lightbox, floating nav pill + clover progress, JP/EN pill, buttons/chips, footer (credits list, Moesoft, disclaimer, contact), empty/error notes, scrollbars.
+**D3 · Components** — ticket (countdown + LIVE), polaroid, news note, film strip, profile card + facts grid, sleeves (+ designed placeholder covers), achievements timeline, masonry tile, lightbox, floating nav pill + clover progress, JP/EN pill, buttons/chips, footer (credits list, Moeko Works, disclaimer, contact), empty/error notes, scrollbars.
 - ✔ Done when: each component renders with real data in EN/JA; contrast AA; ≤ 6 stitched (dashed) items per screen.
 
 **D4 · Sections — desktop (1024–1920 px)** — new compositions (§6), scrims, section accents.

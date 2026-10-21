@@ -43,7 +43,7 @@
 
 ### 1.1 What the project is
 
-An **unofficial, non-profit, bilingual (Japanese/English) fan website for Kotoha (ことは)**: vocalist of HaKoniwalily (with Hanon), HoneyWorks support vocalist, AiceClass. Made by **Moeko Software and Technologies (Moesoft)**.
+An **unofficial, non-profit, bilingual (Japanese/English) fan website for Kotoha (ことは)**: vocalist of HaKoniwalily (with Hanon), HoneyWorks support vocalist, AiceClass. Made by **Moeko Works**.
 
 1. **Public site** ✅: animated, responsive single page of full-screen sections ~~with strict snap~~ (snapping removed 2026-10-09 at the owner's request; native free scrolling): Home → About → News → Discography → Gallery (infinite) → Footer.
 2. **Admin area** ✅ (`/login`, `/admin`): roles **Owner** and **Admin**; manages videos, news, achievements, discography and gallery; analytics; archive; accounts (Owner only).
@@ -87,7 +87,7 @@ An **unofficial, non-profit, bilingual (Japanese/English) fan website for Kotoha
 | Achievements (DB), Discography (DB, YouTube-thumbnail covers): show **all** | ✅ |
 | About: hardcoded (JA + EN) | ✅ |
 | Gallery (DB + Cloudinary): infinite, masonry, author credit + source link | ✅ |
-| Footer: Moesoft logo, disclaimer, obfuscated contact email, links, credits | ✅ |
+| Footer: Moeko Works logo, disclaimer, obfuscated contact email, links, credits | ✅ |
 | Archive instead of deletion (single `archived_content` table, Archive page with Restore) | ✅ |
 | Gallery image files permanently deleted from Cloudinary; record archived | ✅ |
 | Owner + auto-numbered Admins, temp passwords, forced change | ✅ |
@@ -144,7 +144,7 @@ Art is drawn semi-transparent over `#fe9fb9`. Responsive WebP/AVIF derivatives a
 
 ### 3.2 Other assets
 
-Logo (1000×288), Moesoft logo (707×354), profile picture 400×400 (credit **unknown**), X/YouTube/Twitch icons, **TwitCasting icon: to be obtained from TwitCasting's official materials** ✅ (file/source/size confirmed with you before download), pose image (About), front-view model + turnaround sheet (©AiceClass) + mascot sheet (gallery seed), clover fill/outline PNGs (→ SVG recreations), section divider (→ SVG).
+Logo (1000×288), Moeko Works logo (3941×828 source → 707×149), profile picture 400×400 (credit **unknown**), X/YouTube/Twitch icons, **TwitCasting icon: to be obtained from TwitCasting's official materials** ✅ (file/source/size confirmed with you before download), pose image (About), front-view model + turnaround sheet (©AiceClass) + mascot sheet (gallery seed), clover fill/outline PNGs (→ SVG recreations), section divider (→ SVG).
 
 ### 3.3 Gallery seed ✅
 
@@ -164,7 +164,7 @@ The 5 credited artworks (kuroli ×2, Parfait_Pie_12, snowclole ×2) + front-view
 | Scrolled nav | Fixed at top on all other sections | Green bar: logo + nav + JP/EN switcher. **No social icons** ✅ |
 | Mobile hero | Home | Large logo, countdown pill, clover "menu" |
 | Mobile scrolled | Other sections | Bar: logo + clover "menu" |
-| Mobile menu | Overlay | `bg1` art, socials, logo, nav, JP/EN switcher, Moesoft credit, close button |
+| Mobile menu | Overlay | `bg1` art, socials, logo, nav, JP/EN switcher, Moeko Works credit, close button |
 
 ### 4.2 Section adaptations from round-2 decisions
 
@@ -212,7 +212,7 @@ Pills (count flexible ✅): Name (Kotoha/ことは) · Birthday June 10 · Gemin
 | Cloudinary `search-folders` | Only default `samples/*` | Use a dedicated `kotoha-fansite/gallery` folder; samples untouched |
 | Cloudinary `list-upload-presets` | None | Create a signed preset at implementation |
 | GitHub | `gh` missing; connector failed → owner chose GitHub CLI route (`winget` v1.29 present) | Install `gh` at implementation (with OK), owner logs in once |
-| Git identity (local) | Already configured: "Moesoft: Moeko Software and Technologies" + owner's email | Commits authored by owner's identity (see §7.2 `G1`) |
+| Git identity (local) | Already configured: "Moeko Works" + owner's email | Commits authored by owner's identity (see §7.2 `G1`) |
 | `kotoha-fansite.vercel.app` | `404 DEPLOYMENT_NOT_FOUND` (unclaimed) | Name available now; claimed at project creation |
 
 ---
@@ -233,7 +233,7 @@ Pills (count flexible ✅): Name (Kotoha/ことは) · Birthday June 10 · Gemin
 10. News: date posted (pre-filled today, editable), headline, short description, **up to 3 links**; **draft/publish**.
 11. Videos: date (pre-filled today, editable), draft/publish.
 12. Gallery item: image + author name + source link; infinite scroll; masonry.
-13. Footer: usual items, Moesoft logo, fan-site disclaimer, obfuscated `moekosoftware@outlook.com`.
+13. Footer: usual items, Moeko Works logo, fan-site disclaimer, obfuscated `moekosoftware@outlook.com`.
 14. No permanent deletion of DB content: single `archived_content` table + Archive page with Restore; removed admins archived; gallery files permanently deleted from Cloudinary, record archived.
 15. Upload works with default settings (no manual compression/conversion).
 16. **Owner** (bootstrap account; forced change) + **Admins auto-numbered** (`<owner-username>2`, `3`, …), random 8-character temporary password, forced change; equal content powers; only Owner manages accounts.
@@ -249,7 +249,7 @@ Pills (count flexible ✅): Name (Kotoha/ことは) · Birthday June 10 · Gemin
 
 ### 6.2 Implied by references
 
-Section order; random loader art; semi-transparent art over pink; socials X/YouTube/Twitch/TwitCasting (hero + menu + footer); clover menu; countdown; dashed scrollbars; "scroll for more!"; art credits; Moesoft credit.
+Section order; random loader art; semi-transparent art over pink; socials X/YouTube/Twitch/TwitCasting (hero + menu + footer); clover menu; countdown; dashed scrollbars; "scroll for more!"; art credits; Moeko Works credit.
 
 ### 6.3 Undecided
 
@@ -282,7 +282,7 @@ None. All owner decisions are made. Remaining technical unknowns are settled in 
 | C9–C14, C16 | Previous extras dropped; typos fixed; SVG clover/divider; menu bg `bg1`; mascot empty states; card border color chosen per background |
 | C17 | Gallery grid: masonry (art never cropped); lightbox with author + source link, no download |
 | C18 | News section video list: vertical scrollable list on desktop, horizontal swipe row on mobile |
-| D* | Loader shown every visit; random `bg1/bg2/bg3` + credit; Moesoft logo on desktop too; clover breathing; no progress bar; min 3.0 s; reveal when Tier 1 is ready *and* (Tier 2 ready or 6 s passed); hard cap 10 s; clover iris exit |
+| D* | Loader shown every visit; random `bg1/bg2/bg3` + credit; Moeko Works logo on desktop too; clover breathing; no progress bar; min 3.0 s; reveal when Tier 1 is ready *and* (Tier 2 ready or 6 s passed); hard cap 10 s; clover iris exit |
 | E3–E5 | Inner lists chain at edges; sections may exceed small screens; snap prototype first |
 | F2–F4 | Confetti on logo click + June 10 / July 8 (JST) + About pose tap + admin publish; moderate intensity |
 | G5, G7, G9, G10 | No news detail view; bigint IDs; SQL migrations + Node runner; activity log |
@@ -515,7 +515,7 @@ As §8.8; indexes on `(occurred_at)`, `(event_type, occurred_at)`, `(content_typ
 | NewsList | **All news**, paged inside the scroll list |
 | DiscographyList / AchievementsList | **All records**, paged |
 | InfiniteGallery | Masonry, sentinel-driven paging, "Load more" fallback button for keyboard/screen readers, then Footer |
-| Footer | Moesoft logo, disclaimer (JA/EN), obfuscated email, section links, official links, art credits, privacy note, JP/EN switch, back-to-top, © Moesoft |
+| Footer | Moeko Works logo, disclaimer (JA/EN), obfuscated email, section links, official links, art credits, privacy note, JP/EN switch, back-to-top, © Moeko Works |
 | Lightbox | Author + source link, arrows/swipe, no download |
 | States | Skeletons, empty (mascot), error + retry |
 
@@ -652,7 +652,7 @@ See [`docs/PROGRESS.md`](PROGRESS.md) for the live checklist.
 | 2026-09-26 | B5 | About hardcoded; flexible pill count; border color free | Owner |
 | 2026-09-26 | B8 | Achievements in DB | Owner |
 | 2026-09-26 | B10 | 4th social = TwitCasting | Owner |
-| 2026-09-26 | B13 | Footer with Moesoft logo, disclaimer, contact email | Owner |
+| 2026-09-26 | B13 | Footer with Moeko Works logo, disclaimer, contact email | Owner |
 | 2026-09-26 | C1 | Hero header inside Home; scrolled nav elsewhere | Owner |
 | 2026-09-26 | C7 | Infinite gallery, footer at bottom | Owner |
 | 2026-09-26 | D1–D7 | Loader ≥ 3 s, preloading, design delegated | Owner |

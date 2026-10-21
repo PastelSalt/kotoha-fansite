@@ -10,7 +10,7 @@
 ## 1. The project in one paragraph
 
 Unofficial, non-profit, bilingual (JA/EN) fan site for **Kotoha (ことは)** of HaKoniwalily — HoneyWorks support vocalist, AiceClass VTuber.
-Plain HTML/CSS/vanilla JS (ES modules, **no build step**), Vercel Functions (plain Node `(req, res)`), Neon Postgres, Cloudinary, hosted on Vercel at **kotoha-fansite.vercel.app**. Admin panel at `/login` → `/admin`. Private GitHub repo **PastelSalt/kotoha-fansite**. Built by Moesoft (Moeko Software and Technologies). The owner is "bad at frontend design/animation" and gives Claude wide creative freedom; they care a lot about a **dense, creative, Japanese-fan-site feel** (not Western minimalism).
+Plain HTML/CSS/vanilla JS (ES modules, **no build step**), Vercel Functions (plain Node `(req, res)`), Neon Postgres, Cloudinary, hosted on Vercel at **kotoha-fansite.vercel.app**. Admin panel at `/login` → `/admin`. Private GitHub repo **PastelSalt/kotoha-fansite**. Built by Moeko Works. The owner is "bad at frontend design/animation" and gives Claude wide creative freedom; they care a lot about a **dense, creative, Japanese-fan-site feel** (not Western minimalism).
 
 ## 2. Repo / branch / deployment state (as of this file)
 
@@ -75,7 +75,7 @@ Remaining, in order:
 ## 7. Working rules (from the owner / memory)
 
 - Resume from `docs/PROGRESS.md`; keep it, `docs/DESIGN_SYSTEM.md` and the plan §16 work log current after each phase.
-- **Never merge a design branch into `main` without the owner's explicit OK** (this one had it). Commit + push after each verified task. **Never force-push.** Secret scan before every commit. Commit trailer: `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`. Git user is "Moesoft: Moeko Software and Technologies".
+- **Never merge a design branch into `main` without the owner's explicit OK** (this one had it). Commit + push after each verified task. **Never force-push.** Secret scan before every commit. Commit trailer: `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`. Git user is "Moeko Works".
 - Don't touch the admin look. Don't reveal/store passwords in tracked files.
 - When the owner is frustrated, answer plainly (e.g. the default login question) instead of lecturing about security.
 - Owner prefers Claude to give a recommendation + confidence level when asking questions, and to continue between checkpoints on its own.

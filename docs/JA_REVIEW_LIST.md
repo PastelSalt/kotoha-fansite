@@ -61,7 +61,7 @@ The 27 entries from the official 実績 list are verbatim. These are mine:
 | `about.bio1` | Kotohaは、歌い手・VTuberです。Hanonとの2人組ユニット「ハコニワリリィ」のボーカルと、HoneyWorksのサポートボーカルを務めています。 | ⏳ |
 | `about.bio2` | 2023年7月8日にAiceClassからVTuberとしてデビュー。毎週火曜日・金曜日の21:00頃から、トーク・歌・ゲームの配信をしています。ファンネームは「ことリス」、ファンマークは🍀（🥦じゃないよ！）。 | ⏳ |
 | `about.pills` | 誕生日／身長／デビュー／活動／ファン／定期配信／ハッシュタグ／好きなもの | ⏳ |
-| `loader.credit` | このサイトはファンプロジェクトです　制作：Moeko Software and Technologies | ⏳ |
+| `loader.credit` | このサイトはファンプロジェクトです　制作：Moeko Works | ⏳ |
 | `footer.disclaimer` | このサイトは非公式・非営利のファンサイトです。…権利は、それぞれの権利者様・作者様に帰属します。 | ⏳ |
 | `footer.contact` / `footer.privacy` | 不具合、クレジットの訂正、掲載の取り下げのご依頼はこちらまで：／…匿名で集計しています… | ⏳ |
 | `gallery.by` | イラスト：{name}（ギャラリーのクレジット。以前は「{name}さん」） | ⏳ |

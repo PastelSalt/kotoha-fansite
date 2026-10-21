@@ -1,6 +1,6 @@
 # FORHANON.md — building the Hanon fan site (sister site of the Kotoha fan site)
 
-> **For Claude, in the new Hanon repo.** The owner (Moesoft) wrote this guide with Claude inside `kotoha-fansite` and pasted it into the new repo.
+> **For Claude, in the new Hanon repo.** The owner (Moeko Works) wrote this guide with Claude inside `kotoha-fansite` and pasted it into the new repo.
 > Read the whole file before doing anything. Then work through **§12 Open questions** with the owner (answers recorded there), then follow **§11 Build order**.
 > **Version 1.2 — 2026-10-09** (owner answered Q1, Q2, Q3, Q6, then said "do all the recommended" → Q4, Q5, Q7, Q8 decided as recommended; only Q9 (art) is still open — see §12). Data was researched on 2026-10-09 and is marked ✅ verified / ⚠️ verify before seeding / ❓ unknown.
 > **No secrets in this file, ever.** Credentials live only in `.env.local` (git-ignored) and Vercel env vars.
@@ -48,7 +48,7 @@
 7. **Never fabricate content.** Seed only researched/official data (this file §7). Short summaries Claude writes in Japanese go into `docs/JA_REVIEW_LIST.md` for native review.
 8. **Never put words in Hanon's mouth.** Speech bubbles are the *site's* voice ("new cover ♡", "thank you, artists!").
 9. **Ask the owner first** before: downloading files, installing software that needs accepting terms, deleting/overwriting anything you didn't create, any outward-facing action (repos, deploys to a new domain, DB/Cloudinary project creation).
-10. **Git:** `main` = production, every push deploys. Author = `Moesoft: Moeko Software and Technologies <214653345+PastelSalt@users.noreply.github.com>` (repo-local config; set it with `git config user.name/user.email` once, or pass `--author`). Never force-push, never skip hooks. Commit trailer as instructed by the session's system prompt. Design branches merge to `main` only with the owner's OK.
+10. **Git:** `main` = production, every push deploys. Author = `Moeko Works <214653345+PastelSalt@users.noreply.github.com>` (repo-local config; set it with `git config user.name/user.email` once, or pass `--author`). Never force-push, never skip hooks. Commit trailer as instructed by the session's system prompt. Design branches merge to `main` only with the owner's OK.
 11. **Security:** parameterized SQL only; `textContent` for DB text (never `innerHTML` with data); server-side auth checks on every admin API; Owner-only checks on account APIs; CSP + SRI.
 12. **Accessibility & motion:** respect `prefers-reduced-motion` (calm mode) and the site's motion toggle; keyboard reachable; visible focus; never disable zoom; nothing smaller than 13 px; AA contrast.
 13. **Owner's style preference:** the owner is "bad at frontend design/animation" and gives Claude wide creative freedom, but wants a **dense, creative, Japanese-fan-site feel** (never Western minimalism, no empty areas, illustrated filled icons, never hollow outlines). When asking questions, give a recommendation and a confidence level. Continue between checkpoints on your own.
@@ -91,7 +91,7 @@
 
 | Where | Kotoha value | Hanon value |
 |---|---|---|
-| `package.json` | `kotoha-fansite`, description | `hanon-fansite`, "Unofficial bilingual fan site for Hanon — by Moeko Software and Technologies" |
+| `package.json` | `kotoha-fansite`, description | `hanon-fansite`, "Unofficial bilingual fan site for Hanon — by Moeko Works" |
 | `lib/auth.js`, `api/track.js` | cookie `__Host-kf_session`, `kf_session_dev` | `__Host-hf_session`, `hf_session_dev` |
 | `prepaint.js`, `i18n-core.js`, `admin/prepaint.js` | `localStorage kf_lang` | `hf_lang` |
 | `motion-boot.js`, `motion/prefs.js` | `localStorage kf_motion` | `hf_motion` |
@@ -173,7 +173,7 @@ Shadows: tint them towards navy/blue (Kotoha tints towards pink/green), e.g. `rg
 | News | all news (paged), latest-works player + film strip of all videos | DB |
 | Discography | coming-soon wide card, release sleeves (YouTube thumbnail covers), achievements timeline | DB |
 | Gallery | infinite masonry, credited fan art + official art, lightbox | DB + Cloudinary |
-| Footer | Moesoft logo, disclaimer, obfuscated contact email (the owner's, not Hanon's), official links, credits, privacy note, sister-site link | static |
+| Footer | Moeko Works logo, disclaimer, obfuscated contact email (the owner's, not Hanon's), official links, credits, privacy note, sister-site link | static |
 
 ### 6.2 DB schema
 
@@ -196,7 +196,7 @@ Run them through `npm run images:optimize` (sharp → WebP at these sizes):
 | `img/pose-{450,900}.webp` | full-body pose (transparent) |
 | `img/mascot-{300,600}.webp`, `mascot-front-240.webp` | mascot (if any) |
 | `img/icon-{x,youtube,twitch,twitcasting}-96.webp` | **reuse as is** (platform icons) |
-| `img/moesoft-{360,707}.webp` | **reuse as is** (Moesoft logo) |
+| `img/moekoworks-{360,707}.webp` | **reuse as is** (Moeko Works logo) |
 | `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `og-image.jpg` | Hanon versions (🐧 / blue) |
 | `model/*fullbody_model*.png`, `*modelsheet.png` | official model sheets for the gallery seed (credit: as on the official reference) |
 

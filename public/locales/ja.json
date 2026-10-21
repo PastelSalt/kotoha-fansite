@@ -15,7 +15,7 @@
   },
   "loader": {
     "loading": "ロード中…",
-    "credit": "このサイトはファンプロジェクトです　制作：Moeko Software and Technologies",
+    "credit": "このサイトはファンプロジェクトです　制作：Moeko Works",
     "didYouKnow": "知ってた？"
   },
   "nav": {
@@ -182,8 +182,8 @@
     "credits": "イラストクレジット",
     "privacy": "ファンの皆さんに人気のセクションを知るため、訪問数を匿名で集計しています（Cookie・個人情報は使用しません）。",
     "backToTop": "トップへ戻る 🍀",
-    "made": "ファンサイト制作：Moeko Software and Technologies",
-    "copyright": "© 2026 Moeko Software and Technologies（サイトのデザイン・プログラム）",
+    "made": "ファンサイト制作：Moeko Works",
+    "copyright": "© 2026 Moeko Works（サイトのデザイン・プログラム）",
     "settings": "設定",
     "sister": "姉妹サイト：Hanonファンサイト"
   },
