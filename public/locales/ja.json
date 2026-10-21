@@ -182,10 +182,11 @@
     "credits": "イラストクレジット",
     "privacy": "ファンの皆さんに人気のセクションを知るため、訪問数を匿名で集計しています（Cookie・個人情報は使用しません）。",
     "backToTop": "トップへ戻る 🍀",
-    "made": "ファンサイト制作：Moeko Works",
-    "copyright": "© 2026 Moeko Works（サイトのデザイン・プログラム）",
     "settings": "設定",
-    "sister": "姉妹サイト：Hanonファンサイト"
+    "madeByLabel": "制作",
+    "seeMore": "ほかの作品を見る",
+    "sisters": "姉妹サイト",
+    "madeBy": "Moeko Worksがファンとして制作"
   },
   "credits": {
     "model": "キャラクターデザイン・モデル",

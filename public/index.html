@@ -365,11 +365,15 @@
   <footer class="foot" id="site-footer" data-section="footer">
     <div class="foot__inner">
       <div class="foot__brand">
-        <img src="/assets/img/moekoworks-360.webp" srcset="/assets/img/moekoworks-360.webp 360w, /assets/img/moekoworks-707.webp 707w" sizes="240px" alt="Moeko Works" width="707" height="149" loading="lazy">
+        <img class="foot__logo" src="/assets/img/logo-500.webp" srcset="/assets/img/logo-500.webp 500w, /assets/img/logo-1000.webp 1000w" sizes="190px" alt="Kotoha" width="1000" height="288" loading="lazy">
         <p class="paper paper--lined" data-i18n="footer.disclaimer">This is an unofficial, non-profit fan site.</p>
         <p class="ink-soft"><span data-i18n="footer.contact">For issues, credit corrections or removal requests, contact:</span>
           <a id="contact-mail" href="#contact" data-user="moekosoftware" data-domain="outlook.com">moekosoftware [at] outlook.com</a></p>
-        <p class="foot__sister"><a class="chip" href="https://hanon-fansite.vercel.app/" target="_blank" rel="noopener" data-track="outbound_click" data-track-type="social" data-track-target="sister-site"><span data-i18n="footer.sister">Sister site: Hanon fan site</span> 🐧</a></p>
+        <a class="maker-card" href="https://moekoworks.vercel.app/" target="_blank" rel="noopener" data-track="outbound_click" data-track-type="social" data-track-target="maker">
+          <small data-i18n="footer.madeByLabel">Made by</small>
+          <img src="/assets/img/moekoworks-360.webp" srcset="/assets/img/moekoworks-360.webp 360w, /assets/img/moekoworks-707.webp 707w" sizes="200px" alt="Moeko Works" width="707" height="149" loading="lazy">
+          <span class="maker-card__go"><span data-i18n="footer.seeMore">See more work</span> ↗</span>
+        </a>
       </div>
       <nav data-i18n-attr="aria-label:footer.sections" aria-label="Sections">
         <p class="mini-title"><svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en" data-i18n="footer.sections">Sections</span></p>
@@ -381,6 +385,12 @@
           <li><a href="#gallery" data-nav-link="gallery" data-i18n="nav.gallery">gallery</a></li>
         </ul>
         <p class="foot__privacy" data-i18n="footer.privacy">This site counts visits anonymously (no cookies, no personal data).</p>
+        <p class="mini-title foot__sisters-title"><svg class="cl cl--pink" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en" data-i18n="footer.sisters">Sister sites</span></p>
+        <ul class="foot__links">
+          <li><a href="https://hanon-fansite.vercel.app/" target="_blank" rel="noopener" data-track="outbound_click" data-track-type="social" data-track-target="sister-hanon">Hanon 🐧</a></li>
+          <li><a href="https://aqua-iro-archive.vercel.app/" target="_blank" rel="noopener" data-track="outbound_click" data-track-type="social" data-track-target="sister-aqua">Aqua Iro Archive ⚓</a></li>
+          <li><a href="https://moekoworks.vercel.app/" target="_blank" rel="noopener" data-track="outbound_click" data-track-type="social" data-track-target="maker">Moeko Works</a></li>
+        </ul>
       </nav>
       <div>
         <p class="mini-title"><svg class="cl cl--pink" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span class="mini-title__en" data-i18n="footer.official">Official links</span></p>
@@ -399,7 +409,7 @@
       </div>
     </div>
     <div class="foot__bar">
-      <span data-i18n="footer.copyright">© 2026 Moeko Works (site design &amp; code)</span>
+      <a class="foot__by" href="https://moekoworks.vercel.app/" target="_blank" rel="noopener"><span data-i18n="footer.madeBy">Made by Moeko Works, as a fan</span> · 2026 ↗</a>
       <a class="btn btn--ghost btn--sm" href="#home" data-nav-link="home"><svg class="icon"><use href="#i-arrow-up"/></svg> <span data-i18n="footer.backToTop">Back to top 🍀</span></a>
     </div>
   </footer>

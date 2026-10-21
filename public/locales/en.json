@@ -182,10 +182,11 @@
     "credits": "Artwork credits",
     "privacy": "This site counts visits anonymously (no cookies, no personal data) to see which sections fans enjoy.",
     "backToTop": "Back to top 🍀",
-    "made": "Fan site made by Moeko Works",
-    "copyright": "© 2026 Moeko Works (site design & code)",
     "settings": "Settings",
-    "sister": "Sister site: Hanon fan site"
+    "madeByLabel": "Made by",
+    "seeMore": "See more work",
+    "sisters": "Sister sites",
+    "madeBy": "Made by Moeko Works, as a fan"
   },
   "credits": {
     "model": "Character design & model",
