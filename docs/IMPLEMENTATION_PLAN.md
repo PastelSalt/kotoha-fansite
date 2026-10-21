@@ -103,7 +103,7 @@ Vanilla HTML/CSS/JS (no build step) · Fredoka + **M PLUS Rounded 1c** (Japanese
 
 | Service | Account state | Use |
 |---|---|---|
-| Vercel | ✅ connected; personal account, 1 existing project (`moesoft-web`, untouched) | New project for the fansite |
+| Vercel | ✅ connected; personal account, 1 existing project (`moekoworks` (the portfolio), untouched) | New project for the fansite |
 | Neon | ✅ connected; no projects yet | New project, region **Singapore** (closest to Japan) |
 | Cloudinary | ✅ connected; Free plan; only Cloudinary's default `samples` (64 files, ~177 MB) | New folder `kotoha-fansite/gallery` |
 | GitHub | ✅ route chosen: GitHub CLI (`winget` v1.29 available) + one browser login by owner; private repo `kotoha-fansite` | Code hosting, auto-deploy to Vercel |
@@ -207,7 +207,7 @@ Pills (count flexible ✅): Name (Kotoha/ことは) · Birthday June 10 · Gemin
 |---|---|---|
 | Neon `list_projects` | Connected; **0 projects** | Create project at implementation |
 | Neon `list_regions` | No Tokyo; nearest **aws-ap-southeast-1 (Singapore)** | DB in Singapore; Vercel functions in `sin1` |
-| Vercel `list_projects` | Connected; `moesoft-web` exists (personal account) | New separate project; existing one untouched |
+| Vercel `list_projects` | Connected; `moekoworks` (the portfolio) exists (personal account) | New separate project; existing one untouched |
 | Cloudinary `get-usage-details` | Free plan; 64 sample files, ~177 MB, 0.68% of 25 credits; **max image 10 MB and 25 megapixels** | Auto-downscale must respect both limits |
 | Cloudinary `search-folders` | Only default `samples/*` | Use a dedicated `kotoha-fansite/gallery` folder; samples untouched |
 | Cloudinary `list-upload-presets` | None | Create a signed preset at implementation |

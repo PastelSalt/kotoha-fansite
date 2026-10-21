@@ -464,7 +464,7 @@ The Kotoha tests lived in a temporary scratchpad and were lost; commit cleaned c
 | Item | Kotoha | Hanon proposal |
 |---|---|---|
 | GitHub | `PastelSalt/kotoha-fansite` (private) | owner creates the new repo (this guide does **not** create repos) |
-| Vercel project | `kotoha-fansite` (`prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn`), region `sin1`; **don't touch `moesoft-web`** | new project `hanon-fansite`, `sin1`, `outputDirectory: public` |
+| Vercel project | `kotoha-fansite` (`prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn`), region `sin1`; **don't touch `moekoworks` (the portfolio)** | new project `hanon-fansite`, `sin1`, `outputDirectory: public` |
 | Neon | project `kotoha-fansite` (`odd-base-44136456`), free tier 512 MB | **separate** Neon project `hanon-fansite` (keeps data, limits and resets independent) |
 | Cloudinary | cloud `dijqsw0k8`, folder `kotoha-fansite/gallery`, preset `kotoha_gallery_signed` (free plan: 10 MB & 25 MP per image) | **same cloud** (shared free quota) with folder `hanon-fansite/gallery` + preset `hanon_gallery_signed` |
 | Env vars | `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `CLOUDINARY_CLOUD_NAME/API_KEY/API_SECRET/FOLDER/UPLOAD_PRESET`, `ANALYTICS_SALT`, `ADMIN_BOOTSTRAP_USERNAME/PASSWORD` (one-time), `ALLOWED_ORIGINS` | same keys, **new values** (new `ANALYTICS_SALT`); `DATABASE_URL` marked Sensitive |

@@ -31,7 +31,7 @@
 1. **Never write the bootstrap username/password into any tracked file**: not code, SQL, docs, commits or logs. Only `.env.local` (git-ignored) and Vercel env vars. Scripts read them from `process.env`.
 2. **Never commit secrets.** `.env*` (except `.env.example`) and `.vercel/` are git-ignored. Check `git diff --cached` before every commit.
 3. **No permanent deletion of DB content.** Deletes = move to `archived_content` (copy + delete in one transaction). Exceptions: (a) gallery **image files** are permanently destroyed in Cloudinary (record still archived); (b) the **one-time pre-launch reset** (owner-approved); (c) operational data retention (login attempts 30 d, raw analytics 90 d, expired sessions).
-4. **Don't touch unrelated resources:** Vercel project `moesoft-web`; Cloudinary `samples/` folders. Our Cloudinary folder: `kotoha-fansite/gallery`.
+4. **Don't touch unrelated resources:** Vercel project `moekoworks` (the portfolio); Cloudinary `samples/` folders. Our Cloudinary folder: `kotoha-fansite/gallery`.
 5. **Dev and prod share ONE Neon database and ONE Cloudinary folder** (owner decision). Before launch: test freely. After launch: test with **drafts only**. Create a Neon restore point (snapshot/backup branch) **before every schema change**.
 6. **Admin-entered DB text is single-field, shown as typed in both languages.** Only static UI/About/footer/headings are bilingual (locale files).
 7. **Sections show ALL records** (paged loading inside lists); the Home hero shows the newest 1 video + 2 newest news. Newest first everywhere.
@@ -78,7 +78,7 @@ Deliverables (from the brief + decisions). Tick when **verified working**, not j
 | OS / shells | Windows 11; PowerShell 5.1 + Git Bash |
 | Node / npm / git | v24.21.0 / 11.19.0 / 2.55 |
 | winget | v1.29 (GitHub CLI install is done by the owner) |
-| Vercel account | personal; existing project `moesoft-web` (**don't touch**) |
+| Vercel account | personal; existing project `moekoworks` (the portfolio) (**don't touch**) |
 | Vercel project (ours) | `kotoha-fansite` → `https://kotoha-fansite.vercel.app`, ID `prj_jenOIZqyraT1YJ9WhdrKLp1VxnBn` (connector calls: omit teamId) |
 | Vercel function region | `sin1` |
 | Neon project | `kotoha-fansite`, ID **`odd-base-44136456`**, region `aws-ap-southeast-1`, PG 17, branch `main` = `br-tiny-credit-b3dga6s5`, database `kotoha`, role `kotoha_owner`, endpoint `ep-bold-mouse-b3uvenls` (pooled host has `-pooler`). Free tier: **512 MB storage limit**, 6 h history retention |
@@ -333,7 +333,7 @@ _(none blocking.)_ The five D1.1 density questions (density level, four-leaf vs 
 
 ### 2026-09-26: Session 1
 - Phases 1 (inspection) and 2 (planning) complete; plan v0.5 approved; implementation authorized.
-- Verified connectors: Neon (empty), Vercel (`moesoft-web` only), Cloudinary (Free, samples only). `kotoha-fansite.vercel.app` unclaimed.
+- Verified connectors: Neon (empty), Vercel (`moekoworks` (the portfolio) only), Cloudinary (Free, samples only). `kotoha-fansite.vercel.app` unclaimed.
 - Created this file.
 - Built: git repo (uncommitted), ignore files, `package.json` + deps, `vercel.json`, `.env.example`, `.env.local`, README skeleton.
 - Neon project `odd-base-44136456` (Singapore) created; migration 0001 applied; `seed.sql` applied (idempotent); Owner bootstrapped.
