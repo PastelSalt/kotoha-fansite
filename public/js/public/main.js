@@ -82,13 +82,6 @@ function renderAbout() {
   if (Array.isArray(tags)) $('#about-tags').replaceChildren(...tags.map((tag) => el('span', { class: 'chip', text: tag })));
 }
 
-function setupContactMail() {
-  const a = $('#contact-mail');
-  const address = `${a.dataset.user}@${a.dataset.domain}`;   // assembled at runtime (not in the HTML)
-  a.textContent = address;
-  a.href = `mailto:${address}`;
-}
-
 // ---------------------------------------------------------------- dynamic content
 function renderHomeVideo() {
   const box = $('#home-video');
@@ -259,7 +252,6 @@ async function boot() {
   mountLangSwitches(pickLanguage);
   mountMotionToggles();
   renderSocials();
-  setupContactMail();
   setupLists();
   const gallery = initGallery({
     onOpen: lockScroll,

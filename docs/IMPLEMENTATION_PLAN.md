@@ -233,7 +233,7 @@ Pills (count flexible ✅): Name (Kotoha/ことは) · Birthday June 10 · Gemin
 10. News: date posted (pre-filled today, editable), headline, short description, **up to 3 links**; **draft/publish**.
 11. Videos: date (pre-filled today, editable), draft/publish.
 12. Gallery item: image + author name + source link; infinite scroll; masonry.
-13. Footer: usual items, Moeko Works logo, fan-site disclaimer, obfuscated `moekosoftware@outlook.com`.
+13. Footer: usual items, Moeko Works logo, fan-site disclaimer, contact link to the Moeko Works contact form (https://moekoworks.vercel.app/contact).
 14. No permanent deletion of DB content: single `archived_content` table + Archive page with Restore; removed admins archived; gallery files permanently deleted from Cloudinary, record archived.
 15. Upload works with default settings (no manual compression/conversion).
 16. **Owner** (bootstrap account; forced change) + **Admins auto-numbered** (`<owner-username>2`, `3`, …), random 8-character temporary password, forced change; equal content powers; only Owner manages accounts.

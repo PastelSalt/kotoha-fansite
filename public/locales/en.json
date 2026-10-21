@@ -176,7 +176,8 @@
   },
   "footer": {
     "disclaimer": "This is an unofficial, non-profit fan site. It is not affiliated with Kotoha, HaKoniwalily, HoneyWorks or AiceClass. All characters and artwork belong to their respective owners and artists.",
-    "contact": "For issues, credit corrections or removal requests, contact:",
+    "contact": "For issues, credit corrections or removal requests, use the",
+    "contactLink": "Moeko Works contact form",
     "sections": "Sections",
     "official": "Official links",
     "credits": "Artwork credits",

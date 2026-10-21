@@ -8,7 +8,7 @@ import { isCalm } from './motion/prefs.js';
 export function initScroll() {
   document.addEventListener('click', (ev) => {
     const a = ev.target.closest('a[href^="#"]');
-    if (!a || a.getAttribute('href') === '#' || a.id === 'contact-mail') return;
+    if (!a || a.getAttribute('href') === '#') return;
     const target = document.querySelector(a.getAttribute('href'));
     if (!target) return;
     ev.preventDefault();
