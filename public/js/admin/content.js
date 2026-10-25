@@ -3,7 +3,7 @@ import { t } from '../shared/i18n-core.js';
 import { api, errorText } from './api.js';
 import {
   el, icon, refreshIcons, toast, openDialog, confirmAction, textField, selectField, segmentedField,
-  formValue, clearErrors, showFieldErrors, formatDate, todayJst, ytThumb, statusPill, pageHead,
+  formValue, clearErrors, showFieldErrors, formatDate, todayJst, ytThumb, statusPill, pageHead, stateBox, skeletonRows,
 } from './ui.js';
 
 const LINK_KEYS = ['watch', 'listen', 'details', 'tickets', 'official', 'shop'];
@@ -13,6 +13,7 @@ const ytUrl = (id) => (id ? `https://www.youtube.com/watch?v=${id}` : '');
 // Resource definitions: list presentation + form fields (keys match the API).
 export const RESOURCES = {
   videos: {
+    icon: 'circle-play',
     date: (i) => i.postedOn,
     title: (i) => i.title,
     thumb: (i) => ytThumb(i.youtubeId),
@@ -24,6 +25,7 @@ export const RESOURCES = {
     ],
   },
   news: {
+    icon: 'newspaper',
     date: (i) => i.postedOn,
     title: (i) => i.headline,
     text: (i) => i.summary,
@@ -36,6 +38,7 @@ export const RESOURCES = {
     ],
   },
   achievements: {
+    icon: 'trophy',
     date: (i) => i.achievedOn,
     title: (i) => i.text,
     fields: [
@@ -46,6 +49,7 @@ export const RESOURCES = {
     ],
   },
   discography: {
+    icon: 'disc-3',
     date: (i) => i.releasedOn,
     title: (i) => i.title,
     text: (i) => [t(`content.types.${i.releaseType}`), i.note].filter(Boolean).join(' · '),
@@ -185,18 +189,18 @@ export async function renderContent(name, view) {
   const def = RESOURCES[name];
   let filter = '';
   let cursor = null;
-  const list = el('div', { class: 'items' });
+  const list = el('div', { class: 'items' }, skeletonRows());
   const more = el('div', { class: 'more' });
 
   const row = (item) => {
     const thumb = def.thumb?.(item);
     const toggle = el('button', { class: 'btn btn--ghost btn--sm', type: 'button' },
       [icon(item.status === 'published' ? 'eye-off' : 'eye'), ' ', t(item.status === 'published' ? 'common.unpublish' : 'common.publish')]);
-    const node = el('article', { class: 'item' }, [
-      thumb ? el('img', { class: 'item__thumb', src: thumb, alt: '', loading: 'lazy' }) : el('span'),
+    const node = el('article', { class: item.status === 'draft' ? 'item item--draft' : 'item' }, [
+      thumb ? el('img', { class: 'item__thumb', src: thumb, alt: '', loading: 'lazy' }) : el('span', { class: 'item__icon' }, [icon(def.icon)]),
       el('div', { class: 'item__main' }, [
         el('p', { class: 'item__title', text: def.title(item) }),
-        el('p', { class: 'item__meta' }, [el('span', { text: formatDate(def.date(item)) }), statusPill(item.status)]),
+        el('p', { class: 'item__meta' }, [el('span', { class: 'item__date', text: formatDate(def.date(item)) }), statusPill(item.status)]),
         def.text ? el('p', { class: 'item__text', text: def.text(item) }) : null,
       ]),
       el('div', { class: 'item__actions' }, [
@@ -237,7 +241,7 @@ export async function renderContent(name, view) {
     cursor = page.nextCursor;
     const rows = page.items.map(row);
     if (append) list.append(...rows);
-    else list.replaceChildren(...(rows.length ? rows : [el('p', { class: 'empty', text: t('common.empty') })]));
+    else list.replaceChildren(...(rows.length ? rows : [stateBox(t('common.empty'))]));
     more.replaceChildren(cursor ? el('button', { class: 'btn btn--ghost', type: 'button', text: t('common.loadMore'), onclick: () => load(true) }) : '');
     refreshIcons();
   }

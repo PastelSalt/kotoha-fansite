@@ -14,9 +14,11 @@
   <script type="module" src="/js/admin/login.js"></script>
 </head>
 <body class="auth-page">
-  <main class="auth-card card animate__animated animate__fadeInUp">
+  <main class="auth-card paper animate__animated animate__fadeInUp">
+    <svg class="cl auth-card__deco auth-card__deco--a" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
+    <svg class="cl cl--pink auth-card__deco auth-card__deco--b" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg>
     <img class="auth-card__logo" src="/assets/img/logo-500.webp" alt="Kotoha" width="500" height="144">
-    <h1 class="auth-card__title" data-i18n="login.title">Admin sign in</h1>
+    <h1 class="auth-card__title"><span class="sticker sticker--sm" data-i18n="login.title">Admin sign in</span></h1>
     <!-- method="post": if the script hasn't loaded yet, a native submit must never put the password in the URL -->
     <form id="login-form" class="form" method="post" action="/login" novalidate>
       <div class="field">

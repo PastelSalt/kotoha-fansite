@@ -1,31 +1,48 @@
 // Admin pages: dashboard, archive, activity log, accounts (Owner), my account.
-import { t } from '../shared/i18n-core.js';
+import { t, currentLang } from '../shared/i18n-core.js';
 import { api, errorText } from './api.js';
-import { el, icon, refreshIcons, toast, openDialog, confirmAction, formatDateTime, copyText, pageHead } from './ui.js';
+import {
+  el, icon, clover, sticker, stateBox, refreshIcons, toast, openDialog, confirmAction, formatDateTime, copyText, pageHead, skeletonRows,
+} from './ui.js';
 import { passwordForm } from './password.js';
 import { renderAnalytics } from './analytics.js';
 
 // ---------------------------------------------------------------- dashboard
+const CONTENT_TILES = [
+  ['videos', 'circle-play'], ['news', 'newspaper'], ['achievements', 'trophy'], ['discography', 'disc-3'], ['gallery', 'images'],
+];
+const todayLong = () => new Intl.DateTimeFormat(currentLang() === 'ja' ? 'ja-JP' : 'en-US', { dateStyle: 'full', timeZone: 'Asia/Tokyo' }).format(new Date());
+
 export async function renderDashboard(view, { user }) {
   const s = await api('admin/summary');
   const analytics = el('div', { id: 'analytics' });
-  const stat = (labelKey, pub, draft, href) => el('a', { class: 'stat', href, style: 'text-decoration:none;color:inherit' }, [
-    el('p', { class: 'stat__label', text: t(labelKey) }),
-    el('p', { class: 'stat__value', text: String(pub) }),
-    el('p', { class: 'stat__sub', text: `${t('dashboard.published')} · ${draft} ${t('dashboard.drafts')}` }),
-  ]);
+  const tile = (name, iconName) => {
+    const pub = Number(s[`${name}_published`]) || 0;
+    const draft = Number(s[`${name}_draft`]) || 0;
+    const total = pub + draft;
+    return el('a', { class: 'tile', href: `#/${name}` }, [
+      el('div', { class: 'tile__top' }, [el('span', { class: 'tile__icon' }, [icon(iconName)]), el('span', { class: 'tile__go' }, [icon('arrow-right')])]),
+      el('p', { class: 'tile__label', text: t(`nav.${name}`) }),
+      el('p', { class: 'tile__value' }, [String(pub), el('small', { text: t('dashboard.published') })]),
+      el('div', { class: 'tile__foot' }, [
+        draft
+          ? el('span', { class: 'pill pill--draft', text: t(draft === 1 ? 'dashboard.draft1' : 'dashboard.draftsN', { n: draft }) })
+          : el('span', { class: 'tile__ok', text: t('dashboard.allPublished') }),
+      ]),
+      el('div', { class: 'split', 'aria-hidden': 'true' }, [el('span', { class: 'split__pub', style: `width:${total ? (pub / total) * 100 : 0}%` })]),
+    ]);
+  };
   view.replaceChildren(
-    el('div', { class: 'page-head' }, [el('div', {}, [
-      el('h1', { text: t('dashboard.hello', { name: user.username }) }),
-      el('p', { text: t('dashboard.intro') }),
-    ])]),
-    el('div', { class: 'stats' }, [
-      stat('nav.videos', s.videos_published, s.videos_draft, '#/videos'),
-      stat('nav.news', s.news_published, s.news_draft, '#/news'),
-      stat('nav.achievements', s.achievements_published, s.achievements_draft, '#/achievements'),
-      stat('nav.discography', s.discography_published, s.discography_draft, '#/discography'),
-      stat('nav.gallery', s.gallery_published, s.gallery_draft, '#/gallery'),
+    el('section', { class: 'paper stitch welcome' }, [
+      clover('pink', 'welcome__deco'),
+      el('div', { class: 'welcome__text' }, [
+        el('h1', {}, [sticker(t('dashboard.hello', { name: user.username }))]),
+        el('p', { text: t('dashboard.intro') }),
+      ]),
+      el('p', { class: 'welcome__date' }, [icon('calendar-heart'), el('span', { text: `${todayLong()} · JST` })]),
     ]),
+    el('div', { class: 'block-head' }, [el('h2', {}, [sticker(t('dashboard.contentTitle'), { small: true })])]),
+    el('div', { class: 'tiles' }, CONTENT_TILES.map(([n, i]) => tile(n, i))),
     analytics,
   );
   renderAnalytics(analytics);
@@ -35,7 +52,7 @@ export async function renderDashboard(view, { user }) {
 export async function renderArchive(view) {
   let source = '';
   let cursor = null;
-  const list = el('div', { class: 'items' });
+  const list = el('div', { class: 'items' }, skeletonRows());
   const more = el('div', { class: 'more' });
   const sections = ['videos', 'news', 'achievements', 'discography_items', 'gallery_images', 'admin_users'];
   const select = el('select', { 'aria-label': t('archive.from') }, [
@@ -43,6 +60,7 @@ export async function renderArchive(view) {
     ...sections.map((s) => el('option', { value: s, text: t(`archive.sections.${s}`) })),
   ]);
   select.addEventListener('change', () => { source = select.value; load(false); });
+  const SECTION_ICONS = { videos: 'circle-play', news: 'newspaper', achievements: 'trophy', discography_items: 'disc-3', gallery_images: 'images', admin_users: 'user-round' };
 
   const row = (a) => {
     const restore = el('button', { class: 'btn btn--ghost btn--sm', type: 'button' }, [icon('archive-restore'), ' ', t('common.restore')]);
@@ -54,11 +72,12 @@ export async function renderArchive(view) {
         load(false);
       } catch (err) { toast(errorText(err), 'error'); restore.disabled = false; }
     });
-    return el('article', { class: 'item' }, [
-      el('span', { class: 'pill pill--draft', text: t(`archive.sections.${a.sourceTable}`) }),
+    return el('article', { class: a.restorable ? 'item' : 'item item--plain' }, [
+      el('span', { class: 'item__icon item__icon--pink' }, [icon(SECTION_ICONS[a.sourceTable] || 'archive')]),
       el('div', { class: 'item__main' }, [
         el('p', { class: 'item__title', text: a.label || `#${a.originalId}` }),
         el('p', { class: 'item__meta' }, [
+          el('span', { class: 'pill pill--section', text: t(`archive.sections.${a.sourceTable}`) }),
           el('span', { text: `${t('archive.when')}: ${formatDateTime(a.archivedAt)}` }),
           el('span', { text: `${t('archive.by')}: ${a.archivedBy}` }),
           a.restoredAt ? el('span', { class: 'pill pill--published', text: t('archive.restored') }) : null,
@@ -66,7 +85,7 @@ export async function renderArchive(view) {
         a.reason ? el('p', { class: 'item__text', text: `${t('archive.reason')}: ${a.reason}` }) : null,
         a.note ? el('p', { class: 'item__text', text: a.note }) : null,
       ]),
-      el('div', { class: 'item__actions' }, [a.restorable ? restore : null]),
+      a.restorable ? el('div', { class: 'item__actions' }, [restore]) : null,
     ]);
   };
 
@@ -78,12 +97,12 @@ export async function renderArchive(view) {
     cursor = page.nextCursor;
     const rows = page.items.map(row);
     if (append) list.append(...rows);
-    else list.replaceChildren(...(rows.length ? rows : [el('p', { class: 'empty', text: t('common.empty') })]));
+    else list.replaceChildren(...(rows.length ? rows : [stateBox(t('common.empty'))]));
     more.replaceChildren(cursor ? el('button', { class: 'btn btn--ghost', type: 'button', text: t('common.loadMore'), onclick: () => load(true) }) : '');
     refreshIcons();
   }
 
-  view.replaceChildren(pageHead('archive.title', 'archive.hint'), el('div', { class: 'toolbar' }, [el('div', { class: 'field' }, [select])]), list, more);
+  view.replaceChildren(pageHead('archive.title', 'archive.hint'), el('div', { class: 'toolbar' }, [select]), list, more);
   await load(false);
 }
 
@@ -92,19 +111,21 @@ const actionLabel = (code) => {
   const label = t(`activity.actions.${code}`);
   return typeof label === 'string' && label !== `activity.actions.${code}` ? label : code;
 };
+const ACTION_ICONS = { create: 'plus', update: 'pencil', publish: 'eye', unpublish: 'eye-off', archive: 'archive', restore: 'archive-restore', upload: 'upload', delete: 'trash-2', login: 'log-in', logout: 'log-out' };
+const actionIcon = (code) => ACTION_ICONS[String(code).split('.').pop().split('_')[0]] || 'history';
+
 export async function renderActivity(view) {
   let cursor = null;
-  const list = el('div', { class: 'items' });
+  const list = el('div', { class: 'items' }, skeletonRows());
   const more = el('div', { class: 'more' });
-  const row = (a) => el('article', { class: 'item' }, [
-    el('span', { class: 'pill pill--admin', text: a.username }),
+  const row = (a) => el('article', { class: 'item item--plain' }, [
+    el('span', { class: 'item__icon' }, [icon(actionIcon(a.action))]),
     el('div', { class: 'item__main' }, [
       el('p', { class: 'item__title', text: actionLabel(a.action) }),
-      el('p', { class: 'item__meta', text: formatDateTime(a.createdAt) }),
+      el('p', { class: 'item__meta' }, [el('span', { class: 'pill pill--admin', text: a.username }), el('span', { text: formatDateTime(a.createdAt) })]),
       a.details?.label || a.details?.username || a.details?.author
         ? el('p', { class: 'item__text', text: a.details.label || a.details.username || a.details.author }) : null,
     ]),
-    el('span'),
   ]);
   async function load(append) {
     const qs = new URLSearchParams({ limit: '50' });
@@ -113,8 +134,9 @@ export async function renderActivity(view) {
     cursor = page.nextCursor;
     const rows = page.items.map(row);
     if (append) list.append(...rows);
-    else list.replaceChildren(...(rows.length ? rows : [el('p', { class: 'empty', text: t('common.empty') })]));
+    else list.replaceChildren(...(rows.length ? rows : [stateBox(t('common.empty'))]));
     more.replaceChildren(cursor ? el('button', { class: 'btn btn--ghost', type: 'button', text: t('common.loadMore'), onclick: () => load(true) }) : '');
+    refreshIcons();
   }
   view.replaceChildren(pageHead('activity.title', 'activity.hint'), list, more);
   await load(false);
@@ -139,7 +161,7 @@ function showSecret(titleKey, account, tempPassword) {
 }
 
 export async function renderAccounts(view) {
-  const list = el('div', { class: 'items' });
+  const list = el('div', { class: 'items' }, skeletonRows(2));
   const createBtn = el('button', { class: 'btn btn--primary', type: 'button' }, [icon('user-plus'), ' ', t('accounts.create')]);
   createBtn.addEventListener('click', async () => {
     createBtn.disabled = true;
@@ -173,13 +195,13 @@ export async function renderAccounts(view) {
         try { await api(`admin/accounts/${a.id}`, { method: 'DELETE', body: { reason } }); toast(t('common.saved')); load(); } catch (err) { toast(errorText(err), 'error'); }
       } }, [icon('user-x'), ' ', t('accounts.remove')]));
     }
-    return el('article', { class: 'item' }, [
-      el('span', { class: 'item__thumb item__thumb--square', style: 'display:grid;place-items:center' }, [icon('user-round')]),
+    return el('article', { class: actions.length ? 'item' : 'item item--plain' }, [
+      el('span', { class: a.role === 'owner' ? 'item__icon' : 'item__icon item__icon--pink' }, [a.role === 'owner' ? icon('crown') : icon('user-round')]),
       el('div', { class: 'item__main' }, [
         el('p', { class: 'item__title', text: a.username }),
         el('p', { class: 'item__meta' }, [...pills, el('span', { text: `${t('accounts.lastLogin')}: ${a.lastLoginAt ? formatDateTime(a.lastLoginAt) : t('accounts.never')}` })]),
       ]),
-      el('div', { class: 'item__actions' }, actions),
+      actions.length ? el('div', { class: 'item__actions' }, actions) : null,
     ]);
   };
 
@@ -200,11 +222,12 @@ export async function renderAccount(view, { user, onPasswordChanged }) {
   });
   view.replaceChildren(
     pageHead('account.title', null),
-    el('section', { class: 'panel' }, [
-      el('p', {}, [el('strong', { text: user.username }), ' ', el('span', { class: `pill pill--${user.role}`, text: t(`roles.${user.role}`) })]),
-      el('div', { style: 'margin-top:12px' }, [others]),
+    el('section', { class: 'panel account-card' }, [
+      el('span', { class: 'item__icon' }, [clover(user.role === 'owner' ? '' : 'pink')]),
+      el('p', { class: 'account-card__name' }, [el('span', { text: user.username }), el('span', { class: `pill pill--${user.role}`, text: t(`roles.${user.role}`) })]),
+      others,
     ]),
-    el('section', { class: 'panel' }, [el('h2', { text: t('password.submit') }), passwordForm({ username: user.username, onDone: onPasswordChanged })]),
+    el('section', { class: 'panel' }, [el('h2', {}, [icon('key-round'), el('span', { text: t('password.submit') })]), passwordForm({ username: user.username, onDone: onPasswordChanged })]),
   );
   refreshIcons();
 }
