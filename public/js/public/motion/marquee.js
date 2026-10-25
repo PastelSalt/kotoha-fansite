@@ -15,22 +15,31 @@ export function startMarquee(el, { speed = 36 } = {}) {
   let visible = false;
 
   // One loop = the width of one copy of the text, at `speed` px/s.
+  // The timeline starts HEADROOM loops in: played in reverse (after scrolling up) an infinite animation would finish
+  // on reaching 0, and play() can't rewind a reversed infinite animation from 0 (it throws).
+  const HEADROOM = 1000;
   const build = () => {
     const w = first.getBoundingClientRect().width;
     if (!w || w === width) return;
-    const progress = anim ? (anim.currentTime % anim.effect.getTiming().duration) / anim.effect.getTiming().duration : 0;
+    const d = anim?.effect.getTiming().duration;
+    const progress = anim && anim.currentTime != null ? (anim.currentTime % d) / d : 0;
     anim?.cancel();
     width = w;
     const duration = (w / speed) * 1000;
     anim = track.animate([{ transform: 'translate3d(0, 0, 0)' }, { transform: `translate3d(${-w}px, 0, 0)` }], { duration, iterations: Infinity });
-    anim.currentTime = progress * duration;
+    anim.currentTime = (HEADROOM + progress) * duration;
     anim.playbackRate = rate;
     sync();
   };
   const sync = () => {
     if (!anim) return;
-    if (visible && !isCalm()) { if (anim.playState !== 'running') anim.play(); }
-    else anim.pause();
+    if (visible && !isCalm()) {
+      if (anim.playState !== 'running') {
+        const d = anim.effect.getTiming().duration;
+        if (!(anim.currentTime > d)) anim.currentTime = HEADROOM * d;
+        anim.play();
+      }
+    } else anim.pause();
   };
 
   onScrollVelocity((v) => {
