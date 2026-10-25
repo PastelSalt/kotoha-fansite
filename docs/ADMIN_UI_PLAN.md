@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | **v0.2 (2026-10-25): approved and built (A0–A5) on branch `admin-ui-refresh`, checked on a local mock preview. Not committed, not deployed.** Waiting for the owner's look at localhost (✋), then A6 (real-data regression) and A7 (merge) |
+| **Status** | **v0.3 (2026-10-25): live on production** (commit `dc82320`, merge `4568cac` into `main`). Checked on a mock preview + production `/login`; a real-data check (owner signs in) is still open |
 | **Scope** | How the admin panel (`/admin`) and the sign-in page (`/login`) **look and lay out**. The dashboard gets the most work; every other admin screen gets the shared component polish |
 | **Not changing** | API (`api/*`), `lib/*`, database, migrations, analytics collection, the data shown, auth/roles, CSP/SRI rules, the public site |
 | **Supersedes** | `DESIGN_V2_PLAN.md` round 1, Q2 ("keep the current admin look"). That plan stays as it is for the public site |
