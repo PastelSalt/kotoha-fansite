@@ -3,7 +3,7 @@ import { t } from '../shared/i18n-core.js';
 import { api, errorText, ApiError } from './api.js';
 import {
   el, icon, refreshIcons, toast, openDialog, confirmAction, textField, segmentedField, formValue,
-  clearErrors, showFieldErrors, statusPill, pageHead,
+  clearErrors, showFieldErrors, statusPill, pageHead, stateBox,
 } from './ui.js';
 
 const MAX_BYTES = 10 * 1024 * 1024;   // Cloudinary free plan: 10 MB per image
@@ -184,7 +184,7 @@ export async function renderGallery(view) {
     cursor = page.nextCursor;
     const cards = page.items.map(card);
     if (append) grid.append(...cards);
-    else grid.replaceChildren(...(cards.length ? cards : [el('p', { class: 'empty', text: t('common.empty') })]));
+    else grid.replaceChildren(...(cards.length ? cards : [stateBox(t('common.empty'))]));
     more.replaceChildren(cursor ? el('button', { class: 'btn btn--ghost', type: 'button', text: t('common.loadMore'), onclick: () => loadGrid(true) }) : '');
     refreshIcons();
   }

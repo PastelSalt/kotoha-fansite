@@ -98,7 +98,12 @@
     "archive": "アーカイブ",
     "activity": "操作履歴",
     "accounts": "アカウント",
-    "account": "マイアカウント"
+    "account": "マイアカウント",
+    "groups": {
+      "content": "コンテンツ",
+      "records": "記録",
+      "account": "アカウント"
+    }
   },
   "roles": {
     "owner": "オーナー",
@@ -108,7 +113,11 @@
     "hello": "こんにちは、{name}さん！",
     "intro": "ファンサイトに表示される内容はすべてここで管理できます。",
     "published": "公開中",
-    "drafts": "下書き"
+    "drafts": "下書き",
+    "contentTitle": "サイトのコンテンツ",
+    "draft1": "下書き 1件",
+    "draftsN": "下書き {n}件",
+    "allPublished": "すべて公開中"
   },
   "content": {
     "videos": {
@@ -345,6 +354,13 @@
     "unknown": "不明",
     "noData": "まだデータがありません。",
     "removedItem": "#{id}（削除済み）",
-    "privacyNote": "Cookieは使用せず、IPアドレスも保存していません。この管理画面にログイン中のブラウザ、ボット、テスト環境からのアクセスは集計されません。詳細な記録は90日間、日ごとの合計はその後も保存されます。"
+    "privacyNote": "Cookieは使用せず、IPアドレスも保存していません。この管理画面にログイン中のブラウザ、ボット、テスト環境からのアクセスは集計されません。詳細な記録は90日間、日ごとの合計はその後も保存されます。",
+    "groups": {
+      "audience": "訪問者",
+      "traffic": "アクセス",
+      "engagement": "反応"
+    },
+    "totalShown": "このグラフ：訪問 {visits}件・ユニーク訪問者 {uniques}人",
+    "peakHour": "いちばん多い時間帯：{h}時台（訪問 {n}件）"
   }
 }

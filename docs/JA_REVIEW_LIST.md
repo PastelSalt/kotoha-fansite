@@ -86,3 +86,10 @@ The 27 entries from the official 実績 list are verbatim. These are mine:
 | `analytics.sectionsHint` | 各セクションまで見た訪問の割合・そこでの平均滞在時間。 | ⏳ |
 | `analytics.uniquesLegend` | ユニーク訪問者（1日ごとに集計） | ⏳ |
 | `analytics.privacyNote` | Cookieは使用せず、IPアドレスも保存していません。この管理画面にログイン中のブラウザ、ボット、テスト環境からのアクセスは集計されません。… | ⏳ |
+| `nav.groups.content` / `records` / `account` (2026-10-25, admin UI refresh) | コンテンツ／記録／アカウント | ⏳ |
+| `dashboard.contentTitle` | サイトのコンテンツ | ⏳ |
+| `dashboard.draft1` / `draftsN` | 下書き 1件／下書き {n}件 | ⏳ |
+| `dashboard.allPublished` | すべて公開中 | ⏳ |
+| `analytics.groups.audience` / `traffic` / `engagement` | 訪問者／アクセス／反応 | ⏳ |
+| `analytics.totalShown` | このグラフ：訪問 {visits}件・ユニーク訪問者 {uniques}人 | ⏳ |
+| `analytics.peakHour` | いちばん多い時間帯：{h}時台（訪問 {n}件） | ⏳ |

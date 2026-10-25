@@ -98,7 +98,12 @@
     "archive": "Archive",
     "activity": "Activity Log",
     "accounts": "Accounts",
-    "account": "My Account"
+    "account": "My Account",
+    "groups": {
+      "content": "Content",
+      "records": "Records",
+      "account": "Account"
+    }
   },
   "roles": {
     "owner": "Owner",
@@ -108,7 +113,11 @@
     "hello": "Hello, {name}!",
     "intro": "Here you can manage everything that appears on the fan site.",
     "published": "published",
-    "drafts": "drafts"
+    "drafts": "drafts",
+    "contentTitle": "Site content",
+    "draft1": "1 draft",
+    "draftsN": "{n} drafts",
+    "allPublished": "All published"
   },
   "content": {
     "videos": {
@@ -345,6 +354,13 @@
     "unknown": "Unknown",
     "noData": "No data yet.",
     "removedItem": "#{id} (removed)",
-    "privacyNote": "No cookies are used and no IP addresses are stored. Admin browsers signed in to this panel, bots and test sites are not counted. Detailed records are kept for 90 days; daily totals are kept."
+    "privacyNote": "No cookies are used and no IP addresses are stored. Admin browsers signed in to this panel, bots and test sites are not counted. Detailed records are kept for 90 days; daily totals are kept.",
+    "groups": {
+      "audience": "Audience",
+      "traffic": "Traffic",
+      "engagement": "Engagement"
+    },
+    "totalShown": "{visits} visits · {uniques} unique visitors in this chart",
+    "peakHour": "Busiest: {h}:00 JST ({n} visits)"
   }
 }

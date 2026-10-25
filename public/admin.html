@@ -19,8 +19,8 @@
   <a class="skip-link" href="#view" data-i18n="a11y.skip">Skip to content</a>
 
   <header class="topbar">
-    <a class="topbar__brand" href="#/dashboard"><img src="/assets/img/logo-500.webp" alt="Kotoha" width="500" height="144"><span>Admin</span></a>
     <button class="topbar__menu icon-btn" type="button" id="nav-toggle" aria-controls="sidebar" aria-expanded="false"><i data-lucide="menu"></i><span class="visually-hidden" data-i18n="a11y.menu">Menu</span></button>
+    <a class="topbar__brand" href="#/dashboard"><img src="/assets/img/logo-500.webp" alt="Kotoha" width="500" height="144"><span>Admin</span></a>
     <div class="topbar__right">
       <div class="lang-switch" data-lang-switch></div>
       <span class="user-badge" id="user-badge"></span>
@@ -30,19 +30,37 @@
   </header>
 
   <nav class="sidebar" id="sidebar" aria-label="Admin" data-i18n-attr="aria-label:a11y.adminNav">
-    <ul>
-      <li><a href="#/dashboard" data-route="dashboard"><i data-lucide="layout-dashboard"></i><span data-i18n="nav.dashboard">Dashboard</span></a></li>
-      <li><a href="#/videos" data-route="videos"><i data-lucide="circle-play"></i><span data-i18n="nav.videos">Latest Videos</span></a></li>
-      <li><a href="#/news" data-route="news"><i data-lucide="newspaper"></i><span data-i18n="nav.news">News</span></a></li>
-      <li><a href="#/achievements" data-route="achievements"><i data-lucide="trophy"></i><span data-i18n="nav.achievements">Achievements</span></a></li>
-      <li><a href="#/discography" data-route="discography"><i data-lucide="disc-3"></i><span data-i18n="nav.discography">Discography</span></a></li>
-      <li><a href="#/gallery" data-route="gallery"><i data-lucide="images"></i><span data-i18n="nav.gallery">Gallery</span></a></li>
-      <li class="sidebar__sep"><a href="#/archive" data-route="archive"><i data-lucide="archive"></i><span data-i18n="nav.archive">Archive</span></a></li>
-      <li><a href="#/activity" data-route="activity"><i data-lucide="history"></i><span data-i18n="nav.activity">Activity Log</span></a></li>
-      <li data-owner-only hidden><a href="#/accounts" data-route="accounts"><i data-lucide="users"></i><span data-i18n="nav.accounts">Accounts</span></a></li>
-      <li><a href="#/account" data-route="account"><i data-lucide="user-round-cog"></i><span data-i18n="nav.account">My Account</span></a></li>
-    </ul>
+    <div class="sidebar__group">
+      <ul>
+        <li><a href="#/dashboard" data-route="dashboard"><i data-lucide="layout-dashboard"></i><span data-i18n="nav.dashboard">Dashboard</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar__group">
+      <p class="sidebar__label"><svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span data-i18n="nav.groups.content">Content</span></p>
+      <ul>
+        <li><a href="#/videos" data-route="videos"><i data-lucide="circle-play"></i><span data-i18n="nav.videos">Latest Videos</span></a></li>
+        <li><a href="#/news" data-route="news"><i data-lucide="newspaper"></i><span data-i18n="nav.news">News</span></a></li>
+        <li><a href="#/achievements" data-route="achievements"><i data-lucide="trophy"></i><span data-i18n="nav.achievements">Achievements</span></a></li>
+        <li><a href="#/discography" data-route="discography"><i data-lucide="disc-3"></i><span data-i18n="nav.discography">Discography</span></a></li>
+        <li><a href="#/gallery" data-route="gallery"><i data-lucide="images"></i><span data-i18n="nav.gallery">Gallery</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar__group">
+      <p class="sidebar__label"><svg class="cl cl--pink" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span data-i18n="nav.groups.records">Records</span></p>
+      <ul>
+        <li><a href="#/archive" data-route="archive"><i data-lucide="archive"></i><span data-i18n="nav.archive">Archive</span></a></li>
+        <li><a href="#/activity" data-route="activity"><i data-lucide="history"></i><span data-i18n="nav.activity">Activity Log</span></a></li>
+      </ul>
+    </div>
+    <div class="sidebar__group">
+      <p class="sidebar__label"><svg class="cl" aria-hidden="true"><use href="/assets/svg/v2-sprite.svg#cl-leaf"/></svg><span data-i18n="nav.groups.account">Account</span></p>
+      <ul>
+        <li data-owner-only hidden><a href="#/accounts" data-route="accounts"><i data-lucide="users"></i><span data-i18n="nav.accounts">Accounts</span></a></li>
+        <li><a href="#/account" data-route="account"><i data-lucide="user-round-cog"></i><span data-i18n="nav.account">My Account</span></a></li>
+      </ul>
+    </div>
   </nav>
+  <div class="nav-scrim" id="nav-scrim" aria-hidden="true"></div>
 
   <main class="view" id="view" tabindex="-1">
     <p class="view__loading" data-i18n="common.loading">Loading…</p>

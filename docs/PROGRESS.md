@@ -6,8 +6,8 @@
 | | |
 |---|---|
 | **Implementation authorized** | ✅ 2026-09-26 by owner |
-| **Last checkpoint** | 2026-10-09: **performance pass** (`docs/PERFORMANCE_PLAN.md`): snapping + Lenis removed, rendering cost cut, no content removed. Before that, 2026-10-02: **design v2 ("Clover Scrapbook") merged into `main`** (`c7b6975`) at the owner's request; `MIGRATION.md` handoff added (`ab773d3`). Production deploy not yet verified (see §6) |
-| **Current phase** | v1 phases 1–16 done (Phase 17 launch tasks open) · **Design v2: D1–D4 + D6 live; D5 phones, D7 motion, D8 extras, D9 QA remaining** |
+| **Last checkpoint** | 2026-10-25: **admin UI refresh planned** (`docs/ADMIN_UI_PLAN.md` v0.1, front end only, waiting for the owner's OK; nothing built). Before that, 2026-10-09: **performance pass** (`docs/PERFORMANCE_PLAN.md`): snapping + Lenis removed, rendering cost cut, no content removed. Before that, 2026-10-02: **design v2 ("Clover Scrapbook") merged into `main`** (`c7b6975`) at the owner's request; `MIGRATION.md` handoff added (`ab773d3`). Production deploy not yet verified (see §6) |
+| **Current phase** | v1 phases 1–16 done (Phase 17 launch tasks open) · **Design v2: D1–D4 + D6 live; D5 phones, D7 motion, D8 extras, D9 QA remaining** · **Admin UI refresh: A0 (plan approval) pending** |
 | **Next action** | See §6 "Current focus / next action". **Handoff for a fresh session: read [`../MIGRATION.md`](../MIGRATION.md) first.** |
 
 ---
@@ -240,6 +240,15 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [ ] D8 Extras: mascot cameo, special-day decorations, LIVE badge on the nav; **gallery seed +5 credited artworks** (About background, 2 loader arts, avatar, pose)
 - [ ] D9 QA: keyboard/screen-reader, contrast, ≥13 px text, JP line breaks, performance, tracker + admin regression; remove unused generated SVGs / `legacy` layer name; commit the headless-Edge test scripts into the repo
 
+### Admin UI refresh: front end only (plan: `docs/ADMIN_UI_PLAN.md`)
+> Look and layout of `/admin` + `/login` only, with the data the API already returns. No API/DB/lib changes, no new features or libraries. Supersedes design-v2 Q2 ("keep the current admin look"). Branch `admin-ui-refresh`; merge only with the owner's OK.
+- [x] Plan v0.1 written (2026-10-25) after analysing every admin file (`admin.html`, `admin.css`, `js/admin/*`, admin locales) and the `admin/summary` + `admin/analytics` responses; 14 UI problems listed in plan §1.4
+- [x] A0 Approved 2026-10-25; owner: "make sure it still adheres to the actual site theme"
+- [x] A1–A5 built on branch `admin-ui-refresh` (uncommitted): site-theme tokens, shell, dashboard, other screens, login. Details in `ADMIN_UI_PLAN.md` §9
+- [~] Owner preview on localhost (mock data) → ✋ waiting for feedback
+- [ ] A6 QA (EN/JA, 360–1920 px, keyboard, reduced motion, contrast, 0 CSP violations, full CRUD regression)
+- [ ] A7 JA review list + docs; owner OK (✋3) → merge → verify production `/admin`
+
 ---
 
 ## 6. CURRENT FOCUS / NEXT ACTION
@@ -247,7 +256,8 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - **State (2026-10-02):** public site v1 was live since 2026-09-26 (not announced). **Design v2 is now merged into `main`** (commit `c7b6975`), so every push deploys it. Phases 1–16 are done; Phase 17 (launch) still has owner-only items. Full handoff context: `../MIGRATION.md`.
 - **Next action 1 (Claude):** verify the production deploy at https://kotoha-fansite.vercel.app (the Vercel "list deployments" call was blocked by the permission classifier during the merge, so it is **unconfirmed**). If broken: promote the previous Vercel deployment and/or `git revert -m 1 c7b6975`.
 - **Next action 2:** owner reviews the live desktop design (✋2) → adjustments → D5 phones/tablet (✋3: owner tries it on a real phone, replaces the old swipe test) → D7 motion (✋4) → D8 extras (+ 5 gallery artworks) → D9 QA. One branch per phase; merge to `main` only with the owner's OK.
-- **Waiting on owner:** add `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` to Vercel (production gallery uploads) · first admin login + password change · native Japanese review of `docs/JA_REVIEW_LIST.md` (new v2 strings appended) · real-phone check (after D5) · go-ahead for the pre-launch reset when ready.
+- **Admin UI refresh (2026-10-25):** A0–A5 built on branch `admin-ui-refresh` (not committed, not deployed). Owner is looking at it on localhost (mock preview, see §11). Next: owner feedback → A6 real-data regression (needs `.env.local` in this checkout) → commit → owner OK → merge to `main`.
+- **Waiting on owner:** feedback on the admin UI preview · add `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` to Vercel (production gallery uploads) · first admin login + password change · native Japanese review of `docs/JA_REVIEW_LIST.md` (new v2 strings appended) · real-phone check (after D5) · go-ahead for the pre-launch reset when ready.
 - **Workflow:** commit + push after each verified step (every push to `main` deploys production). Always run the secret scan before committing. Commit trailer `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`; never force-push; docs (this file, the plan §14/§16, `DESIGN_SYSTEM.md`) updated after each phase.
 
 ---
@@ -379,3 +389,14 @@ _(none blocking.)_ The five D1.1 density questions (density level, four-leaf vs 
   - **Published the 影響力∞アイドル achievement** (id 24, 2026-10-07): it was a draft "until release" and the song is out; seed now has it as published.
   - `FORHANON.md` v1.2: Q4/Q5/Q7/Q8 recorded with the recommended answers (only Q9, the Hanon art, is still open).
   - Repo-local git identity set to `Moeko Works <214653345+PastelSalt@users.noreply.github.com>` (this Linux checkout had none, so the global Gmail address was being used).
+
+### 2026-10-25: Admin UI refresh plan (session 6)
+- Since the last entry, `main` also got (from `git log`): Moesoft → Moeko Works rebrand + removal of the old v1 attempt folder (`1012593`), footer maker card / sister sites / Hanon link / contact form instead of the old email (`b4b722b`, `0d7f89d`, `7f33550`), docs pointing at the `moekoworks` Vercel project (`79bbd5e`).
+- Owner asked for an analysis of the codebase and a plan to update the **admin panel / dashboard UI, front end only**, using only existing data and adding nothing that makes it more complex.
+- Analysed `public/admin.html`, `login.html`, `css/admin.css`, all of `js/admin/*`, the admin locales, and the shapes returned by `admin/summary` and `admin/analytics` (`lib/analytics.js`). Wrote `docs/ADMIN_UI_PLAN.md` v0.1: ground rules (only admin front-end files change; numbers may be derived in the browser, never new endpoints), 14 problems found (e.g. the range control also drives Avg visit / Avg loading but sits below them; content counts and visitor KPIs look identical; mobile sidebar has no backdrop/Esc; inline styles and filler `<span>`s), proposed dashboard layout, shared component polish, ~10 new strings, phases A0–A7.
+- No code changed; nothing committed.
+- **Next:** owner reviews the plan + answers §10 → A1 (CSS tokens/surfaces) on branch `admin-ui-refresh`.
+- Later the same day: owner approved ("proceed with the plan … make sure it still adheres to the actual site theme … run localhost so I can see it before prod"). Branch `admin-ui-refresh` created; **A0–A5 built** (files: `admin.html`, `login.html`, `css/admin.css`, `js/admin/{analytics,content,gallery,main,pages,ui}.js`, admin locales + `JA_REVIEW_LIST.md`). No API/lib/DB change.
+- **This checkout has no `.env.local`**, so the real dev server can't reach Neon. Built a scratchpad **mock preview server** instead (`admin-preview.mjs`, launch config `admin-preview` on port 3000 in `.claude/launch.json`): serves `public/` with the `vercel.json` headers (CSP), proxies `/api/public/*` read-only to production for real published content, fakes `/api/auth/*` + `/api/admin/*` in memory (any username/password signs in; saves/archives only change memory), swallows `/api/track`. Nothing touches the real DB or Cloudinary; gallery uploads return "not configured" there.
+- Verified on the preview: all routes, dialog save + toast, range switch, chart hover, mobile menu (scrim/Esc/focus), EN + JA, 1366/1024/375 px, no overflow, no CSP errors. **Not yet verified against the real API** (A6).
+- **Next:** owner feedback → adjustments → A6 with real data (`.env.local` needed, throwaway `devtest` admin) → commit → owner OK → merge → verify production `/admin`.

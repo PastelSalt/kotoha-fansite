@@ -15,10 +15,36 @@ export function refreshIcons() {
 
 export const icon = (name) => el('i', { 'data-lucide': name });
 
+/** Illustrated clover from the public site's sprite. `variant`: '' | 'pink' | 'white'. Decorative only. */
+export function clover(variant = '', extraClass = '') {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('class', ['cl', variant && `cl--${variant}`, extraClass].filter(Boolean).join(' '));
+  svg.setAttribute('aria-hidden', 'true');
+  const use = document.createElementNS(NS, 'use');
+  use.setAttribute('href', '/assets/svg/v2-sprite.svg#cl-leaf');
+  svg.append(use);
+  return svg;
+}
+
+/** Empty / error / info box. `kind`: 'empty' | 'error'; `small` for boxes inside cards. */
+export function stateBox(text, { kind = 'empty', small = false, action = null } = {}) {
+  return el('div', { class: ['state', small && 'state--small', kind === 'error' && 'state--error'].filter(Boolean).join(' '), role: kind === 'error' ? 'alert' : null }, [
+    kind === 'error' ? icon('circle-alert') : clover(small ? '' : 'pink'),
+    el('p', { text }),
+    action,
+  ]);
+}
+
 // ---------------------------------------------------------------- toasts
+const TOAST_ICONS = { ok: 'check', error: 'circle-alert', info: 'info' };
 export function toast(message, kind = 'ok', ms = 3500) {
-  const box = el('div', { class: `toast toast--${kind} animate__animated animate__fadeInUp`, role: kind === 'error' ? 'alert' : null, text: message });
+  const box = el('div', { class: `toast toast--${kind} animate__animated animate__fadeInUp`, role: kind === 'error' ? 'alert' : null }, [
+    el('span', { class: 'toast__icon', 'aria-hidden': 'true' }, [icon(TOAST_ICONS[kind] || 'info')]),
+    el('span', { text: message }),
+  ]);
   $('#toasts').append(box);
+  refreshIcons();
   setTimeout(() => {
     box.classList.replace('animate__fadeInUp', 'animate__fadeOutDown');
     box.addEventListener('animationend', () => box.remove(), { once: true });
@@ -167,9 +193,17 @@ export async function copyText(text, button) {
   } catch { /* clipboard blocked: the text is selectable */ }
 }
 
+/** Sticker title (as on the public site) with a clover. */
+export const sticker = (text, { tag = 'span', small = false, pink = false } = {}) =>
+  el(tag, { class: ['sticker', small && 'sticker--sm', pink && 'sticker--pink'].filter(Boolean).join(' ') }, [clover('white'), el('span', { text })]);
+
 export function pageHead(titleKey, hintKey, actions = []) {
   return el('div', { class: 'page-head' }, [
-    el('div', {}, [el('h1', { text: t(titleKey) }), hintKey ? el('p', { text: t(hintKey) }) : null]),
-    el('div', { class: 'toolbar' }, actions),
+    el('div', { class: 'page-head__text' }, [el('h1', {}, [sticker(t(titleKey))]), hintKey ? el('p', { text: t(hintKey) }) : null]),
+    actions.length ? el('div', { class: 'toolbar' }, actions) : null,
   ]);
 }
+
+/** List placeholder rows shown while the first page loads (sized like real rows, so nothing jumps). */
+export const skeletonRows = (n = 3, height = 76) =>
+  Array.from({ length: n }, () => el('div', { class: 'skeleton', style: `height:${height}px`, 'aria-hidden': 'true' }));

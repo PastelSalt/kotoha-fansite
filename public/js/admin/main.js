@@ -2,7 +2,7 @@
 import './styles.js';
 import { t, setLang, currentLang, isLangChosen, onLangChange, mountLangSwitches } from '../shared/i18n-core.js';
 import { api, errorText, setSlowHandler, setUnauthenticatedHandler } from './api.js';
-import { el, $, toast, refreshIcons } from './ui.js';
+import { el, $, toast, refreshIcons, clover, sticker, stateBox } from './ui.js';
 import { passwordForm } from './password.js';
 import { renderContent } from './content.js';
 import { renderGallery } from './gallery.js';
@@ -55,7 +55,7 @@ async function render() {
   try {
     await ROUTES[route](page);
   } catch (err) {
-    page.replaceChildren(el('p', { class: 'form-error', role: 'alert', text: errorText(err) }));
+    page.replaceChildren(stateBox(errorText(err), { kind: 'error', action: el('button', { class: 'btn btn--ghost btn--sm', type: 'button', text: t('common.retry'), onclick: render }) }));
   }
   if (seq !== renderSeq) return;
   refreshIcons();
@@ -66,9 +66,9 @@ async function render() {
 function showForcedChange() {
   document.body.dataset.state = 'forced';
   $('#view').replaceChildren(
-    el('div', { class: 'panel' }, [
-      el('h1', { class: 'dialog__title', text: t('password.forcedTitle') }),
-      el('p', { class: 'form-hint', style: 'margin:8px 0 16px', text: t('password.forcedIntro') }),
+    el('div', { class: 'paper forced' }, [
+      el('h1', {}, [sticker(t('password.forcedTitle'), { small: true })]),
+      el('p', { class: 'form-hint forced__intro', text: t('password.forcedIntro') }),
       passwordForm({
         forced: true,
         username: user.username,
@@ -81,13 +81,28 @@ function showForcedChange() {
 function startApp() {
   document.body.dataset.state = 'ready';
   document.querySelectorAll('[data-owner-only]').forEach((n) => { n.hidden = user.role !== 'owner'; });
-  $('#user-badge').replaceChildren(el('span', { text: user.username }), el('span', { class: `pill pill--${user.role}`, text: t(`roles.${user.role}`) }));
+  $('#user-badge').replaceChildren(
+    el('span', { class: 'user-badge__avatar', 'aria-hidden': 'true' }, [clover(user.role === 'owner' ? '' : 'pink')]),
+    el('span', { text: user.username }),
+    el('span', { class: `pill pill--${user.role}`, text: t(`roles.${user.role}`) }),
+  );
   render();
 }
 
-function closeNav() {
+// Mobile menu: scrim behind it; tap outside, Esc or a route change closes it; focus moves in and back.
+const navIsOpen = () => $('#sidebar').classList.contains('is-open');
+function openNav() {
+  $('#sidebar').classList.add('is-open');
+  $('#nav-scrim').classList.add('is-open');
+  $('#nav-toggle').setAttribute('aria-expanded', 'true');
+  ($('#sidebar a[aria-current="page"]') || $('#sidebar a'))?.focus();
+}
+function closeNav({ restoreFocus = false } = {}) {
+  if (!navIsOpen()) return;
   $('#sidebar').classList.remove('is-open');
+  $('#nav-scrim').classList.remove('is-open');
   $('#nav-toggle').setAttribute('aria-expanded', 'false');
+  if (restoreFocus) $('#nav-toggle').focus();
 }
 
 async function boot() {
@@ -118,10 +133,9 @@ async function boot() {
     try { await api('auth/logout', { method: 'POST' }); } catch { /* signed out anyway */ }
     location.replace('/login');
   });
-  $('#nav-toggle').addEventListener('click', () => {
-    const open = $('#sidebar').classList.toggle('is-open');
-    $('#nav-toggle').setAttribute('aria-expanded', String(open));
-  });
+  $('#nav-toggle').addEventListener('click', () => (navIsOpen() ? closeNav({ restoreFocus: true }) : openNav()));
+  $('#nav-scrim').addEventListener('click', () => closeNav({ restoreFocus: true }));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && navIsOpen()) closeNav({ restoreFocus: true }); });
   window.addEventListener('hashchange', () => { if (document.body.dataset.state === 'ready') render(); });
 
   refreshIcons();
