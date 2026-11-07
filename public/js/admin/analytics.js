@@ -1,6 +1,6 @@
 // Dashboard visitor statistics (Japan time; weeks start Monday): KPIs, visit charts and breakdowns.
 // Charts are plain SVG/HTML — no chart library. All labels go through textContent.
-// Layout (docs/ADMIN_UI_PLAN.md §4): fixed-period KPIs + visits chart, then everything the range control affects.
+// Layout (docs/plans/ADMIN_UI_PLAN.md §4): fixed-period KPIs + visits chart, then everything the range control affects.
 import { t, currentLang } from '../shared/i18n-core.js';
 import { api, errorText } from './api.js';
 import { el, icon, refreshIcons, sticker, stateBox } from './ui.js';

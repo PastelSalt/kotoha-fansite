@@ -392,12 +392,6 @@
   .state-note { display: grid; justify-items: center; gap: var(--s-3); text-align: center; }
   .state-note img { width: 120px; }
 
-  /* ================================================================ section transition wipe */
-  .wipe {
-    position: fixed; inset: 0; z-index: 900; pointer-events: none;
-    background: repeating-linear-gradient(115deg, var(--wipe-accent) 0 42px, color-mix(in srgb, var(--wipe-accent) 62%, white) 42px 84px);
-  }
-
   /* ================================================================ cursor sparkles */
   .sparkle-layer { position: fixed; inset: 0; z-index: 9999; pointer-events: none; contain: strict; }
   .sparkle { position: absolute; left: 0; top: 0; width: 14px; height: 14px; pointer-events: none; opacity: 0; overflow: visible; }

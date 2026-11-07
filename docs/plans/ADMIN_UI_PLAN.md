@@ -7,7 +7,7 @@
 | **Not changing** | API (`api/*`), `lib/*`, database, migrations, analytics collection, the data shown, auth/roles, CSP/SRI rules, the public site |
 | **Supersedes** | `DESIGN_V2_PLAN.md` round 1, Q2 ("keep the current admin look"). That plan stays as it is for the public site |
 | **Branch** | `admin-ui-refresh` from `main`; merge only with the owner's OK (same workflow as design v2) |
-| **Resume file** | This file (§9 is the checklist). `docs/PROGRESS.md` stays the source of truth for everything else |
+| **Resume file** | This file (§9 is the checklist). `docs/plans/PROGRESS.md` stays the source of truth for everything else |
 
 ---
 
@@ -194,7 +194,7 @@ Existing keys are reused wherever possible (`analytics.breakdownFor` may simply 
 
 ## 7. Files
 
-**Will change:** `public/css/admin.css` (most of the work), `public/js/admin/analytics.js`, `public/js/admin/pages.js`, `public/js/admin/ui.js` (state/skeleton helpers, toast icons), `public/js/admin/main.js` (nav backdrop/Esc/focus), `public/js/admin/content.js` + `gallery.js` (class names only, no logic), `public/admin.html` (sidebar group labels, scrim element), `public/login.html` (classes only), `public/locales/admin/{en,ja}.json`, `docs/JA_REVIEW_LIST.md`, `docs/PROGRESS.md`.
+**Will change:** `public/css/admin.css` (most of the work), `public/js/admin/analytics.js`, `public/js/admin/pages.js`, `public/js/admin/ui.js` (state/skeleton helpers, toast icons), `public/js/admin/main.js` (nav backdrop/Esc/focus), `public/js/admin/content.js` + `gallery.js` (class names only, no logic), `public/admin.html` (sidebar group labels, scrim element), `public/login.html` (classes only), `public/locales/admin/{en,ja}.json`, `docs/JA_REVIEW_LIST.md`, `docs/plans/PROGRESS.md`.
 
 **Will not change:** `api/*`, `lib/*`, `db/*`, `scripts/*`, `vercel.json`, `public/index.html`, `public/css/v2/*`, `public/js/public/*`, `public/js/shared/*` (unless a bug is found; then ask first).
 

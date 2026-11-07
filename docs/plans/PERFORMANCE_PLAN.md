@@ -32,7 +32,7 @@ Things that are already fine and stay as they are: gallery images (`loading="laz
 
 Measured in Chrome/Edge DevTools on the production build, desktop 1920×1080 and 1366×768, and a phone (real device or 4× CPU throttle with touch emulation):
 
-- **≥ 58 fps** while scrolling the whole page on a normal desktop; **≥ 50 fps** with 4× CPU slowdown (the existing D7 target in `MIGRATION.md` was 55/50).
+- **≥ 58 fps** while scrolling the whole page on a normal desktop; **≥ 50 fps** with 4× CPU slowdown (the existing D7 target in `docs/plans/MIGRATION.md` was 55/50).
 - **No long tasks (> 50 ms) during scrolling** once the loader is gone.
 - **INP < 200 ms** (nav clicks, lightbox, language switch, motion toggle).
 - **CLS < 0.1** (also no jump when the menu or lightbox locks scrolling).
@@ -71,7 +71,7 @@ The owner asked for no snapping. Native scrolling is also the biggest single per
 3. **`index.html`:** remove the Lenis `<script>` (line 51) and the four `data-lenis-prevent` attributes. `librariesReady()` in `main.js` then waits for one fewer CDN file during the loader.
 4. **Section wipe (`motion/wipe.js`):** it was built to play on each snap but was never wired up, so visitors never saw it and nothing is lost. Keep the file. It could later play on nav-link jumps (`scrollToEl`) if the owner wants it; that is a separate decision.
 5. The **film strip's** horizontal `scroll-snap` (video thumbnails, `components.css:220`) is a native, cheap CSS feature and not the page snapping. It stays unless the owner wants that removed as well.
-6. **Docs:** record the decision change (2026-10-09: "no snapping on any device; Lenis removed") in `PROGRESS.md` §9 and `DESIGN_V2_PLAN.md` §16, and update the "strict snap" lines in `IMPLEMENTATION_PLAN.md`, `PROGRESS.md` §2/§4, `DESIGN_SYSTEM.md` and `MIGRATION.md`. The Lenis pin in hard rule 9 becomes "no longer used".
+6. **Docs:** record the decision change (2026-10-09: "no snapping on any device; Lenis removed") in `PROGRESS.md` §9 and `DESIGN_V2_PLAN.md` §16, and update the "strict snap" lines in `IMPLEMENTATION_PLAN.md`, `PROGRESS.md` §2/§4, `DESIGN_SYSTEM.md` and `docs/plans/MIGRATION.md`. The Lenis pin in hard rule 9 becomes "no longer used".
 
 **Check:** wheel, trackpad, keyboard (Space / PgDn / Home / End), nav links, deep link `#discography`, the phone menu, lightbox open/close, calm mode. Scrolling must never lock or glide on its own.
 
@@ -202,5 +202,5 @@ Software rendering (no GPU), 1920×1080: 26 → 37–40 fps, long tasks 13 → 3
 
 **Visual check:** before/after screenshots of every section at 1920×1080 and 390×844 look the same; the only differences are random content (fan art of the moment, countdown) and, in headless screenshots, the 15 px scrollbar gutter that a real scrollbar occupies.
 
-**Behaviour check (≈ 35 automated checks, all passing):** a wheel notch moves freely (no glide back); nav links and deep links land exactly on the section; the backdrop shows only the current artwork; the marquee runs, reverses when scrolling up and settles back to its drift; lean is written on on-screen cards only; the nav clover fills; confetti is not loaded during the loader, arrives afterwards and fires on the logo; sparkles animate; the lightbox opens with its grow, locks scrolling and closes with Escape; PageDown scrolls; the motion toggle switches to calm (marquee stops, jumps are instant) and back; the polaroid keeps its resting tilt; the phone menu locks scrolling and its links work; reduced-motion devices get calm mode; no console errors or CSP violations. (Headless touch swipes are unreliable on both builds, as noted in `MIGRATION.md`; the owner should try a real phone.)
+**Behaviour check (≈ 35 automated checks, all passing):** a wheel notch moves freely (no glide back); nav links and deep links land exactly on the section; the backdrop shows only the current artwork; the marquee runs, reverses when scrolling up and settles back to its drift; lean is written on on-screen cards only; the nav clover fills; confetti is not loaded during the loader, arrives afterwards and fires on the logo; sparkles animate; the lightbox opens with its grow, locks scrolling and closes with Escape; PageDown scrolls; the motion toggle switches to calm (marquee stops, jumps are instant) and back; the polaroid keeps its resting tilt; the phone menu locks scrolling and its links work; reduced-motion devices get calm mode; no console errors or CSP violations. (Headless touch swipes are unreliable on both builds, as noted in `docs/plans/MIGRATION.md`; the owner should try a real phone.)
 

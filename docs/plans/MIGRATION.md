@@ -1,8 +1,8 @@
-# MIGRATION.md — handoff context for the next Claude session
+# docs/plans/MIGRATION.md — handoff context for the next Claude session
 
-> Give this file to Claude at the start of a new session ("read MIGRATION.md and continue").
-> Written 2026-10-02, right after the design v2 redesign was merged into `main`; all other markdown docs were refreshed the same day (`docs/PROGRESS.md` §6/§11 and the plan §14/§16 are the most detailed running logs).
-> Read `docs/PROGRESS.md` and `docs/DESIGN_V2_PLAN.md` (§14 checklist, §16 work log) next — they are the living spec.
+> Give this file to Claude at the start of a new session ("read docs/plans/MIGRATION.md and continue").
+> Written 2026-10-02, right after the design v2 redesign was merged into `main`; all other markdown docs were refreshed the same day (`docs/plans/PROGRESS.md` §6/§11 and the plan §14/§16 are the most detailed running logs).
+> Read `docs/plans/PROGRESS.md` and `docs/plans/DESIGN_V2_PLAN.md` (§14 checklist, §16 work log) next — they are the living spec.
 > **No secrets live in this file.** Never put passwords/keys in tracked files.
 
 ---
@@ -43,7 +43,7 @@ Plain HTML/CSS/vanilla JS (ES modules, **no build step**), Vercel Functions (pla
 
 Owner-approved direction: paper notes taped onto fan art, die-cut stickers, stitches for featured items, filled illustrated clovers (never hollow outlines), dense numbered EN/JA section titles, giant outlined background words, vertical Japanese text, speech bubbles, stamps, gingham, a fixed artwork backdrop that **crossfades** between sections. Fredoka stays the main font (M PLUS Rounded 1c for JP, Yomogi for tiny doodle notes only). "Music-video-like" means *quality of movement* only — it must stay a proper website, alive on scroll up and down.
 
-**Reference docs:** `docs/DESIGN_SYSTEM.md` (tokens, components, §4.1 Japanese-density vocabulary, §4.2 backdrop, motion rules, module APIs, SRI table) and `docs/DESIGN_V2_PLAN.md`.
+**Reference docs:** `docs/DESIGN_SYSTEM.md` (tokens, components, §4.1 Japanese-density vocabulary, §4.2 backdrop, motion rules, module APIs, SRI table) and `docs/plans/DESIGN_V2_PLAN.md`.
 
 **Files**
 - CSS (`public/css/v2/`, cascade layers `legacy, tokens, base, components, sections, motion` declared in `tokens.css`): `tokens.css`, `base.css`, `components.css`, `sections.css` (accents, backdrop, scrims), `layout.css` (**real page**: nav pill, mobile menu, scenes, loader, footer, short-laptop rules), `motion.css`. Old `public/css/site.css` is deleted.
@@ -55,7 +55,7 @@ Owner-approved direction: paper notes taped onto fan art, die-cut stickers, stit
 **Behaviour decisions**
 - **Loader:** artwork is a pure-CSS background keyed by `html[data-loader-art]` (random 1–3, set in `prepaint.js`); the **two clovers are static inline SVG that rotate continuously from first paint** (outer clockwise 4 s, inner counter-clockwise 2.5 s; 12 s/8 s in calm mode) — owner requirement. Petals fill from real task progress, "Did you know?" facts come from About data, exit = fast spin + circle (iris) opening onto Home; calm = fade. Min 3 s / soft 6 s / cap 10 s, CSS failsafe fade at 12 s. Don't regress the rotation.
 - **Scrolling (since 2026-10-09):** native free scrolling on every device, **no snapping** (owner request) and no Lenis. `scroll.js` only handles in-page jumps (`scrollIntoView`, smooth in full motion, instant in calm) and the scroll lock for the menu/lightbox. The backdrop crossfade hides section changes. Calm = device `prefers-reduced-motion` OR the site's motion toggle.
-- **Performance rules (see `docs/PERFORMANCE_PLAN.md`):** no `backdrop-filter` on things that move or sit over the moving backdrop; never write per-frame custom properties on `<html>`; one scroll ticker (`motion/scroll-life.js`, subscribe with `onScrollVelocity`); no layout reads inside animation frames; **don't use `content-visibility` on the sections** — in Chrome 154 it makes the lightbox View Transition hang the page (far sections use `.is-far` → `animation: none` instead).
+- **Performance rules (see `docs/plans/PERFORMANCE_PLAN.md`):** no `backdrop-filter` on things that move or sit over the moving backdrop; never write per-frame custom properties on `<html>`; one scroll ticker (`motion/scroll-life.js`, subscribe with `onScrollVelocity`); no layout reads inside animation frames; **don't use `content-visibility` on the sections** — in Chrome 154 it makes the lightbox View Transition hang the page (far sections use `.is-far` → `animation: none` instead).
 - **Credits:** "art by" labels and the loader credit and credits dialog were removed on purpose (they broke the illusion). Artists are credited on gallery tiles, in the lightbox, and in the footer list (static `CREDITS` + gallery authors).
 - **Home on short laptops (≤ 960 px tall, ≥ 1100 px wide):** keeps brand/socials/ticket/week | news + video; hides 2nd note, coming-soon and fan-art cards (they show on taller screens). Right column holds news + the "PICK UP!" video polaroid; left column ends with the coming-soon and fan-art cards.
 - Never put words in Kotoha's mouth: speech bubbles are the *site's* voice ("check it out ♡", "thank you, artists!").
@@ -67,14 +67,14 @@ Remaining, in order:
 1. **Verify production** (see §2).
 2. **✋2 owner review** of the live desktop design → adjustments. (Owner's D1.1 feedback questions — density, 4-leaf vs rounded clover, phone crossfade + free scroll, extra art available, vertical JP text/giant words — were never answered explicitly; the owner said "start applying", which implies the recommended defaults. Re-ask only if it matters.)
 3. **D5 phones/tablet:** works but undesigned: one-column compositions, direction-aware top bar, landscape phones (800×360), 360/390/768 matrix, weekly strip wraps at 390, ticket/home stacking order. → **✋3 owner tries it on a real phone.**
-4. **D7 motion:** velocity lean/parallax tuning → ✋4. The snap is gone (owner, 2026-10-09), so `wipe.js` has no trigger; it could play on nav-link jumps if the owner asks. Performance work and fps measurements are in `docs/PERFORMANCE_PLAN.md`.
+4. **D7 motion:** velocity lean/parallax tuning → ✋4. The snap is gone (owner, 2026-10-09), so `wipe.js` has no trigger; it could play on nav-link jumps if the owner asks. Performance work and fps measurements are in `docs/plans/PERFORMANCE_PLAN.md`.
 5. **D8 extras:** mascot cameo, special-day decorations (June 10 birthday / July 8 debut; confetti already exists), LIVE badge on the nav, "coming soon" already built; **gallery seed additions**: 5 extra credited artworks (About background, 2 loader arts "pajamas" + "green cardigan", profile avatar, About pose; unknown artist → "Artist unknown (作者不明)") via `scripts/seed-gallery.js`.
 6. **D9 QA:** keyboard path + focus, screen-reader labels, contrast sampler, no text < 13 px, ≤ 6 dashed (stitch) items per screen, JP line breaks, perf, CSP/SRI, tracker + admin regression, owner's own devices. Also remove now-unused generated SVGs (`clover-fill.svg`, `clover-outline.svg`, `divider.svg` are still produced by `scripts/optimize-images.js`) and the unused `legacy` layer name.
-7. Keep `docs/PROGRESS.md` (§5 Design v2 checklist, §6, §11), the plan's §14/§16 and `DESIGN_SYSTEM.md` updated after each phase (they were brought up to date on 2026-10-02).
+7. Keep `docs/plans/PROGRESS.md` (§5 Design v2 checklist, §6, §11), the plan's §14/§16 and `DESIGN_SYSTEM.md` updated after each phase (they were brought up to date on 2026-10-02).
 
 ## 7. Working rules (from the owner / memory)
 
-- Resume from `docs/PROGRESS.md`; keep it, `docs/DESIGN_SYSTEM.md` and the plan §16 work log current after each phase.
+- Resume from `docs/plans/PROGRESS.md`; keep it, `docs/DESIGN_SYSTEM.md` and the plan §16 work log current after each phase.
 - **Never merge a design branch into `main` without the owner's explicit OK** (this one had it). Commit + push after each verified task. **Never force-push.** Secret scan before every commit. Commit trailer: `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`. Git user is "Moeko Works".
 - Don't touch the admin look. Don't reveal/store passwords in tracked files.
 - When the owner is frustrated, answer plainly (e.g. the default login question) instead of lecturing about security.
@@ -95,6 +95,6 @@ Remaining, in order:
 
 ## 10. Quick start for the next session
 
-1. `git status` / `git log --oneline -5` on `main`; read `docs/PROGRESS.md`, the plan §14/§16, this file.
+1. `git status` / `git log --oneline -5` on `main`; read `docs/plans/PROGRESS.md`, the plan §14/§16, this file.
 2. Verify the live site (§2). Report results to the owner.
 3. Ask the owner what they think of the live desktop design (✋2), then do D5 (phones), D7, D8, D9 in that order, one branch per phase, merge only with OK.

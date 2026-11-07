@@ -1,6 +1,6 @@
 # Kotoha Fan Site — Design System v2 ("Clover Scrapbook")
 
-Reference for the redesign on branch `designupdatev2` (plan: `docs/DESIGN_V2_PLAN.md`).
+Reference for the redesign on branch `designupdatev2` (plan: `docs/plans/DESIGN_V2_PLAN.md`).
 **Live on the production site since 2026-10-02** (merged into `main`, `c7b6975`). The stand-alone style tile `/design-v2/` that demonstrated these pieces was deleted before the merge; the real page uses them (see §10 for the page modules).
 
 > **Owner direction (2026-09-28, after the first style tile):** this is a *creative-heavy Japanese fan site* — **dense and layered, never Western minimalism**. No large empty areas (especially Home), plenty of components and decoration, and **clovers are always illustrated and filled — never hollow outlines**.
@@ -182,7 +182,7 @@ GSAP **3.15.0** (+ SplitText, Flip, ScrollTrigger, CustomEase as needed) from js
 4. Use it on the real page (`public/index.html` + `public/css/v2/layout.css` for placement) and document it here.
 
 ## 9. Checks (scratchpad scripts used during the redesign)
-Scripts live in Claude's temporary scratchpad, **not in the repo** (re-create or commit cleaned copies; harness gotchas are in `MIGRATION.md` §8): `site-shot.mjs` (per-section screenshots at several sizes + CSP/console/network issues), `site-behavior.mjs` (~50 checks: loader spin, petals, wheel snap, nav/anchors, EN↔JA, video, lightbox, motion toggle, tracking beacons, deep link, phone menu, reduced motion), the older `tile-shot.mjs` / `tile-motion-test.mjs` / `lean-debug.mjs`, plus the v1 suite (admin/gallery/tracker/CSP/spin checks).
+Scripts live in Claude's temporary scratchpad, **not in the repo** (re-create or commit cleaned copies; harness gotchas are in `docs/plans/MIGRATION.md` §8): `site-shot.mjs` (per-section screenshots at several sizes + CSP/console/network issues), `site-behavior.mjs` (~50 checks: loader spin, petals, wheel snap, nav/anchors, EN↔JA, video, lightbox, motion toggle, tracking beacons, deep link, phone menu, reduced motion), the older `tile-shot.mjs` / `tile-motion-test.mjs` / `lean-debug.mjs`, plus the v1 suite (admin/gallery/tracker/CSP/spin checks).
 
 ## 10. Public page modules (real site, since 2026-10-02)
 

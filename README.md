@@ -1,131 +1,194 @@
-# Kotoha Fan Site
+<div align="center">
 
-**Student:** Kyle Q. Zoleta  
-**Website Category:** Fan Site / Entertainment  
-**Project Title:** Kotoha Fan Site — Unofficial Bilingual Fan Site  
-**Live URL:** https://kotoha-fansite.vercel.app/  
-**Timeline:** Sep 2026 – present  
-**Role:** Solo developer (design, front end, back end, admin panel, analytics)  
-**Status:** Live
+<a href="https://kotoha-fansite.vercel.app">
+  <img src="public/assets/og-image.jpg" alt="Kotoha fan site — Kotoha waving with both hands, framed like a scrapbook page" width="100%">
+</a>
 
----
+# Kotoha Fan Site · ことはファンサイト
 
-## Project Description
+**An unofficial, non-profit, bilingual fan site for Kotoha (ことは)** 🍀<br>
+ハコニワリリィのボーカル・ことはの、非公式・非営利のファンサイト
 
-An unofficial, non-profit, bilingual (日本語 / English) fan site for **Kotoha (ことは)**, vocalist of HaKoniwalily and HoneyWorks support vocalist (debuted as a VTuber with AiceClass in 2023). Built by **Moeko Works** as a comprehensive fan resource featuring latest works, news, discography, and fan art gallery.
+<sub>By <a href="https://moekoworks.vercel.app">Moeko Works</a></sub>
 
-The v2 design, **"Clover Scrapbook,"** turns the page into a scrapbook. Paper notes are taped onto artwork, die-cut stickers mark the details, and stitched borders highlight featured items, all over an artwork backdrop that crossfades between sections. Every entrance is timed to one tempo (128 BPM) so the motion feels coordinated. A Motion toggle, together with the device's reduced-motion setting, switches the whole site to a calm mode.
+<br>
 
-Behind the scenes it is a lightweight site with **no build step** (HTML, modern CSS and ES modules), backed by four Vercel Functions on Node.js, Neon Postgres and Cloudinary. A private admin panel lets the owner and invited admins publish videos, news, achievements, releases and fan art, restore anything archived, review an activity log and read cookieless visitor statistics.
+[![Live site](https://img.shields.io/badge/live-kotoha--fansite.vercel.app-7cc36b?style=for-the-badge&logo=vercel&logoColor=white)](https://kotoha-fansite.vercel.app)
+[![Status: production](https://img.shields.io/badge/status-production-b59ad8?style=for-the-badge)](https://kotoha-fansite.vercel.app)
 
----
+[![No build step](https://img.shields.io/badge/build-none%20(HTML%20%2B%20ES%20modules)-f2a7c3)](#tech-stack)
+[![Vercel Functions](https://img.shields.io/badge/Vercel-Functions-000000?logo=vercel&logoColor=white)](https://vercel.com)
+[![Neon Postgres](https://img.shields.io/badge/Neon-Postgres-00e599?logo=postgresql&logoColor=white)](https://neon.tech)
+[![Cloudinary](https://img.shields.io/badge/Cloudinary-fan%20art-3448c5?logo=cloudinary&logoColor=white)](https://cloudinary.com)
+[![License: MIT (code)](https://img.shields.io/badge/license-MIT%20(code)-4c8a3f)](LICENSE)
+[![Bilingual](https://img.shields.io/badge/lang-日本語%20%7C%20English-ff9ec7)](#features)
 
-## Main Features
+[**Visit the site**](https://kotoha-fansite.vercel.app) ·
+[Features](#features) ·
+[Tech stack](#tech-stack) ·
+[Run it locally](#run-it-locally) ·
+[Corrections & removals](#corrections-and-removals)
 
-### Public Site Features
-1. **Arrive in Style** — Loader of at least 3s showcases one of three artworks while everything preloads. Two clovers spin, petals fill with real progress, "Did you know?" facts rotate, and an iris opens onto Home.
-2. **Read in Your Language** — Visitors in Japan get Japanese, everyone else English. A switcher changes everything, including headings, menus, About and the footer.
-3. **Glide Through Sections** — On desktop you scroll freely, then the page glides to the next section. Phones scroll freely while the artwork backdrop crossfades.
-4. **Catch the Next Stream** — Countdown for regular Tue & Fri ~21:00 JST streams, this week's schedule, the newest video, the two newest news items and the next release.
-5. **Get to Know Kotoha** — Profile card covers birthday, debut, height, activities, fan name, hashtags and favourites.
-6. **Watch and Read Everything** — All videos and news, newest first, with a privacy-enhanced YouTube player.
-7. **Explore the Discography** — Every release with YouTube-thumbnail covers and a "coming soon" card.
-8. **Browse Fan Art** — Infinite masonry gallery whose lightbox grows out of the tapped tile, with the artist and source credited.
-9. **Turn Motion Off** — The site remembers the choice and always respects the device setting.
-10. **Celebrate** — Clover confetti on special days (June 10 birthday, July 8 debut).
-
-### Admin Features
-- **Sign in Safely** — First login forces a password change, with leak checks (HIBP) and lockout after repeated failures.
-- **Publish Content** — Paste a YouTube link and the title/thumbnail are looked up. Manage news, achievements and discography with drafts.
-- **Upload Fan Art** — Signed direct uploads to Cloudinary that shrink files to free-tier limits automatically, with credits.
-- **Never Lose Anything** — Deleting archives an item with the reason, who and when; any item can be restored.
-- **Manage the Team** — Owner creates auto-numbered admin accounts with temporary passwords, resets or removes them. Anyone can sign out their other devices.
-- **Watch the Numbers** — Dashboard with content counts, activity log, and visitor statistics for 7/30/90/365 days (JST).
+</div>
 
 ---
 
-## Technologies Used
+## About
 
-### Languages
-- **HTML5** — Semantic, accessible markup with no build step
-- **CSS** — Cascade layers, @property, scroll-driven animations and View Transitions
-- **JavaScript** — Native ES modules: no framework and no bundler
+Kotoha (ことは) is the vocalist of **HaKoniwalily (ハコニワリリィ)** and a HoneyWorks support vocalist, who debuted as a
+VTuber with AiceClass in 2023. This fan site gathers her latest works, news, discography and fan art in one place, in
+Japanese and English.
 
-### Libraries
-- **GSAP** — Arrival choreography and SplitText letter pops
-- **canvas-confetti** — Clover confetti on special days
-- **Lucide** — Interface icons
-- **Animate.css** — Small transitions in the admin panel
-- **Argon2id** — Password hashing for admin accounts
+Its design, **"Clover Scrapbook"**, turns the page into a scrapbook: paper notes taped onto artwork, die-cut stickers,
+stitched borders, and an artwork backdrop that crossfades between sections. Every entrance is timed to one tempo
+(128 BPM), so the motion feels coordinated, and a Motion switch turns it all calm.
 
-### Runtimes
-- **Node.js** — Four grouped Vercel Functions
+It's made by a fan, for fans: no ads, no tracking cookies, no money involved, and fan art is always credited.
 
-### Data
-- **Neon** — Serverless Postgres over the HTTP driver, with retries
-- **PostgreSQL** — Ordered SQL migrations and idempotent seeds
+## Features
 
-### Cloud & Hosting
-- **Vercel** — Hosting in Singapore (sin1) with CSP, SRI and HSTS headers
+### For visitors
 
-### Services
-- **Cloudinary** — Signed direct uploads and optimised delivery of fan art
-- **YouTube embeds** — Video lookups and privacy-enhanced embeds
+- 🍀 **Arrive in style.** A loader of at least 3 s shows one of three artworks while everything preloads: two clovers
+  spin, petals fill with real progress, "Did you know?" facts rotate, and an iris opens onto Home.
+- 🌐 **Read in your language.** Visitors in Japan get Japanese, everyone else English. The switcher changes everything.
+- 🧭 **Glide through sections.** On desktop the page glides to the next section; phones scroll freely while the
+  backdrop crossfades.
+- 📺 **Catch the next stream.** A countdown to the regular Tuesday and Friday ~21:00 JST streams, this week's schedule,
+  the newest video, the latest news and the next release.
+- 💚 **Get to know Kotoha.** A profile card with her birthday, debut, height, activities, fan name, hashtags and favourites.
+- 🎬 **Watch and read everything.** All videos and news, newest first, with privacy-enhanced YouTube embeds.
+- 💿 **Explore the discography.** Every release with its cover and a "coming soon" card.
+- 🖼️ **Browse fan art.** An infinite masonry gallery whose lightbox grows out of the tapped tile, with the artist and
+  source credited.
+- ✨ **Turn motion off.** The site remembers the choice and always respects the device's reduced-motion setting.
+- 🎉 **Celebrate.** Clover confetti on her birthday (June 10) and debut day (July 8).
 
-### Tools
-- **sharp** — Image-optimisation scripts
+### For the admins
 
----
+- 🔐 **Sign in safely.** The first login forces a password change, with leaked-password checks and lockouts after
+  repeated failures.
+- 📝 **Publish content.** Paste a YouTube link and the title and thumbnail are looked up; manage news, achievements and
+  releases, with drafts.
+- 🖌️ **Upload fan art.** Signed direct uploads to Cloudinary that shrink files to the free-tier limits, with credits.
+- ♻️ **Never lose anything.** Deleting archives an item with the reason, who and when; anything can be restored.
+- 👥 **Manage the team.** The owner creates numbered admin accounts with temporary passwords, and resets or removes them.
+- 📊 **Watch the numbers.** A dashboard with content counts, an activity log and cookieless visitor statistics for
+  7, 30, 90 and 365 days.
 
-## Technical Highlights
+## Tech stack
 
-- **Cookieless Analytics** — Daily-salted visitor hashes and no stored IPs; events batched with `sendBeacon`; 90-day raw data with daily rollups
-- **Locked-down Delivery** — Strict Content-Security-Policy with Subresource Integrity on every CDN script, and HSTS
-- **Resilient Database Access** — Neon HTTP driver with connection retries, plus a "waking up" notice while the free compute resumes
-- **Repeatable Setup** — Ordered SQL migrations, idempotent seeds, an owner-bootstrap script and image-optimisation scripts
+| Layer     | Choice                                                                                                                                                       |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Front end | **No build step**: semantic HTML, modern CSS (cascade layers, `@property`, scroll-driven animations, View Transitions) and native ES modules                  |
+| Motion    | [GSAP](https://gsap.com) (arrival choreography, SplitText), [canvas-confetti](https://github.com/catdad/canvas-confetti), [Lucide](https://lucide.dev) icons |
+| Back end  | Four grouped [Vercel Functions](https://vercel.com/docs/functions) on Node.js: `public`, `auth`, `admin`, `track`                                            |
+| Database  | [Neon](https://neon.tech) Postgres over the HTTP driver (with retries), plain SQL migrations                                                                  |
+| Media     | [Cloudinary](https://cloudinary.com) for fan art; privacy-enhanced YouTube embeds                                                                            |
+| Auth      | Argon2id password hashing, `__Host-` session cookies, leaked-password checks, login lockouts                                                                 |
+| Analytics | First-party and cookieless: a daily-salted visitor hash, IPs never stored, 90-day raw events with daily totals                                               |
+| Hosting   | [Vercel](https://vercel.com) (region `sin1`) with a strict Content Security Policy, Subresource Integrity and HSTS                                           |
 
----
-
-> Specification: [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md) · Build progress: [`docs/PROGRESS.md`](docs/PROGRESS.md) · Redesign: [`docs/DESIGN_V2_PLAN.md`](docs/DESIGN_V2_PLAN.md), [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) · **Handoff for a new session: [`MIGRATION.md`](MIGRATION.md)**
-
-## Project Layout
-
+```mermaid
+flowchart LR
+  visitor([Visitor]) -->|static pages| cdn[Vercel CDN]
+  visitor -->|content| public["/api/public"]
+  visitor -->|visit counts| track["/api/track"]
+  admin([Admin]) -->|password + session| auth["/api/auth"]
+  admin --> adminapi["/api/admin"]
+  public --> db[(Neon Postgres)]
+  track --> db
+  auth --> db
+  adminapi --> db
+  adminapi -->|signed uploads| cloudinary[Cloudinary]
 ```
-public/        static site (index.html, login.html, admin.html, css/ [v2/ = public design system, admin.css], js/ [public/, public/motion/, admin/, shared/], locales/, assets/)
-api/           Vercel Functions (grouped: public, auth, admin, track)
-lib/           shared server code (db, auth, validation, cloudinary, …)
-db/            migrations/ and seed.sql
-scripts/       migrate, seed runner, admin bootstrap, image optimization
-docs/          plan, progress, design system, Japanese review list, data sheets
+
+## Run it locally
+
+**Requirements:** Node.js 22 or newer, and a Neon (or any Postgres) database.
+
+```bash
+git clone https://github.com/PastelSalt/kotoha-fansite.git
+cd kotoha-fansite
+npm install
+cp .env.example .env.local     # fill in the values; never commit this file
+npm run db:migrate && npm run db:seed
+npm run admin:bootstrap        # creates the Owner account once
+node --env-file=.env.local scripts/dev-server.js   # http://localhost:3000
 ```
 
-## Local Development
+The dev server mirrors the Vercel rewrites and headers. `npm run dev` (`npx vercel dev`) works too. Add `?lang=ja` or
+`?lang=en` to test languages, and `?debug` to expose the scroll internals.
 
-1. Install Node.js 22+ and run `npm install`.
-2. Copy `.env.example` to `.env.local` and fill in the values (never commit it).
-3. Database: `npm run db:migrate` then `npm run db:seed`.
-4. Create the Owner account once: `npm run admin:bootstrap` (reads the bootstrap values from `.env.local`).
-5. Run locally: `node --env-file=.env.local scripts/dev-server.js` (a small server that mirrors the Vercel rewrites and headers; port 3000), or `npm run dev` (`npx vercel dev`). Open `http://localhost:3000`; use `?lang=ja` / `?lang=en` to test languages and `?debug` to expose scroll internals.
+<details>
+<summary><b>All scripts</b></summary>
 
-Other scripts: `npm run gallery:seed` (idempotent, 8 credited artworks), `npm run images:optimize`, `npm run prelaunch:reset` (dry run; `-- --yes-reset-everything` runs it for real, only right before launch).
+| Command                   | What it does                                                                              |
+| ------------------------- | ----------------------------------------------------------------------------------------- |
+| `npm run dev`             | `npx vercel dev`                                                                          |
+| `npm run db:migrate`      | Apply the ordered SQL migrations in `db/migrations/` (`npm run db:status` lists them)     |
+| `npm run db:seed`         | Run the idempotent `db/seed.sql`                                                          |
+| `npm run admin:bootstrap` | Create the Owner account from the bootstrap values in `.env.local`                        |
+| `npm run gallery:seed`    | Seed eight credited fan artworks (idempotent)                                             |
+| `npm run images:optimize` | Optimise the site images with sharp                                                       |
+| `npm run prelaunch:reset` | Dry run of a full reset; `-- --yes-reset-everything` runs it (only right before a launch) |
 
-## Database
+</details>
 
-- Migrations live in `db/migrations/` and are applied in order by `npm run db:migrate` (`npm run db:status` lists them).
-- `db/seed.sql` is idempotent (safe to run again).
-- Content is never hard-deleted by the app; deleted items move to the `archived_content` table.
+## Project structure
 
-## Deployment
+```text
+public/      the static site: index.html, login.html, admin.html, css/ (v2/ is the design system), js/, locales/, assets/
+api/         Vercel Functions, grouped: public, auth, admin, track
+lib/         shared server code: database, auth, passwords, validation, analytics, Cloudinary
+db/          SQL migrations and the seed
+scripts/     migrate, seed, admin bootstrap, image optimisation, local dev server
+docs/        design system and Japanese review list; plans/ (how it was built) and research/ (data sheets)
+assets/      source artwork; references/ holds the original design mock-ups
+```
 
-The Vercel project is linked to the private GitHub repo `PastelSalt/kotoha-fansite`; production URL `https://kotoha-fansite.vercel.app`. **Every push to `main` deploys production**; other branches create protected previews. Environment variables (Neon `DATABASE_URL`, Cloudinary, bootstrap owner) live in Vercel (Sensitive) and in the git-ignored `.env.local`; never commit them. CSP and Subresource Integrity are enforced via `vercel.json`. To roll back, promote the previous deployment in Vercel (instant) or revert the merge commit.
+Content is never hard-deleted by the app: deleted items move to the `archived_content` table. Every push to `main`
+deploys production on Vercel; other branches get protected previews. Secrets live in Vercel and in the git-ignored
+`.env.local` only.
 
-## Credits & Disclaimer
+## Corrections and removals
 
-- **Character and official art** — Kotoha · AiceClass
-- **Fan art** — Credited on the site to respective artists
+Spotted a mistake or a missing credit, or want something taken down? Removal requests are honoured, no questions asked.
 
-> Unofficial, non-profit fan site. Not affiliated with Kotoha, HaKoniwalily, HoneyWorks or AiceClass. Characters and artwork belong to their respective owners; fan art is credited on the site.
+- **Artists and rights holders:** use the [Moeko Works contact form](https://moekoworks.vercel.app/contact).
+- **Fixes and suggestions:** [open an issue](https://github.com/PastelSalt/kotoha-fansite/issues).
+- **Security problems:** please report privately, see [SECURITY.md](SECURITY.md).
 
----
+## Credits
 
-**Portfolio:** [Moeko Works](https://moekoworks.vercel.app/) — A portfolio by Kyle Zoleta
+- **Kotoha** (ことは) · AiceClass, for the character and official art. 🍀
+- Fan art © each artist, credited on the site.
+- Japanese text written by the developer is listed for native review in [docs/JA_REVIEW_LIST.md](docs/JA_REVIEW_LIST.md).
+- Made by [Moeko Works](https://moekoworks.vercel.app).
+
+## Project details
+
+|               |                                                                     |
+| ------------- | ------------------------------------------------------------------- |
+| **Student**   | Kyle Q. Zoleta                                                      |
+| **Category**  | Fan site / entertainment                                            |
+| **Role**      | Solo developer: design, front end, back end, admin panel, analytics |
+| **Timeline**  | September 2026 – present                                            |
+| **Status**    | In production at <https://kotoha-fansite.vercel.app>                |
+| **Portfolio** | [Moeko Works](https://moekoworks.vercel.app)                        |
+
+## License
+
+The **source code** is released under the [MIT License](LICENSE). See [NOTICE.md](NOTICE.md) for what it doesn't cover.
+
+The **content is not**: Kotoha's name, likeness and official art, the fan art, and video and song titles, thumbnails
+and media belong to their respective owners and are used here non-commercially as a fan tribute. If you reuse the code,
+replace the content with your own.
+
+<div align="center">
+<br>
+<sub>This is an unofficial fan project. It is not affiliated with or endorsed by Kotoha, HaKoniwalily, HoneyWorks or
+AiceClass.</sub>
+<br><br>
+<sub>🍀</sub>
+</div>

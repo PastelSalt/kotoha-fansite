@@ -7,7 +7,7 @@
 | **Scope** | How the public site looks and moves. Content, database, API, admin panel, analytics, i18n and security stay as they are |
 | **Clarity** | **90%** (v0.2.2: 88%) — every design question is answered; the rest is taste, settled at the D1 style tile |
 | **Technical confidence** | **91%** (v0.2: 88%) — no WebGL recommended any more; everything is standard GSAP/CSS |
-| **Resume file** | This file (§14 has the checklist). `docs/PROGRESS.md` on `main` stays the source of truth for everything that is not design |
+| **Resume file** | This file (§14 has the checklist). `docs/plans/PROGRESS.md` on `main` stays the source of truth for everything that is not design |
 
 ---
 
@@ -30,7 +30,7 @@
 | 11 "Most latest" | Claude decides | → **"Latest" / 「最新」** |
 | 12 Review style | Yes | Screenshots in chat + protected Vercel preview link |
 | New | **Remove the "art by …" labels from the artworks** (they break the illusion); credit those artworks in the gallery | Labels removed (sections + loader); gallery + footer credits (§6) |
-| Note | Cloudinary key/secret in Vercel = known loose end on `main` | Tracked in `docs/PROGRESS.md` §8 |
+| Note | Cloudinary key/secret in Vercel = known loose end on `main` | Tracked in `docs/plans/PROGRESS.md` §8 |
 
 ### Clarification (2026-09-26, before round 2)
 
@@ -366,7 +366,7 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 ## 14. Resume protocol & progress
 
 1. `git checkout designupdatev2` — confirm with `git branch --show-current`.
-2. Read this file, then `docs/PROGRESS.md` §1 (hard rules: secret scan before every commit, no secrets in files, commit author/trailer, never force-push, SRI/CSP on CDN files).
+2. Read this file, then `docs/plans/PROGRESS.md` §1 (hard rules: secret scan before every commit, no secrets in files, commit author/trailer, never force-push, SRI/CSP on CDN files).
 3. Continue from the first unchecked box. Commit + push after each verified step (push = protected Vercel preview only). **Never merge into `main` without the owner's approval.**
 
 - [x] D0.1 Branch `designupdatev2` from `main` @ `eef577f`
@@ -419,7 +419,7 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 | 2026-10-02 | **"Start applying the update"** → real public page rebuilt on v2 (D2+D3+D4+D6 together) on the branch | Owner |
 | 2026-10-02 | **"Apply the changes to the vercel main domain"** → `designupdatev2` merged into `main` (`c7b6975`), style tile deleted first | Owner |
 | 2026-10-02 | Desktop-only strict snap (mouse + full motion); phones/tablets/calm = native free scroll (answer to the snapping question, now live) | Claude |
-| 2026-10-09 | **Snapping removed on every device; Lenis removed** (owner: "don't make it snap anymore"). Performance pass without removing content: `docs/PERFORMANCE_PLAN.md` | Owner / Claude |
+| 2026-10-09 | **Snapping removed on every device; Lenis removed** (owner: "don't make it snap anymore"). Performance pass without removing content: `docs/plans/PERFORMANCE_PLAN.md` | Owner / Claude |
 | 2026-10-02 | Short laptops (≥1100 px wide, ≤960 px tall): Home keeps brand/socials/ticket/week + news + video and hides the 2nd note, coming-soon and fan-art cards | Claude |
 
 ---
@@ -473,7 +473,7 @@ Resulting decisions: L1 counter-rotating clovers · L2 petal progress · L3 "Did
 
 **D9 · QA** — keyboard path + visible focus, screen-reader labels, contrast, calm mode, JP line breaks (`word-break: auto-phrase`), performance, CSP/SRI, analytics events still fire (tracker test), admin unaffected (admin tests), Edge/Chrome + your devices.
 
-**D10 · Merge** — your go-ahead → delete the style tile → merge `designupdatev2` into `main` → production checks (screens, loader spin, gallery, CSP) → update `docs/PROGRESS.md`.
+**D10 · Merge** — your go-ahead → delete the style tile → merge `designupdatev2` into `main` → production checks (screens, loader spin, gallery, CSP) → update `docs/plans/PROGRESS.md`.
 
 ### 15.3 Order & checkpoints
 
@@ -550,5 +550,5 @@ Owner asked to "start applying the update": the style tile's compositions became
 ### 2026-10-02 · Merged to `main` (D10, early) + docs refresh
 - Removed the preview-only `/design-v2/` page (`2c8f181`), merged `designupdatev2` into `main` with `--no-ff` (`c7b6975`) and pushed → production deploy triggered. (A first merge command failed on a bad flag and changed nothing; the push right after only re-sent the unchanged `main`.)
 - **Unverified:** the production deployment status — Vercel's list-deployments call was blocked by the permission classifier and was not worked around. Next session: hard-refresh kotoha-fansite.vercel.app and run the headless-Edge checks against it (`BASE=https://kotoha-fansite.vercel.app`).
-- `MIGRATION.md` (repo root, `ab773d3`) holds the full handoff; `docs/PROGRESS.md`, this plan, `docs/DESIGN_SYSTEM.md`, `docs/JA_REVIEW_LIST.md`, `README.md` and `docs/IMPLEMENTATION_PLAN.md` were refreshed.
+- `docs/plans/MIGRATION.md` (repo root, `ab773d3`) holds the full handoff; `docs/plans/PROGRESS.md`, this plan, `docs/DESIGN_SYSTEM.md`, `docs/JA_REVIEW_LIST.md`, `README.md` and `docs/plans/IMPLEMENTATION_PLAN.md` were refreshed.
 - **Still to do:** D5 phones/tablet design (✋3), D7 motion (wire `wipe.js` to the snap; fps checks; ✋4), D8 extras + 5 gallery artworks, D9 QA, owner review of the desktop design (✋2).

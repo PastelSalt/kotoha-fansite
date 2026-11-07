@@ -6,9 +6,9 @@
 | | |
 |---|---|
 | **Implementation authorized** | ✅ 2026-09-26 by owner |
-| **Last checkpoint** | 2026-10-25: **admin UI refresh live on production** (`docs/ADMIN_UI_PLAN.md`, front end only; merge `4568cac`; real-data check by the owner still open). Before that, 2026-10-09: **performance pass** (`docs/PERFORMANCE_PLAN.md`): snapping + Lenis removed, rendering cost cut, no content removed. Before that, 2026-10-02: **design v2 ("Clover Scrapbook") merged into `main`** (`c7b6975`) at the owner's request; `MIGRATION.md` handoff added (`ab773d3`). Production deploy not yet verified (see §6) |
+| **Last checkpoint** | 2026-10-25: **admin UI refresh live on production** (`docs/plans/ADMIN_UI_PLAN.md`, front end only; merge `4568cac`; real-data check by the owner still open). Before that, 2026-10-09: **performance pass** (`docs/plans/PERFORMANCE_PLAN.md`): snapping + Lenis removed, rendering cost cut, no content removed. Before that, 2026-10-02: **design v2 ("Clover Scrapbook") merged into `main`** (`c7b6975`) at the owner's request; `docs/plans/MIGRATION.md` handoff added (`ab773d3`). Production deploy not yet verified (see §6) |
 | **Current phase** | v1 phases 1–16 done (Phase 17 launch tasks open) · **Design v2: D1–D4 + D6 live; D5 phones, D7 motion, D8 extras, D9 QA remaining** · **Admin UI refresh: A0 (plan approval) pending** |
-| **Next action** | See §6 "Current focus / next action". **Handoff for a fresh session: read [`../MIGRATION.md`](../MIGRATION.md) first.** |
+| **Next action** | See §6 "Current focus / next action". **Handoff for a fresh session: read [`../MIGRATION.md`](MIGRATION.md) first.** |
 
 ---
 
@@ -224,7 +224,7 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [ ] 17.4 Final docs: README, DB setup, deploy, admin guide (JA/EN), JA review list
 
 
-### Design v2: visual + motion redesign (post-v1; plan: `docs/DESIGN_V2_PLAN.md`, reference: `docs/DESIGN_SYSTEM.md`)
+### Design v2: visual + motion redesign (post-v1; plan: `docs/plans/DESIGN_V2_PLAN.md`, reference: `docs/DESIGN_SYSTEM.md`)
 - [x] D0 Plan v0.3 approved ("execute the plan", 2026-09-27); owner answers recorded in the plan
 - [x] D1 / D1.1 Style tile + density pass after owner feedback ("too minimal, avoid empty space, clovers never hollow") — design system `public/css/v2/*`, SVG sprite, motion modules
 - [x] D2 Foundations: layered CSS + tokens, "art by" labels / loader credit / credits dialog removed, GSAP 3.15 swap (Anime.js, Animate.css, ScrollTrigger gone from the public page)
@@ -236,11 +236,11 @@ Legend: `[ ]` todo · `[~]` in progress · `[x]` done & verified · `[!]` blocke
 - [ ] ✋2 Owner review of the live desktop design → adjustments
 - [ ] D5 Phones + tablet design (works today, not designed) → ✋3 real-phone check by the owner
 - [ ] D7 Motion: tuning → ✋4. (The snap and its `onSectionSnap` hook are gone; `wipe.js` is kept unwired and could play on nav-link jumps if the owner wants it.)
-- [x] **Performance pass (2026-10-09, `docs/PERFORMANCE_PLAN.md`)**: snap + Lenis removed, paper blur replaced, lean scoped to on-screen cards, one scroll ticker, compositor marquee, single backdrop pan layer, far sections drop their animations, confetti loaded after the loader. Measured with headless Chrome on the real GPU (Radeon Vega 3): 1366×768 at 4× CPU slowdown 22 → 35 fps, janky frames (> 33 ms) −58 %; no content removed
+- [x] **Performance pass (2026-10-09, `docs/plans/PERFORMANCE_PLAN.md`)**: snap + Lenis removed, paper blur replaced, lean scoped to on-screen cards, one scroll ticker, compositor marquee, single backdrop pan layer, far sections drop their animations, confetti loaded after the loader. Measured with headless Chrome on the real GPU (Radeon Vega 3): 1366×768 at 4× CPU slowdown 22 → 35 fps, janky frames (> 33 ms) −58 %; no content removed
 - [ ] D8 Extras: mascot cameo, special-day decorations, LIVE badge on the nav; **gallery seed +5 credited artworks** (About background, 2 loader arts, avatar, pose)
 - [ ] D9 QA: keyboard/screen-reader, contrast, ≥13 px text, JP line breaks, performance, tracker + admin regression; remove unused generated SVGs / `legacy` layer name; commit the headless-Edge test scripts into the repo
 
-### Admin UI refresh: front end only (plan: `docs/ADMIN_UI_PLAN.md`)
+### Admin UI refresh: front end only (plan: `docs/plans/ADMIN_UI_PLAN.md`)
 > Look and layout of `/admin` + `/login` only, with the data the API already returns. No API/DB/lib changes, no new features or libraries. Supersedes design-v2 Q2 ("keep the current admin look"). Branch `admin-ui-refresh`; merge only with the owner's OK.
 - [x] Plan v0.1 written (2026-10-25) after analysing every admin file (`admin.html`, `admin.css`, `js/admin/*`, admin locales) and the `admin/summary` + `admin/analytics` responses; 14 UI problems listed in plan §1.4
 - [x] A0 Approved 2026-10-25; owner: "make sure it still adheres to the actual site theme"
@@ -336,7 +336,7 @@ _(none blocking.)_ The five D1.1 density questions (density level, four-leaf vs 
 - **Neon free compute sleeps after ~5 min and needs ~10 s to wake.** Mitigated: public API `stale-while-revalidate=86400` at the edge; loader waits max 4 s for home data; client API timeout 15 s. The admin's first request after idle may take ~10 s.
 - **Production deploy of design v2 is unverified** (2026-10-02, see §6).
 - Design v2 leftovers: phones/tablet are functional but not designed (D5); `wipe.js` exists but is not wired (the snap it was meant for is gone); unused generated SVGs `clover-fill.svg` / `clover-outline.svg` / `divider.svg` still come from `scripts/optimize-images.js`; the `legacy` cascade-layer name in `tokens.css` is unused; text-size/contrast audits not run on v2 yet (D9).
-- **Test scripts are not in the repo** (they lived in Claude's temporary scratchpad): `site-shot.mjs`, `site-behavior.mjs` (~50 checks), older admin/gallery/tracker/CSP suites. Re-create them or commit cleaned copies under `scripts/` (see `MIGRATION.md` §8 for the harness gotchas).
+- **Test scripts are not in the repo** (they lived in Claude's temporary scratchpad): `site-shot.mjs`, `site-behavior.mjs` (~50 checks), older admin/gallery/tracker/CSP suites. Re-create them or commit cleaned copies under `scripts/` (see `docs/plans/MIGRATION.md` §8 for the harness gotchas).
 - A stray `.kilo/worktrees/` folder and `previous_failed_attempt_v1_only_for_around_30-40%_of_intended/` exist in the working directory (the latter is untracked reference material from an earlier attempt); neither is deployed.
 
 ---
@@ -373,29 +373,29 @@ _(none blocking.)_ The five D1.1 density questions (density level, four-leaf vs 
 - Fixed an admin navigation race (stale page overwrote the current one).
 
 ### 2026-09-27 → 2026-10-02: Design v2 (sessions 2–4)
-- 2026-09-26/27: owner asked for a visual + motion redesign on branch `designupdatev2`; plan written (`docs/DESIGN_V2_PLAN.md`, v0.1 → v0.3 over three Q&A rounds), loader clover rotation fixed on `main` (`c58bfbc`), owner approved "execute the plan".
+- 2026-09-26/27: owner asked for a visual + motion redesign on branch `designupdatev2`; plan written (`docs/plans/DESIGN_V2_PLAN.md`, v0.1 → v0.3 over three Q&A rounds), loader clover rotation fixed on `main` (`c58bfbc`), owner approved "execute the plan".
 - 2026-09-27: D1 style tile + motion sample (`/design-v2/` on the protected preview) with the real design-system files (`public/css/v2/*`, `public/js/motion-boot.js`, `public/js/public/motion/*`).
 - 2026-09-28: owner feedback (too minimal / empty / hollow clovers) → D1.1 density pass: illustrated SVG sprite, Japanese-fan-site vocabulary (numbered titles, background words, vertical text, badge, bubbles, stamps), Home filled on both sides, crossfading artwork backdrop.
-- 2026-10-02: answered the owner's "default password" question (it is the one from the original brief, still in `.env.local`; the DB only holds the hash). Owner asked to start applying the update → rebuilt the real public page on v2 (index.html, `layout.css`, main/render/lists/gallery/home/countdown/loader/scroll/fx modules, EN/JA keys), verified in headless Edge (≈50 checks pass, 0 CSP violations, no overflow at 1366/1920/390), commit `7b3895f`; removed `/design-v2/` (`2c8f181`); owner asked to put it on the main domain → merged `designupdatev2` into `main` (`c7b6975`) and pushed. A first merge attempt failed on a bad flag and changed nothing. Production deploy status could not be checked (Vercel list-deployments call blocked by the permission classifier). Wrote `MIGRATION.md` (`ab773d3`) and refreshed all markdown docs (this update).
+- 2026-10-02: answered the owner's "default password" question (it is the one from the original brief, still in `.env.local`; the DB only holds the hash). Owner asked to start applying the update → rebuilt the real public page on v2 (index.html, `layout.css`, main/render/lists/gallery/home/countdown/loader/scroll/fx modules, EN/JA keys), verified in headless Edge (≈50 checks pass, 0 CSP violations, no overflow at 1366/1920/390), commit `7b3895f`; removed `/design-v2/` (`2c8f181`); owner asked to put it on the main domain → merged `designupdatev2` into `main` (`c7b6975`) and pushed. A first merge attempt failed on a bad flag and changed nothing. Production deploy status could not be checked (Vercel list-deployments call blocked by the permission classifier). Wrote `docs/plans/MIGRATION.md` (`ab773d3`) and refreshed all markdown docs (this update).
 - **Next:** verify production → ✋2 → D5 phones → D7 → D8 → D9 (see §6).
 
 ### 2026-10-09: Performance pass (session 5)
-- Owner: the site is "really laggy" from the amount of motion and visuals; plan a performance optimisation that removes no content, and drop the snapping ("a total mess"). Wrote `docs/PERFORMANCE_PLAN.md`; owner said "execute the plan" (the optional lite tier, Phase 8, **not approved**) and asked to keep the feel unchanged.
+- Owner: the site is "really laggy" from the amount of motion and visuals; plan a performance optimisation that removes no content, and drop the snapping ("a total mess"). Wrote `docs/plans/PERFORMANCE_PLAN.md`; owner said "execute the plan" (the optional lite tier, Phase 8, **not approved**) and asked to keep the feel unchanged.
 - Done: Phases 0–5 and 7 (Phase 6 measured, not needed). Measured with headless Chrome over CDP on this machine's Radeon Vega 3 (scripts in the scratchpad: static server proxying the production public API with `/api/track` swallowed, wheel-scroll benchmark, layer/compositing-reason dump, before/after screenshots, ~35-check behaviour suite).
 - Found + avoided a Chrome bug: `content-visibility: auto` + View Transition = page hang (see §9).
 - Committed + pushed (`f8b510d`); production verified (new build served, loader closes, lightbox opens, no console errors).
-- Later the same day: wrote `FORHANON.md` (guide for the sister Hanon fan site, with researched Hanon data) and fixed two **Kotoha discography data errors** found during that research, in `db/seed.sql` and in the live DB (Neon, one transaction, admin-style): 「君が灯してくれた光を今」 is officially "HoneyWorks feat.Hanon" (Hanon's solo OP) → **archived** (archive entry 11, restorable; activity log 69); 「君の隣は空気が美味しい」 is "HoneyWorks feat.Kotoha", ED of 『29歳独身中堅冒険者の日常』 → type `tie_in` + corrected note (activity log 70). Both logged under the owner account with a "data fix by Claude at the owner's request" note.
+- Later the same day: wrote `docs/plans/FORHANON.md` (guide for the sister Hanon fan site, with researched Hanon data) and fixed two **Kotoha discography data errors** found during that research, in `db/seed.sql` and in the live DB (Neon, one transaction, admin-style): 「君が灯してくれた光を今」 is officially "HoneyWorks feat.Hanon" (Hanon's solo OP) → **archived** (archive entry 11, restorable; activity log 69); 「君の隣は空気が美味しい」 is "HoneyWorks feat.Kotoha", ED of 『29歳独身中堅冒険者の日常』 → type `tie_in` + corrected note (activity log 70). Both logged under the owner account with a "data fix by Claude at the owner's request" note.
 - Also found: **AiceClass appears dissolved** (aiceclass.com 404; dissolution notice 2026-06-18). Owner first chose to leave the Kotoha wording, then (same day) said "do all the recommended" →
   - **AiceClass is now history only** on the Kotoha site: `about.role` "Singer · VTuber · HaKoniwalily" / 「歌い手・VTuber（ハコニワリリィ）」, `about.bio1` without AiceClass, `about.bio2` "debuted as a VTuber with AiceClass", debut pill "July 8, 2023 (with AiceClass)" / 「2023年7月8日（AiceClassからデビュー）」, Home chip AiceClass → new key `home.unitVtuber` ("Singer · VTuber" / 「歌い手・VTuber」), marquee without AiceClass, README. Kept: the non-affiliation disclaimer, the "© AiceClass" model credit, the achievement 「VTuberとしてデビュー（AiceClass）」. Changed JA strings flagged in `JA_REVIEW_LIST.md`.
   - **New achievement** (seed + live DB, activity logged): 2026-01-14 「TVアニメ『29歳独身中堅冒険者の日常』EDテーマ「君の隣は空気が美味しい」歌唱担当（HoneyWorks feat.Kotoha）」.
   - **Published the 影響力∞アイドル achievement** (id 24, 2026-10-07): it was a draft "until release" and the song is out; seed now has it as published.
-  - `FORHANON.md` v1.2: Q4/Q5/Q7/Q8 recorded with the recommended answers (only Q9, the Hanon art, is still open).
+  - `docs/plans/FORHANON.md` v1.2: Q4/Q5/Q7/Q8 recorded with the recommended answers (only Q9, the Hanon art, is still open).
   - Repo-local git identity set to `Moeko Works <214653345+PastelSalt@users.noreply.github.com>` (this Linux checkout had none, so the global Gmail address was being used).
 
 ### 2026-10-25: Admin UI refresh plan (session 6)
 - Since the last entry, `main` also got (from `git log`): Moesoft → Moeko Works rebrand + removal of the old v1 attempt folder (`1012593`), footer maker card / sister sites / Hanon link / contact form instead of the old email (`b4b722b`, `0d7f89d`, `7f33550`), docs pointing at the `moekoworks` Vercel project (`79bbd5e`).
 - Owner asked for an analysis of the codebase and a plan to update the **admin panel / dashboard UI, front end only**, using only existing data and adding nothing that makes it more complex.
-- Analysed `public/admin.html`, `login.html`, `css/admin.css`, all of `js/admin/*`, the admin locales, and the shapes returned by `admin/summary` and `admin/analytics` (`lib/analytics.js`). Wrote `docs/ADMIN_UI_PLAN.md` v0.1: ground rules (only admin front-end files change; numbers may be derived in the browser, never new endpoints), 14 problems found (e.g. the range control also drives Avg visit / Avg loading but sits below them; content counts and visitor KPIs look identical; mobile sidebar has no backdrop/Esc; inline styles and filler `<span>`s), proposed dashboard layout, shared component polish, ~10 new strings, phases A0–A7.
+- Analysed `public/admin.html`, `login.html`, `css/admin.css`, all of `js/admin/*`, the admin locales, and the shapes returned by `admin/summary` and `admin/analytics` (`lib/analytics.js`). Wrote `docs/plans/ADMIN_UI_PLAN.md` v0.1: ground rules (only admin front-end files change; numbers may be derived in the browser, never new endpoints), 14 problems found (e.g. the range control also drives Avg visit / Avg loading but sits below them; content counts and visitor KPIs look identical; mobile sidebar has no backdrop/Esc; inline styles and filler `<span>`s), proposed dashboard layout, shared component polish, ~10 new strings, phases A0–A7.
 - No code changed; nothing committed.
 - **Next:** owner reviews the plan + answers §10 → A1 (CSS tokens/surfaces) on branch `admin-ui-refresh`.
 - Later the same day: owner approved ("proceed with the plan … make sure it still adheres to the actual site theme … run localhost so I can see it before prod"). Branch `admin-ui-refresh` created; **A0–A5 built** (files: `admin.html`, `login.html`, `css/admin.css`, `js/admin/{analytics,content,gallery,main,pages,ui}.js`, admin locales + `JA_REVIEW_LIST.md`). No API/lib/DB change.

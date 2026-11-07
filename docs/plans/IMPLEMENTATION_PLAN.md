@@ -3,9 +3,9 @@
 | | |
 |---|---|
 | **Document status** | **v0.5: approved specification.** All owner questions answered |
-| **Implementation authorized?** | **YES**: owner authorized development on 2026-09-26. Progress is tracked in [`docs/PROGRESS.md`](PROGRESS.md) |
+| **Implementation authorized?** | **YES**: owner authorized development on 2026-09-26. Progress is tracked in [`docs/plans/PROGRESS.md`](PROGRESS.md) |
 | **Architecture clarity** | **97%**: the remaining 3% are technical items settled in the prototype (§7.1) |
-| **Last updated** | 2026-09-26 (spec). **Note 2026-10-02:** the *visual and motion* parts of this plan (layout, loader look, animation libraries, section compositions) were superseded by the approved redesign in [`DESIGN_V2_PLAN.md`](DESIGN_V2_PLAN.md) / [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md), which is now live. Architecture, data model, API, auth, i18n, analytics and security sections here remain accurate |
+| **Last updated** | 2026-09-26 (spec). **Note 2026-10-02:** the *visual and motion* parts of this plan (layout, loader look, animation libraries, section compositions) were superseded by the approved redesign in [`DESIGN_V2_PLAN.md`](DESIGN_V2_PLAN.md) / [`DESIGN_SYSTEM.md`](../DESIGN_SYSTEM.md), which is now live. Architecture, data model, API, auth, i18n, analytics and security sections here remain accurate |
 | **Changes in v0.5** | Descriptive DB text entered **once in any language, shown as typed** (`N7` = b); GitHub noreply commit email; analytics use **Japan time (JST)**, weeks start Monday; implementation authorized |
 | **Changes in v0.4** | GitHub route chosen; domain `kotoha-fansite.vercel.app`; pre-launch reset approved; Japanese handled via official wording + review list; **names/titles entered once in their original form**; new question on how far "type once" goes (§7.2 `N7`) |
 | **Changes in v0.3** | Round-2 decisions recorded (§16); role renamed **Owner**; admins auto-numbered; both languages required; shared DB for dev/prod; show all records in sections; connectors verified (§5.9) |
@@ -632,7 +632,7 @@ None (owner-facing). Technical items are tracked in `PROGRESS.md`.
 
 ### 🟢 Authorized and in progress
 
-See [`docs/PROGRESS.md`](PROGRESS.md) for the live checklist.
+See [`docs/plans/PROGRESS.md`](PROGRESS.md) for the live checklist.
 
 **Architecture clarity: 97%** (§7.1).
 
@@ -699,4 +699,4 @@ See [`docs/PROGRESS.md`](PROGRESS.md) for the live checklist.
 | 2026-09-26 | N7 | **(b) Everything entered once**: descriptive text in any language, shown as typed in both modes; no auto-translation | Owner |
 | 2026-09-26 | G1 | Owner has a GitHub account; commits use the **GitHub noreply** email | Owner |
 | 2026-09-26 | K11 | Analytics days/weeks/months in **Japan time (JST)**; weeks start Monday | Owner |
-| 2026-09-26 | — | **Implementation authorized.** Self-guide/checkpoint file `docs/PROGRESS.md` created first, as requested | Owner |
+| 2026-09-26 | — | **Implementation authorized.** Self-guide/checkpoint file `docs/plans/PROGRESS.md` created first, as requested | Owner |

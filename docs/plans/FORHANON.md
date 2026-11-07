@@ -1,4 +1,4 @@
-# FORHANON.md — building the Hanon fan site (sister site of the Kotoha fan site)
+# docs/plans/FORHANON.md — building the Hanon fan site (sister site of the Kotoha fan site)
 
 > **For Claude, in the new Hanon repo.** The owner (Moeko Works) wrote this guide with Claude inside `kotoha-fansite` and pasted it into the new repo.
 > Read the whole file before doing anything. Then work through **§12 Open questions** with the owner (answers recorded there), then follow **§11 Build order**.
@@ -85,7 +85,7 @@
 
 ### 4.1 Don't copy
 
-`docs/kotoha_*.md`, `docs/JA_REVIEW_LIST.md` content, `docs/PROGRESS.md` history (start a fresh one with the same structure), `previous_failed_attempt_*`, `.kilo/`, `references/` (owner supplies Hanon references), `assets/` and `public/assets/{bg,img}` artwork (owner supplies Hanon art), `.env.local`, `.vercel/`, `node_modules/`. `public/js/public/motion/wipe.js` is unused (the snap it served is gone); drop it unless the owner wants a wipe on nav jumps.
+`docs/kotoha_*.md`, `docs/JA_REVIEW_LIST.md` content, `docs/plans/PROGRESS.md` history (start a fresh one with the same structure), `previous_failed_attempt_*`, `.kilo/`, `references/` (owner supplies Hanon references), `assets/` and `public/assets/{bg,img}` artwork (owner supplies Hanon art), `.env.local`, `.vercel/`, `node_modules/`. (The old section wipe was removed in v1.0.0.)
 
 ### 4.2 Rename / replace checklist (grep `kotoha|Kotoha|KOTOHA|ことは|ことリス|Kotorisu|kf_|clover|cl-leaf|🍀` and go through every hit)
 
@@ -479,7 +479,7 @@ Before launch: run `npm run prelaunch:reset` only with the owner's go-ahead; aft
 | # | Phase | Done when |
 |---|---|---|
 | 0 | Read this file; ask §12; record answers here | answers recorded |
-| 1 | Bring in the Kotoha code (§4, ✅ Q4), strip Kotoha data, rename identifiers, fresh `docs/PROGRESS.md` (same structure: resume protocol, hard rules, checklist, decisions log, session log) and `MIGRATION.md`-style handoff | site runs locally with placeholder content, no Kotoha leftovers |
+| 1 | Bring in the Kotoha code (§4, ✅ Q4), strip Kotoha data, rename identifiers, fresh `docs/plans/PROGRESS.md` (same structure: resume protocol, hard rules, checklist, decisions log, session log) and `docs/plans/MIGRATION.md`-style handoff | site runs locally with placeholder content, no Kotoha leftovers |
 | 2 | Palette + tokens (§5.2), sprite (§5.3), loader spinner variant | style tile approved by the owner ✋ |
 | 3 | Owner's assets → `npm run images:optimize`; backdrop + loader art wired; accents picked from the art; credits | all sections show Hanon art |
 | 4 | Locale files EN/JA (About, facts, footer, bubbles, marquee, bg words); JA review list | EN↔JA complete |

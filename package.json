@@ -1,8 +1,18 @@
 {
   "name": "kotoha-fansite",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "description": "Unofficial bilingual fan site for Kotoha — by Moeko Works",
+  "description": "Kotoha Fan Site — an unofficial, non-profit, bilingual (JA/EN) fan site for Kotoha (ことは). By Moeko Works.",
+  "license": "MIT",
+  "author": "Moeko Works (https://moekoworks.vercel.app)",
+  "homepage": "https://kotoha-fansite.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PastelSalt/kotoha-fansite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PastelSalt/kotoha-fansite/issues"
+  },
   "type": "module",
   "engines": {
     "node": ">=22"

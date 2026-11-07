@@ -8,3 +8,5 @@
 /README.md
 /.env*
 !/.env.example
+/NOTICE.md
+/SECURITY.md
