@@ -52,8 +52,8 @@ It's made by a fan, for fans: no ads, no tracking cookies, no money involved, an
 - 🍀 **Arrive in style.** A loader of at least 3 s shows one of three artworks while everything preloads: two clovers
   spin, petals fill with real progress, "Did you know?" facts rotate, and an iris opens onto Home.
 - 🌐 **Read in your language.** Visitors in Japan get Japanese, everyone else English. The switcher changes everything.
-- 🧭 **Glide through sections.** On desktop the page glides to the next section; phones scroll freely while the
-  backdrop crossfades.
+- 🧭 **Scroll freely.** Native scrolling on every device, never snapped, while the artwork backdrop crossfades from
+  section to section.
 - 📺 **Catch the next stream.** A countdown to the regular Tuesday and Friday ~21:00 JST streams, this week's schedule,
   the newest video, the latest news and the next release.
 - 💚 **Get to know Kotoha.** A profile card with her birthday, debut, height, activities, fan name, hashtags and favourites.
